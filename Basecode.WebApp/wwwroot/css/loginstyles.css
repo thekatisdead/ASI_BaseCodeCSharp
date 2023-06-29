@@ -71,5 +71,5 @@ button:focus {
     letter-spacing: 2px;
     background: white;
     color: #C53211;
-    box-shadow: 2px 2px 3px #C53211;
+    box-shadow: 2px 2px 3px gray;
 }
