@@ -1,27 +1,38 @@
-﻿@{
+﻿
+<link rel="stylesheet" href="~/css/applicationtracking.css" asp-append-version="true" />
+
+@{
     ViewData["Title"] = "Index";
 }
 
-<div class="header">
-    <div class="logo">INSERT LOGO</div>
-    <h1>Application Tracking</h1>
-</div>
-
-<div class="details">
-    <div class="details-main">
-        <h2>Jhon Lloyd Cabarrubias</h2>
-        <p>ID: <id></p>
+<div class="main">
+    <div class="header">
+        <div class="logo">
+            <img src="logo.jpg" alt="Logo">
+        </div>
+        <h1>Application Tracking</h1>
     </div>
 
-    <div class="details-sub">
-        <p>JOB NAME</p>
-        <p>Job Position</p>
-        <p>Status:</p>
-        <p>Last Updated:</p>
+    <div class="body">
+        <div class="details">
+            <div class="details-main">
+                <h2>Jhon Lloyd Cabarrubias</h2>
+                <h5>ID: 1234</h5>
+            </div>
+
+            <div class="details-sub">
+                <h3>JOB NAME</h3>
+                <h6>Job Position</h6>
+                <h4>Status:</h4>
+                <h4>Last Updated:</h4>
+            </div>
+        </div>
+        <button class="btn">Back</button>
     </div>
+
+    <div class="triangle"></div>
+
 </div>
 
-<div class="button">
-    <button class="btn btn-primary">Back</button>
-</div>
+
 
