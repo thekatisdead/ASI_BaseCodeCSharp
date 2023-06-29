@@ -3,16 +3,49 @@
 *@
 @{
 }
-
 <style>
-    .custom-table {
-        border-radius: 100px; /* Adjust the value as per your preference */
+    .header {
+        background-color: #C53211;
+        padding: 4px;
+    }
+
+    .rounded-table {
+        border-collapse: collapse;
+        border-radius: 10px;
         overflow: hidden;
+        border: 1px solid #ccc;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    }
+
+        .rounded-table th,
+        .rounded-table td {
+            padding: 20px;
+        }
+    .triangle {
+        width: 0;
+        height: 0;
+        position:absolute;
+        bottom:0;
+        right:0;
+        border-top: 300px solid transparent;
+        border-right: 300px solid gray;
+    }
+
+    .small-triangle {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 0;
+        height: 0;
+        border-top: 150px solid transparent;
+        border-right: 150px solid #C53211;
+        z-index: 1;
     }
 </style>
-<table class="table w-100 ">
+<table class="table py-lg-4 rounded-table">
     <thead>
-        <tr class="table-danger text-center ">
+        <tr class="text-center header">
             <th scope="col">Applcicant Name</th>
             <th scope="col">Position</th>
             <th scope="col">Status</th>
@@ -22,7 +55,7 @@
     </thead>
     <tbody>
         <tr class="text-center">
-            <th scope="row">Jimwll Capino</th>
+            <th scope="row">John Doe</th>
             <td>Software Engineer</td>
             <td>Shortlisted</td>
             <td>06-25-23</td>
@@ -32,15 +65,47 @@
             </td>
         </tr>
         <tr class="text-center">
-            <th scope="row">Jimwll Capino</th>
+            <th scope="row">Juan De La Cruz</th>
             <td>Software Engineer</td>
-            <td>Shortlisted</td>
+            <td>Review</td>
             <td>06-25-23</td>
             <td>
                 <button class="btn btn-secondary">View Profile</button>
                  <button class="btn btn-secondary">Update Status</button>
             </td>
         </tr>
-        
+        <tr class="text-center">
+            <th scope="row">Jane Smith</th>
+            <td>pancit canton cook</td>
+            <td>Rejected</td>
+            <td>06-25-23</td>
+            <td>
+                <button class="btn btn-secondary">View Profile</button>
+                <button class="btn btn-secondary">Update Status</button>
+            </td>
+        </tr>
+        <tr class="text-center">
+            <th scope="row">Bongbong Marcos</th>
+            <td>theif</td>
+            <td>Rejected</td>
+            <td>06-25-23</td>
+            <td>
+                <button class="btn btn-secondary">View Profile</button>
+                <button class="btn btn-secondary">Update Status</button>
+            </td>
+        </tr>
+        <tr class="text-center">
+            <th scope="row">Sarah Duterte</th>
+            <td>Boxing champ</td>
+            <td>Rejected</td>
+            <td>06-25-23</td>
+            <td>
+                <button class="btn btn-secondary">View Profile</button>
+                <button class="btn btn-secondary">Update Status</button>
+            </td>
+        </tr>
+       
     </tbody>
 </table>
+<div class="triangle"></div>
+<div class="small-triangle"> </div>
