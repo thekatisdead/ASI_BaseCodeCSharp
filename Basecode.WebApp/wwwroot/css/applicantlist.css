@@ -1,0 +1,38 @@
+﻿.header {
+    background-color: #C53211;
+    padding: 4px;
+}
+
+.rounded-table {
+    border-collapse: collapse;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+    .rounded-table th,
+    .rounded-table td {
+        padding: 20px;
+    }
+
+.triangle {
+    width: 0;
+    height: 0;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    border-top: 300px solid transparent;
+    border-right: 300px solid gray;
+}
+
+.small-triangle {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-top: 150px solid transparent;
+    border-right: 150px solid #C53211;
+    z-index: 1;
+}
