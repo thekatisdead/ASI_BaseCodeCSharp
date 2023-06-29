@@ -1,0 +1,158 @@
+﻿.main {
+    background-color: #2E3830;
+    height: 80vh;
+    position: relative;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #969B97;
+    background-color: #969B97;
+    padding: 10px;
+    color: #ffffff;
+}
+
+.logo {
+    font-weight: bold;
+}
+
+.body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin: 50px;
+    padding: 30px;
+    flex: 1;
+}
+
+.details {
+    margin-bottom: 10px;
+}
+
+.details-main {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+}
+
+.details-sub {
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 20px;
+}
+
+h2 {
+    font-size: 22px;
+    font-weight: bold;
+    padding-right: 620px;
+}
+
+h3 {
+    font-weight: bold;
+    font-size: 30px;
+}
+
+h4 {
+    font-size: 20px;
+}
+
+h5 {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+h6 {
+    font-size: 18px;
+    font-style: italic;
+}
+
+.btn {
+    font-weight: bold;
+    font-size: 15px;
+    padding: 8px 25px;
+    background-color: #C53211;
+    color: #ffffff;
+    border: 1px solid #000;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #B2260C;
+}
+
+.triangle {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    width: 0;
+    height: 0;
+    border-left: 100px solid transparent;
+    border-top: 100px solid #C53211;
+    transform: rotate(90deg);
+}
+
+@media (max-width: 768px) {
+    .main {
+        height: auto;
+    }
+
+    .body {
+        margin: 20px;
+    }
+
+    .triangle {
+        bottom: 5px;
+        right: 5px;
+        width: 15%;
+        padding-bottom: 15%;
+    }
+}
+
+@media (max-width: 480px) {
+    .body {
+        margin: 10px;
+        padding: 20px;
+    }
+
+    h2 {
+        font-size: 18px;
+    }
+
+    h3 {
+        font-size: 24px;
+    }
+
+    h4 {
+        font-size: 16px;
+    }
+
+    h5 {
+        font-size: 18px;
+    }
+
+    h6 {
+        font-size: 16px;
+    }
+
+    .btn {
+        font-size: 12px;
+        padding: 6px 20px;
+    }
+
+    .triangle {
+        bottom: 2px;
+        right: 2px;
+        width: 20%;
+        padding-bottom: 20%;
+    }
+}
+
+
