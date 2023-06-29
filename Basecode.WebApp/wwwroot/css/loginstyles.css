@@ -1,0 +1,79 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Poppins;
+    background: white;
+    color: black;
+    text-align: center;
+    font-family: Poppins;
+}
+
+.text-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 25px;
+    border: 3px solid #C53211;
+    width: 578px;
+    height: 603px;
+    flex-shrink: 0;
+}
+
+.username, .password {
+    outline: 0;
+    border-width: 0 0 2px;
+    border-color: #C53211;
+    width: 433px;
+    height: 64px;
+    flex-shrink: 0;
+    margin-bottom: 5px;
+    font-family: Poppins;
+    font-size: 20px;
+}
+
+.forNoAccount {
+    margin-top: 10px;
+    padding: 15px;
+    font-family: Poppins;
+}
+
+button {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 433px;
+    height: 64px;
+    flex-shrink: 0;
+    padding: 15px;
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    font-family: Poppins;
+}
+
+.button-box-special {
+    background: #383b3a;
+}
+
+button:focus {
+    outline: none;
+}
+
+.forSubmit {
+    background: #C53211;
+    color: white;
+    border-radius: 5px;
+    transition: all 300ms;
+}
+
+.forSubmit:hover {
+    transform: scale(1.1);
+    letter-spacing: 2px;
+    background: white;
+    color: #C53211;
+    box-shadow: 2px 2px 3px #C53211;
+}
