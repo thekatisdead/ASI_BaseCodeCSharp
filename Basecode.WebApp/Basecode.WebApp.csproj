@@ -8,10 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="Views\ApplicationTracking\logo.png" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.7">
@@ -24,10 +20,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Basecode.Data\Basecode.Data.csproj" />
     <ProjectReference Include="..\Basecode.Services\Basecode.Services.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Views\NewFolder\" />
   </ItemGroup>
 
 </Project>
