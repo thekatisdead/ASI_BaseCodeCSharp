@@ -36,3 +36,12 @@
     border-right: 150px solid #C53211;
     z-index: 1;
 }
+
+header {
+    background-color: #c53211;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+}

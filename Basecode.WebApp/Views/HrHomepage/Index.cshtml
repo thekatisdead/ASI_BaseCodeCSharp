@@ -62,7 +62,9 @@
                     <span>Last Activity:</span>
                 </div>
                 <div class="applicant-actions">
-                    <button class="view-profile-button">View Applicant List</button>
+                    <a asp-controller="ApplicantList" asp-action="Index">
+                        <button class="view-profile-button">View Applicant List</button>
+                    </a>
                 </div>
             </div>
         </section>
