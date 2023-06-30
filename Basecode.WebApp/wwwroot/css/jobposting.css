@@ -26,7 +26,7 @@
     background-color: #ffffff;
     border: 1px solid #ccc;
     border-radius: 10px;
-    margin: 50px;
+    margin: 10px;
     padding: 30px;
     flex: 1;
 }
@@ -146,17 +146,17 @@ textarea {
     align-items: center;
 }
 
-    .schedule-row label {
-        margin-right: 5px;
-    }
+.schedule-row label {
+    margin-right: 5px;
+ }
 
-    .schedule-row input {
-        margin-right: 0px;
-    }
+.schedule-row input {
+    margin-right: 0px;
+}
 
-    .schedule-row select {
-        margin-left: 0px;
-    }
+.schedule-row select {
+    margin-left: 0px;
+}
 
 .small-label {
     margin-right: 10px;
