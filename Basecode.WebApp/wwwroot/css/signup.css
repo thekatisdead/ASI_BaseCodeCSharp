@@ -7,7 +7,7 @@
 }
 
 .form-group-instructions {
-    top: 70px;
+    top: 30px;
     left: 550px;
     width: 1000px;
     height: 82px;
@@ -20,7 +20,7 @@
 }
 
 .form-group-firstname {
-    top: 80px;
+    top: 35px;
     left: 550px;
     width: 314px;
     height: 82px;
@@ -56,7 +56,7 @@
 }
 
 .form-group-lastname {
-    top: -5px;
+    top: -48px;
     left: 950px;
     width: 314px;
     height: 82px;
@@ -90,7 +90,7 @@
 }
 
 .form-group-emailaddress {
-    top: 30px;
+    top: -10px;
     left: 550px;
     width: 692px;
     height: 82px;
@@ -123,7 +123,7 @@
 }
 
 .form-group-contactnumber {
-    top: 60px;
+    top: 30px;
     left: 550px;
     width: 314px;
     height: 82px;
@@ -156,7 +156,7 @@
 }
 
 .form-group-address {
-    top: -25px;
+    top: -53px;
     left: 963px;
     width: 314px;
     height: 82px;
@@ -189,7 +189,7 @@
 }
 
 .form-group-username {
-    top: 5px;
+    top: -15px;
     left: 550px;
     width: 314px;
     height: 82px;
@@ -222,7 +222,7 @@
 }
 
 .form-group-password {
-    bottom: 80px;
+    bottom: 99px;
     left: 963px;
     width: 314px;
     height: 82px;
@@ -255,7 +255,7 @@
 }
 
 .form-group-confirmpassword {
-    bottom: 50px;
+    bottom: 57px;
     left: 550px;
     width: 314px;
     height: 82px;
@@ -288,7 +288,7 @@
 }
 
 .form-group-role {
-    top: -133px;
+    top: -140px;
     left: 963px;
     width: 167px;
     height: 82px;
@@ -321,7 +321,7 @@
 }
 
 .form-group-terms {
-    top: -90px;
+    top: -100px;
     left: 550px;
     width: 250px;
     height: 15px;
@@ -355,7 +355,7 @@
 }
 
 .form-group-signup {
-    top: -55px;
+    top: -60px;
     left: 550px;
     width: 900px;
     display: flex;
@@ -389,12 +389,11 @@
     left: 0px;
     width: 505px;
     height: 1024px;
-    display: block;
+    display: flex;
     position: fixed;
     align-items: flex-start;
     flex-shrink: 1;
     background-color: rgba(197, 50, 17, 1);
-    overflow: hidden;
 }
 
 .text {
@@ -449,7 +448,7 @@
 }
 
 .image-two {
-    top: 565px;
+    top: 550px;
     left: 135px;
     width: 171px;
     height: 47px;
@@ -481,8 +480,8 @@
 }
 
 .hasAccount {
-    top: 50px;
-    left: 550px;
+    top: 15px;
+    left: 546px;
     width: 900px;
     display: flex;
     position: relative;
