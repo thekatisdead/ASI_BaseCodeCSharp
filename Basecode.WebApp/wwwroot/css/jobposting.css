@@ -1,0 +1,163 @@
+﻿body {
+    background-color: #2E3830;
+    margin: 0;
+}
+
+.navbar {
+    /* Styles for the navbar */
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #969B97;
+    background-color: #969B97;
+    padding: 10px;
+    color: #ffffff;
+}
+
+.logo {
+    font-weight: bold;
+}
+
+.body {
+    border-radius: 50px;
+    flex: 1;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.main {
+    padding-left: 10%;
+    background-color: #FFFFFF;
+    min-height: 70vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.details {
+    margin-bottom: 10px;
+    width: 80%;
+    max-width: 500px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.btn {
+    font-weight: bold;
+    font-size: 15px;
+    padding: 8px 25px;
+    background-color: #C53211;
+    color: #ffffff;
+    border: 1px solid #000;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+    .btn:hover {
+        background-color: #B2260C;
+    }
+
+.triangle {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    width: 0;
+    height: 0;
+    border-left: 180px solid transparent;
+    border-top: 180px solid #C53211;
+    transform: rotate(90deg);
+}
+
+.label-bold {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.form-row {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.label-bold {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.input-large {
+    height: 30px;
+    padding: 4px 8px;
+    font-size: 14px;
+    width: 300px;
+}
+
+.input-large-details {
+    height: 100px;
+    padding: 10px 8px;
+    font-size: 10px;
+    width: 260px;
+}
+
+.input-small {
+    height: 30px;
+    padding: 2px 6px;
+    font-size: 12px;
+    width: 80px;
+}
+
+.details-row {
+    display: flex;
+    align-items: center;
+}
+
+textarea {
+    flex-grow: 1;
+    padding: 5px;
+    height: 200px;
+}
+
+.schedule-row {
+    display: flex;
+    align-items: center;
+}
+
+.schedule-row label {
+    margin-right: 5px;
+}
+
+.schedule-row input {
+    margin-right: 0px;
+}
+
+.schedule-row select {
+    margin-left: 0px;
+}
+
+.small-label {
+    margin-right: 10px;
+}
+
+.small-label label-bold1 {
+    margin-right: 10px;
+}
+
+header {
+    background-color: #c53211;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

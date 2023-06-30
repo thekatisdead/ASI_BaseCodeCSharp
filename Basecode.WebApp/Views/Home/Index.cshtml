@@ -1,8 +1,68 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<header>
+    <link rel="stylesheet" href="~/css/homepage.css" />
+</header>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container">
+    <div>
+        <div class="half-width" style="background-color: #c53211;padding-top:100px; padding-bottom:100px; background-image: url('../img/home-applicant.png'); background-repeat: no-repeat; background-size: cover; color:white;">
+            <h2 class="text-center">@Html.Raw("Looking for a Job")</h2>
+            <div class="text-container">
+                @Html.Raw("Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.")
+            </div>
+            <br />
+            <center>
+                <button><a class="nav-link text-dark" asp-controller="SignUp" asp-action="Index">Apply</a></button>
+            </center>
+        </div>
+    </div>
+
+
+    <div>
+        <div class="half-width" style="background-color: #7ACFD6;padding-top:100px; padding-bottom:100px; background-image: url('../img/home-hr.png'); background-repeat: no-repeat; background-size: cover;">
+            <h2 class="text-center">@Html.Raw("Manage your Jobs")</h2>
+            <div class="text-container">
+                @Html.Raw("Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.")
+            </div>
+            <br />
+            <center>
+                <button><a class="nav-link text-dark" asp-controller="SignUp" asp-action="Index">Apply</a></button>
+            </center>
+        </div>
+    </div>
 </div>
+
+<hr />
+<div class="container">
+    <h2 class="text-center">Life is not all about work and no play.</h2>
+    <br />
+    <div class="text-container">
+        Alliance Software, Inc. is a global IT services and solutions company. Alliance was established in 2000 and has since grown to
+        become one of the Philippines' largest and most respected independent software development outsourcing company.
+    </div>
+</div>
+<div style="padding:20px;">
+    <br />
+</div>
+<hr />
+<div>
+    <h4>APPLICATION TRACKING</h4>
+    <h5>WANT TO KNOW THE STATUS OF YOUR APPLICATION?</h5>
+    <br>
+    <form asp-controller="ApplicationTracking" asp-action="Index">
+        <input type="number" name="ApplicantId" style="width:70%; text-align: center; float: left;" placeholder="ENTER YOUR ID"/>
+        <button type="submit" style="width:20%; float: right;">
+            Track Application
+        </button>
+    </form>
+</div>
+
+
+
+
+
+
+
