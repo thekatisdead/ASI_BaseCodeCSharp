@@ -1,7 +1,10 @@
-﻿.main {
+﻿@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+.main {
     background-color: #2E3830;
     height: 80vh;
     position: relative;
+    font-family: Poppins;
 }
 
 .header {
@@ -10,12 +13,18 @@
     justify-content: space-between;
     border: 1px solid #969B97;
     background-color: #969B97;
-    padding: 10px;
+    padding-right: 20px;
+    padding-left: 20px;
     color: #ffffff;
 }
 
 .logo {
-    font-weight: bold;
+    padding: 10px;
+}
+
+.logo-img {
+    padding-left: 40px;
+    height: 50px;
 }
 
 .body {
@@ -51,7 +60,7 @@
 h2 {
     font-size: 22px;
     font-weight: bold;
-    padding-right: 620px;
+    padding-right: 600px;
 }
 
 h3 {
@@ -90,13 +99,13 @@ h6 {
 
 .triangle {
     position: absolute;
-    bottom: 0px;
-    right: 0px;
+    bottom: 0;
+    right: 0;
     width: 0;
     height: 0;
+    border-bottom: 100px solid #c53211;
     border-left: 100px solid transparent;
-    border-top: 100px solid #C53211;
-    transform: rotate(90deg);
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 10));
 }
 
 @media (max-width: 768px) {
