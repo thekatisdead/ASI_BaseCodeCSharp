@@ -12,6 +12,8 @@ In our curent implementation of our application, the following guide flowchart w
 
 ![Flowchart of the HR Tracking Application](/.ignore/img/flowchart.png)
 
+Please take note that some functionalities are present but not fully defined. As such, they do not have a corresponding anchor for the meanwhile. These will be worked on as we progress through the project.
+
 ## General Side
 - `Home / Landing Page`
     
@@ -32,6 +34,8 @@ In our curent implementation of our application, the following guide flowchart w
 - `HR Dashboard`
 
     The HR Dashboard is where the HR can see all his job postings and  the applicant lists associated to them, as well as handling part the hiring process.
+
+	Note that `Edit` and `Delete` buttons do not work right now, as well as the addition of new Job Postings as we do not have a model connected to it.
 - `Add Job Posting`
 
     This page adds a job post associated to the HR team.
