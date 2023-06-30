@@ -153,3 +153,11 @@ textarea {
 .small-label label-bold1 {
     margin-right: 10px;
 }
+
+header {
+    background-color: #c53211;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

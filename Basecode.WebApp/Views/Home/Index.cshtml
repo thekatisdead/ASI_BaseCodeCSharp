@@ -15,8 +15,7 @@
             </div>
             <br />
             <center>
-                <a href="/Signup/Index" class="btn btn-primary">Apply</a>
-                @*<button>Apply</button>*@
+                <button><a class="nav-link text-dark" asp-controller="SignUp" asp-action="Index">Apply</a></button>
             </center>
         </div>
     </div>
@@ -30,7 +29,7 @@
             </div>
             <br />
             <center>
-                <button>Apply</button>
+                <button><a class="nav-link text-dark" asp-controller="SignUp" asp-action="Index">Apply</a></button>
             </center>
         </div>
     </div>
@@ -53,7 +52,12 @@
     <h4>APPLICATION TRACKING</h4>
     <h5>WANT TO KNOW THE STATUS OF YOUR APPLICATION?</h5>
     <br>
-    <input type="number" style="width:70%; text-align: center; float: left;" placeholder="ENTER YOUR ID"></input> <button style="width:20%; float: right;">Track Application</button>
+    <form asp-controller="ApplicationTracking" asp-action="Index">
+        <input type="number" name="ApplicantId" style="width:70%; text-align: center; float: left;" placeholder="ENTER YOUR ID"/>
+        <button type="submit" style="width:20%; float: right;">
+            Track Application
+        </button>
+    </form>
 </div>
 
 

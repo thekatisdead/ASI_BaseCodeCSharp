@@ -5,8 +5,9 @@ namespace Basecode.WebApp.Controllers
     public class ApplicationTrackingController : Controller
     {
         [Route("applicationtracking")]
-        public IActionResult Index()
+        public IActionResult Index(int ApplicantId)
         {
+            ViewBag.Id = ApplicantId;
             return View();
         }
     }

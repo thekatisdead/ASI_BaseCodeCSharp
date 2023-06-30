@@ -1,12 +1,17 @@
-﻿<link rel="stylesheet" href="~/css/applicantlist.css" asp-append-version="true" />
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    ViewData["Title"] = "[Title] Application Tracking";
+    Layout = "~/Views/Shared/_LayoutHR.cshtml";
 }
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" href="~/css/applicantlist.css" asp-append-version="true" />
+</head>
+<html>
+    <body>
+<main><br />
 <table class="table py-lg-4 rounded-table">
     <thead>
-        <tr class="text-center header">
+        <tr class="text-center header" style="color:white;">
             <th scope="col">Applcicant Name</th>
             <th scope="col">Position</th>
             <th scope="col">Status</th>
@@ -70,3 +75,6 @@
 </table>
 <div class="triangle"></div>
 <div class="small-triangle"> </div>
+</main>
+</body>
+</html>

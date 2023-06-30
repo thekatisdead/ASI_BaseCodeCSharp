@@ -12,7 +12,7 @@
 <body>
     <main>
         <section id="dashboard-overview">
-            <h1>Welcome, [HR]</h1>
+            <h1>Welcome, @ViewBag.Name</h1>
             <h2>Dashboard Overview</h2>
             <div class="overview-items">
                 <div class="overview-item">
@@ -50,7 +50,11 @@
                     </div>
                 </div>
             </div>
-            <button class="add-button">Add New Job Opening</button>
+            <div>
+                <a asp-controller="JobPosting" asp-action="Index">
+                    <button class="add-button">Add New Job Opening</button>
+                </a>
+            </div>
         </section>
 
         <section id="applicant-tracking">
@@ -62,7 +66,9 @@
                     <span>Last Activity:</span>
                 </div>
                 <div class="applicant-actions">
-                    <button class="view-profile-button">View Applicant List</button>
+                    <a asp-controller="ApplicantList" asp-action="Index">
+                        <button class="view-profile-button">View Applicant List</button>
+                    </a>
                 </div>
             </div>
         </section>

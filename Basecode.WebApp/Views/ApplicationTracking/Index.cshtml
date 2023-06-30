@@ -16,7 +16,7 @@
         <div class="details">
             <div class="details-main">
                 <h2>Jhon Lloyd Cabarrubias</h2>
-                <h5>ID: 1234</h5>
+                <h5>ID: @ViewBag.Id</h5>
             </div>
 
             <div class="details-sub">
@@ -26,7 +26,9 @@
                 <h4>Last Updated:</h4>
             </div>
         </div>
-        <button class="btn">Back</button>
+        <a style="text-decoration:none; color:white;" asp-controller="Home" asp-action="Index">
+            <button class="btn">Back</button>
+        </a>
     </div>
 
     <div class="triangle"></div>
