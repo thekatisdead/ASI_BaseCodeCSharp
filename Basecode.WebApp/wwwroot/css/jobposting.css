@@ -1,7 +1,10 @@
-﻿.main {
+﻿body {
     background-color: #2E3830;
-    height: 80vh;
-    position: relative;
+    margin: 0;
+}
+
+.navbar {
+    /* Styles for the navbar */
 }
 
 .header {
@@ -19,25 +22,33 @@
 }
 
 .body {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    background-color: #ffffff;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    margin: 10px;
-    padding: 30px;
+    border-radius: 50px;
     flex: 1;
+    max-width: 500px;
+    margin: 0 auto;
 }
+
+.main {
+    padding-left: 10%;
+    background-color: #FFFFFF;
+    min-height: 70vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 
 .details {
     margin-bottom: 10px;
+    width: 80%;
+    max-width: 500px;
 }
 
-.details-main {
+.button-container {
     display: flex;
-    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
 }
 
 .btn {
@@ -51,9 +62,9 @@
     cursor: pointer;
 }
 
-.btn:hover {
-    background-color: #B2260C;
-}
+    .btn:hover {
+        background-color: #B2260C;
+    }
 
 .triangle {
     position: absolute;
@@ -61,30 +72,9 @@
     right: 0px;
     width: 0;
     height: 0;
-    border-left: 100px solid transparent;
-    border-top: 100px solid #C53211;
+    border-left: 180px solid transparent;
+    border-top: 180px solid #C53211;
     transform: rotate(90deg);
-}
-
-label {
-    display: block;
-    font-weight: bold;
-    font-size: 25px;
-    margin-top: 15px;
-    margin-left: 40px;
-    margin-bottom: 15px;
-}
-
-input[type="text"] {
-    width: 250px;
-    height: 25px;
-    padding: 5px;
-    margin-left: 70px;
-}
-
-.form-group {
-    display: flex;
-    flex-direction: column;
 }
 
 .label-bold {
@@ -97,33 +87,35 @@ input[type="text"] {
     margin-bottom: 15px;
 }
 
-.navbar {
+.form-group {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #969B97;
-    padding: 10px;
-    color: white;
+    flex-direction: column;
 }
 
-.container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 100vh;
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-    margin-top: 20px;
-    border-radius: 5px;
-    padding: 20px;
+.label-bold {
+    font-size: 16px;
+    font-weight: bold;
 }
 
-form {
-    background-color: white;
-    padding: 20px;
-    border-radius: 5px;
-    flex-grow: 1;
+.input-large {
+    height: 30px;
+    padding: 4px 8px;
+    font-size: 14px;
+    width: 300px;
+}
+
+.input-large-details {
+    height: 100px;
+    padding: 10px 8px;
+    font-size: 10px;
+    width: 260px;
+}
+
+.input-small {
+    height: 30px;
+    padding: 2px 6px;
+    font-size: 12px;
+    width: 80px;
 }
 
 .details-row {
@@ -137,10 +129,6 @@ textarea {
     height: 200px;
 }
 
-.form-group label {
-    margin-bottom: 5px;
-}
-
 .schedule-row {
     display: flex;
     align-items: center;
@@ -148,7 +136,7 @@ textarea {
 
 .schedule-row label {
     margin-right: 5px;
- }
+}
 
 .schedule-row input {
     margin-right: 0px;
@@ -162,23 +150,6 @@ textarea {
     margin-right: 10px;
 }
 
-small-label label-bold1 {
+.small-label label-bold1 {
     margin-right: 10px;
-}
-
-.label-bold {
-    font-size: 16px;
-    font-weight: bold;
-}
-
-.input-large {
-    height: 15px;
-    padding: 4px 8px;
-    font-size: 14px;
-}
-
-.input-small {
-    height: 20px;
-    padding: 2px 6px;
-    font-size: 12px;
 }
