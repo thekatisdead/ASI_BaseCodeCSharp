@@ -1,0 +1,75 @@
+﻿@{
+    ViewData["Title"] = "HR Dashboard";
+    Layout = "~/Views/Shared/_LayoutHR.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HR Automation System - Homepage</title>
+    <link rel="stylesheet" href="~/css/style.css" />
+</head>
+<body>
+    <main>
+        <section id="dashboard-overview">
+            <h1>Welcome, [HR]</h1>
+            <h2>Dashboard Overview</h2>
+            <div class="overview-items">
+                <div class="overview-item">
+                    <span>Total Job Openings:</span>
+                    <span>X</span>
+                </div>
+                <div class="overview-item">
+                    <span>Total Applications:</span>
+                    <span>X</span>
+                </div>
+                <div class="overview-item">
+                    <span>Candidates in Process:</span>
+                    <span>X</span>
+                </div>
+                <div class="overview-item">
+                    <span>Pending Tasks:</span>
+                    <span>X</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="job-openings">
+            <h2>Job Openings</h2>
+            <div class="job-openings-list">
+                <div class="job-opening">
+                    <div class="job-details">
+                        <span>Job Title:</span>
+                        <span>Department:</span>
+                        <span>Location:</span>
+                        <span>Deadline:</span>
+                    </div>
+                    <div class="job-actions">
+                        <button class="edit-button">Edit</button>
+                        <button class="delete-button">Delete</button>
+                    </div>
+                </div>
+            </div>
+            <button class="add-button">Add New Job Opening</button>
+        </section>
+
+        <section id="applicant-tracking">
+            <h2>Applicant Tracking</h2>
+            <div class="applicant-summary">
+                <div class="applicant-info">
+                    <span>Applicant Name:</span>
+                    <span>Stage:</span>
+                    <span>Last Activity:</span>
+                </div>
+                <div class="applicant-actions">
+                    <button class="view-profile-button">View Applicant List</button>
+                </div>
+            </div>
+        </section>
+        <div class="triangle"></div>
+        <div class="triangle1"></div>
+    </main>
+
+</body>
+</html>
+

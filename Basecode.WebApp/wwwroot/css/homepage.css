@@ -1,0 +1,41 @@
+﻿.half-width {
+    width: 50%;
+    float: left;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-container {
+    width: 60%;
+    margin: 0 auto;
+    text-align: center;
+    /* Add any other desired styles for the text container */
+}
+
+.container::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.input-width-80 {
+    width: 80%;
+}
+
+button {
+    padding: 10px;
+}
+
+input {
+    padding: 10px;
+}
+
+home-applicant {
+    background-color: #c53211;
+    background-image: url('~/img/home-applicant.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0.5;
+}
