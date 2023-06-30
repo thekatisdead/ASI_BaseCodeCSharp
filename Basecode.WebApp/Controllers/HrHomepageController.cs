@@ -4,8 +4,9 @@ namespace Basecode.WebApp.Controllers
 {
     public class HrHomepageController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Index(string Username)
         {
+            ViewBag.Name = Username;
             return View();
         }
     }
