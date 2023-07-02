@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="main">
+    <link rel="stylesheet" href="~/css/applicationtracking.css" asp-append-version="true" />
+
+    <div class="header">
+        <div class="logo">
+            <img src="~/signupimages/logo.jpg" alt="Logo" class="logo-img">
+        </div>
+        <h1>Application Tracking</h1>
+    </div>
+
+    <div class="body">
+        <div class="details">
+            <div class="details-main">
+                <h2>Jhon Lloyd Cabarrubias</h2>
+                <h5>ID: @ViewBag.Id</h5>
+            </div>
+
+            <div class="details-sub">
+                <h3>JOB NAME</h3>
+                <h6>Job Position</h6>
+                <h4>Status:</h4>
+                <h4>Last Updated:</h4>
+            </div>
+        </div>
+        <a style="text-decoration:none; color:white;" asp-controller="Home" asp-action="Index">
+            <button class="btn">Back</button>
+        </a>
+    </div>
+
+    <div class="triangle"></div>
+
+</div>
+
+
+

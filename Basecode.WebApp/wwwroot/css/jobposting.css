@@ -88,13 +88,25 @@ main {
         background-color: #B2260C;
     }
 
-.triangle {
+.triangle1 {
     position: absolute;
-    bottom: 0px;
-    right: 0px;
+    bottom: 0;
+    right: 0;
     width: 0;
     height: 0;
-    border-left: 180px solid transparent;
-    border-top: 180px solid #C53211;
-    transform: rotate(90deg);
+    z-index: -1;
+    border-bottom: 250px solid #2E3830;
+    border-left: 250px solid transparent;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 10);
+}
+
+.triangle {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-bottom: 150px solid #c53211;
+    border-left: 150px solid transparent;
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 10));
 }

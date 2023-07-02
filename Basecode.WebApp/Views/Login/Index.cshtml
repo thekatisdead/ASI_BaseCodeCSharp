@@ -1,0 +1,51 @@
+﻿@model Basecode.WebApp.Models.LoginModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - LogIn</title>
+    <link rel="stylesheet" href="~/css/loginstyles.css" asp-append-version="true" />
+</head>
+
+<body>
+    <section id="loginStyle">
+        <div class="text-center">
+            <div class="logInContainer">
+                <div>
+                    <h1>LOGIN</h1>
+              
+                <form asp-controller="HrHomepage" asp-action="Index">
+
+                    <div class="forUsername">
+                        <label class="control-label-firstname"></label>
+                        <input name="Username" asp-for="Username" placeholder="Username" class="username" />
+                        <span asp-validation-for="Username"></span>
+                    </div>
+
+                    <div class="forPassword">
+                        <label class="control-label-lastname"></label>
+                        <input asp-for="Password" placeholder="Password" class="password" />
+                        <span asp-validation-for="Password"></span>
+                    </div>
+
+                    <div class="forNoAccount">
+                        <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                                Don’t have an account yet? <a asp-controller="SignUp" asp-action="Index"><u>sign up</u></a>
+                        </label>
+                    </div>
+
+                    <div class="button-box">
+                        <button class="forSubmit">LOGIN</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+        </div>
+      </section>
+</body>
+
+</html>
