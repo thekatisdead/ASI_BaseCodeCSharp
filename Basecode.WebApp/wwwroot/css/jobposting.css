@@ -1,0 +1,100 @@
+﻿body {
+    background-color: #2E3830;
+    margin: 0;
+}
+
+h1 {
+    margin: 0;
+    font-size: 18px;
+    color: #ffffff;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #969B97;
+    padding: 10px;
+    color: #ffffff;
+}
+
+main {
+    padding: 10px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #FFFFFF;
+    border-radius: 40px;
+    max-width: 100%;
+    width: 95%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.job-form {
+    width: 80%;
+    max-width: 500px;
+    margin-bottom: 10px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.label-bold {
+    font-weight: bold;
+}
+
+.form-row {
+    display: flex;
+    align-items: center;
+}
+
+.input-large,
+.input-large-details,
+.input-small {
+    height: 30px;
+    padding: 4px 8px;
+    font-size: 14px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.input-large-details {
+    height: 100px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.btn {
+    font-weight: bold;
+    font-size: 15px;
+    padding: 8px 25px;
+    background-color: #C53211;
+    color: #ffffff;
+    border: 1px solid #000;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+    .btn:hover {
+        background-color: #B2260C;
+    }
+
+.triangle {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    width: 0;
+    height: 0;
+    border-left: 180px solid transparent;
+    border-top: 180px solid #C53211;
+    transform: rotate(90deg);
+}

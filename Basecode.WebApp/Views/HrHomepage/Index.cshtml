@@ -39,18 +39,26 @@
             <div class="job-openings-list">
                 <div class="job-opening">
                     <div class="job-details">
-                        <span>Job Title:</span>
-                        <span>Department:</span>
-                        <span>Location:</span>
-                        <span>Deadline:</span>
-                    </div>
-                    <div class="job-actions">
-                        <button class="edit-button">Edit</button>
-                        <button class="delete-button">Delete</button>
+                        <span>Position:</span>
+                        <span>Job Type:</span>
+                        <span>Salary:</span>
+                        <span>Schedule:</span>
+                        <span>Description:</span>
                     </div>
                 </div>
             </div>
+<<<<<<< HEAD
             <button class="add-button">Add New Job Opening</button>
+=======
+            <div class="job-actions">
+                <a asp-controller="JobPosting" asp-action="Index">
+                    <button class="add-button">Add New Job Opening</button>
+                </a>
+                <a asp-controller="JobListing" asp-action="Index">
+                    <button class="joblist-button">View Job Listing</button>
+                </a>
+            </div>
+>>>>>>> bd29748 (Make changes in Job Posting and add Job Listing)
         </section>
 
         <section id="applicant-tracking">
