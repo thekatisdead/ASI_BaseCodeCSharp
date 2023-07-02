@@ -1,0 +1,71 @@
+﻿@{
+    ViewData["Title"] = "Job Listing";
+    Layout = "~/Views/Shared/_LayoutHR.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Listing</title>
+    <link rel="stylesheet" href="~/css/joblisting.css" asp-append-version="true" />
+</head>
+<body>
+    <main>
+
+        <div class="add-job-container">
+            <a asp-controller="JobPosting" asp-action="Index">
+                <button class="add-job-btn">Add Job</button>
+            </a>
+        </div>
+
+        <section class="job-listing">
+            <h2 class="section-title">Jobs Offered</h2>
+            <div class="search-bar">
+                <input type="text" id="search-job" placeholder="Search job here">
+            </div>
+            <table class="job-table">
+                <thead>
+                    <tr>
+                        <th class="table-header">Job ID</th>
+                        <th class="table-header">Position</th>
+                        <th class="table-header">Job Type</th>
+                        <th class="table-header">Salary</th>
+                        <th class="table-header">Hours</th>
+                        <th class="table-header">Shift</th>
+                        <th class="table-header">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="table-cell">1</td>
+                        <td class="table-cell">Software Engineer</td>
+                        <td class="table-cell">Full-time</td>
+                        <td class="table-cell">$100,000</td>
+                        <td class="table-cell">40</td>
+                        <td class="table-cell">Morning</td>
+                        <td class="table-cell">
+                            <button class="edit-btn">Edit</button>
+                            <button class="delete-btn">Delete</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="table-cell">2</td>
+                        <td class="table-cell">UI/UX Designer</td>
+                        <td class="table-cell">Part-time</td>
+                        <td class="table-cell">$70,000</td>
+                        <td class="table-cell">30</td>
+                        <td class="table-cell">Evening</td>
+                        <td class="table-cell">
+                            <button class="edit-btn">Edit</button>
+                            <button class="delete-btn">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <div class="triangle"></div>
+        <div class="triangle1"></div>
+    </main>
+</body>
+</html>

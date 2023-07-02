@@ -45,15 +45,14 @@
                         <span>Deadline:</span>
                     </div>
                     <div class="job-actions">
-                        <button class="edit-button">Edit</button>
-                        <button class="delete-button">Delete</button>
+                        <a asp-controller="JobPosting" asp-action="Index">
+                            <button class="add-button">Add New Job Opening</button>
+                        </a>
+                        <a asp-controller="JobListing" asp-action="Index">
+                            <button class="joblist-button">View Job Listing</button>
+                        </a>
                     </div>
                 </div>
-            </div>
-            <div>
-                <a asp-controller="JobPosting" asp-action="Index">
-                    <button class="add-button">Add New Job Opening</button>
-                </a>
             </div>
         </section>
 
@@ -75,7 +74,6 @@
         <div class="triangle"></div>
         <div class="triangle1"></div>
     </main>
-
 </body>
 </html>
 
