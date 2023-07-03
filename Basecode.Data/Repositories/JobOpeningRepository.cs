@@ -57,6 +57,7 @@ namespace Basecode.Data.Repositories
             _context.JobOpening.Update(jobOpening);
             _context.SaveChanges();
         }
+
 		/// <summary>
 		/// Deletes a selected Job Opening
 		/// </summary>

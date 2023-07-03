@@ -63,5 +63,11 @@ namespace Basecode.WebApp.Controllers
             _service.Delete(id);
             return RedirectToAction("JobList");  
         }
+
+        public IActionResult DeleteJob(int id) 
+        {
+            var data= _service.GetById(id);
+            return View(data);
+        }
     }
 }
