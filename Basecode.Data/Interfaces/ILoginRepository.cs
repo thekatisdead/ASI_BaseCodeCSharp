@@ -9,6 +9,6 @@ namespace Basecode.Data.Interfaces
 {
     public interface ILoginRepository
     {
-        Login GetByUsername(string username);
+        SignUp GetByUsername(string username);
     }
 }
