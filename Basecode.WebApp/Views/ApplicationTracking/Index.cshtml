@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "Index";
 }
-
+<partial></partial>
 <div class="main">
     <link rel="stylesheet" href="~/css/applicationtracking.css" asp-append-version="true" />
 
@@ -14,6 +14,12 @@
     </div>
 
     <div class="body">
+        <!--
+            This code depends on whether or not the job applied exists.
+            If the model returns a null row, the controller will make the JobApplied -1
+            As long as it is not a null row, the modal will display the thing
+            Else, return an error saying that the ID does not exist
+        -->
         @if (Model.JobApplied != -1)
         {
             <div class="details">
@@ -33,12 +39,17 @@
         }
         else
         {
-            <p>Database Error: No ID with the value [@Model.Id] was found</p>
+            <p>Database Error: No ID with the value [@Model.Id] was found in the Application Database</p>
         }
         
-        <a style="text-decoration:none; color:white;" asp-controller="Home" asp-action="Index">
+        <!--
+            Button Comment
+        -->
+        <div>
+            <a style="text-decoration:none; color:white;" asp-controller="Home" asp-action="Index"/>
             <button class="btn">Back</button>
-        </a>
+        </div>
+        
     </div>
 
     <div class="triangle"></div>
