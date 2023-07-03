@@ -1,4 +1,7 @@
-﻿@{
+﻿@using Basecode.Data.Models
+@model List<JobOpening>
+
+@{
     ViewData["Title"] = "HR Dashboard";
     Layout = "~/Views/Shared/_LayoutHR.cshtml";
 }
@@ -45,15 +48,15 @@
                         <span>Schedule:</span>
                         <span>Description:</span>
                     </div>
+                    <div class="job-actions">
+                        <a asp-controller="JobPosting" asp-action="Index">
+                            <button class="add-button">Add New Job Opening</button>
+                        </a>
+                        <a asp-controller="JobListing" asp-action="Index">
+                            <button class="joblist-button">View Job Listing</button>
+                        </a>
+                    </div>
                 </div>
-            </div>
-            <div class="job-actions">
-                <a asp-controller="JobPosting" asp-action="Index">
-                    <button class="add-button">Add New Job Opening</button>
-                </a>
-                <a asp-controller="JobListing" asp-action="Index">
-                    <button class="joblist-button">View Job Listing</button>
-                </a>
             </div>
         </section>
 
