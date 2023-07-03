@@ -16,7 +16,7 @@
 <body>
     <main>
         <div class="add-job-container">
-            <a asp-controller="JobPosting" asp-action="Index">
+            <a asp-controller="JobOpening" asp-action="JobPosting">
                 <button class="add-job-btn">Add Job</button>
             </a>
         </div>
@@ -51,7 +51,7 @@
                             <td class="table-cell">@job.Shift</td>
                             <td class="table-cell">@job.Description</td>
                             <td class="table-cell">
-                                <a asp-controller="JobPostingUpdate" asp-route-id="@job.Id" asp-action="Index">
+                                <a asp-action ="UpdateJob" asp-route-id ="@job.Id">
                                     <button class="edit-btn">Edit</button>
                                 </a>
                                 <button class="delete-btn">Delete</button>

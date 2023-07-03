@@ -4,26 +4,35 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Basecode.WebApp.Controllers
 {
-    public class JobPostingController : Controller
+    public class JobOpeningController : Controller
     {
         private readonly IJobOpeningService _service;
 
-        public JobPostingController(IJobOpeningService service)
+        public JobOpeningController(IJobOpeningService service)
         {
             _service = service;
         }
 
         public IActionResult Index()
         {
-            var jobOpenings = _service.RetrieveAll();
-            return View("Index", jobOpenings);
+            return View();
         }
 
-        [HttpGet]
-        public IActionResult UpdateView(int id)
+        public IActionResult JobList()
         {
-            var JobOpening = _service.GetById(id);
-            return View(JobOpening);
+            var data = _service.RetrieveAll();
+            return View(data);
+        }
+
+        public IActionResult JobPosting()
+        {
+            return View();
+        }
+
+        public IActionResult UpdateJob(int id)
+        {
+            var data = _service.GetById(id);
+            return View(data);
         }
 
         [HttpPost]

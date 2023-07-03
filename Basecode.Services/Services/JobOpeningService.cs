@@ -1,4 +1,5 @@
-﻿using Basecode.Data.Interfaces;
+﻿using Basecode.Data;
+using Basecode.Data.Interfaces;
 using Basecode.Data.Models;
 using Basecode.Data.Repositories;
 using Basecode.Services.Interfaces;
@@ -13,7 +14,7 @@ namespace Basecode.Services.Services
     public class JobOpeningService : IJobOpeningService
     {
         private readonly IJobOpeningRepository _repository;
-        public JobOpeningService(IJobOpeningRepository repository) 
+        public JobOpeningService(IJobOpeningRepository repository)
         {
             _repository = repository;
         }
