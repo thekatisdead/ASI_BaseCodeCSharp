@@ -1,5 +1,4 @@
 ﻿@using Basecode.WebApp.Models;
-@model ApplicationTrackingModel
 @{
     ViewData["Title"] = "Index";
 }
@@ -15,20 +14,28 @@
     </div>
 
     <div class="body">
-        <div class="details">
-            <div class="details-main">
-                <h2>@Model.LastName , @Model.FirstName</h2>
-                <h5>ID: @Model.Id</h5>
-            </div>
+        @if (Model.JobApplied != -1)
+        {
+            <div class="details">
+                <div class="details-main">
+                    <h2>@Model.LastName , @Model.FirstName</h2>
+                    <h5>ID: @Model.Id</h5>
+                </div>
 
-            <div class="details-sub">
-                <h3>JOB NAME</h3>
-                <h6>Job Position</h6>
-                <h4>Status: @Model.Tracker</h4>
-                <h4>Grading: @Model.Grading</h4>
-                <h4>Last Updated: @Model.UpdatedTime</h4>
+                <div class="details-sub">
+                    <h3>JOB NAME</h3>
+                    <h6>Job Position</h6>
+                    <h4>Status: @Model.Tracker</h4>
+                    <h4>Grading: @Model.Grading</h4>
+                    <h4>Last Updated: @Model.UpdatedTime</h4>
+                </div>
             </div>
-        </div>
+        }
+        else
+        {
+            <p>Database Error: No ID with the value [@Model.Id] was found</p>
+        }
+        
         <a style="text-decoration:none; color:white;" asp-controller="Home" asp-action="Index">
             <button class="btn">Back</button>
         </a>
