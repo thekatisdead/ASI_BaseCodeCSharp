@@ -23,9 +23,9 @@ namespace Basecode.WebApp
 
             // Repositories
             services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<IJobOpeningRepository, JobOpeningRepository>();
             services.AddScoped<ISignUpRepository, SignUpRepository>();
             services.AddScoped<IApplicantListRepository, ApplicantListRepository>();
+            services.AddScoped<IJobOpeningRepository, JobOpeningRepository>();
         }
     }
 }
