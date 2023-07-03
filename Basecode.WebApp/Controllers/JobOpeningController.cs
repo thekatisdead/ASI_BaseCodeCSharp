@@ -13,10 +13,6 @@ namespace Basecode.WebApp.Controllers
             _service = service;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
         /// <summary>
         /// View Job List page/screen
         /// </summary>

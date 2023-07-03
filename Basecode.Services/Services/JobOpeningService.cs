@@ -1,7 +1,9 @@
-﻿using Basecode.Data;
+﻿using AutoMapper;
+using Basecode.Data;
 using Basecode.Data.Interfaces;
 using Basecode.Data.Models;
 using Basecode.Data.Repositories;
+using Basecode.Data.ViewModels;
 using Basecode.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -14,25 +16,40 @@ namespace Basecode.Services.Services
     public class JobOpeningService : IJobOpeningService
     {
         private readonly IJobOpeningRepository _repository;
-        public JobOpeningService(IJobOpeningRepository repository)
+        private readonly IMapper _mapper;
+        public JobOpeningService(IJobOpeningRepository repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
 
-        public List<JobOpening> RetrieveAll()
+        public List<JobOpeningViewModel> RetrieveAll()
         {
-            return _repository.RetrieveAll().ToList();
+            var data = _repository.RetrieveAll().Select(s => new JobOpeningViewModel
+            {
+                Id = s.Id,
+                Position = s.Position,
+                JobType = s.JobType,
+                Salary = s.Salary,
+                Hours = s.Hours,
+                Shift = s.Shift,
+                Description = s.Description
+            }).ToList();
+            return data;
         }
 
-        public JobOpening GetById(int id)
+        public JobOpeningViewModel GetById(int id)
         {
-            return _repository.GetById(id);
+            var data = _repository.GetById(id);
+            return _mapper.Map<JobOpeningViewModel>(data);
         }
 
         public void Add(JobOpening jobOpening)
         {
             jobOpening.CreatedBy = System.Environment.UserName;
             jobOpening.CreatedTime = DateTime.Now;
+            jobOpening.UpdatedBy = System.Environment.UserName;
+            jobOpening.UpdatedTime = DateTime.Now;
             _repository.Add(jobOpening);
         }
 

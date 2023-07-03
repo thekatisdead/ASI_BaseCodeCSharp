@@ -1,5 +1,5 @@
-﻿@using Basecode.Data.Models
-@model List<JobOpening>
+﻿@using Basecode.Data.ViewModels
+@model List<JobOpeningViewModel>
 
 @{
     ViewData["Title"] = "Job Listing";
@@ -26,7 +26,7 @@
             <div class="search-bar">
                 <input type="text" id="search-job" placeholder="Search job here">
             </div>
-            <table class="job-table">
+            <table class="job-table" style="@(Model.Count() == 0 ? "display: none" : "")">
                 <thead>
                     <tr>
                         <th class="table-header">Job ID</th>
