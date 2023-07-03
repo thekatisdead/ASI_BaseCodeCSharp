@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace Basecode.Data.Models
 {
+    /// <summary>
+    /// Specify database table JobOpening class
+    /// Getter and Setter methods for all columns
+    /// </summary>
     public class JobOpening
     {
         public int Id { get; set; }

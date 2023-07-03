@@ -6,8 +6,10 @@ namespace Basecode.WebApp.Controllers
 {
     public class JobOpeningController : Controller
     {
+        /// <summary>
+        /// Creates an instance of IJobOpeningService
+        /// </summary>
         private readonly IJobOpeningService _service;
-
         public JobOpeningController(IJobOpeningService service)
         {
             _service = service;

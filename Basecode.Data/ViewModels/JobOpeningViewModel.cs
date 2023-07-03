@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Basecode.Data.ViewModels
 {
+    /// <summary>
+    /// Job Opening model shown on the razor page
+    /// </summary>
     public class JobOpeningViewModel
     {
         public int Id { get; set; }
