@@ -1,4 +1,5 @@
 ﻿using Basecode.Data.Models;
+using Basecode.Data.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +24,11 @@ namespace Basecode.Data
             SaveChanges();
         }
 
+        /// <summary>
+        /// Represents the collection of applicants in the database.
+        /// </summary>
+        public virtual DbSet<Applicant> Applicant { get; set; }
+        public virtual DbSet<SignUpViewModel> UserManagement { get; set; }
         public virtual DbSet<Login> UserManagement { get; set; }
         public virtual DbSet<User> User { get; set; }
 

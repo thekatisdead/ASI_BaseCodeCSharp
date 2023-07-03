@@ -1,4 +1,7 @@
-﻿@{
+﻿@using Basecode.Data.ViewModels
+@model List<ApplicantListViewModel>
+
+@{
     ViewData["Title"] = "[Title] Application Tracking";
     Layout = "~/Views/Shared/_LayoutHR.cshtml";
 }
@@ -20,57 +23,18 @@
         </tr>
     </thead>
     <tbody>
-        <tr class="text-center">
-            <th scope="row">John Doe</th>
-            <td>Software Engineer</td>
-            <td>Shortlisted</td>
-            <td>06-25-23</td>
-            <td>
-                <button class="btn btn-secondary">View Profile</button>
-                <button class="btn btn-secondary">Update Status</button>
-            </td>
-        </tr>
-        <tr class="text-center">
-            <th scope="row">Juan De La Cruz</th>
-            <td>Software Engineer</td>
-            <td>Review</td>
-            <td>06-25-23</td>
-            <td>
-                <button class="btn btn-secondary">View Profile</button>
-                 <button class="btn btn-secondary">Update Status</button>
-            </td>
-        </tr>
-        <tr class="text-center">
-            <th scope="row">Jane Smith</th>
-            <td>pancit canton cook</td>
-            <td>Rejected</td>
-            <td>06-25-23</td>
-            <td>
-                <button class="btn btn-secondary">View Profile</button>
-                <button class="btn btn-secondary">Update Status</button>
-            </td>
-        </tr>
-        <tr class="text-center">
-            <th scope="row">Bongbong Marcos</th>
-            <td>theif</td>
-            <td>Rejected</td>
-            <td>06-25-23</td>
-            <td>
-                <button class="btn btn-secondary">View Profile</button>
-                <button class="btn btn-secondary">Update Status</button>
-            </td>
-        </tr>
-        <tr class="text-center">
-            <th scope="row">Sarah Duterte</th>
-            <td>Boxing champ</td>
-            <td>Rejected</td>
-            <td>06-25-23</td>
-            <td>
-                <button class="btn btn-secondary">View Profile</button>
-                <button class="btn btn-secondary">Update Status</button>
-            </td>
-        </tr>
-       
+        @foreach(var applicant in Model){
+            <tr class="text-center">
+                <td>@applicant.Firstname @applicant.Lastname</td>
+                <td>@applicant.JobApplied</td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td>
+                    <button class="btn btn-secondary">View Profile</button>
+                    <button class="btn btn-secondary">Update Status</button>
+                </td>
+            </tr>
+        }      
     </tbody>
 </table>
 <div class="triangle"></div>
