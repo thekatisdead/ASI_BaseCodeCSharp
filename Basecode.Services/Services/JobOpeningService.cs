@@ -33,14 +33,21 @@ namespace Basecode.Services.Services
         {
             jobOpening.CreatedBy = System.Environment.UserName;
             jobOpening.CreatedTime = DateTime.Now;
-            jobOpening.UpdatedBy = System.Environment.UserName;
-            jobOpening.UpdatedTime = DateTime.Now;
             _repository.Add(jobOpening);
         }
 
         public void Update(JobOpening jobOpening) 
         {
-            _repository.Update(jobOpening);
+            var job = _repository.GetById(jobOpening.Id);
+            job.Position = jobOpening.Position;
+            job.JobType = jobOpening.JobType;
+            job.Salary = jobOpening.Salary;
+            job.Hours = jobOpening.Hours;
+            job.Description = jobOpening.Description;
+            job.UpdatedBy = System.Environment.UserName;
+            job.UpdatedTime = DateTime.Now;
+
+            _repository.Update(job);
         }
     }
 }
