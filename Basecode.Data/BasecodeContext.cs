@@ -25,8 +25,9 @@ namespace Basecode.Data
         }
 
         /// <summary>
-        /// Represents the collection of users in the database.
+        /// Represents the collection of applicants in the database.
         /// </summary>
+        public virtual DbSet<Applicant> Applicant { get; set; }
         public virtual DbSet<SignUpViewModel> UserManagement { get; set; }
         public virtual DbSet<User> User { get; set; }
 
