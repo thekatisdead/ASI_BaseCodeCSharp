@@ -116,7 +116,7 @@ section {
 }
 
 .add-button:hover,
-.edit-button:hover,
+.joblist-button:hover,
 .delete-button:hover {
     background-color: #000;
 }

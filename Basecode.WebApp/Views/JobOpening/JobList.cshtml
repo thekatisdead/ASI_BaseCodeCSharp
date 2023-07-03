@@ -1,0 +1,68 @@
+﻿@using Basecode.Data.Models
+@model List<JobOpening>
+
+@{
+    ViewData["Title"] = "Job Listing";
+    Layout = "~/Views/Shared/_LayoutHR.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Listing</title>
+    <link rel="stylesheet" href="~/css/joblisting.css" asp-append-version="true" />
+</head>
+<body>
+    <main>
+        <div class="add-job-container">
+            <a asp-controller="JobOpening" asp-action="JobPosting">
+                <button class="add-job-btn">Add Job</button>
+            </a>
+        </div>
+
+        <section class="job-listing">
+            <h2 class="section-title">Jobs Offered</h2>
+            <div class="search-bar">
+                <input type="text" id="search-job" placeholder="Search job here">
+            </div>
+            <table class="job-table">
+                <thead>
+                    <tr>
+                        <th class="table-header">Job ID</th>
+                        <th class="table-header">Position</th>
+                        <th class="table-header">Job Type</th>
+                        <th class="table-header">Salary</th>
+                        <th class="table-header">Hours</th>
+                        <th class="table-header">Shift</th>
+                        <th class="table-header">Description</th>
+                        <th class="table-header">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var job in Model)
+                    {
+                        <tr>
+                            <td class="table-cell">@job.Id</td>
+                            <td class="table-cell">@job.Position</td>
+                            <td class="table-cell">@job.JobType</td>
+                            <td class="table-cell">@job.Salary</td>
+                            <td class="table-cell">@job.Hours</td>
+                            <td class="table-cell">@job.Shift</td>
+                            <td class="table-cell">@job.Description</td>
+                            <td class="table-cell">
+                                <a asp-action ="UpdateJob" asp-route-id ="@job.Id">
+                                    <button class="edit-btn">Edit</button>
+                                </a>
+                                <button class="delete-btn">Delete</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </section>
+        <div class="triangle"></div>
+        <div class="triangle1"></div>
+    </main>
+</body>
+</html>

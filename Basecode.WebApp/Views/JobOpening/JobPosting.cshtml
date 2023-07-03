@@ -1,0 +1,62 @@
+﻿@using Basecode.Data.Models
+@model JobOpening
+
+@{
+    ViewData["Title"] = "Job Posting Update";
+    Layout = "~/Views/Shared/_LayoutHR.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Posting - Add</title>
+    <link rel="stylesheet" href="~/css/jobpostingupdate.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <h1>ADD JOB</h1>
+    </header>
+    <main>
+        <section class="job-form">
+            <form asp-action="Add">
+                <input type="hidden" asp-for="Id" />
+                <div class="form-group">
+                    <label for="position" class="label-bold">Position:</label>
+                    <input asp-for="Position" class="input-large">
+                </div>
+                <div class="form-group">
+                    <label for="job-type" class="label-bold">Job Type:</label>
+                    <input asp-for="JobType" class="input-large">
+                </div>
+                <div class="form-group">
+                    <label for="salary" class="label-bold">Salary:</label>
+                    <input asp-for="Salary" class="input-large">
+                </div>
+                <div class="form-row">
+                    <label for="schedule" class="label-bold">Schedule:</label>
+                </div>
+                <div class="form-row">
+                    <div class="input-group">
+                        <label for="hours" class="small-label">Hours:</label>
+                        <input asp-for="Hours" class="input-large">
+                    </div>
+                    <div class="input-group">
+                        <label for="shift" class="small-label">Shift:</label>
+                        <input asp-for="Shift" class="input-large">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="details" class="label-bold">Description:</label>
+                    <input asp-for="Description" class="input-large">
+                </div>
+                <div class="button-container">
+                    <button type="submit" class="btn">ADD</button>
+                </div>
+            </form>
+        </section>
+    </main>
+    <div class="triangle"></div>
+    <div class="triangle1"></div>
+</body>
+</html>
