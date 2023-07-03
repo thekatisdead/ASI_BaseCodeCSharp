@@ -18,9 +18,9 @@ namespace Basecode.Data.Models
         public string? Password { get; set; }
         public string? ConfirmPassword { get; set; }
         public string? Role { get; set; }
-        public DateTime? CreatedTime { get; set; }
-        public string? CreatedBy { get; set; }
+        public DateTime? CreatedTime { get; set; } = DateTime.Now;
+        public string? CreatedBy { get; set; } = System.Environment.UserName;
         public DateTime? UpdatedTime { get; set; }
-        public string? UpdatedBy { get; set; }
+        public string? UpdatedBy { get; set; } = System.Environment.UserName;
     }
 }
