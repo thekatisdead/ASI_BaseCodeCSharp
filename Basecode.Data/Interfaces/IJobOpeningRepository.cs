@@ -33,5 +33,7 @@ namespace Basecode.Data.Interfaces
         /// </summary>
         /// <param name="jobOpening"></param>
         void Update(JobOpening jobOpening);
-    }
+        public void Delete(JobOpening job);
+
+	}
 }
