@@ -87,5 +87,14 @@ namespace Basecode.Services.Services
 
             _repository.Update(job);
         }
+		/// <summary>
+		/// Deletes a selected Job Opening
+		/// </summary>
+		/// <param name="jobOpening"></param>
+		public void Delete(int id)
+        {
+            var job = _repository.GetById(id);
+            _repository.Delete(job);
+        }
     }
 }
