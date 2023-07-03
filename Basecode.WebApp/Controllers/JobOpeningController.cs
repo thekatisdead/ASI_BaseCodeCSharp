@@ -57,7 +57,7 @@ namespace Basecode.WebApp.Controllers
             _service.Update(jobOpening);
             return RedirectToAction("JobList");
         }
-        [HttpPost]
+  
         public IActionResult Delete(int id) 
         { 
             _service.Delete(id);
