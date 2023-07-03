@@ -11,6 +11,7 @@ namespace Basecode.WebApp
         {
             var Config = new MapperConfiguration(cfg =>
             {
+                cfg.CreateMap<Login, LoginViewModel>();
             });
 
             services.AddSingleton(Config.CreateMapper());
