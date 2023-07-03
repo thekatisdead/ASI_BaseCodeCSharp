@@ -1,5 +1,7 @@
-﻿using Basecode.Data.Interfaces;
+﻿using AutoMapper;
+using Basecode.Data.Interfaces;
 using Basecode.Data.Models;
+using Basecode.Data.ViewModels;
 using Basecode.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -12,15 +14,19 @@ namespace Basecode.Services.Services
     public class LoginService : ILoginService
     {
         private readonly ILoginRepository _loginRepository;
+        private readonly IMapper _mapper;
 
-        public LoginService(ILoginRepository loginRepository)
+        public LoginService(ILoginRepository loginRepository, IMapper mapper)
         {
             _loginRepository = loginRepository;
+            _mapper = mapper;
         }
 
-        public Login GetByUsername(string username)
+        public LoginViewModel GetByUsername(string username)
         {
-            return _loginRepository.GetByUsername(username);
+            var res = _loginRepository.GetByUsername(username);
+
+            return _mapper.Map<LoginViewModel>(res);
         }
     }
 }
