@@ -10,6 +10,6 @@ namespace Basecode.Services.Interfaces
 {
     public interface ILoginService
     {
-        LoginViewModel GetByUsername(string username);
+        SignUpViewModel GetByUsername(string username);
     }
 }
