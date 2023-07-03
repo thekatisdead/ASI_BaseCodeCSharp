@@ -1,4 +1,5 @@
-﻿@model Basecode.WebApp.Models.LoginModel
+﻿@using Basecode.WebApp.Models
+@model LoginModel
 
 <!DOCTYPE html>
 <html lang="en">
@@ -15,8 +16,8 @@
             <div class="logInContainer">
                 <div>
                     <h1>LOGIN</h1>
-              
-                <form asp-controller="HrHomepage" asp-action="Index">
+
+                    <form asp-controller="Login" asp-action="Login">
 
                     <div class="forUsername">
                         <label class="control-label-firstname"></label>
