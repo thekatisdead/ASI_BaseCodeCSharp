@@ -17,18 +17,36 @@ namespace Basecode.WebApp.Controllers
         {
             return View();
         }
-
+        /// <summary>
+        /// View Job List page/screen
+        /// </summary>
+        /// <returns></returns>
         public IActionResult JobList()
         {
             var data = _service.RetrieveAll();
             return View(data);
         }
-
+        /// <summary>
+        /// View Job Posting page/screen
+        /// </summary>
+        /// <returns></returns>
         public IActionResult JobPosting()
         {
             return View();
         }
 
+        [HttpPost]
+        public IActionResult Add(JobOpening jobOpening)
+        {
+            _service.Add(jobOpening);
+            return RedirectToAction("JobList");
+        }
+
+        /// <summary>
+        /// Retrieve data from JobOpening table for updating
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public IActionResult UpdateJob(int id)
         {
             var data = _service.GetById(id);

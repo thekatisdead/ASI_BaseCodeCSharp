@@ -29,6 +29,15 @@ namespace Basecode.Services.Services
             return _repository.GetById(id);
         }
 
+        public void Add(JobOpening jobOpening)
+        {
+            jobOpening.CreatedBy = System.Environment.UserName;
+            jobOpening.CreatedTime = DateTime.Now;
+            jobOpening.UpdatedBy = System.Environment.UserName;
+            jobOpening.UpdatedTime = DateTime.Now;
+            _repository.Add(jobOpening);
+        }
+
         public void Update(JobOpening jobOpening) 
         {
             _repository.Update(jobOpening);

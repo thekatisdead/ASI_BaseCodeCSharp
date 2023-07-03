@@ -26,6 +26,12 @@ namespace Basecode.Data.Repositories
             return _context.JobOpening.Find(id);
         }
 
+        public void Add(JobOpening jobOpening)
+        {
+            _context.JobOpening.Add(jobOpening);
+            _context.SaveChanges();
+        }
+
         public void Update(JobOpening jobOpening)
         {
             _context.JobOpening.Update(jobOpening);
