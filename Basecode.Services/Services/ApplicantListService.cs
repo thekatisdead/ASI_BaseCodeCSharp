@@ -1,6 +1,8 @@
-﻿using Basecode.Data.Interfaces;
+﻿using AutoMapper;
+using Basecode.Data.Interfaces;
 using Basecode.Data.Models;
 using Basecode.Data.Repositories;
+using Basecode.Data.ViewModels;
 using Basecode.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -20,12 +22,20 @@ namespace Basecode.Services.Services
         }
 
         /// <summary>
-        /// Retrieves all applicants.
+        /// Retrieves all applicants from the repository.
         /// </summary>
-        /// <returns>A list of Applicant objects representing all applicants.</returns>
-        public List<Applicant> RetrieveAll()
+        /// <returns>A list of ApplicantListViewModel objects representing all applicants.</returns>
+        public List<ApplicantListViewModel> RetrieveAll()
         {
-            return _repository.RetrieveAll().ToList();
+            var data = _repository.RetrieveAll().Select(s => new ApplicantListViewModel
+            {
+                Id = s.Id,
+                Firstname = s.Firstname,
+                Lastname = s.Lastname,
+                JobApplied = s.JobApplied
+            }).ToList();
+
+            return data;
         }
     }
 }

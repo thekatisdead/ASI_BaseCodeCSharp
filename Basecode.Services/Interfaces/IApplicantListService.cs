@@ -1,4 +1,5 @@
 ﻿using Basecode.Data.Models;
+using Basecode.Data.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,9 @@ namespace Basecode.Services.Interfaces
     public interface IApplicantListService
     {
         /// <summary>
-        /// Retrieves all applicants.
+        /// Retrieves all applicants from the repository.
         /// </summary>
-        /// <returns>A list of Applicant objects representing all applicants.</returns>
-        List<Applicant> RetrieveAll();
+        /// <returns>A list of ApplicantListViewModel objects representing all applicants.</returns>
+        List<ApplicantListViewModel> RetrieveAll();
     }
 }
