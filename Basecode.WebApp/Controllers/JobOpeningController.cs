@@ -36,10 +36,10 @@ namespace Basecode.WebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Update(JobOpening JobOpening)
+        public IActionResult Update(JobOpening jobOpening)
         {
-            _service.Update(JobOpening);
-            return RedirectToAction("Index");
+            _service.Update(jobOpening);
+            return RedirectToAction("JobList");
         }
     }
 }

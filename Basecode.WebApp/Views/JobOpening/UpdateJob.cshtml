@@ -19,8 +19,8 @@
     </header>
     <main>
         <section class="job-form">
-            <form asp-controller="JobOpening" asp-action="JobList" method="post">
-                <input type = "hidden" asp-for = "Id" />
+            <form asp-action="Update">
+                <input type="hidden" asp-for="Id" />
                 <div class="form-group">
                     <label for="position" class="label-bold">Position:</label>
                     <input asp-for = "Position" class="input-large">
