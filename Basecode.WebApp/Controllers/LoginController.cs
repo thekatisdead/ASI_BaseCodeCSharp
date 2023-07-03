@@ -29,7 +29,7 @@ namespace Basecode.WebApp.Controllers
                 return Task.FromResult<IActionResult>(RedirectToAction("Index"));
             }
 
-            if (login.Password != loginModel.Password)
+            if (login.Username != loginModel.Username)
             {
                 return Task.FromResult<IActionResult>(RedirectToAction("Index"));
             }
