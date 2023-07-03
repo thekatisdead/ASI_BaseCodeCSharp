@@ -10,10 +10,12 @@ namespace Basecode.Services.Services
     public class SignUpService : ISignUpService
     {
         private readonly ISignUpRepository _repository;
+        private readonly IMapper _mapper;
 
-        public SignUpService(ISignUpRepository repository)
+        public SignUpService(ISignUpRepository repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
 
         /// <summary>
@@ -25,7 +27,7 @@ namespace Basecode.Services.Services
             newAccount.CreatedTime = DateTime.Now;
             newAccount.CreatedBy = System.Environment.UserName;
 
-            _repository.CreateAccount(newAccount);
+            _repository.CreateAccount(_mapper.Map<SignUp>(newAccount));
         }
     }
 }

@@ -22,11 +22,11 @@ namespace Basecode.Services.Services
             _mapper = mapper;
         }
 
-        public LoginViewModel GetByUsername(string username)
+        public SignUpViewModel GetByUsername(string username)
         {
             var res = _loginRepository.GetByUsername(username);
 
-            return _mapper.Map<LoginViewModel>(res);
+            return _mapper.Map<SignUpViewModel>(res);
         }
     }
 }
