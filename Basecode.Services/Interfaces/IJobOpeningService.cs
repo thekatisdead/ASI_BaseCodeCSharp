@@ -34,5 +34,11 @@ namespace Basecode.Services.Interfaces
         /// </summary>
         /// <param name="jobOpening"></param>
         void Update(JobOpening jobOpening);
-    }
+        /// <summary>
+        /// Deletes a selected Job Opening
+        /// </summary>
+        /// <param name="jobOpening"></param>
+        public void Delete(int id);
+
+	}
 }
