@@ -24,6 +24,8 @@ namespace Basecode.Data
         }
 
         public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<ApplicationTracking> ApplicationTracking { get; set; }
+
 
         public virtual DbSet<RefreshToken> RefreshToken { get; set; }
     }

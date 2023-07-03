@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Basecode.WebApp.Models;
+using Microsoft.AspNetCore.Mvc;
+using System.Linq;
+using NuGet.Protocol;
+using System;
 
 namespace Basecode.WebApp.Controllers
 {
@@ -7,8 +11,10 @@ namespace Basecode.WebApp.Controllers
         [Route("applicationtracking")]
         public IActionResult Index(int ApplicantId)
         {
+
+            var db = ApplicationTrackingModel.Find(ApplicantId);
             ViewBag.Id = ApplicantId;
-            return View();
+            return View(db);
         }
     }
 }
