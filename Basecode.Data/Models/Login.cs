@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Basecode.Data.Models
 {
-    public class SignUp
+    public class Login
     {
         public int Id { get; set; }
         public string? FirstName { get; set; }
@@ -16,7 +16,6 @@ namespace Basecode.Data.Models
         public string? Address { get; set; }
         public string? Username { get; set; }
         public string? Password { get; set; }
-        public string? ConfirmPassword { get; set; }
         public string? Role { get; set; }
         public DateTime? CreatedTime { get; set; } = DateTime.Now;
         public string? CreatedBy { get; set; } = System.Environment.UserName;

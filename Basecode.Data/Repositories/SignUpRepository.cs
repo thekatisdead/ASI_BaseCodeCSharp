@@ -22,7 +22,7 @@ namespace Basecode.Data.Repositories
         /// Creates an account in the user management system.
         /// </summary>
         /// <param name="newAccount">An instance of the SignUpViewModelclass containing the necessary data for account creation.</param>
-        public void CreateAccount(SignUpViewModel newAccount)
+        public void CreateAccount(SignUp newAccount)
         {
             _context.UserManagement.Add(newAccount);
             _context.SaveChanges();

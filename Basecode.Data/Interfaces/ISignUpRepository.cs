@@ -14,6 +14,6 @@ namespace Basecode.Data.Interfaces
         /// Creates a new account in the user management system using the provided user management data.
         /// </summary>
         /// <param name="newAccount">An instance of the SignUpViewModel class containing the necessary data for account creation.</param>
-        void CreateAccount(SignUpViewModel newAccount);
+        void CreateAccount(SignUp newAccount);
     }
 }
