@@ -1,5 +1,6 @@
 ﻿using Basecode.Data.Interfaces;
 using Basecode.Data.Models;
+using Basecode.Data.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace Basecode.Data.Repositories
             _context = context;
         }
 
-        public Login GetByUsername(string username)
+        public SignUp GetByUsername(string username)
         {
             return _context.UserManagement.Where(x => x.Username.ToLower().Equals(username.ToLower())).AsNoTracking().FirstOrDefault();
         }
