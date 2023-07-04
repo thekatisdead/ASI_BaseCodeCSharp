@@ -34,6 +34,11 @@ namespace Basecode.WebApp.Controllers
                 return Task.FromResult<IActionResult>(RedirectToAction("Index"));
             }
 
+            if (login.Password != loginModel.Password)
+            {
+                return Task.FromResult<IActionResult>(RedirectToAction("Index"));
+            }
+
             return Task.FromResult<IActionResult>(RedirectToAction("Index", "HrHomePage"));
         }
 
