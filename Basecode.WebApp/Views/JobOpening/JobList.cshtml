@@ -1,4 +1,7 @@
-﻿@{
+﻿@using Basecode.Data.ViewModels
+@model List<JobOpeningViewModel>
+
+@{
     ViewData["Title"] = "Job Listing";
     Layout = "~/Views/Shared/_LayoutHR.cshtml";
 }
@@ -12,9 +15,8 @@
 </head>
 <body>
     <main>
-
         <div class="add-job-container">
-            <a asp-controller="JobPosting" asp-action="Index">
+            <a asp-controller="JobOpening" asp-action="JobPosting">
                 <button class="add-job-btn">Add Job</button>
             </a>
         </div>
@@ -24,7 +26,7 @@
             <div class="search-bar">
                 <input type="text" id="search-job" placeholder="Search job here">
             </div>
-            <table class="job-table">
+            <table class="job-table" style="@(Model.Count() == 0 ? "display: none" : "")">
                 <thead>
                     <tr>
                         <th class="table-header">Job ID</th>
@@ -33,34 +35,31 @@
                         <th class="table-header">Salary</th>
                         <th class="table-header">Hours</th>
                         <th class="table-header">Shift</th>
+                        <th class="table-header">Description</th>
                         <th class="table-header">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td class="table-cell">1</td>
-                        <td class="table-cell">Software Engineer</td>
-                        <td class="table-cell">Full-time</td>
-                        <td class="table-cell">$100,000</td>
-                        <td class="table-cell">40</td>
-                        <td class="table-cell">Morning</td>
-                        <td class="table-cell">
-                            <button class="edit-btn">Edit</button>
-                            <button class="delete-btn">Delete</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="table-cell">2</td>
-                        <td class="table-cell">UI/UX Designer</td>
-                        <td class="table-cell">Part-time</td>
-                        <td class="table-cell">$70,000</td>
-                        <td class="table-cell">30</td>
-                        <td class="table-cell">Evening</td>
-                        <td class="table-cell">
-                            <button class="edit-btn">Edit</button>
-                            <button class="delete-btn">Delete</button>
-                        </td>
-                    </tr>
+                    @foreach (var job in Model)
+                    {
+                        <tr>
+                            <td class="table-cell">@job.Id</td>
+                            <td class="table-cell">@job.Position</td>
+                            <td class="table-cell">@job.JobType</td>
+                            <td class="table-cell">@job.Salary</td>
+                            <td class="table-cell">@job.Hours</td>
+                            <td class="table-cell">@job.Shift</td>
+                            <td class="table-cell">@job.Description</td>
+                            <td class="table-cell">
+                                <a asp-action ="UpdateJob" asp-route-id ="@job.Id">
+                                    <button class="edit-btn">Edit</button>
+                                </a>
+                                <a asp-action="DeleteJob" asp-route-id="@job.Id ">
+                                    <button class="delete-btn">Delete</button>
+                                </a>
+                            </td>
+                        </tr>
+                    }
                 </tbody>
             </table>
         </section>
