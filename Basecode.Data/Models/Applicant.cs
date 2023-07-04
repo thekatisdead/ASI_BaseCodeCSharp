@@ -18,7 +18,7 @@ namespace Basecode.Data.Models
         public string? EmailAddress { get; set; }
         public int JobApplied { get; set; }
         public string? Tracker { get; set; }
-        public string? Grading { get; set; }
+        public string Grading { get; set; }
         public DateTime? CreatedTime { get; set; }
         public string? CreatedBy { get; set; }
         public DateTime? UpdatedTime { get; set;}
