@@ -81,6 +81,7 @@ namespace Basecode.Services.Services
             job.JobType = jobOpening.JobType;
             job.Salary = jobOpening.Salary;
             job.Hours = jobOpening.Hours;
+            job.Shift = jobOpening.Shift;
             job.Description = jobOpening.Description;
             job.UpdatedBy = System.Environment.UserName;
             job.UpdatedTime = DateTime.Now;
