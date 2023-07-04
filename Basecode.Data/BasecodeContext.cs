@@ -31,6 +31,9 @@ namespace Basecode.Data
         public virtual DbSet<SignUp> UserManagement { get; set; }
         public virtual DbSet<JobOpening> JobOpening { get; set; }
         public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<ApplicationTracking> ApplicationTracking { get; set; }
+        public virtual DbSet<Applicant> Applicant { get; set; }
+
 
         public virtual DbSet<RefreshToken> RefreshToken { get; set; }
     }   

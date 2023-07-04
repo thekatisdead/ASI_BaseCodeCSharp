@@ -1,7 +1,8 @@
-﻿@{
+﻿@using Basecode.WebApp.Models;
+@{
     ViewData["Title"] = "Index";
 }
-
+<partial></partial>
 <div class="main">
     <link rel="stylesheet" href="~/css/applicationtracking.css" asp-append-version="true" />
 
@@ -13,22 +14,42 @@
     </div>
 
     <div class="body">
-        <div class="details">
-            <div class="details-main">
-                <h2>Jhon Lloyd Cabarrubias</h2>
-                <h5>ID: @ViewBag.Id</h5>
-            </div>
+        <!--
+            This code depends on whether or not the job applied exists.
+            If the model returns a null row, the controller will make the JobApplied -1
+            As long as it is not a null row, the modal will display the thing
+            Else, return an error saying that the ID does not exist
+        -->
+        @if (Model.JobApplied != -1)
+        {
+            <div class="details">
+                <div class="details-main">
+                    <h2>@Model.LastName , @Model.FirstName</h2>
+                    <h5>ID: @Model.Id</h5>
+                </div>
 
-            <div class="details-sub">
-                <h3>JOB NAME</h3>
-                <h6>Job Position</h6>
-                <h4>Status:</h4>
-                <h4>Last Updated:</h4>
+                <div class="details-sub">
+                    <h3>JOB NAME</h3>
+                    <h6>Job Position</h6>
+                    <h4>Status: @Model.Tracker</h4>
+                    <h4>Grading: @Model.Grading</h4>
+                    <h4>Last Updated: @Model.UpdatedTime</h4>
+                </div>
             </div>
-        </div>
-        <a style="text-decoration:none; color:white;" asp-controller="Home" asp-action="Index">
+        }
+        else
+        {
+            <p>Database Error: No ID with the value [@Model.Id] was found in the Application Database</p>
+        }
+        
+        <!--
+            Button Comment
+        -->
+        <div>
+            <a style="text-decoration:none; color:white;" asp-controller="Home" asp-action="Index"/>
             <button class="btn">Back</button>
-        </a>
+        </div>
+        
     </div>
 
     <div class="triangle"></div>

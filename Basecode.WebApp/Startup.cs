@@ -1,4 +1,7 @@
-﻿namespace Basecode.WebApp
+﻿using Basecode.Data.Repositories;
+using Basecode.Data;
+
+namespace Basecode.WebApp
 {
     public partial class Startup
     {
@@ -20,7 +23,9 @@
             this.ConfigureMVC(services);                // Configuration for MVC                  
 
             // Add services to the container.
-            services.AddControllersWithViews();            
+            services.AddControllersWithViews();
+            services.AddScoped<ApplicationTrackingRepository>();
+            services.AddScoped<BasecodeContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

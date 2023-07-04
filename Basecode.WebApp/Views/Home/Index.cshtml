@@ -5,6 +5,7 @@
 
 <header>
     <link rel="stylesheet" href="~/css/homepage.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </header>
 
 <div class="container">
@@ -57,7 +58,7 @@
     <h4>APPLICATION TRACKING</h4>
     <h5>WANT TO KNOW THE STATUS OF YOUR APPLICATION?</h5>
     <br>
-    <form asp-controller="ApplicationTracking" asp-action="Index">
+    <form asp-controller="ApplicationTracking" asp-action="Index" id="ApplicationTrackingForm">
         <div style="display: flex; align-items: center;">
             <input type="number" name="ApplicantId" style="width: 70%; text-align: center; padding: 10px;" placeholder="ENTER YOUR ID" />
             <button type="submit" style="width: 30%; background-color: #C53211; color: #FFFFFF; padding: 10px;">
@@ -66,7 +67,6 @@
         </div>
     </form>
 </div>
-
 
 
 
