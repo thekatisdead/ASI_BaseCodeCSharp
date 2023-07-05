@@ -42,10 +42,15 @@ else
     Button Comment
 -->
 <div>
-    <a style="text-decoration:none; color:white;" asp-controller="Home" asp-action="Index" />
-    <button class="btn">Back</button>
+    <!--<a style="text-decoration:none; color:white;" asp-controller="Home" asp-action="Index" />-->
+    <button class="btn close-button">Back</button>
 </div>
 
+<script>
+    $('.close-button').click(function () {
+        $('#myModal').modal('hide');
+    });
+</script>
 
 
 
