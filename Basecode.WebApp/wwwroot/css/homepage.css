@@ -41,6 +41,15 @@ body {
     font-size: 30px;
 }
 
+.home-heading1 {
+    font-size: 20px;
+}
+
+.home-heading-bold {
+    font-size: 20px;
+    font-weight: bold;
+}
+
 .text-home-center {
     font-weight: bold;
     font-family: 'Rubik', Arial, sans-serif;
@@ -109,12 +118,13 @@ home-applicant {
 }
 
 .modal {
+    width: 100%;
+    overflow: auto;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 9999;
-    width: 600px;
 }
 
 .modal-overlay {
