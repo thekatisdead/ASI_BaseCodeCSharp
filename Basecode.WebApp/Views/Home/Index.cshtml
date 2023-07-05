@@ -54,6 +54,16 @@
     <br />
 </div>
 <hr />
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <!-- Modal content goes here -->
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay"></div> <!-- Add the modal overlay -->
+
 <div>
     <h4>APPLICATION TRACKING</h4>
     <h5>WANT TO KNOW THE STATUS OF YOUR APPLICATION?</h5>
@@ -61,13 +71,44 @@
     <form asp-controller="ApplicationTracking" asp-action="Index" id="ApplicationTrackingForm">
         <div style="display: flex; align-items: center;">
             <input type="number" name="ApplicantId" style="width: 70%; text-align: center; padding: 10px;" placeholder="ENTER YOUR ID" />
-            <button type="submit" style="width: 30%; background-color: #C53211; color: #FFFFFF; padding: 10px;">
+            <!--<button type="submit" style="width: 30%; background-color: #C53211; color: #FFFFFF; padding: 10px;">-->
+            <button type="submit" data-toggle="modal" data-target="#myModal" style="width: 30%; background-color: #C53211; color: #FFFFFF; padding: 10px;">
                 Track Application
             </button>
         </div>
     </form>
 </div>
 
+<script>
+    $(document).ready(function () {
+        $('#ApplicationTrackingForm').submit(function (event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Get the form data
+            var formData = $(this).serialize();
+
+            // Send the form data to the server using Ajax
+            $.ajax({
+                url: '/ApplicationTracking/Index',
+                type: 'POST',
+                data: formData,
+                success: function (response) {
+                    // Handle the response from the server
+                    // Open the modal and display the response
+                    $('#myModal .modal-content').html(response);
+                    $('#myModal').modal('show');
+                    $('#myModal').on('shown.bs.modal', function () {
+                        $(this).modal('handleUpdate');
+                    });
+                },
+                error: function () {
+                    // Handle the error case
+                    alert('Error submitting the form');
+                }
+            });
+        });
+    });
+</script>
 
 
 
