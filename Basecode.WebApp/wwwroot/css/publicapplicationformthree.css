@@ -1,10 +1,11 @@
 ﻿body {
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     background-color: #2E3830;
 }
 
-.container {
+form {
     top: 75px;
     left: 50%;
     transform: translateX(-50%);
@@ -19,7 +20,7 @@
 
 .title {
     top: 15px;
-    left: 250px;
+    left: 220px;
     width: 1000px;
     height: 82px;
     font-weight: 800;
@@ -44,7 +45,7 @@
 
 .info {
     top: 10px;
-    left: 70px;
+    left: 75px;
     color: rgba(0, 0, 0, 1);
     width: 445px;
     height: auto;
@@ -154,23 +155,25 @@
 }
 
 .triangle {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    width: 0;
-    height: 0;
-    border-top: 150px solid #c53211;
-    border-right: 150px solid transparent;
-    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 10));
-}
-
-.triangle2 {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     right: 0;
     width: 0;
     height: 0;
+    z-index: -1;
     border-bottom: 150px solid #c53211;
     border-left: 150px solid transparent;
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 10));
+}
+
+.triangle2 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    z-index: -1;
+    border-top: 150px solid #c53211;
+    border-right: 150px solid transparent;
     filter: drop-shadow(0 0 10px rgba(0, 0, 0, 10));
 }

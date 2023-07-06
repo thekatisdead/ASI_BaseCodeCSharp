@@ -1,15 +1,10 @@
 ﻿body {
-    width: 100%;
-    height: 1024px;
-    display: flex;
-    overflow: auto;
-    position: absolute;
-    align-items: flex-start;
-    flex-shrink: 0;
-    background-color: rgba(46, 56, 48, 1);
+    margin: 0;
+    padding: 0;
+    background-color: #2E3830;
 }
 
-.container {
+form {
     top: 75px;
     left: 50%;
     transform: translateX(-50%);
@@ -22,10 +17,10 @@
     background-color: rgba(255, 252, 252, 1);
 }
 
-.title {
+.text-public {
     top: 15px;
     left: 250px;
-    width: 1000px;
+    width: 1000000px;
     height: 82px;
     font-weight: 800;
     font-size: 30px;
@@ -47,11 +42,11 @@
     border-style: solid;
 }
 
-.info {
-    top: 10px;
-    left: 70px;
+.text-personal {
+    top: 95px;
+    left: -335px;
     color: rgba(0, 0, 0, 1);
-    width: 445px;
+    width: 1000000px;
     height: auto;
     font-weight: 800;
     font-size: 30px;
@@ -62,16 +57,16 @@
     text-align: center;
 }
 
-.position {
-    top: 495px;
-    left: 70px;
+.text-position {
+    top: 675px;
+    left: 90px;
     color: rgba(0, 0, 0, 1);
-    width: 445px;
+    width: 1000px;
     height: auto;
     font-weight: 800;
     font-size: 30px;
     display: flex;
-    position: relative;
+    position: absolute;
     align-items: flex-start;
     flex-shrink: 1;
     text-align: center;
@@ -102,8 +97,8 @@
 }
 
 .name {
-    top: 45px;
-    left: 80px;
+    top: 175px;
+    left: -755px;
     color: rgba(0, 0, 0, 1);
     width: 445px;
     height: auto;
@@ -409,25 +404,13 @@
 }
 
 .form-group-next {
-    top: -210px;
-    left: 0px;
+    top: 5px;
+    left: -910px;
     width: 500px;
     display: flex;
     position: relative;
     align-items: flex-start;
     text-align: center;
-}
-
-.triangle1 {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    width: 0;
-    height: 0;
-    z-index: -1;
-    border-bottom: 260px solid #2E3830;
-    border-left: 260px solid transparent;
-    box-shadow: inset 0 0 20px rgba(0, 0, 0, 10);
 }
 
 .triangle {
@@ -436,21 +419,10 @@
     right: 0;
     width: 0;
     height: 0;
+    z-index: -1;
     border-bottom: 150px solid #c53211;
     border-left: 150px solid transparent;
     filter: drop-shadow(0 0 10px rgba(0, 0, 0, 10));
-}
-
-.triangle3 {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 0;
-    height: 0;
-    z-index: -1;
-    border-top: 250px solid #c53211;
-    border-right: 250px solid transparent;
-    box-shadow: inset 0 0 20px rgba(0, 0, 0, 10);
 }
 
 .triangle2 {
@@ -459,7 +431,8 @@
     left: 0;
     width: 0;
     height: 0;
-    border-top: 150px solid #2E3830;
+    z-index: -1;
+    border-top: 150px solid #c53211;
     border-right: 150px solid transparent;
     filter: drop-shadow(0 0 10px rgba(0, 0, 0, 10));
 }
