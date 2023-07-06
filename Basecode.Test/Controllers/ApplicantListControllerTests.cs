@@ -39,5 +39,21 @@ namespace Basecode.Test.Controllers
             Assert.Equal(testData, result.Model);
             Assert.Null(result.ViewName);
         }
+
+        [Fact]
+        public void Index_HasNoApplicants_ReturnsViewWithEmptyModel()
+        {
+            // Arrange
+            var emptyTestData = new List<ApplicantListViewModel>();
+            _fakeApplicantListService.Setup(s => s.RetrieveAll()).Returns(emptyTestData);
+
+            // Act
+            var result = _controller.Index() as ViewResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Empty(result.Model as List<ApplicantListViewModel>);
+            Assert.Null(result.ViewName);
+        }
     }
 }
