@@ -25,15 +25,15 @@
                     <form asp-controller="Login" asp-action="Login">
 
                     <div class="forUsername">
-                            <label class="control-label-firstname"></label>
+                        <label class="control-label"></label>
                         <input name="Username" asp-for="Username" placeholder="Username" class="username" />
-                        <span asp-validation-for="Username"></span>
+                        <span asp-validation-for="Username" class="text-danger"></span>
                     </div>
 
                     <div class="forPassword">
-                            <label class="control-label-lastname"></label>
+                        <label class="control-label"></label>
                         <input name="Password" asp-for="Password" placeholder="Password" class="password" />
-                        <span asp-validation-for="Password"></span>
+                        <span asp-validation-for="Password" class="text-danger"></span>
                     </div>
 
                     <div class="forNoAccount">
