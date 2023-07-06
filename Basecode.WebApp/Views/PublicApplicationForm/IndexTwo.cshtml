@@ -4,90 +4,89 @@
     ViewData["Title"] = "[Page 2] Public Application Form";
 }
 
-<div class="row">
-    <link rel="stylesheet" href="~/css/publicapplicationformtwo.css" />
-    <div class="col-md-4">
-        <form asp-controller="PublicApplicationForm" asp-action="IndexThree">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div className="container">
-                <div class="title">
-                    <label class="text">Public Job Application Form</label>
-                </div>
-                <div class="line"></div>
-                <div class="info">
-                    <label class="text">Education</label>
-                </div>
-                <div class="lineone"></div>
-                <div class="form-group-school">
-                    <label asp-for="School" class="control-label-school">College/Institution</label>
-                    <input asp-for="School" class="form-control-school" placeholder="School" />
-                    <span asp-validation-for="School" class="text-danger-school"></span>
-                </div>
-                <div class="form-group-department">
-                    <label asp-for="SchoolDepartment" class="control-label-department">Department</label>
-                    <input asp-for="SchoolDepartment" class="form-control-department" placeholder="School Department" />
-                    <span asp-validation-for="SchoolDepartment" class="text-danger-department"></span>
-                </div>
-                <div class="form-group-achievements">
-                    <label asp-for="Achievements" class="control-label-achievements"></label>
-                    <input asp-for="Achievements" class="form-control-achievements" placeholder="Achievements" />
-                    <span asp-validation-for="Achievements" class="text-danger-achievements"></span>
-                </div>
-                <div class="references">
-                    <label class="text">References</label>
-                </div>
-                <div class="linetwo"></div>
-                <div class="form-group-nameone">
-                    <label asp-for="ReferenceOneFullName" class="control-label-nameone">Reference 1: Full Name</label>
-                    <input asp-for="ReferenceOneFullName" class="form-control-nameone" placeholder="Full Name" />
-                    <span asp-validation-for="ReferenceOneFullName" class="text-danger-nameone"></span>
-                </div>
-                <div class="form-group-relationone">
-                    <label asp-for="RelationshipOne" class="control-label-relationone">Relationship</label>
-                    <input asp-for="RelationshipOne" class="form-control-relationone" placeholder="Relationship" />
-                    <span asp-validation-for="RelationshipOne" class="text-danger-relationone"></span>
-                </div>
-                <div class="form-group-contactone">
-                    <label asp-for="ContactInfoOne" class="control-label-contactone">Contact Information</label>
-                    <input asp-for="ContactInfoOne" class="form-control-contactone" placeholder="Contact Number" />
-                    <span asp-validation-for="ContactInfoOne" class="text-danger-contactone"></span>
-                </div>
-                <div class="form-group-nametwo">
-                    <label asp-for="ReferenceTwoFullName" class="control-label-nametwo">Reference 2: Full Name</label>
-                    <input asp-for="ReferenceTwoFullName" class="form-control-nametwo" placeholder="Full Name" />
-                    <span asp-validation-for="ReferenceTwoFullName" class="text-danger-nametwo"></span>
-                </div>
-                <div class="form-group-relationtwo">
-                    <label asp-for="RelationshipTwo" class="control-label-relationtwo">Relationship</label>
-                    <input asp-for="RelationshipTwo" class="form-control-relationtwo" placeholder="Relationship" />
-                    <span asp-validation-for="RelationshipTwo" class="text-danger-relationtwo"></span>
-                </div>
-                <div class="form-group-contacttwo">
-                    <label asp-for="ContactInfoTwo" class="control-label-contacttwo">Contact Information</label>
-                    <input asp-for="ContactInfoTwo" class="form-control-contacttwo" placeholder="Contact Number" />
-                    <span asp-validation-for="ContactInfoTwo" class="text-danger-contacttwo"></span>
-                </div>
-                <div class="form-group-namethree">
-                    <label asp-for="ReferenceThreeFullName" class="control-label-namethree">Reference 3: Full Name</label>
-                    <input asp-for="ReferenceThreeFullName" class="form-control-namethree" placeholder="Full Name" />
-                    <span asp-validation-for="ReferenceThreeFullName" class="text-danger-namethree"></span>
-                </div>
-                <div class="form-group-relationthree">
-                    <label asp-for="RelationshipThree" class="control-label-relationthree">Relationship</label>
-                    <input asp-for="RelationshipThree" class="form-control-relationthree" placeholder="Relationship" />
-                    <span asp-validation-for="RelationshipThree" class="text-danger-relationthree"></span>
-                </div>
-                <div class="form-group-contactthree">
-                    <label asp-for="ContactInfoThree" class="control-label-contactthree">Contact Information</label>
-                    <input asp-for="ContactInfoThree" class="form-control-contactthree" placeholder="Contact Number" />
-                    <span asp-validation-for="ContactInfoThree" class="text-danger-contactthree"></span>
-                </div>
-                <div class="form-group-next">
-                    <button type="submit" class="btn-primary">Next</button>
-                </div>
-            </div>
-        </form>
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="~/css/publicapplicationformtwo.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-controller="PublicApplicationForm" asp-action="IndexThree">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <label class="text-public">Public Job Application Form</label>
+                        <h5 class="text-education">Education</h5>
+                        <h5 class="text-references">References</h5>
+                    <div class="line"></div>
+                    <div class="lineone"></div>
+                    <div class="form-group-school">
+                        <label asp-for="School" class="control-label-school">College/Institution</label>
+                        <input asp-for="School" class="form-control-school" placeholder="School" />
+                        <span asp-validation-for="School" class="text-danger-school"></span>
+                    </div>
+                    <div class="form-group-department">
+                        <label asp-for="SchoolDepartment" class="control-label-department">Department</label>
+                        <input asp-for="SchoolDepartment" class="form-control-department" placeholder="School Department" />
+                        <span asp-validation-for="SchoolDepartment" class="text-danger-department"></span>
+                    </div>
+                    <div class="form-group-achievements">
+                        <label asp-for="Achievements" class="control-label-achievements"></label>
+                        <input asp-for="Achievements" class="form-control-achievements" placeholder="Achievements" />
+                        <span asp-validation-for="Achievements" class="text-danger-achievements"></span>
+                    </div>
+                    <div class="linetwo"></div>
+                    <div class="form-group-nameone">
+                        <label asp-for="ReferenceOneFullName" class="control-label-nameone">Reference 1: Full Name</label>
+                        <input asp-for="ReferenceOneFullName" class="form-control-nameone" placeholder="Full Name" />
+                        <span asp-validation-for="ReferenceOneFullName" class="text-danger-nameone"></span>
+                    </div>
+                    <div class="form-group-relationone">
+                        <label asp-for="RelationshipOne" class="control-label-relationone">Relationship</label>
+                        <input asp-for="RelationshipOne" class="form-control-relationone" placeholder="Relationship" />
+                        <span asp-validation-for="RelationshipOne" class="text-danger-relationone"></span>
+                    </div>
+                    <div class="form-group-contactone">
+                        <label asp-for="ContactInfoOne" class="control-label-contactone">Contact Information</label>
+                        <input asp-for="ContactInfoOne" class="form-control-contactone" placeholder="Contact Number" />
+                        <span asp-validation-for="ContactInfoOne" class="text-danger-contactone"></span>
+                    </div>
+                    <div class="form-group-nametwo">
+                        <label asp-for="ReferenceTwoFullName" class="control-label-nametwo">Reference 2: Full Name</label>
+                        <input asp-for="ReferenceTwoFullName" class="form-control-nametwo" placeholder="Full Name" />
+                        <span asp-validation-for="ReferenceTwoFullName" class="text-danger-nametwo"></span>
+                    </div>
+                    <div class="form-group-relationtwo">
+                        <label asp-for="RelationshipTwo" class="control-label-relationtwo">Relationship</label>
+                        <input asp-for="RelationshipTwo" class="form-control-relationtwo" placeholder="Relationship" />
+                        <span asp-validation-for="RelationshipTwo" class="text-danger-relationtwo"></span>
+                    </div>
+                    <div class="form-group-contacttwo">
+                        <label asp-for="ContactInfoTwo" class="control-label-contacttwo">Contact Information</label>
+                        <input asp-for="ContactInfoTwo" class="form-control-contacttwo" placeholder="Contact Number" />
+                        <span asp-validation-for="ContactInfoTwo" class="text-danger-contacttwo"></span>
+                    </div>
+                    <div class="form-group-namethree">
+                        <label asp-for="ReferenceThreeFullName" class="control-label-namethree">Reference 3: Full Name</label>
+                        <input asp-for="ReferenceThreeFullName" class="form-control-namethree" placeholder="Full Name" />
+                        <span asp-validation-for="ReferenceThreeFullName" class="text-danger-namethree"></span>
+                    </div>
+                    <div class="form-group-relationthree">
+                        <label asp-for="RelationshipThree" class="control-label-relationthree">Relationship</label>
+                        <input asp-for="RelationshipThree" class="form-control-relationthree" placeholder="Relationship" />
+                        <span asp-validation-for="RelationshipThree" class="text-danger-relationthree"></span>
+                    </div>
+                    <div class="form-group-contactthree">
+                        <label asp-for="ContactInfoThree" class="control-label-contactthree">Contact Information</label>
+                        <input asp-for="ContactInfoThree" class="form-control-contactthree" placeholder="Contact Number" />
+                        <span asp-validation-for="ContactInfoThree" class="text-danger-contactthree"></span>
+                    </div>
+                    <div class="form-group-next">
+                        <button type="submit" class="btn-primary">Next</button>
+                    </div>
+            </form>
+            <div class="triangle"></div>
+            <div class="triangle2"></div>
+        </div>
     </div>
-</div>
-<div class="triangle"></div>
-<div class="triangle2"></div>
+</body>
+</html>
