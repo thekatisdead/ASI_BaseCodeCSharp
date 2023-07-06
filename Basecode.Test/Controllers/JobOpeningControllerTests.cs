@@ -137,6 +137,7 @@ namespace Basecode.Test.Controllers
             var result = _controller.Delete(jobId);
 
             // Assert
+            Assert.NotNull(result);
             var redirectToActionResult = (RedirectToActionResult)result;
             Assert.Equal("JobList", redirectToActionResult.ActionName); // Ensure that the action name is "JobList"
         }
