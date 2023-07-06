@@ -23,7 +23,7 @@ namespace Basecode.Test.Controllers
         }
 
         [Fact]
-        public void JobList_ReturnsAllJobOpeningViewModel()
+        public void JobList_HasJobOpening_ReturnsAllJobOpeningViewModel()
         {
             // Arrange
             var testData = new List<JobOpeningViewModel>
@@ -44,8 +44,27 @@ namespace Basecode.Test.Controllers
             Assert.Null(result.ViewName);
         }
 
+
         [Fact]
-        public void UpdateJob_ReturnsJobOpeningViewModel()
+        public void JobList_NoJobOpeningFound_ReturnsEmpty()
+        {
+            // Arrange
+            var testData = new List<JobOpeningViewModel>();
+
+            _mockJobOpeningService.Setup(s => s.RetrieveAll()).Returns(testData);
+
+            // Act
+            var result = _controller.JobList() as ViewResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(testData, result.Model);
+            Assert.Null(result.ViewName);
+            Assert.Empty(testData);
+        }
+
+        [Fact]
+        public void UpdateJob_HasJobOpening_ReturnsJobOpeningViewModel()
         {
             //Arrange
             int jobId = It.IsAny<int>();
@@ -73,7 +92,27 @@ namespace Basecode.Test.Controllers
         }
 
         [Fact]
-        public void Update_ReturnsRedirectToAction()
+        public void UpdateJob_NoJobOpeningFound_ReturnsJobOpeningViewModel()
+        { 
+            //Arrange
+            int jobId = It.IsAny<int>();
+
+            var testData = new JobOpeningViewModel();
+
+            _mockJobOpeningService.Setup(s => s.GetById(jobId)).Returns(testData);
+
+            // Act
+            var result = _controller.UpdateJob(jobId) as ViewResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(testData, result.Model);
+            Assert.Null(result.ViewName);
+        }
+
+
+        [Fact]
+        public void Update_HasJobOpening_ReturnsRedirectToAction()
         {
             // Arrange
             var jobOpening = new JobOpening
@@ -99,7 +138,24 @@ namespace Basecode.Test.Controllers
         }
 
         [Fact]
-        public void DeleteJob_ReturnJobOpeningViewModel()
+        public void Update_NoJobOpening_ReturnsRedirectToAction()
+        { 
+            // Arrange
+            var jobOpening = new JobOpening();
+
+            _mockJobOpeningService.Setup(s => s.Update(jobOpening));
+
+            // Act
+            var result = _controller.Update(jobOpening);
+
+            // Assert
+            var redirectToActionResult = (RedirectToActionResult)result;
+            Assert.Equal("JobList", redirectToActionResult.ActionName); // Ensure that the action name is "JobList"
+        }
+
+
+        [Fact]
+        public void DeleteJob_HasJobOpening_ReturnJobOpeningViewModel()
         {
             //Arrange
             int jobId = It.IsAny<int>();
@@ -127,12 +183,49 @@ namespace Basecode.Test.Controllers
         }
 
         [Fact]
-        public void Delete_ReturnsRedirectToAction()
+        public void DeleteJob_NoJobOpening_ReturnJobOpeningViewModel()
+        {
+            //Arrange
+            int jobId = It.IsAny<int>();
+
+            var testData = new JobOpeningViewModel();
+
+            _mockJobOpeningService.Setup(s => s.GetById(jobId)).Returns(testData);
+
+            // Act
+            var result = _controller.DeleteJob(jobId) as ViewResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(testData, result.Model);
+            Assert.Null(result.ViewName);
+        }
+
+        [Fact]
+        public void Delete_HasJobOpening_ReturnsRedirectToAction()
         {
             // Arrange
             int jobId = It.IsAny<int>();
 
             _mockJobOpeningService.Setup(s => s.Delete(jobId));
+
+            // Act
+            var result = _controller.Delete(jobId);
+
+            // Assert
+            Assert.NotNull(result);
+            var redirectToActionResult = (RedirectToActionResult)result;
+            Assert.Equal("JobList", redirectToActionResult.ActionName); // Ensure that the action name is "JobList"
+        }
+
+        [Fact]
+        public void Delete_NoJobOpening_ReturnsRedirectToAction()
+        {
+            // Arrange
+            int jobId = It.IsAny<int>();
+
+            _mockJobOpeningService.Setup(s => s.Delete(jobId));
+
             // Act
             var result = _controller.Delete(jobId);
 
