@@ -15,5 +15,11 @@ namespace Basecode.WebApp.Controllers
         {
             return View();
         }
+
+        [Route("page3-publicapplicationform")]
+        public IActionResult IndexThree()
+        {
+            return View();
+        }
     }
 }
