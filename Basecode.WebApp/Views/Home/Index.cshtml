@@ -56,6 +56,11 @@
     <br />
 </div>
 <hr />
+
+<!--
+    Copy Everything about the modal if you want to use the modal on another functionality.
+    This is just a placeholder window that houses the view from the route.
+-->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -64,16 +69,30 @@
     </div>
 </div>
 
-<div class="modal-overlay"></div> <!-- Add the modal overlay -->
+<div class="modal-overlay"></div> 
+<!-- 
+    Copying Ends Here
+-->
 
 <div>
     <div class="home-heading-bold">APPLICATION TRACKING</div>
     <div class="home-heading1">WANT TO KNOW THE STATUS OF YOUR APPLICATION?</div>
     <br>
+    <!--
+        This  contains the form that allows you to open
+        the modal from the webpage.
+
+        If you want to use the function in another feature, all you have to change is
+         - <form asp-controller="name_of_controller" asp-action="Index" id="name_of_form_id">
+         - add 
+                data-toggle="modal" data-target="#myModal"
+            in the submit button
+        This is connected with the script above
+
+    -->
     <form asp-controller="ApplicationTracking" asp-action="Index" id="ApplicationTrackingForm">
         <div style="display: flex; align-items: center;">
             <input type="number" name="ApplicantId" style="width: 70%; text-align: center; padding: 10px;" placeholder="ENTER YOUR ID" />
-            <!--<button type="submit" style="width: 30%; background-color: #C53211; color: #FFFFFF; padding: 10px;">-->
             <button type="submit" data-toggle="modal" data-target="#myModal" style="width: 30%; background-color: #C53211; color: #FFFFFF; padding: 10px;">
                 Track Application
             </button>
@@ -82,6 +101,16 @@
 </div>
 
 <script>
+    /* 
+        This function below contains the thing that allows you to open
+        the modal from the webpage.
+
+        If you want to use the function in another feature, all you have to change is
+         - $('#name_of_form_id').submit(function (event) {
+         - $.ajax({
+                url: '/name_of_the_view/name_of_the_page_in_the_view',
+        This is connected with the form above
+    */
     $(document).ready(function () {
         $('#ApplicationTrackingForm').submit(function (event) {
             event.preventDefault(); // Prevent default form submission
