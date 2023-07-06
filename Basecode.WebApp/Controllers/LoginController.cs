@@ -20,6 +20,14 @@ namespace Basecode.WebApp.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Login method for the user
+        /// </summary>
+        /// <param name="loginModel">Model containing the Username and Password of the user</param>
+        /// <returns>
+        /// If successful, redirects to the index page of the HR Home Page
+        /// and if not, redirects back to the login page.
+        /// </returns>
         public Task<IActionResult> Login([Bind("Username,Password")] LoginModel loginModel)
         {
             var login = _loginService.GetByUsername(loginModel.Username);

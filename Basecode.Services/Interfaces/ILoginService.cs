@@ -10,6 +10,11 @@ namespace Basecode.Services.Interfaces
 {
     public interface ILoginService
     {
+        /// <summary>
+        /// Lets user login to the system.
+        /// </summary>
+        /// <param name="username">The username of the user</param>
+        /// <returns>Returns a SignUpViewModel</returns>
         SignUpViewModel GetByUsername(string username);
     }
 }
