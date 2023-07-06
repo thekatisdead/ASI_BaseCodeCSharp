@@ -1,4 +1,5 @@
 ﻿@using Basecode.WebApp.Models;
+@using Basecode.Data.Models;
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_NoLayout.cshtml";
@@ -18,6 +19,7 @@
 -->
 @if (Model.JobApplied != -1)
 {
+    var jobOpening = ViewData["JobOpening"] as JobOpening;
     <div class="details">
         <div class="details-main" style="display: flex; justify-content: space-between;">
             <div class="tracking-header left">@Model.Lastname, @Model.Firstname</div>
@@ -25,8 +27,17 @@
         </div>
 
         <div class="details-sub">
-            <h3>JOB NAME</h3>
-            <h6>Job Position</h6>
+            @if (jobOpening == null)
+            {
+                <h3>JOB NAME</h3>
+                <h6>Job Position</h6>
+            }
+            else
+            {
+                <h3>@jobOpening.JobType</h3>
+                <h6>@jobOpening.Position</h6>
+            }
+           
             <h4>Status: @Model.Tracker</h4>
             <h4>Grading: @Model.Grading</h4>
             <h4>Last Updated: @Model.UpdatedTime</h4>
