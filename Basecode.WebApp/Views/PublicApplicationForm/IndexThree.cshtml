@@ -4,34 +4,41 @@
     ViewData["Title"] = "[Page 3] Public Application Form";
 }
 
-<div class="row">
-    <link rel="stylesheet" href="~/css/publicapplicationformthree.css" />
-    <div class="col-md-4">
-        <form asp-action="IndexThree">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div className="container">
-                <div class="title">
-                    <label class="text">Public Job Application Form</label>
-                </div>
-                <div class="line"></div>
-                <div class="info">
-                    <label class="text">Curriculum Vitae</label>
-                </div>
-                <div class="lineone"></div>
-                <div class="form-group-cv">
-                    <label asp-for="CurriculumVitae" class="control-label-cv">Please upload your CV here.</label>
-                    <div class="input-container" type="file">
-                        <input asp-for="CurriculumVitae" class="form-control-cv" type="file" />
-                        <img alt="image" src="~/publicapplicationformimages/upload.png" class="image" />
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="~/css/publicapplicationformthree.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-controller="" form asp-action="">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div className="container">
+                    <div class="title">
+                        <label class="text">Public Job Application Form</label>
                     </div>
-                    <span asp-validation-for="CurriculumVitae" class="text-danger-cv"></span>
+                    <div class="line"></div>
+                    <div class="info">
+                        <label class="text">Curriculum Vitae</label>
+                    </div>
+                    <div class="lineone"></div>
+                    <div class="form-group-cv">
+                        <label asp-for="CurriculumVitae" class="control-label-cv">Please upload your CV here.</label>
+                        <div class="input-container" type="file">
+                            <input asp-for="CurriculumVitae" class="form-control-cv" type="file" />
+                            <img alt="image" src="~/publicapplicationformimages/upload.png" class="image" />
+                        </div>
+                        <span asp-validation-for="CurriculumVitae" class="text-danger-cv"></span>
+                    </div>
+                    <div class="form-group-submit">
+                        <button type="submit" class="btn-primary">Submit</button>
+                    </div>
                 </div>
-                <div class="form-group-submit">
-                    <button type="submit" class="btn-primary">Submit</button>
-                </div>
-            </div>
-        </form>
+            </form>
+            <div class="triangle"></div>
+            <div class="triangle2"></div>
+        </div>
     </div>
-</div>
-<div class="triangle"></div>
-<div class="triangle2"></div>
+</body>
+</html>
