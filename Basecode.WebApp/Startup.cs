@@ -25,6 +25,7 @@ namespace Basecode.WebApp
             // Add services to the container.
             services.AddControllersWithViews();
             services.AddScoped<ApplicationTrackingRepository>();
+            services.AddScoped<JobOpeningRepository>();
             services.AddScoped<BasecodeContext>();
         }
 

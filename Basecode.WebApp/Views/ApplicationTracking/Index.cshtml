@@ -1,60 +1,67 @@
 ﻿@using Basecode.WebApp.Models;
+@using Basecode.Data.Models;
 @{
     ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_NoLayout.cshtml";
+
 }
 <partial></partial>
-<div class="main">
+<header>
+    <link rel="stylesheet" href="~/css/homepage.css" />
     <link rel="stylesheet" href="~/css/applicationtracking.css" asp-append-version="true" />
+</header>
 
-    <div class="header">
-        <div class="logo">
-            <img src="~/signupimages/logo.jpg" alt="Logo" class="logo-img">
+<!--
+    This code depends on whether or not the job applied exists.
+    If the model returns a null row, the controller will make the JobApplied -1
+    As long as it is not a null row, the modal will display the thing
+    Else, return an error saying that the ID does not exist
+-->
+@if (Model.JobApplied != -1)
+{
+    var jobOpening = ViewData["JobOpening"] as JobOpening;
+    <div class="details">
+        <div class="details-main" style="display: flex; justify-content: space-between;">
+            <div class="tracking-header left">@Model.Lastname, @Model.Firstname</div>
+            <div class="tracking-header right">ID: @Model.Id</div>
         </div>
-        <h1>Application Tracking</h1>
-    </div>
 
-    <div class="body">
-        <!--
-            This code depends on whether or not the job applied exists.
-            If the model returns a null row, the controller will make the JobApplied -1
-            As long as it is not a null row, the modal will display the thing
-            Else, return an error saying that the ID does not exist
-        -->
-        @if (Model.JobApplied != -1)
-        {
-            <div class="details">
-                <div class="details-main">
-                    <h2>@Model.Lastname , @Model.Firstname</h2>
-                    <h5>ID: @Model.Id</h5>
-                </div>
-
-                <div class="details-sub">
-                    <h3>JOB NAME</h3>
-                    <h6>Job Position</h6>
-                    <h4>Status: @Model.Tracker</h4>
-                    <h4>Grading: @Model.Grading</h4>
-                    <h4>Last Updated: @Model.UpdatedTime</h4>
-                </div>
-            </div>
-        }
-        else
-        {
-            <p>Database Error: No ID with the value [@Model.Id] was found in the Application Database</p>
-        }
-        
-        <!--
-            Button Comment
-        -->
-        <div>
-            <a style="text-decoration:none; color:white;" asp-controller="Home" asp-action="Index"/>
-            <button class="btn">Back</button>
+        <div class="details-sub">
+            @if (jobOpening == null)
+            {
+                <h3>JOB NAME</h3>
+                <h6>Job Position</h6>
+            }
+            else
+            {
+                <h3>@jobOpening.JobType</h3>
+                <h6>@jobOpening.Position</h6>
+            }
+           
+            <h4>Status: @Model.Tracker</h4>
+            <h4>Grading: @Model.Grading</h4>
+            <h4>Last Updated: @Model.UpdatedTime</h4>
         </div>
-        
     </div>
+}
+else
+{
+    <p>Database Error: No ID with the value [@Model.Id] was found in the Application Database</p>
+}
 
-    <div class="triangle"></div>
-
+<!--
+    Button Comment
+-->
+<div>
+    <!--<a style="text-decoration:none; color:white;" asp-controller="Home" asp-action="Index" />-->
+    <button class="btn close-button">Back</button>
 </div>
+
+<script>
+    $('.close-button').click(function () {
+        $('#myModal').modal('hide');
+    });
+</script>
 
 
 

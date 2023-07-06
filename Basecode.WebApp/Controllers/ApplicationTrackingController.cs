@@ -1,20 +1,24 @@
 ﻿using Basecode.Data.Models;
+using Basecode.WebApp.Models;
 using Basecode.Data.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using NuGet.Protocol;
 using System;
-using Basecode.WebApp.Models;
+using Basecode.Data.Interfaces;
+using Basecode.Main.Models;
 
 namespace Basecode.WebApp.Controllers
 {
     public class ApplicationTrackingController : Controller
     {
         private readonly ApplicationTrackingRepository _repository;
+        private readonly JobOpeningRepository _jobRepository;
 
-        public ApplicationTrackingController(ApplicationTrackingRepository repository)
+        public ApplicationTrackingController(ApplicationTrackingRepository applicationRepository, JobOpeningRepository jobOpeningRepository)
         {
-            _repository = repository;
+            _repository = applicationRepository;
+            _jobRepository = jobOpeningRepository;
         }
         public IActionResult Index(int ApplicantId)
         {
@@ -38,8 +42,29 @@ namespace Basecode.WebApp.Controllers
                 };
                 return View(model);
             }
+
+            var jobOpening = _jobRepository.GetById(applicationTracking.JobApplied);
+
+            if (jobOpening == null)
+            {
+                // Set error message in TempData
+                TempData["ErrorMessage"] = "Job Opening not found.";
+                ApplicationTrackingModel model = new ApplicationTrackingModel
+                {
+                    Id = ApplicantId,
+                    FirstName = "Aima",
+                    LastName = "Gudgurl",
+                    EmailAddress = "",
+                    JobApplied = -1,
+                    Tracker = "",
+                    Grading = "Ongoing",
+                };
+                return View(model);
+            }
+
+
+            ViewData["jobOpening"] = jobOpening;
             return View(applicationTracking);
-            //return View(db);
         }
 
         public IActionResult ErrorPopup()
