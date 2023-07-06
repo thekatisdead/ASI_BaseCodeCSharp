@@ -25,14 +25,14 @@
                     <form asp-controller="Login" asp-action="Login">
 
                     <div class="forUsername">
-                        <label class="control-label-firstname"></label>
+                            <label class="control-label-firstname"></label>
                         <input name="Username" asp-for="Username" placeholder="Username" class="username" />
                         <span asp-validation-for="Username"></span>
                     </div>
 
                     <div class="forPassword">
-                        <label class="control-label-lastname"></label>
-                        <input asp-for="Password" placeholder="Password" class="password" />
+                            <label class="control-label-lastname"></label>
+                        <input name="Password" asp-for="Password" placeholder="Password" class="password" />
                         <span asp-validation-for="Password"></span>
                     </div>
 
@@ -46,6 +46,12 @@
                     <div class="button-box">
                         <button class="forSubmit">LOGIN</button>
                     </div>
+
+                        @section Scripts {
+                            @{
+                                await Html.RenderPartialAsync("_ValidationScriptsPartial");
+                            }
+                        }
 
                 </form>
             </div>
