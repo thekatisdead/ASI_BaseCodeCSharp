@@ -19,7 +19,7 @@ namespace Basecode.Test.Controllers
         }
 
         [Fact]
-        public void Index_ReturnsViewWithModel()
+        public void Index_HasApplicants_ReturnsViewWithModel()
         {
             // Arrange
             var testData = new List<ApplicantListViewModel>
