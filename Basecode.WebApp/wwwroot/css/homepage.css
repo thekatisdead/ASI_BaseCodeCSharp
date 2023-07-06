@@ -19,19 +19,50 @@ body {
     float: left;
 }
 
-.text-center {
+.home-applicant {
+    background-color: #c53211;
+    padding-top: 100px;
+    padding-bottom: 100px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white;
+}
+
+.home-HR {
+    background-color: #7ACFD6;
+    padding-top: 100px;
+    padding-bottom: 100px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white;
+}
+
+.home-heading {
+    font-size: 30px;
+}
+
+.home-heading1 {
+    font-size: 20px;
+}
+
+.home-heading-bold {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.text-home-center {
     font-weight: bold;
     font-family: 'Rubik', Arial, sans-serif;
     text-align: center;
     color: #FFFFFF;
 }
 
-.text-center1 {
+.text-home-center1 {
     font-weight: bold;
     text-align: center;
 }
 
-.text-container {
+.text-home-container {
     width: 60%;
     margin: 0 auto;
     text-align: center;
@@ -39,7 +70,7 @@ body {
     /* Add any other desired styles for the text container */
 }
 
-.text-container1 {
+.text-home-container1 {
     width: 60%;
     margin: 0 auto;
     text-align: center;
