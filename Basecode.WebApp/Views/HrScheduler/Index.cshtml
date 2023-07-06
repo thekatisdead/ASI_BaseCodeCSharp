@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Hr Scheduler</title>
+    <link rel="stylesheet" href="~/css/hrscheduler.css" asp-append-version="true" />
+</head>
+<body>
+    <form>
+        <h2>Interviewer Schedule Input Form</h2>
+        <hr>
+
+        <div>
+            <h3 class="section-title">Interviewer Details</h3>
+            <hr class="divider">
+            <h4 class="section-title">Interviewer's Name</h4>
+            <div class="input-group">
+                <input type="text" id="first-name" class="text-input">
+                <br>
+                <label for="first-name">First Name</label>
+            </div>
+            <div class="input-group">
+                <input type="text" id="last-name" class="text-input">
+                <br>
+                <label for="last-name">Last Name</label>
+            </div>
+            <h4 class="section-title">Email Address</h4>
+            <div class="input-email">
+                <input type="email" id="email" class="text-input" placeholder="email@email.com">
+                <br>
+                <br>
+                <br>
+            </div>
+        </div>
+
+        <div>
+            <h3 class="section-title">Availability</h3>
+            <hr class="divider">
+            <h4 class="section-title">Date</h4>
+            <div class="input-group-availability">
+                <input type="date" id="date" class="date-input" placeholder="dd/mm/yyyy">
+                <br>
+            </div>
+            <h4 class="section-title">Time</h4>
+            <div class="input-group-availability">
+                <input type="time" id="start-time" class="time-input" placeholder="00:00">
+                <br>
+                <label for="start-time">Start Time</label>
+            </div>
+            <div class="input-group-availability">
+                <input type="time" id="end-time" class="time-input" placeholder="00:00">
+                <br>
+                <label for="end-time">End Time</label>
+            </div>
+            <br>
+            <label for="instructions">Additional Instructions (Optional):</label>
+            <textarea id="instructions" class="instructions-textarea"></textarea>
+        </div>
+
+        <button type="submit" class="save-button">Save</button>
+    </form>
+    <div class="triangle"></div>
+    <div class="triangle1"></div>
+</body>
+</html>
