@@ -4,15 +4,16 @@
 }
 
 <header>
+    <link rel="stylesheet" href="~/css/modal.css" />
     <link rel="stylesheet" href="~/css/homepage.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </header>
 
 <div class="container">
     <div>
-        <div class="half-width" style="background-color: #c53211;padding-top:100px; padding-bottom:100px; background-image: url('../img/home-applicant.png'); background-repeat: no-repeat; background-size: cover; color:white;">
-            <h2 class="text-center">@Html.Raw("LOOKING FOR A JOB")</h2>
-            <div class="text-container">
+        <div class="half-width home-applicant" style="background-image: url('../img/home-applicant.png');">
+            <div class="text-home-center home-heading">@Html.Raw("LOOKING FOR A JOB")</div>
+            <div class="text-home-container">
                 @Html.Raw("Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.")
             </div>
             <br />
@@ -24,9 +25,9 @@
 
 
     <div>
-        <div class="half-width" style="background-color: #7ACFD6;padding-top:100px; padding-bottom:100px; background-image: url('../img/home-hr.png'); background-repeat: no-repeat; background-size: cover;">
-            <h2 class="text-center">@Html.Raw("MANAGE YOUR JOBS")</h2>
-            <div class="text-container">
+        <div class="half-width home-HR" style="background-image: url('../img/home-hr.png');">
+            <div class="text-home-center home-heading">@Html.Raw("MANAGE YOUR JOBS")</div>
+            <div class="text-home-container">
                 @Html.Raw("Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.")
             </div>
             <br />
@@ -39,9 +40,9 @@
 
 <hr />
 <div class="container">
-    <h2 class="text-center1">Life is not all about work and no play.</h2>
+    <div class="text-home-center1 home-heading">Life is not all about work and no play.</div>
     <br />
-    <div class="text-container1">
+    <div class="text-home-container1">
         Alliance Software, Inc. is a global IT services and solutions company. Alliance was established in 2000 and has since grown to
         become one of the Philippines' largest and most respected independent software development outsourcing company.
     </div>
@@ -54,20 +55,90 @@
     <br />
 </div>
 <hr />
+
+<!--
+    Copy Everything about the modal if you want to use the modal on another functionality.
+    This is just a placeholder window that houses the view from the route.
+-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <!-- Modal content goes here -->
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay"></div> 
+<!-- 
+    Copying Ends Here
+-->
+
 <div>
-    <h4>APPLICATION TRACKING</h4>
-    <h5>WANT TO KNOW THE STATUS OF YOUR APPLICATION?</h5>
+    <div class="home-heading-bold">APPLICATION TRACKING</div>
+    <div class="home-heading1">WANT TO KNOW THE STATUS OF YOUR APPLICATION?</div>
     <br>
+    <!--
+        This  contains the form that allows you to open
+        the modal from the webpage.
+
+        If you want to use the function in another feature, all you have to change is
+         - <form asp-controller="name_of_controller" asp-action="Index" id="name_of_form_id">
+         - add 
+                data-toggle="modal" data-target="#myModal"
+            in the submit button
+        This is connected with the script above
+
+    -->
     <form asp-controller="ApplicationTracking" asp-action="Index" id="ApplicationTrackingForm">
         <div style="display: flex; align-items: center;">
             <input type="number" name="ApplicantId" style="width: 70%; text-align: center; padding: 10px;" placeholder="ENTER YOUR ID" />
-            <button type="submit" style="width: 30%; background-color: #C53211; color: #FFFFFF; padding: 10px;">
+            <button type="submit" data-toggle="modal" data-target="#myModal" style="width: 30%; background-color: #C53211; color: #FFFFFF; padding: 10px;">
                 Track Application
             </button>
         </div>
     </form>
 </div>
 
+<script>
+    /* 
+        This function below contains the thing that allows you to open
+        the modal from the webpage.
+
+        If you want to use the function in another feature, all you have to change is
+         - $('#name_of_form_id').submit(function (event) {
+         - $.ajax({
+                url: '/name_of_the_view/name_of_the_page_in_the_view',
+        This is connected with the form above
+    */
+    $(document).ready(function () {
+        $('#ApplicationTrackingForm').submit(function (event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Get the form data
+            var formData = $(this).serialize();
+
+            // Send the form data to the server using Ajax
+            $.ajax({
+                url: '/ApplicationTracking/Index',
+                type: 'POST',
+                data: formData,
+                success: function (response) {
+                    // Handle the response from the server
+                    // Open the modal and display the response
+                    $('#myModal .modal-content').html(response);
+                    $('#myModal').modal('show');
+                    $('#myModal').on('shown.bs.modal', function () {
+                        $(this).modal('handleUpdate');
+                    });
+                },
+                error: function () {
+                    // Handle the error case
+                    alert('Error submitting the form');
+                }
+            });
+        });
+    });
+</script>
 
 
 

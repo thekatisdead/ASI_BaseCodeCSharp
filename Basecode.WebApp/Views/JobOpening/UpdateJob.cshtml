@@ -20,18 +20,22 @@
     <main>
         <section class="job-form">
             <form asp-action="Update">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="Id" />
                 <div class="form-group">
                     <label for="position" class="label-bold">Position:</label>
                     <input asp-for = "Position" class="input-large">
+                    <span asp-validation-for="Position" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label for="job-type" class="label-bold">Job Type:</label>
                     <input asp-for="JobType" class="input-large">
+                    <span asp-validation-for="JobType" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label for="salary" class="label-bold">Salary:</label>
                     <input asp-for="Salary" class="input-large">
+                    <span asp-validation-for="Salary" class="text-danger"></span>
                 </div>
                 <div class="form-row">
                     <label for="schedule" class="label-bold">Schedule:</label>
@@ -40,19 +44,28 @@
                     <div class="input-group">
                         <label for="hours" class="small-label">Hours:</label>
                         <input asp-for="Hours" class="input-large">
+                        <span asp-validation-for="Hours" class="text-danger"></span>
                     </div>
                     <div class="input-group">
                         <label for="shift" class="small-label">Shift:</label>
                         <input asp-for="Shift" class="input-large">
+                        <span asp-validation-for="Shift" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="details" class="label-bold">Description:</label>
                     <input asp-for="Description" class="input-large">
+                    <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
                 <div class="button-container">
                     <button type="submit" class="btn">Update</button>
                 </div>
+
+                @section Scripts {
+                    @{
+                        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+                    }
+                }
             </form>
         </section>
     </main>
