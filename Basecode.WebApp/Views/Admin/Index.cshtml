@@ -1,0 +1,22 @@
+﻿@{
+    Layout = "~/Views/Shared/_NoLayout.cshtml";
+}
+<html>
+    <head>  
+    </head>
+    <body>
+        <div class="container-fluid" style="position:absolute;right:0px">
+            <div class="row flex-nowrap">
+                   @await Html.PartialAsync("./_AdminSideBar")  
+                  <div class="col-lg ">
+                     <div class="row flex-nowrap">
+                        @await Html.PartialAsync("./_UpperBarAdmin")                        
+                     </div>
+                  </div>
+             </div>           
+          </div>
+       
+    </body>
+</html>
+
+
