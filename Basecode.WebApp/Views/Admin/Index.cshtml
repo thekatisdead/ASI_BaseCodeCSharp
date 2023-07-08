@@ -5,15 +5,18 @@
     <head>  
     </head>
     <body>
-        <div class="container-fluid" style="position:absolute;right:0px">
+        <div class="container-fluid" style="position:absolute;right:0px;font-family: Helvetica">
             <div class="row flex-nowrap">
                    @await Html.PartialAsync("./_AdminSideBar")  
                   <div class="col-lg ">
                      <div class="row flex-nowrap">
                         @await Html.PartialAsync("./_UpperBarAdmin")                        
                      </div>
+                     <div class="row flex-nowrap bg-light" style="height:87%">
+                            <h2 class="p-5">Dashboard</h2>         
+                     </div>
                   </div>
-             </div>           
+             </div>             
           </div>
        
     </body>
