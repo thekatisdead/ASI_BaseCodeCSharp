@@ -7,14 +7,12 @@ using System.Threading.Tasks;
 
 namespace Basecode.Data.Interfaces
 {
-    public interface IApplicantListRepository
+    public interface ICurrentHiresRepository
     {
         /// <summary>
         /// Retrieves all applicants from the database.
         /// </summary>
         /// <returns>An IQueryable of Applicant containing all applicants.</returns>
-        IQueryable<Applicant> RetrieveAll();
-
-        Applicant GetById(int id);
+        void AddHires(CurrentHires currentHires);
     }
 }

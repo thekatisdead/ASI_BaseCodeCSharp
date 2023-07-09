@@ -1,4 +1,5 @@
 ﻿using Basecode.Data.Models;
+using Basecode.Data.Repositories;
 using Basecode.Services.Interfaces;
 using Basecode.Services.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -8,6 +9,7 @@ namespace Basecode.WebApp.Controllers
     public class ApplicantListController : Controller
     {
         private readonly IApplicantListService _service;
+        private readonly CurrentHiresRepository _repository;
 
         public ApplicantListController(IApplicantListService service)
         {
@@ -37,6 +39,12 @@ namespace Basecode.WebApp.Controllers
                 return NotFound(); // or handle the case when applicant is not found
             }
             data.Tracker = status;
+
+            // needs to check if the currentHires exist
+            if (status == "Hired")
+            {
+                _repository.AddHire(applicantID,data.JobApplied);
+            }
 
             var _allData = _service.RetrieveAll();
             return View(_allData);
