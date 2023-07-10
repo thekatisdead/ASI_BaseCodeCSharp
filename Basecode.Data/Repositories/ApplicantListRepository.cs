@@ -1,5 +1,6 @@
 ﻿using Basecode.Data.Interfaces;
 using Basecode.Data.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,13 @@ namespace Basecode.Data.Repositories
         public IQueryable<Applicant> RetrieveAll()
         {
             return this.GetDbSet<Applicant>();
+        }
+
+        public Applicant GetById(int id)
+        {
+            // warning here is that it is possible that the return below
+            // will return a null value
+            return _context.Applicant.FirstOrDefault(a => a.Id == id);
         }
 
     }
