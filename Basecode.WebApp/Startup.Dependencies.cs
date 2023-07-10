@@ -22,6 +22,7 @@ namespace Basecode.WebApp
             services.AddScoped<ILoginService, LoginService>();
             services.AddScoped<IJobOpeningService, JobOpeningService>();
             services.AddScoped<IUserViewService, UserViewService>();
+            services.AddScoped<IPublicApplicationFormService, PublicApplicationFormService>();
 
 
             // Repositories
@@ -31,6 +32,7 @@ namespace Basecode.WebApp
             services.AddScoped<ILoginRepository, LoginRepository>();
             services.AddScoped<IJobOpeningRepository, JobOpeningRepository>();
             services.AddScoped<IUserViewRepository, UserViewRepository>();
+            services.AddScoped<IPublicApplicationFormRepository, PublicApplicationFormRepository>();
         }
     }
 }

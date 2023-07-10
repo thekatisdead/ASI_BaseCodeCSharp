@@ -24,7 +24,7 @@ namespace Basecode.Test.Controllers
         }
 
         //[Fact]
-        //public void SignUp_ReturnsRedirectToAction()
+        //public void SignUp_IsValid_ReturnsRedirectToAction()
         //{
         //    //Arrange
         //    var testData = new SignUpViewModel
