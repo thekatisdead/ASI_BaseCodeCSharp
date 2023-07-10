@@ -6,10 +6,12 @@ namespace Basecode.WebApp.Controllers
     public class AdminController : Controller
     {
         private readonly IJobOpeningService _jobOpeningService;
+        private readonly IUserViewService _userService;
 
-        public AdminController(IJobOpeningService jobOpeningService)
+        public AdminController(IJobOpeningService jobOpeningService, IUserViewService userService)
         {
             _jobOpeningService= jobOpeningService;
+            _userService = userService;
         }
         public IActionResult Index()
         {
@@ -19,6 +21,11 @@ namespace Basecode.WebApp.Controllers
         {
             var job = _jobOpeningService.RetrieveAll();
             return View(job);
+        }
+        public IActionResult UserManagement()
+        {
+            var users = _userService.RetrieveAll();
+            return View(users);
         }
     }
 }
