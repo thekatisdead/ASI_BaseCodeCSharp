@@ -1,9 +1,5 @@
 name: 00-Base
-on:
-   push:
-      branches: [routing]
-   pull:
-      branches: [routing]
+on: [push]
  jobs:
    build:
       runs-on: ubuntu-latest
