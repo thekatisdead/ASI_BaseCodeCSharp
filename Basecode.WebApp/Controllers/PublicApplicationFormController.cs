@@ -23,34 +23,6 @@ namespace Basecode.WebApp.Controllers
         }
 
         [HttpPost]
-        [Route("page2-public-application-form")]
-        public IActionResult IndexTwo(PublicApplicationFormViewModel viewModel)
-        {
-            // Update the view model with the submitted data
-            _viewModel.FirstName = viewModel.FirstName;
-            _viewModel.LastName = viewModel.LastName;
-            _viewModel.PhoneNumber = viewModel.PhoneNumber;
-            _viewModel.EmailAddress = viewModel.EmailAddress;
-            _viewModel.Address = viewModel.Address;
-
-            // Continue to the next view
-            return View("IndexTwo", _viewModel);
-        }
-
-        [HttpPost]
-        [Route("page3-public-application-form")]
-        public IActionResult IndexThree(PublicApplicationFormViewModel viewModel)
-        {
-            // Update the view model with the submitted data
-            _viewModel.Time = viewModel.Time;
-            _viewModel.PositionType = viewModel.PositionType;
-            _viewModel.EmploymentType = viewModel.EmploymentType;
-
-            // Continue to the next view
-            return View("IndexThree", _viewModel);
-        }
-
-        [HttpPost]
         public IActionResult AddForm(PublicApplicationFormViewModel viewModel)
         {
             // Update the view model with the submitted data
