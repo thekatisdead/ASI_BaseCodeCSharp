@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,7 +30,7 @@ namespace Basecode.Data.ViewModels
         public string? ReferenceThreeFullName { get; set; }
         public string? RelationshipThree { get; set; }
         public string? ContactInfoThree { get; set; }
-        public string? CurriculumVitae { get; set; }
+        public byte[]? CurriculumVitae { get; set; }
         public DateTime? CreatedTime { get; set; } = DateTime.Now;
         public string? CreatedBy { get; set; } = System.Environment.UserName;
     }
