@@ -12,7 +12,7 @@
 <body>
     <div class="row">
         <div class="col-md-4">
-            <form asp-controller="" form asp-action="">
+            <form asp-controller="PublicApplicationForm" form asp-action="AddForm">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div className="container">
                     <div class="title">
@@ -25,8 +25,8 @@
                     <div class="lineone"></div>
                     <div class="form-group-cv">
                         <label asp-for="CurriculumVitae" class="control-label-cv">Please upload your CV here.</label>
-                        <div class="input-container" type="file">
-                            <input asp-for="CurriculumVitae" class="form-control-cv" type="file" />
+                        <div class="input-container">
+                            <input asp-for="CurriculumVitae" class="form-control-cv" />
                             <img alt="image" src="~/publicapplicationformimages/upload.png" class="image" />
                         </div>
                         <span asp-validation-for="CurriculumVitae" class="text-danger-cv"></span>
