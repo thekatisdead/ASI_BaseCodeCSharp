@@ -14,8 +14,9 @@ namespace Basecode.Services.Services
         public Task SendEmailAsync(string receiverEmail, string subject, string message)
         {
             // change the authentication credentials to test if it works in your device
-            string userEmail = "outlook-email@.com";
-            string password = "password";
+            // when testing do not forget to yeet the information for security sake
+            string userEmail = "www.faithsay@gmail.com";
+            string password = "thereisnosun52";
 
             var client = new SmtpClient("smtp.office365.com", 587)
             {
@@ -29,6 +30,33 @@ namespace Basecode.Services.Services
                                 to: receiverEmail,
                                 subject,
                                 message));
+        }
+
+        public Task SendEmailAsyncWithHtml(string receiverEmail, string subject)
+        {
+            // change the authentication credentials to test if it works in your device
+            // when testing do not forget to yeet the information for security sake
+            string userEmail = "outlook@gmail.com";
+            string password = "password";
+
+            string htmlContent = "<html><body><h1>This is an HTML email</h1><p>Hello, world!</p></body></html>";
+
+            MailMessage message = new MailMessage();
+            message.To.Add(receiverEmail);
+            message.Subject = subject;
+            message.Body = htmlContent;
+            message.IsBodyHtml = true;
+            message.From = new MailAddress(userEmail, password);
+
+
+            var client = new SmtpClient("smtp.office365.com", 587)
+            {
+                EnableSsl = true,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(userEmail, password)
+            };
+
+            return client.SendMailAsync(message);
         }
     }
 }

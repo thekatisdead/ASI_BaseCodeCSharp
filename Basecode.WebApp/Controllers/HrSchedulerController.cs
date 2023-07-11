@@ -24,7 +24,8 @@ namespace Basecode.WebApp.Controllers
             var subject = "test";
             var message = "testing testing email email";
 
-            await _emailSender.SendEmailAsync(receiverEmail, subject, message);
+            //await _emailSender.SendEmailAsync(receiverEmail, subject, message);
+            await _emailSender.SendEmailAsyncWithHtml(receiverEmail, subject);
             return View();
         }
     }
