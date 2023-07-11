@@ -18,12 +18,10 @@
                     <div class="card p-3 mb-2">
                         <div class="mt-5 mb-5">
                             <h5 class="card-title">@job.Position</h5>
-                            <div class="row d-flex">
-                                <div class="col-md-4 bg-light"> <h6 class="card-subtitle mb-2 text-muted">@job.JobType</h6> </div>
-                                <div class="col-md-4 bg-light"> <h6 class="card-subtitle mb-2 text-muted">&#8369;@job.Salary</h6> </div>
-                                <div class="col-md-4 bg-light"> <h6 class="card-subtitle mb-2 text-muted">@job.Hours</h6> </div>
-                                <div class="col-md-4 bg-light"> <h6 class="card-subtitle mb-2 text-muted"> @job.Shift Shift</h6> </div>
-                            </div>                          
+                            <span class="text-light p-1" style="background-color:gray;margin-left:5px">@job.JobType</span>
+                            <span class="text-light p-1" style="background-color:gray;margin-left:5px">&#8369;@job.Salary</span>
+                            <span class="text-light p-1" style="background-color:gray;margin-left:5px">@job.Hours hrs</span>
+                            <span class="text-light p-1" style="background-color:gray;margin-left:5px">@job.Shift Shift</span>
                             <p class="card-text">@job.Description</p>
                             <button class="btn text-light" style="background-color:#c53211">Apply Now!</button>
                         </div>
