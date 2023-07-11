@@ -4,11 +4,6 @@ using Basecode.Services.Interfaces;
 using Basecode.WebApp.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Basecode.Test.Controllers
 {
@@ -93,7 +88,7 @@ namespace Basecode.Test.Controllers
 
         [Fact]
         public void UpdateJob_NoJobOpeningFound_ReturnsJobOpeningViewModel()
-        { 
+        {
             //Arrange
             int jobId = It.IsAny<int>();
 
@@ -139,7 +134,7 @@ namespace Basecode.Test.Controllers
 
         [Fact]
         public void Update_NoJobOpening_ReturnsRedirectToAction()
-        { 
+        {
             // Arrange
             var jobOpening = new JobOpening();
 

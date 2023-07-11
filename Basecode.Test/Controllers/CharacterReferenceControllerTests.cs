@@ -1,14 +1,8 @@
-﻿using Basecode.Data.Models;
-using Basecode.Data.ViewModels;
+﻿using Basecode.Data.ViewModels;
 using Basecode.Services.Interfaces;
 using Basecode.WebApp.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Basecode.Test.Controllers
 {
@@ -42,8 +36,8 @@ namespace Basecode.Test.Controllers
                 JobTitle = "Software Developer",
                 WorkedWithCandidate = true,
                 ReasonToHire = "Good"
-            };  
-            
+            };
+
             _mockCharacterReferenceService.Setup(s => s.AddCharacterReference(testData));
 
             // Act
@@ -52,7 +46,7 @@ namespace Basecode.Test.Controllers
             // Assert
             Assert.NotNull(result);
             var redirectToActionResult = (RedirectToActionResult)result;
-            Assert.Equal("Index", redirectToActionResult.ActionName); 
+            Assert.Equal("Index", redirectToActionResult.ActionName);
         }
 
         [Fact]
