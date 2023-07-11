@@ -2,17 +2,22 @@
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #2E3830;
+    background-color: #e6dbc9;
 }
 
 form {
     height: 870px;
     width: 70%;
-    margin: 0 auto;
+    margin: 20px auto;
     padding: 20px;
     background-color: #FFFFFF;
-    border-radius: 20px;
+    border-radius: 15px;
     position: relative;
+}
+
+header {
+    background-color: #c53211;
+    display: flex;
 }
 
 h2 {
@@ -136,12 +141,12 @@ label[for="instructions"] {
 
 .triangle {
     position: absolute;
-    top: 57px;
-    left: 0;
+    bottom: 0;
+    right: 0;
     width: 0;
     height: 0;
-    border-top: 150px solid #c53211;
-    border-right: 150px solid transparent;
+    border-bottom: 150px solid #c53211;
+    border-left: 150px solid transparent;
     filter: drop-shadow(0 0 10px rgba(0, 0, 0, 10));
 }
 
@@ -151,7 +156,8 @@ label[for="instructions"] {
     right: 0;
     width: 0;
     height: 0;
-    border-bottom: 150px solid #c53211;
-    border-left: 150px solid transparent;
-    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 10));
+    z-index: -1;
+    border-bottom: 250px solid #2E3830;
+    border-left: 250px solid transparent;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 10);
 }
