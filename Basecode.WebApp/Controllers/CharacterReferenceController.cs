@@ -1,17 +1,30 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Basecode.Data.ViewModels;
+using Basecode.Services.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Basecode.WebApp.Controllers
 {
     public class CharacterReferenceController : Controller
     {
+        private readonly ICharacterReferenceService _service;
+
+        public CharacterReferenceController(ICharacterReferenceService service)
+        {
+            _service = service;
+        }
+
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult Page2()
+        public IActionResult Add(CharacterReferenceViewModel viewModel)
         {
-            return View();
+            // Call the service method to create the form
+            _service.AddCharacterReference(viewModel);
+
+            // Redirect or show a success message to the user
+            return RedirectToAction("Index");
         }
     }
 }

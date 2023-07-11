@@ -17,6 +17,8 @@ namespace Basecode.WebApp
                 cfg.CreateMap<JobOpening, JobOpeningViewModel>();
                 cfg.CreateMap<PublicApplicationForm, PublicApplicationFormViewModel>();
                 cfg.CreateMap<PublicApplicationFormViewModel, PublicApplicationForm>();
+                cfg.CreateMap<CharacterReference, CharacterReferenceViewModel>();
+                cfg.CreateMap<CharacterReferenceViewModel, CharacterReference>();
             });
 
             services.AddSingleton(Config.CreateMapper());

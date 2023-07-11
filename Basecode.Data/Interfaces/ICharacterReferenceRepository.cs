@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Basecode.Data.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,7 @@ namespace Basecode.Data.Interfaces
 {
     public interface ICharacterReferenceRepository
     {
+        CharacterReference GetById(int id);
+        void Add(CharacterReference characterReference);
     }
 }
