@@ -17,6 +17,11 @@ namespace Basecode.Data.Repositories
             _context = context;
         }
 
+        public IQueryable<CharacterReference> RetrieveAll()
+        {
+            return this.GetDbSet<CharacterReference>();
+        }
+
         public CharacterReference GetById(int id)
         {
             return _context.CharacterReference.Find(id);
