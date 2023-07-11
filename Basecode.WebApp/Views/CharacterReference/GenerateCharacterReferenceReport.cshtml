@@ -9,18 +9,7 @@
 <html>
 <head>
     <title>Character Reference Report</title>
-    <link rel="stylesheet" href="~/css/characterreferencereport.css" asp-append-version="true" />
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $("#search-reference").on("keyup", function () {
-                var value = $(this).val().toLowerCase();
-                $(".reference-table tbody tr").filter(function () {
-                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                });
-            });
-        });
-    </script>
+    <link rel="stylesheet" href="~/css/characterreferencereport.css" asp-append-version="true" />  
 </head>
 <body>
     <main>
@@ -66,3 +55,41 @@
     </main>
 </body>
 </html>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#search-reference").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $(".reference-table tbody tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+
+    $(document).ready(function () {
+        $('form').submit(function (event) {
+            var formValid = true;
+
+            // Check each input field for empty value
+            $(this).find('input, select, textarea').each(function () {
+                if (!$(this).val()) {
+                    formValid = false;
+                    $(this).addClass('error');
+                    $(this).siblings('.field-error').text('This field is required.').show();
+                } else {
+                    $(this).removeClass('error');
+                    $(this).siblings('.field-error').hide();
+                }
+            });
+
+            if (!formValid) {
+                event.preventDefault(); // Prevent form submission
+                alert('Please fill out all the required fields.');
+            } else {
+                // Show success message
+                alert('Character reference added successfully!');
+            }
+        });
+    });
+</script>
