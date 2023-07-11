@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -74,7 +75,8 @@ namespace Basecode.Data.ViewModels
         public string? ContactInfoThree { get; set; }
 
         [Required(ErrorMessage = "This field is required.")]
-        public string? CurriculumVitae { get; set; }
+        public byte[]? CurriculumVitae { get; set; }
+
         public DateTime? CreatedTime { get; set; } = DateTime.Now;
         public string? CreatedBy { get; set; } = System.Environment.UserName;
     }

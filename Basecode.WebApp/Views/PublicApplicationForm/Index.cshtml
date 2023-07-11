@@ -12,7 +12,7 @@
 <body>
     <div class="row">
         <div class="col-md-4">
-            <form asp-controller="PublicApplicationForm" asp-action="AddForm">
+            <form asp-controller="PublicApplicationForm" asp-action="AddForm" enctype="multipart/form-data">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <label class="text-public">Public Job Application Form</label>
                         <h5 class="text-position">Position Information</h5>
@@ -169,7 +169,7 @@
                 <div class="straightlinethree"></div>
                 <div class="form-group-cv">
                     <label asp-for="CurriculumVitae" class="control-label-cv">Please upload your CV here.</label>
-                    <input asp-for="CurriculumVitae" class="form-control-cv" placeholder="Curriculum Vitae" />
+                    <input asp-for="CurriculumVitae" type="file" class="form-control-cv" />
                     <span asp-validation-for="CurriculumVitae" class="text-danger-cv"></span>
                     <span class="field-error"></span>
                 </div>
