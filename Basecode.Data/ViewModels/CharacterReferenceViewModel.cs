@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Basecode.Data.Models
+namespace Basecode.Data.ViewModels
 {
-    public class CharacterReference
+    public class CharacterReferenceViewModel
     {
         public int Id { get; set; }
         public string? CandidateFirstName { get; set; }
@@ -23,7 +23,5 @@ namespace Basecode.Data.Models
         public string? ReasonToHire { get; set; }
         public DateTime? CreatedTime { get; set; } = DateTime.Now;
         public string? CreatedBy { get; set; } = System.Environment.UserName;
-        public DateTime? UpdatedTime { get; set; }
-        public string? UpdatedBy { get; set; } = System.Environment.UserName;
     }
 }

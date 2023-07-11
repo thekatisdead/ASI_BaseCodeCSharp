@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Basecode.Data.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace Basecode.Services.Interfaces
 {
     public interface ICharacterReferenceService
     {
-
+        void AddCharacterReference(CharacterReferenceViewModel characterReference);
     }
 }
