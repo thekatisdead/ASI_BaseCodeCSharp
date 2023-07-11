@@ -27,6 +27,7 @@ namespace Basecode.WebApp
             services.AddScoped<ApplicationTrackingRepository>();
             services.AddScoped<JobOpeningRepository>();
             services.AddScoped<BasecodeContext>();
+            services.AddTransient<IEmailSenderService, EmailSenderService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
