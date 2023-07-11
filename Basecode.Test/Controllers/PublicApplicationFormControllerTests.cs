@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 
 namespace Basecode.Test.Controllers
 {
-    public class PublicApplicationFormTests
+    public class PublicApplicationFormControllerTests
     {
         private readonly PublicApplicationFormController _controller;
         private readonly Mock<IPublicApplicationFormService> _mockPublicApplicationFormService;
 
-        public PublicApplicationFormTests()
+        public PublicApplicationFormControllerTests()
         {
             _mockPublicApplicationFormService = new Mock<IPublicApplicationFormService>();
             _controller = new PublicApplicationFormController(_mockPublicApplicationFormService.Object);
