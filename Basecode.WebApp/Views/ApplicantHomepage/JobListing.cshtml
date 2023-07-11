@@ -1,4 +1,6 @@
-﻿@{
+﻿@using Basecode.Data.ViewModels
+@model List<JobOpeningViewModel>
+@{
     ViewData["Title"] = "Applicant Homepage";
     Layout = "~/Views/Shared/_LayoutHR.cshtml";
 }
@@ -9,17 +11,26 @@
     </head>
     <body>
         <div class="container mt-5 mb-3">
-            <div class="row"> 
+            <div class="row">
+                @foreach(var job in Model)
+                {
                 <div class="col-md-4">
-                    <div class="card p-3 mb-2"> 
+                    <div class="card p-3 mb-2">
                         <div class="mt-5 mb-5">
-                                 <h5 class="card-title">Programmer</h5>
-                                 <h6 class="card-subtitle mb-2 text-muted">Full Time &#8369;10,000 8hrs Day Shift</h6>
-                                 <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <h5 class="card-title">@job.Position</h5>
+                            <div class="row d-flex">
+                                <div class="col-md-4 bg-light"> <h6 class="card-subtitle mb-2 text-muted">@job.JobType</h6> </div>
+                                <div class="col-md-4 bg-light"> <h6 class="card-subtitle mb-2 text-muted">&#8369;@job.Salary</h6> </div>
+                                <div class="col-md-4 bg-light"> <h6 class="card-subtitle mb-2 text-muted">@job.Hours</h6> </div>
+                                <div class="col-md-4 bg-light"> <h6 class="card-subtitle mb-2 text-muted"> @job.Shift Shift</h6> </div>
+                            </div>                          
+                            <p class="card-text">@job.Description</p>
                             <button class="btn text-light" style="background-color:#c53211">Apply Now!</button>
                         </div>
                     </div>
                 </div>
+                }
+                
             </div>
         </div>
     </body>
