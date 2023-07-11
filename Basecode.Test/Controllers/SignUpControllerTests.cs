@@ -26,7 +26,7 @@ namespace Basecode.Test.Controllers
         //[Fact]
         //public void SignUp_IsValid_ReturnsRedirectToAction()
         //{
-        //    //Arrange
+        //    Arrange
         //    var testData = new SignUpViewModel
         //    {
         //        Id = 1,
@@ -43,13 +43,13 @@ namespace Basecode.Test.Controllers
 
         //    _mockSignUpService.Setup(s => s.CreateAccount(testData));
 
-        //    // Act
-        //    var result = _controller.CreateAccount(testData) as RedirectToActionResult;
+        //     Act
+        //    var result = _controller.CreateAccount(testData);
 
-        //    // Assert
+        //     Assert
         //    Assert.NotNull(result);
-        //    Assert.Equal("Login", result.ActionName);
-        //    Assert.Null(result.ControllerName);
+        //    var redirectToActionResult = (RedirectToActionResult)result;
+        //    Assert.Equal("Index", redirectToActionResult.ActionName);
 
         //}
     }
