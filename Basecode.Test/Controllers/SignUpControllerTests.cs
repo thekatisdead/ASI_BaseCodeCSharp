@@ -1,14 +1,6 @@
-﻿using Basecode.Data.ViewModels;
-using Basecode.Services.Interfaces;
+﻿using Basecode.Services.Interfaces;
 using Basecode.WebApp.Controllers;
-using Basecode.WebApp.Models;
-using Microsoft.AspNetCore.Mvc;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Basecode.Test.Controllers
 {
