@@ -20,12 +20,15 @@ namespace Basecode.WebApp.Controllers
         public async Task<IActionResult> Index()
         {
             // change the receiver email to test in your device
-            var receiverEmail = "receiver-email@.com";
+            var receiverEmail = "receiver-email@gmail.com";
             var subject = "test";
             var message = "testing testing email email";
+            var companyName = "Alliance";
+            var jobPostion = "Bottom";
 
             //await _emailSender.SendEmailAsync(receiverEmail, subject, message);
-            await _emailSender.SendEmailAsyncWithHtml(receiverEmail, subject);
+            //await _emailSender.SendEmailAsyncWithHtml(receiverEmail, subject);
+            //await _emailSender.SendEmailRejectApplication(receiverEmail, companyName, jobPosition);
             return View();
         }
     }
