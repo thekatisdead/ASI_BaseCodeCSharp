@@ -29,5 +29,20 @@ namespace Basecode.Services.Services
 
             _repository.Add(_mapper.Map<CharacterReference>(characterReference));
         }
+
+        public List<CharacterReferenceViewModel> RetrieveAll()
+        {
+            var data = _repository.RetrieveAll().Select(s => new CharacterReferenceViewModel
+            {
+                Id = s.Id,
+                FirstName = s.FirstName,
+                LastName = s.LastName,
+                JobTitle = s.JobTitle,
+                CandidateFirstName = s.CandidateFirstName,
+                CandidateLastName = s.CandidateLastName
+            }).ToList();
+
+            return data;
+        }
     }
 }

@@ -26,5 +26,12 @@ namespace Basecode.WebApp.Controllers
             // Redirect or show a success message to the user
             return RedirectToAction("Index");
         }
+
+        [Route("CharacterReferenceReport")]
+        public IActionResult GenerateCharacterReferenceReport()
+        {
+            var data = _service.RetrieveAll();
+            return View(data);
+        }
     }
 }

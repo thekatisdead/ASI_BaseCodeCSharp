@@ -9,6 +9,7 @@ namespace Basecode.Services.Interfaces
 {
     public interface ICharacterReferenceService
     {
+        List<CharacterReferenceViewModel> RetrieveAll();
         void AddCharacterReference(CharacterReferenceViewModel characterReference);
     }
 }

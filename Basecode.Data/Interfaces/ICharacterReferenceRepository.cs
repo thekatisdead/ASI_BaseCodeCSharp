@@ -9,6 +9,7 @@ namespace Basecode.Data.Interfaces
 {
     public interface ICharacterReferenceRepository
     {
+        IQueryable<CharacterReference> RetrieveAll();
         CharacterReference GetById(int id);
         void Add(CharacterReference characterReference);
     }
