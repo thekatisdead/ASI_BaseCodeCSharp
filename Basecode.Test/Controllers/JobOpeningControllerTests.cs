@@ -72,7 +72,7 @@ namespace Basecode.Test.Controllers
                 Salary = 123,
                 Hours = 3,
                 Shift = "Morning",
-                Description = "Hello Wordld"
+                Description = "Hello World"
             };
 
             _mockJobOpeningService.Setup(s => s.GetById(jobId)).Returns(testData);
@@ -118,7 +118,7 @@ namespace Basecode.Test.Controllers
                 Salary = 123,
                 Hours = 3,
                 Shift = "Morning",
-                Description = "Hello Wordld",
+                Description = "Hello World",
                 CreatedBy = System.Environment.UserName,
                 UpdatedBy = System.Environment.UserName,
             };
@@ -163,7 +163,7 @@ namespace Basecode.Test.Controllers
                 Salary = 123,
                 Hours = 3,
                 Shift = "Morning",
-                Description = "Hello Wordld"
+                Description = "Hello World"
             };
 
             _mockJobOpeningService.Setup(s => s.GetById(jobId)).Returns(testData);
