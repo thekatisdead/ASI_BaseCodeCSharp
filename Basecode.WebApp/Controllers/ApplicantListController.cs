@@ -3,6 +3,7 @@ using Basecode.Data.Repositories;
 using Basecode.Services.Interfaces;
 using Basecode.Services.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Basecode.WebApp.Controllers
 {
@@ -10,6 +11,7 @@ namespace Basecode.WebApp.Controllers
     {
         private readonly IApplicantListService _service;
         private readonly CurrentHiresRepository _repository;
+        private readonly DbContext _dbContext;
 
         public ApplicantListController(IApplicantListService service)
         {
