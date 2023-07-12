@@ -16,7 +16,6 @@ namespace Basecode.Services.Services
     public class ApplicantListService: IApplicantListService
     {
         private readonly IApplicantListRepository _repository;
-        private readonly DbContext _dbContext;
 
         public ApplicantListService(IApplicantListRepository repository) 
         {
@@ -38,12 +37,6 @@ namespace Basecode.Services.Services
             }).ToList();
 
             return data;
-        }
-
-        public void UpdateApplicant(ApplicantListViewModel applicant)
-        {
-            _dbContext.Update(applicant);
-            _dbContext.SaveChanges();
         }
     }
 }
