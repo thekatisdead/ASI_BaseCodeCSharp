@@ -59,10 +59,29 @@ namespace Basecode.Services.Services
             email.To.Add(new MailboxAddress("Receiver Name", "kaherbieto@outlook.up.edu.ph"));
 
             email.Subject = "Application Update";
+            var bodyBuilder = new BodyBuilder();
+            bodyBuilder.HtmlBody = "<p>Hey,<br>Just wanted to say hi all the way from the land of C#.<br>-- Code guy</p>";
+
+
+            var htmlContent = File.ReadAllText("EmailTemplates/OnUpdate.html");
+
+            // this is to replace the placeholders
+            htmlContent = htmlContent.Replace("{applicantName}", applicantName);
+            htmlContent = htmlContent.Replace("{previousStatus}", previousStatus);
+            htmlContent = htmlContent.Replace("{newStatus}", newStatus);
+
+
             email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
             {
-                Text = $@"<b>Application Name</b><p>This is to inform you that {applicantName}'s status has been changed from {previousStatus} to {newStatus}</p>"
+                /*Text = $@"
+                            <b style=""color: blue;""><h2>Application Name</h2></b>
+                            <p>This is to inform you that {applicantName}'s status has been changed from {previousStatus} to {newStatus}</p>
+                            <hr>
+                            <p style=""color: grey;"">This is an automated email sent via Mailkit. Please do not reply to this email.</p>
+                "*/
+                Text=htmlContent
             };
+
 
             using (var smtp = new SmtpClient())
             {
