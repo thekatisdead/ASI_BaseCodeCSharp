@@ -1,5 +1,9 @@
-﻿using Basecode.Services.Interfaces;
+﻿using Basecode.Data.ViewModels;
+using Basecode.Services.Interfaces;
 using Basecode.WebApp.Controllers;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Moq;
 
 namespace Basecode.Test.Controllers
@@ -15,34 +19,45 @@ namespace Basecode.Test.Controllers
             _controller = new SignUpController(_mockSignUpService.Object);
         }
 
-        //[Fact]
-        //public void SignUp_IsValid_ReturnsRedirectToAction()
-        //{
-        //    Arrange
-        //    var testData = new SignUpViewModel
-        //    {
-        //        Id = 1,
-        //        FirstName = "John",
-        //        LastName = "Doe",
-        //        EmailAddress = "johndoe@gmail.com",
-        //        ContactNumber = "09123456789",
-        //        Address = "Manila",
-        //        Username = "johndoe",
-        //        Password = "123456",
-        //        ConfirmPassword = "123456",
-        //        Role = "Applicant"
-        //    };
+        [Fact]
+        public void CreateAccount_ValidAccount_RedirectsToIndex()
+        {
+            // Arrange
+            var newAccount = new SignUpViewModel
+            {
+                FirstName = "John",
+                LastName = "Doe",
+                EmailAddress = "johndoe@example.com",
+                ContactNumber = "1234567890",
+                Address = "123 Main St",
+                Username = "johndoe",
+                Password = "king",
+                ConfirmPassword = "king",
+                Role = "Applicant"
+            };
 
-        //    _mockSignUpService.Setup(s => s.CreateAccount(testData));
+            _mockSignUpService.Setup(service => service.CreateAccount(It.IsAny<SignUpViewModel>()));
 
-        //     Act
-        //    var result = _controller.CreateAccount(testData);
+            var controller = new SignUpController(_mockSignUpService.Object);
 
-        //     Assert
-        //    Assert.NotNull(result);
-        //    var redirectToActionResult = (RedirectToActionResult)result;
-        //    Assert.Equal("Index", redirectToActionResult.ActionName);
+            var httpContext = new DefaultHttpContext();
+            var tempData = new TempDataDictionary(httpContext, Mock.Of<ITempDataProvider>());
+            controller.TempData = tempData;
 
-        //}
+            controller.ControllerContext = new ControllerContext
+            {
+                HttpContext = httpContext
+            };
+
+            // Act
+            var result = controller.CreateAccount(newAccount);
+
+            // Assert
+            var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
+            Assert.Equal("Index", redirectToActionResult.ActionName);
+
+            // Assert TempData
+            Assert.Equal("Successfully created an account! You may proceed to log in to our system.", controller.TempData["SuccessMessage"]);
+        }
     }
 }
