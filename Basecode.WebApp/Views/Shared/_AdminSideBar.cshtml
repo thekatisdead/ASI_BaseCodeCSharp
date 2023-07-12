@@ -1,10 +1,11 @@
 ﻿<div class="col-auto col-md-2 col-xl-2 px-sm-2 px-0" style="background-color: #7E7777;">
     <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
-        <span class="fs-5 d-none d-sm-inline container-fluid pt-4">
-            <img src="~/img/asi.png" class="img-fluid rounded" style="width:157px;130px" />
-
-        </span>
-        <ul class=" container nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" style="margin-top:150px;margin-left:10px; font-size:23px;font-family:Helvetica" id="menu">
+        <a asp-action="Index">
+            <span class="fs-5 d-none d-sm-inline container-fluid pt-4">
+                <img src="~/img/asi.png" class="img-fluid rounded" style="width:157px;130px" />
+            </span>
+        </a>       
+        <ul class=" container nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" style="margin-top:150px;margin-left:10px; font-size:22px;font-family:Helvetica" id="menu">
             <li class="nav-item p-2">
                 <a asp-controller="Admin" asp-action="AdminJobListing" class="nav-link align-middle px-0 ">
                     <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline text-white">Job oppenings</span>
