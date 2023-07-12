@@ -229,31 +229,5 @@ namespace Basecode.Test.Controllers
             var redirectToActionResult = (RedirectToActionResult)result;
             Assert.Equal("AdminJobListing", redirectToActionResult.ActionName); // Ensure that the action name is "JobList"
         }
-        [Fact]
-        public void Add_ValidJobOpening_RedirectsToAdminJobListing()
-        {
-            // Arrange
-            var jobOpening = new JobOpening
-            {
-                Id = 1,
-                Position = "Software Developer",
-                JobType = "Full Time",
-                Salary = 123,
-                Hours = 3,
-                Shift = "Morning",
-                Description = "Hello World",
-                CreatedBy = System.Environment.UserName,
-                UpdatedBy = System.Environment.UserName
-            };
-
-            _mockJobOpeningService.Setup(s => s.Add(jobOpening));
-
-            // Act
-            var result = _controller.Add(jobOpening);
-
-            // Assert
-            var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
-            Assert.Equal("AdminJobListing", redirectToActionResult.ActionName);
-        }
     }
 }

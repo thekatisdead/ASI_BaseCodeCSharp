@@ -27,16 +27,6 @@ namespace Basecode.Data.Repositories
         }
 
         /// <summary>
-        /// Retrieves a character reference by its ID.
-        /// </summary>
-        /// <param name="id">The ID of the character reference.</param>
-        /// <returns>The CharacterReference with the specified ID.</returns>
-        public CharacterReference GetById(int id)
-        {
-            return _context.CharacterReference.Find(id) ?? throw new InvalidOperationException("Character reference not found.");
-        }
-
-        /// <summary>
         /// Adds a new character reference.
         /// </summary>
         /// <param name="characterReference">The character reference to add.</param>
