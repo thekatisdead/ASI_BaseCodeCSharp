@@ -12,7 +12,7 @@ namespace Basecode.WebApp.Controllers
         private readonly IApplicantListService _service;
         private readonly CurrentHiresRepository _repository;
 
-        public ApplicantListController(IApplicantListService service, DbContext dbContext)
+        public ApplicantListController(IApplicantListService service)
         {
             _service = service;
         }
