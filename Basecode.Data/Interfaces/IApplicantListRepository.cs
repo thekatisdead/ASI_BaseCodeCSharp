@@ -15,6 +15,11 @@ namespace Basecode.Data.Interfaces
         /// <returns>An IQueryable of Applicant containing all applicants.</returns>
         IQueryable<Applicant> RetrieveAll();
 
+        /// <summary>
+        /// Retrieves an applicant by their ID.
+        /// </summary>
+        /// <param name="id">The ID of the applicant to retrieve.</param>
+        /// <returns>The Applicant object.</returns>
         Applicant GetById(int id);
     }
 }

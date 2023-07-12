@@ -129,7 +129,7 @@ namespace Basecode.Test.Controllers
 
             // Assert
             var redirectToActionResult = (RedirectToActionResult)result;
-            Assert.Equal("JobList", redirectToActionResult.ActionName); // Ensure that the action name is "JobList"
+            Assert.Equal("AdminJobListing", redirectToActionResult.ActionName); // Ensure that the action name is "JobList"
         }
 
         [Fact]
@@ -145,7 +145,7 @@ namespace Basecode.Test.Controllers
 
             // Assert
             var redirectToActionResult = (RedirectToActionResult)result;
-            Assert.Equal("JobList", redirectToActionResult.ActionName); // Ensure that the action name is "JobList"
+            Assert.Equal("AdminJobListing", redirectToActionResult.ActionName); // Ensure that the action name is "JobList"
         }
 
 
@@ -210,7 +210,7 @@ namespace Basecode.Test.Controllers
             // Assert
             Assert.NotNull(result);
             var redirectToActionResult = (RedirectToActionResult)result;
-            Assert.Equal("JobList", redirectToActionResult.ActionName); // Ensure that the action name is "JobList"
+            Assert.Equal("AdminJobListing", redirectToActionResult.ActionName); // Ensure that the action name is "JobList"
         }
 
         [Fact]
@@ -227,7 +227,7 @@ namespace Basecode.Test.Controllers
             // Assert
             Assert.NotNull(result);
             var redirectToActionResult = (RedirectToActionResult)result;
-            Assert.Equal("JobList", redirectToActionResult.ActionName); // Ensure that the action name is "JobList"
+            Assert.Equal("AdminJobListing", redirectToActionResult.ActionName); // Ensure that the action name is "JobList"
         }
     }
 }

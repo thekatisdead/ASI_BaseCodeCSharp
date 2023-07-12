@@ -13,15 +13,10 @@
     <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="~/css/characterreference.css" asp-append-version="true" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
 </head>
 
-<body>   
-    @if (TempData["SuccessMessage"] != null)
-    {
-        <div id="successMessage" class="popup-message">
-            <span>@TempData["SuccessMessage"]</span>
-        </div>
-    }
+<body>  
     <form id="character-reference-form" method="post" asp-action="Add" asp-controller="CharacterReference">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-header">
@@ -130,92 +125,62 @@
         $('form').submit(function (event) 
         {
             var formValid = true;
-            var submitButton = $(this).find('button[type="submit"]');
-
-            // Disable submit button and show loading state
-            submitButton.prop('disabled', true).html('Submitting...');
-
-            // Clear previous error messages and styling
-            $(this).find('input, select, textarea').removeClass('error');
-            $(this).find('.field-error').hide();
-
             // Check each input field for empty value
             $(this).find('input, select, textarea').each(function () 
             {
-                var inputValue = $(this).val();
-                var fieldName = $(this).attr('name');
-
-                if (!inputValue) 
+                if ($(this).is(':radio')) 
                 {
-                    formValid = false;
-                    $(this).addClass('error');
-                    $(this).siblings('.field-error').text(fieldName + ' is required.').show();
+                    var radioGroupName = $(this).attr('name');
+                    if ($('input[name="' + radioGroupName + '"]:checked').length === 0) 
+                    {
+                        formValid = false;
+                        $(this).addClass('error');
+                        $(this).siblings('.field-error').text('This field is required.').show();
+                    } 
+                    else 
+                    {
+                        $(this).removeClass('error');
+                        $(this).siblings('.field-error').hide();
+                    }
+                } else {
+                    if (!$(this).val()) 
+                    {
+                        formValid = false;
+                        $(this).addClass('error');
+                        $(this).siblings('.field-error').text('This field is required.').show();
+                    } 
+                    else 
+                    {
+                        $(this).removeClass('error');
+                        $(this).siblings('.field-error').hide();
+                    }
                 }
             });
-
             if (!formValid) 
             {
-                event.preventDefault(); // Prevent form submission
-                showAlert('Please fill out all the required fields.', 'error');
-
-                // Enable submit button
-                submitButton.prop('disabled', false).html('Submit');
-
-                // Scroll to the first error field
-                $('html, body').animate(
-                {
-                    scrollTop: $('.error:first').offset().top
-                }, 500);
+            event.preventDefault(); // Prevent form submission
+            Swal.fire(
+             {
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Please fill out all the required fields.',
+            });
             } 
             else 
             {
-                // Simulating form submission with a delay (for demonstration purposes)
-                setTimeout(function () 
-                {
-                    showAlert('Your response has been successfully submitted.', 'success');
-
-                    // Reset form and enable submit button
-                    $('form')[0].reset();
-                    submitButton.prop('disabled', false).html('Submit');
-
-                    // Scroll to the top of the screen
-                    $('html, body').animate({
-                        scrollTop: 0
-                    }, 500);
-                }, 1000);
-
-                event.preventDefault(); // Prevent actual form submission
-            }
-        });
-
-        // Function to show custom alerts
-        function showAlert(message, type) 
-        {
-            var alertBox = $('<div class="alert ' + type + '">' + message + '</div>');
-            $('body').append(alertBox);
-
-            // Add CSS animation effect to the success message
-            if (type === 'success') 
+            // Show success message
+            Swal.fire(
             {
-                alertBox.addClass('success-animation');
-            }
-
-            setTimeout(function () {
-                alertBox.fadeOut(500, function () 
-                {
-                    $(this).remove();
-                });
-            }, 3000);
+                icon: 'success',
+                title: 'Success!',
+                text: 'Character reference added successfully!',
+            });
         }
-
-        // Clear error messages and styling on input change
-        $(this).find('input, select, textarea').on('input', function () 
-        {
-            $(this).removeClass('error');
-            $(this).siblings('.field-error').hide();
         });
     });
 </script>
+
+
 
 
 
