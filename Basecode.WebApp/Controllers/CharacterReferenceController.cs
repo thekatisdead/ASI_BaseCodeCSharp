@@ -27,8 +27,7 @@ namespace Basecode.WebApp.Controllers
         {
             // Call the service method to create the form
             _service.AddCharacterReference(viewModel);
-
-            // Redirect or show a success message to the user
+            TempData["SuccessMessage"] = "Your response has been successfully submitted.";
             return RedirectToAction("Index");
         }
 
