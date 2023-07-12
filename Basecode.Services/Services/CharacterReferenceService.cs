@@ -34,7 +34,7 @@ namespace Basecode.Services.Services
         public void AddCharacterReference(CharacterReferenceViewModel characterReference)
         {
             characterReference.CreatedTime = DateTime.Now;
-            characterReference.CreatedBy = System.Environment.UserName;
+            characterReference.CreatedBy = System.Environment.UserName ?? string.Empty;
 
             _repository.Add(_mapper.Map<CharacterReference>(characterReference));
         }
