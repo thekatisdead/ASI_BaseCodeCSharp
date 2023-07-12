@@ -21,14 +21,12 @@ namespace Basecode.WebApp.Controllers
         {
             // change the receiver email to test in your device
             var receiverEmail = "receiver-email@gmail.com";
-            var subject = "test";
-            var message = "testing testing email email";
             var companyName = "Alliance";
-            var jobPostion = "Bottom";
+            var jobPosition = "Bottom";
 
             //await _emailSender.SendEmailAsync(receiverEmail, subject, message);
             //await _emailSender.SendEmailAsyncWithHtml(receiverEmail, subject);
-            //await _emailSender.SendEmailRejectApplication(receiverEmail, companyName, jobPosition);
+            _emailSender.SendEmailRejectApplication(receiverEmail, companyName, jobPosition);
             return View();
         }
     }

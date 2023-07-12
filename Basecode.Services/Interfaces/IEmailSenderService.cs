@@ -11,7 +11,7 @@ namespace Basecode.Services.Interfaces
         Task SendEmailAsync(string receiverEmail, string subject, string message);
         Task SendEmailAsyncWithHtml(string receiverEmail, string subject);
 
-        Task SendEmailRejectApplication(string receiverEmail, string companyName, string jobPosition);
+        void SendEmailRejectApplication(string receiverEmail, string companyName, string jobPosition);
 
         Task SendEmailOnUpdateApplicantStatus(string receiverEmail, string applicantName, string previousStatus, string newStatus);
     }
