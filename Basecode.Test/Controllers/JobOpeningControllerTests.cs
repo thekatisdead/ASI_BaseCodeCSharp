@@ -11,6 +11,7 @@ namespace Basecode.Test.Controllers
     {
         private readonly JobOpeningController _controller;
         private readonly Mock<IJobOpeningService> _mockJobOpeningService;
+
         public JobOpeningControllerTests()
         {
             _mockJobOpeningService = new Mock<IJobOpeningService>();
@@ -23,7 +24,7 @@ namespace Basecode.Test.Controllers
             // Arrange
             var testData = new List<JobOpeningViewModel>
             {
-                new JobOpeningViewModel { Id = 1, Position = "Software Developer", JobType = "Full Time", Salary = 123, Hours = 3, Shift = "Morning", Description = "Hello Wordld" },
+                new JobOpeningViewModel { Id = 1, Position = "Software Developer", JobType = "Full Time", Salary = 123, Hours = 3, Shift = "Morning", Description = "Hello World" },
                 new JobOpeningViewModel { Id = 2, Position = "Software Tester", JobType = "Full Time", Salary = 465, Hours = 3, Shift = "Graveyard", Description = "Hello" },
                 new JobOpeningViewModel { Id = 3, Position = "Software Architect", JobType = "Full Time", Salary = 789, Hours = 3, Shift = "Evening", Description = "Hello" }
             };
@@ -38,7 +39,6 @@ namespace Basecode.Test.Controllers
             Assert.Equal(testData, result.Model);
             Assert.Null(result.ViewName);
         }
-
 
         [Fact]
         public void JobList_NoJobOpeningFound_ReturnsEmpty()
@@ -61,7 +61,7 @@ namespace Basecode.Test.Controllers
         [Fact]
         public void UpdateJob_HasJobOpening_ReturnsJobOpeningViewModel()
         {
-            //Arrange
+            // Arrange
             int jobId = It.IsAny<int>();
 
             var testData = new JobOpeningViewModel
@@ -72,7 +72,7 @@ namespace Basecode.Test.Controllers
                 Salary = 123,
                 Hours = 3,
                 Shift = "Morning",
-                Description = "Hello Wordld"
+                Description = "Hello World"
             };
 
             _mockJobOpeningService.Setup(s => s.GetById(jobId)).Returns(testData);
@@ -89,7 +89,7 @@ namespace Basecode.Test.Controllers
         [Fact]
         public void UpdateJob_NoJobOpeningFound_ReturnsJobOpeningViewModel()
         {
-            //Arrange
+            // Arrange
             int jobId = It.IsAny<int>();
 
             var testData = new JobOpeningViewModel();
@@ -105,7 +105,6 @@ namespace Basecode.Test.Controllers
             Assert.Null(result.ViewName);
         }
 
-
         [Fact]
         public void Update_HasJobOpening_ReturnsRedirectToAction()
         {
@@ -118,18 +117,19 @@ namespace Basecode.Test.Controllers
                 Salary = 123,
                 Hours = 3,
                 Shift = "Morning",
-                Description = "Hello Wordld",
+                Description = "Hello World",
                 CreatedBy = System.Environment.UserName,
                 UpdatedBy = System.Environment.UserName,
             };
 
             _mockJobOpeningService.Setup(s => s.Update(jobOpening));
+
             // Act
             var result = _controller.Update(jobOpening);
 
             // Assert
             var redirectToActionResult = (RedirectToActionResult)result;
-            Assert.Equal("JobList", redirectToActionResult.ActionName); // Ensure that the action name is "JobList"
+            Assert.Equal("AdminJobListing", redirectToActionResult.ActionName);
         }
 
         [Fact]
@@ -145,14 +145,13 @@ namespace Basecode.Test.Controllers
 
             // Assert
             var redirectToActionResult = (RedirectToActionResult)result;
-            Assert.Equal("JobList", redirectToActionResult.ActionName); // Ensure that the action name is "JobList"
+            Assert.Equal("AdminJobListing", redirectToActionResult.ActionName);
         }
-
 
         [Fact]
         public void DeleteJob_HasJobOpening_ReturnJobOpeningViewModel()
         {
-            //Arrange
+            // Arrange
             int jobId = It.IsAny<int>();
 
             var testData = new JobOpeningViewModel
@@ -163,7 +162,7 @@ namespace Basecode.Test.Controllers
                 Salary = 123,
                 Hours = 3,
                 Shift = "Morning",
-                Description = "Hello Wordld"
+                Description = "Hello World"
             };
 
             _mockJobOpeningService.Setup(s => s.GetById(jobId)).Returns(testData);
@@ -180,7 +179,7 @@ namespace Basecode.Test.Controllers
         [Fact]
         public void DeleteJob_NoJobOpening_ReturnJobOpeningViewModel()
         {
-            //Arrange
+            // Arrange
             int jobId = It.IsAny<int>();
 
             var testData = new JobOpeningViewModel();
@@ -210,7 +209,7 @@ namespace Basecode.Test.Controllers
             // Assert
             Assert.NotNull(result);
             var redirectToActionResult = (RedirectToActionResult)result;
-            Assert.Equal("JobList", redirectToActionResult.ActionName); // Ensure that the action name is "JobList"
+            Assert.Equal("AdminJobListing", redirectToActionResult.ActionName);
         }
 
         [Fact]
@@ -227,7 +226,34 @@ namespace Basecode.Test.Controllers
             // Assert
             Assert.NotNull(result);
             var redirectToActionResult = (RedirectToActionResult)result;
-            Assert.Equal("JobList", redirectToActionResult.ActionName); // Ensure that the action name is "JobList"
+            Assert.Equal("AdminJobListing", redirectToActionResult.ActionName);
+        }
+
+        [Fact]
+        public void Add_ValidJobOpening_RedirectsToAdminJobListing()
+        {
+            // Arrange
+            var jobOpening = new JobOpening
+            {
+                Id = 1,
+                Position = "Software Developer",
+                JobType = "Full Time",
+                Salary = 123,
+                Hours = 3,
+                Shift = "Morning",
+                Description = "Hello World",
+                CreatedBy = System.Environment.UserName,
+                UpdatedBy = System.Environment.UserName
+            };
+
+            _mockJobOpeningService.Setup(s => s.Add(jobOpening));
+
+            // Act
+            var result = _controller.Add(jobOpening);
+
+            // Assert
+            var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
+            Assert.Equal("AdminJobListing", redirectToActionResult.ActionName);
         }
     }
 }
