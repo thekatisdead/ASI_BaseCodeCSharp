@@ -18,7 +18,7 @@ namespace Basecode.Test.Controllers
         }
 
         [Fact]
-        public void CharacterReference_HasCharacterReference_AddCharacterReference()
+        public void Add_HasCharacterReference_ReturnsView()
         {
             // Arrange
             var testData = new CharacterReferenceViewModel
@@ -50,7 +50,7 @@ namespace Basecode.Test.Controllers
         }
 
         [Fact]
-        public void CharacterReference_HasNoCharacterReference_ReturnsRedirectToAction()
+        public void Add_HasNoCharacterReference_ReturnsRedirectToAction()
         {
             // Arrange
             var testData = new CharacterReferenceViewModel();
