@@ -18,7 +18,7 @@ namespace Basecode.Test.Controllers
         }
 
         [Fact]
-        public void Add_HasCharacterReference_AddCharacterReference()
+        public void Add_HasCharacterReference_ReturnsView()
         {
             // Arrange
             var testData = new CharacterReferenceViewModel
