@@ -48,11 +48,11 @@ namespace Basecode.Services.Services
             var data = _repository.RetrieveAll().Select(s => new CharacterReferenceViewModel
             {
                 Id = s.Id,
-                FirstName = s.FirstName ?? string.Empty,
-                LastName = s.LastName ?? string.Empty,
-                JobTitle = s.JobTitle ?? string.Empty,
-                CandidateFirstName = s.CandidateFirstName ?? string.Empty,
-                CandidateLastName = s.CandidateLastName ?? string.Empty
+                FirstName = s.FirstName,
+                LastName = s.LastName,
+                JobTitle = s.JobTitle,
+                CandidateFirstName = s.CandidateFirstName,
+                CandidateLastName = s.CandidateLastName
             }).ToList();
 
             return data;
