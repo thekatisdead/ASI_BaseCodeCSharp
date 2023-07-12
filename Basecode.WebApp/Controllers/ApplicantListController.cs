@@ -11,9 +11,8 @@ namespace Basecode.WebApp.Controllers
     {
         private readonly IApplicantListService _service;
         private readonly CurrentHiresRepository _repository;
-        private readonly DbContext _dbContext;
 
-        public ApplicantListController(IApplicantListService service)
+        public ApplicantListController(IApplicantListService service, DbContext dbContext)
         {
             _service = service;
         }
@@ -60,6 +59,7 @@ namespace Basecode.WebApp.Controllers
                 return NotFound(); // or handle the case when applicant is not found
             }
             data.Grading = "Rejected";
+
 
             return View();
         }
