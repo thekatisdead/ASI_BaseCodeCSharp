@@ -33,7 +33,12 @@ namespace Basecode.Data.Repositories
         /// <returns>The CharacterReference with the specified ID.</returns>
         public CharacterReference GetById(int id)
         {
-            return _context.CharacterReference.Find(id) ?? throw new InvalidOperationException("Character reference not found.");
+            var characterReference = _context.CharacterReference.SingleOrDefault(c => c.Id == id);
+            if (characterReference == null)
+            {
+                throw new InvalidOperationException("Character reference not found.");
+            }
+            return characterReference;
         }
 
         /// <summary>
