@@ -23,7 +23,7 @@ namespace Basecode.Test.Controllers
             // Arrange
             var testData = new List<JobOpeningViewModel>
             {
-                new JobOpeningViewModel { Id = 1, Position = "Software Developer", JobType = "Full Time", Salary = 123, Hours = 3, Shift = "Morning", Description = "Hello Wordld" },
+                new JobOpeningViewModel { Id = 1, Position = "Software Developer", JobType = "Full Time", Salary = 123, Hours = 3, Shift = "Morning", Description = "Hello" },
                 new JobOpeningViewModel { Id = 2, Position = "Software Tester", JobType = "Full Time", Salary = 465, Hours = 3, Shift = "Graveyard", Description = "Hello" },
                 new JobOpeningViewModel { Id = 3, Position = "Software Architect", JobType = "Full Time", Salary = 789, Hours = 3, Shift = "Evening", Description = "Hello" }
             };
@@ -129,7 +129,7 @@ namespace Basecode.Test.Controllers
 
             // Assert
             var redirectToActionResult = (RedirectToActionResult)result;
-            Assert.Equal("AdminJobListing", redirectToActionResult.ActionName); // Ensure that the action name is "JobList"
+            Assert.Equal("AdminJobListing", redirectToActionResult.ActionName);
         }
 
         [Fact]
@@ -145,7 +145,7 @@ namespace Basecode.Test.Controllers
 
             // Assert
             var redirectToActionResult = (RedirectToActionResult)result;
-            Assert.Equal("AdminJobListing", redirectToActionResult.ActionName); // Ensure that the action name is "JobList"
+            Assert.Equal("AdminJobListing", redirectToActionResult.ActionName);
         }
 
 
@@ -210,7 +210,7 @@ namespace Basecode.Test.Controllers
             // Assert
             Assert.NotNull(result);
             var redirectToActionResult = (RedirectToActionResult)result;
-            Assert.Equal("AdminJobListing", redirectToActionResult.ActionName); // Ensure that the action name is "JobList"
+            Assert.Equal("AdminJobListing", redirectToActionResult.ActionName);
         }
 
         [Fact]
@@ -227,7 +227,34 @@ namespace Basecode.Test.Controllers
             // Assert
             Assert.NotNull(result);
             var redirectToActionResult = (RedirectToActionResult)result;
-            Assert.Equal("AdminJobListing", redirectToActionResult.ActionName); // Ensure that the action name is "JobList"
+            Assert.Equal("AdminJobListing", redirectToActionResult.ActionName);
+        }
+
+        [Fact]
+        public void Add_ValidJobOpening_RedirectsToAdminJobListing()
+        {
+            // Arrange
+            var jobOpening = new JobOpening
+            {
+                Id = 1,
+                Position = "Software Developer",
+                JobType = "Full Time",
+                Salary = 123,
+                Hours = 3,
+                Shift = "Morning",
+                Description = "Hello World",
+                CreatedBy = System.Environment.UserName,
+                UpdatedBy = System.Environment.UserName
+            };
+
+            _mockJobOpeningService.Setup(s => s.Add(jobOpening));
+
+            // Act
+            var result = _controller.Add(jobOpening);
+
+            // Assert
+            var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
+            Assert.Equal("AdminJobListing", redirectToActionResult.ActionName);
         }
     }
 }
