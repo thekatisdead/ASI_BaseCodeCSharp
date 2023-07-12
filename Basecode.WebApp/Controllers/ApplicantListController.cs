@@ -47,7 +47,19 @@ namespace Basecode.WebApp.Controllers
             }
 
             var _allData = _service.RetrieveAll();
-            return View(_allData);
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Reject(int applicantID)
+        {
+            var data = _service.RetrieveAll().FirstOrDefault(a => a.Id == applicantID);
+            if (data == null)
+            {
+                return NotFound(); // or handle the case when applicant is not found
+            }
+            data.Grading = "Rejected";
+
+            return View();
         }
     }
 }

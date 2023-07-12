@@ -4,6 +4,7 @@ using Basecode.Data.Models;
 using Basecode.Data.Repositories;
 using Basecode.Data.ViewModels;
 using Basecode.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,7 @@ namespace Basecode.Services.Services
     public class ApplicantListService: IApplicantListService
     {
         private readonly IApplicantListRepository _repository;
+        private readonly DbContext _dbContext;
 
         public ApplicantListService(IApplicantListRepository repository) 
         {
@@ -36,6 +38,12 @@ namespace Basecode.Services.Services
             }).ToList();
 
             return data;
+        }
+
+        public void UpdateApplicant(ApplicantListViewModel applicant)
+        {
+            _dbContext.Update(applicant);
+            _dbContext.SaveChanges();
         }
     }
 }

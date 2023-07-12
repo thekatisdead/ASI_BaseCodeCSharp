@@ -12,6 +12,7 @@ namespace Basecode.Data.ViewModels
         public string? Firstname { get; set; }
         public string? Lastname { get; set; }
         public string? Tracker { get; set; }
+        public string? Grading { get; set; }
         public int JobApplied { get; set; }
     }
 }
