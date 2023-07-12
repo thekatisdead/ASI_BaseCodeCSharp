@@ -31,6 +31,9 @@ namespace Basecode.Data.ViewModels
         public string EmailAddress { get; set; }
 
         [Required]
+        [JsonProperty(PropertyName = "address")]
+        public string Address { get; set; } 
+        [Required]
         [JsonProperty(PropertyName = "role")]
         public string RoleName { get; set; }
     }
