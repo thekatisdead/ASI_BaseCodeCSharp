@@ -2,20 +2,55 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-//using System.Net.Mail;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-
 using MailKit.Net.Smtp;
 using MailKit;
 using MimeKit;
+using Basecode.Data.Models;
 
 namespace Basecode.Services.Services
 {
     public class EmailSenderService : IEmailSenderService
     {
+        public void SendEmailInterviewSchedule(HrScheduler HrScheduler)
+        {
+            string receiverEmail, applicantName, companyName, jobPosition;
+            receiverEmail = HrScheduler.EmailAddress;
+            applicantName = HrScheduler.FirstName + " " + HrScheduler.LastName;
+            companyName = "Alliance Software Inc.";
+            jobPosition = "Programmer";
 
+            var email = new MimeMessage();
+
+            email.From.Add(new MailboxAddress("Sender Name", "kermherbieto52@gmail.com"));
+            email.To.Add(new MailboxAddress("Receiver Name", receiverEmail));
+
+            email.Subject = "Interview Schedule";
+
+            var htmlContent = File.ReadAllText("EmailTemplates/RejectApplication.html");
+
+            htmlContent = htmlContent.Replace("{applicantName}", applicantName);
+            htmlContent = htmlContent.Replace("{companyName}", companyName);
+            htmlContent = htmlContent.Replace("{jobPosition}", jobPosition);
+
+            email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
+            {
+                Text = htmlContent
+            };
+
+            using (var smtp = new SmtpClient())
+            {
+                smtp.ServerCertificateValidationCallback = (s, c, h, e) => true;
+                smtp.Connect("smtp.gmail.com", 587, false);
+
+                smtp.Authenticate("kermherbieto52@gmail.com", "sfltmfkdvdiuhabi");
+
+                smtp.Send(email);
+                smtp.Disconnect(true);
+            }
+        }
         public void SendEmailRejectApplication(string receiverEmail, string applicantName, string companyName, string jobPosition)
         {
             var email = new MimeMessage();

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Basecode.Data.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,9 +9,8 @@ namespace Basecode.Services.Interfaces
 {
     public interface IEmailSenderService
     {
-
+        void SendEmailInterviewSchedule(HrScheduler HrScheduler)
         void SendEmailRejectApplication(string receiverEmail, string applicantName,string companyName, string jobPosition);
-
         void SendEmailOnUpdateApplicantStatus(string receiverEmail, string applicantName, string previousStatus, string newStatus);
         void SendEmailHRApplicationDecision(string receiverEmail, int applicantId,string applicantName, string jobPosition);
     }
