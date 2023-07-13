@@ -18,7 +18,18 @@ namespace Basecode.Test.Controllers
         }
 
         [Fact]
-        public void JobList_HasJobOpening_ReturnsAllJobOpeningViewModel()
+        public void JobPosting_ReturnsView()
+        {
+            // Act
+            var result = _controller.JobPosting() as ViewResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Null(result.ViewName);
+        }
+
+        [Fact]
+        public void JobList_HasJobOpenings_ReturnsAllJobOpeningViewModel()
         {
             // Arrange
             var testData = new List<JobOpeningViewModel>
@@ -41,7 +52,7 @@ namespace Basecode.Test.Controllers
 
 
         [Fact]
-        public void JobList_NoJobOpeningFound_ReturnsEmpty()
+        public void JobList_NoJobOpeningsFound_ReturnsEmpty()
         {
             // Arrange
             var testData = new List<JobOpeningViewModel>();
