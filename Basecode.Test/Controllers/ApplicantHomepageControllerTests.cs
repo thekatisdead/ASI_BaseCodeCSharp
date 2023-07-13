@@ -68,5 +68,23 @@ namespace Basecode.Test.Controllers
             Assert.Null(viewResult.ViewName);
             Assert.Equal(testData, viewResult.Model);
         }
+
+        [Fact]
+        public void JobListing_HasNoJobOpenings_ReturnsViewWithEmptyJobList()
+        {
+            // Arrange
+            var testData = new List<JobOpeningViewModel>();
+
+            _mockJobOpeningService.Setup(s => s.RetrieveAll()).Returns(testData);
+
+            // Act
+            var result = _controller.JobListing();
+
+            // Assert
+            Assert.NotNull(result);
+            var viewResult = Assert.IsType<ViewResult>(result);
+            Assert.Null(viewResult.ViewName);
+            Assert.Empty(viewResult.Model as List<JobOpeningViewModel>);
+        }
     }
 }

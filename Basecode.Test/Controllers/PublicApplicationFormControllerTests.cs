@@ -18,6 +18,17 @@ namespace Basecode.Test.Controllers
         }
 
         [Fact]
+        public void Index_ReturnsView()
+        {
+            // Act
+            var result = _controller.Index() as ViewResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Null(result.ViewName);
+        }
+
+        [Fact]
         public void AddForm_ValidForm_RedirectsToIndex()
         {
             // Arrange

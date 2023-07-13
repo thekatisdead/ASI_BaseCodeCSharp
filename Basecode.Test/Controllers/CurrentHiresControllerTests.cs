@@ -1,6 +1,7 @@
 ﻿using Basecode.Data;
 using Basecode.Data.Repositories;
 using Basecode.WebApp.Controllers;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Basecode.Test.Controllers
@@ -19,6 +20,18 @@ namespace Basecode.Test.Controllers
             _context = new BasecodeContext(options);
             _repository = new CurrentHiresRepository(_context);
             _controller = new CurrentHiresController(_repository);
+        }
+
+        [Fact]
+        public void Index_ReturnsView()
+        {
+            // Act
+            var result = _controller.Index();
+
+            // Assert
+            Assert.NotNull(result);
+            var viewResult = Assert.IsType<ViewResult>(result);
+            Assert.Null(viewResult.ViewName);
         }
 
         [Fact]

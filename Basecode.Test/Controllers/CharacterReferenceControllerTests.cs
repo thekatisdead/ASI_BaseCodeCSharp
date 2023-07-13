@@ -18,6 +18,18 @@ namespace Basecode.Test.Controllers
         }
 
         [Fact]
+        public void Index_ReturnsView()
+        {
+            // Act
+            var result = _controller.Index();
+
+            // Assert
+            Assert.NotNull(result);
+            var viewResult = Assert.IsType<ViewResult>(result);
+            Assert.Null(viewResult.ViewName);
+        }
+
+        [Fact]
         public void Add_HasCharacterReference_ReturnsView()
         {
             // Arrange
@@ -65,6 +77,5 @@ namespace Basecode.Test.Controllers
             var redirectToActionResult = (RedirectToActionResult)result;
             Assert.Equal("Index", redirectToActionResult.ActionName);
         }
-
     }
 }
