@@ -12,6 +12,6 @@ namespace Basecode.Services.Interfaces
         void SendEmailRejectApplication(string receiverEmail, string applicantName,string companyName, string jobPosition);
 
         void SendEmailOnUpdateApplicantStatus(string receiverEmail, string applicantName, string previousStatus, string newStatus);
-        void SendEmailHRApplicationDecision(string receiverEmail, int applicantId,string applicantName, string companyName, string jobPosition);
+        void SendEmailHRApplicationDecision(string receiverEmail, int applicantId,string applicantName, string jobPosition);
     }
 }

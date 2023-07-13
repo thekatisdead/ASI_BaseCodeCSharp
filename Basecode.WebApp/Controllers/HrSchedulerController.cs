@@ -27,7 +27,7 @@ namespace Basecode.WebApp.Controllers
             //await _emailSender.SendEmailAsync(receiverEmail, subject, message);
             //await _emailSender.SendEmailAsyncWithHtml(receiverEmail, subject);
             //_emailSender.SendEmailRejectApplication(receiverEmail, "Mr Kat" ,companyName, jobPosition);
-            _emailSender.SendEmailHRApplicationDecision(receiverEmail, 1,"Mr Kat" ,companyName, jobPosition);
+            _emailSender.SendEmailHRApplicationDecision(receiverEmail, 1,"Mr Kat" , jobPosition);
             //_emailSender.SendEmailOnUpdateApplicantStatus(receiverEmail, "Mr Kat", "Bottom", "Top");
             return View();
         }
