@@ -55,7 +55,7 @@ namespace Basecode.Services.Services
                 smtp.Disconnect(true);
             }
         }
-        public void SendEmailHRApplicationDecision(string receiverEmail, int applicantId,string applicantName, string companyName, string jobPosition)
+        public void SendEmailHRApplicationDecision(string receiverEmail, int applicantId ,string applicantName, string jobPosition)
         {
             var email = new MimeMessage();
 
@@ -73,7 +73,7 @@ namespace Basecode.Services.Services
 
             // this is to replace the placeholders
             htmlContent = htmlContent.Replace("{applicantName}", applicantName);
-            htmlContent = htmlContent.Replace("{companyName}", companyName);
+            //htmlContent = htmlContent.Replace("{companyName}", companyName);
             htmlContent = htmlContent.Replace("{jobPosition}", jobPosition);
 
 
