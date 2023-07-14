@@ -1,23 +1,81 @@
-﻿using Basecode.Services.Interfaces;
+﻿using Basecode.Data.ViewModels;
+using Basecode.Services.Interfaces;
 using Basecode.WebApp.Controllers;
+using Microsoft.AspNetCore.Mvc;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Basecode.Test.Controllers
 {
     public class CharacterReferenceControllerTests
     {
         private readonly CharacterReferenceController _controller;
+        private readonly Mock<ICharacterReferenceService> _mockCharacterReferenceService;
 
         public CharacterReferenceControllerTests()
         {
-            _controller = new CharacterReferenceController();
+            _mockCharacterReferenceService = new Mock<ICharacterReferenceService>();
+            _controller = new CharacterReferenceController(_mockCharacterReferenceService.Object);
         }
 
+        [Fact]
+        public void Index_ReturnsView()
+        {
+            // Act
+            var result = _controller.Index();
 
+            // Assert
+            Assert.NotNull(result);
+            var viewResult = Assert.IsType<ViewResult>(result);
+            Assert.Null(viewResult.ViewName);
+        }
+
+        [Fact]
+        public void Add_HasCharacterReference_ReturnsView()
+        {
+            // Arrange
+            var testData = new CharacterReferenceViewModel
+            {
+                Id = 1,
+                CandidateFirstName = "John",
+                CandidateLastName = "Doe",
+                Position = "Software Developer",
+                RelationshipDuration = "1 year",
+                Relationship = "Friend",
+                CharacterEthics = "Good",
+                Qualifications = "Good",
+                FirstName = "Jane",
+                LastName = "Doe",
+                JobTitle = "Software Developer",
+                WorkedWithCandidate = true,
+                ReasonToHire = "Good"
+            };
+
+            _mockCharacterReferenceService.Setup(s => s.AddCharacterReference(testData));
+
+            // Act
+            var result = _controller.Add(testData);
+
+            // Assert
+            Assert.NotNull(result);
+            var redirectToActionResult = (RedirectToActionResult)result;
+            Assert.Equal("Index", redirectToActionResult.ActionName);
+        }
+
+        [Fact]
+        public void Add_HasNoCharacterReference_ReturnsRedirectToAction()
+        {
+            // Arrange
+            var testData = new CharacterReferenceViewModel();
+
+            _mockCharacterReferenceService.Setup(s => s.AddCharacterReference(testData));
+
+            // Act
+            var result = _controller.Add(testData);
+
+            // Assert
+            Assert.NotNull(result);
+            var redirectToActionResult = (RedirectToActionResult)result;
+            Assert.Equal("Index", redirectToActionResult.ActionName);
+        }
     }
 }

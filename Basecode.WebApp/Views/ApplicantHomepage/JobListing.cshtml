@@ -1,0 +1,35 @@
+﻿@using Basecode.Data.ViewModels
+@model List<JobOpeningViewModel>
+@{
+    ViewData["Title"] = "Applicant Homepage";
+    Layout = "~/Views/Shared/_LayoutHR.cshtml";
+}
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="~/css/applicanthomepage.css" />
+    </head>
+    <body>
+        <div class="container mt-5 mb-3">
+            <div class="row">
+                @foreach(var job in Model)
+                {
+                <div class="col-md-4">
+                    <div class="card p-3 mb-2">
+                        <div class="mt-5 mb-5">
+                            <h5 class="card-title">@job.Position</h5>
+                            <span class="text-light p-1" style="background-color:gray;margin-left:5px">@job.JobType</span>
+                            <span class="text-light p-1" style="background-color:gray;margin-left:5px">&#8369;@job.Salary</span>
+                            <span class="text-light p-1" style="background-color:gray;margin-left:5px">@job.Hours hrs</span>
+                            <span class="text-light p-1" style="background-color:gray;margin-left:5px">@job.Shift Shift</span>
+                            <p class="card-text">@job.Description</p>
+                            <button class="btn text-light" style="background-color:#c53211">Apply Now!</button>
+                        </div>
+                    </div>
+                </div>
+                }
+                
+            </div>
+        </div>
+    </body>
+</html>

@@ -37,7 +37,7 @@ namespace Basecode.WebApp.Controllers
         public IActionResult Add(JobOpening jobOpening)
         {
             _service.Add(jobOpening);
-            return RedirectToAction("JobList");
+            return RedirectToAction("AdminJobListing", "Admin");
         }
 
         /// <summary>
@@ -55,13 +55,13 @@ namespace Basecode.WebApp.Controllers
         public IActionResult Update(JobOpening jobOpening)
         {
             _service.Update(jobOpening);
-            return RedirectToAction("JobList");
+            return RedirectToAction("AdminJobListing", "Admin");
         }
   
         public IActionResult Delete(int id) 
         { 
             _service.Delete(id);
-            return RedirectToAction("JobList");  
+            return RedirectToAction("AdminJobListing", "Admin");  
         }
 
         public IActionResult DeleteJob(int id) 

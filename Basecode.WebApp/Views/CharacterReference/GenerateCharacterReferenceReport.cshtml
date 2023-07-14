@@ -1,0 +1,69 @@
+﻿@using Basecode.Data.ViewModels
+@model List<CharacterReferenceViewModel>
+
+@{
+    ViewData["Title"] = "Character Reference Report";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Character Reference Report</title>
+    <link rel="stylesheet" href="~/css/characterreferencereport.css" asp-append-version="true" />  
+</head>
+<body>
+    <main>
+        <div class="add-reference-container">
+            <a asp-controller="CharacterReference" asp-action="GenerateCharacterReferenceReport">
+            </a>
+        </div>
+
+        <section class="reference-listing">
+            <h2 class="section-title">Character Reference Report</h2>
+            <div class="search-bar">
+                <label for="search-reference" class="search-label">Search:</label>
+                <input type="text" id="search-reference" placeholder="Search here.....">
+            </div>
+            <table class="reference-table">
+                <thead>
+                    <tr>
+                        <th class="table-header">Respondents ID</th>
+                        <th class="table-header">Name</th>
+                        <th class="table-header">Current Job Title</th>
+                        <th class="table-header">Candidate's Name Being Evaluated</th>
+                        <th class="table-header">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var reference in Model)
+                    {
+                        <tr>
+                            <td class="table-cell">@reference.Id</td>
+                            <td class="table-cell">@reference.FirstName @reference.LastName</td>
+                            <td class="table-cell">@reference.JobTitle</td>
+                            <td class="table-cell">@reference.CandidateFirstName @reference.CandidateLastName</td>
+                            <td class="table-cell">
+                                <button class="generate-btn">Generate Report</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </section>
+        <div class="triangle"></div>
+        <div class="triangle1"></div>
+    </main>
+</body>
+</html>
+
+
+<script>
+    $(document).ready(function () {
+        $("#search-reference").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $(".reference-table tbody tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>

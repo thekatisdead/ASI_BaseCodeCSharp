@@ -36,16 +36,16 @@
                         <span asp-validation-for="Password" class="text-danger"></span>
                     </div>
 
-                    <div class="forNoAccount">
-                        <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault">
-                        <label class="form-check-label" for="flexCheckDefault">
-                                Don’t have an account yet? <a asp-controller="SignUp" asp-action="Index"><u>sign up</u></a>
-                        </label>
-                    </div>
-
                     <div class="button-box">
                         <button class="forSubmit">LOGIN</button>
                     </div>
+
+                        <div class="forNoAccount">
+                            <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Don’t have an account yet? <a asp-controller="SignUp" asp-action="Index"><u>sign up</u></a>
+                            </label>
+                        </div>
 
                         @section Scripts {
                             @{
@@ -54,10 +54,11 @@
                         }
 
                 </form>
+                    <div class="triangle"></div>
+                    <div class="triangle1"></div>
             </div>
         </div>
         </div>
       </section>
 </body>
-
 </html>

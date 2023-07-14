@@ -1,10 +1,5 @@
 ﻿using Basecode.WebApp.Controllers;
-using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Basecode.Test.Controllers
 {
@@ -15,6 +10,18 @@ namespace Basecode.Test.Controllers
         public HrHomepageControllerTests()
         {
             _controller = new HrHomepageController();
+        }
+
+        [Fact]
+        public void Index_ReturnsView()
+        {
+            // Act
+            var result = _controller.Index("TestUsername");
+
+            // Assert
+            Assert.NotNull(result);
+            var viewResult = Assert.IsType<ViewResult>(result);
+            Assert.Null(viewResult.ViewName);
         }
     }
 }

@@ -1,13 +1,17 @@
 ﻿using Basecode.Data.Interfaces;
 using Basecode.Services.Interfaces;
+using Basecode.Services.Services;
 using Basecode.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
+using NLog;
 
 namespace Basecode.WebApp.Controllers
 {
     public class LoginController : Controller
     {
         private readonly ILoginService _loginService;
+        private ErrorHandling.LogContent _log = new ErrorHandling.LogContent();
+        private Logger _logger = LogManager.GetCurrentClassLogger();
 
         public LoginController(ILoginService loginService)
         {
@@ -34,16 +38,31 @@ namespace Basecode.WebApp.Controllers
 
             if (login == null)
             {
+                _log.ErrorCode = "null";
+                _log.Time = DateTime.Now;
+                _log.Result = true;
+                _log.Message = "fields empty";
+                _logger.Trace(ErrorHandling.SetLog(_log));
                 return Task.FromResult<IActionResult>(RedirectToAction("Index"));
             }
 
             if (login.Username != loginModel.Username)
             {
+                _log.ErrorCode = "username";
+                _log.Time = DateTime.Now;
+                _log.Result = true;
+                _log.Message = "username not matched.";
+                _logger.Trace(ErrorHandling.SetLog(_log));
                 return Task.FromResult<IActionResult>(RedirectToAction("Index"));
             }
 
             if (login.Password != loginModel.Password)
             {
+                _log.ErrorCode = "password";
+                _log.Time = DateTime.Now;
+                _log.Result = true;
+                _log.Message = "password not matched.";
+                _logger.Trace(ErrorHandling.SetLog(_log));
                 return Task.FromResult<IActionResult>(RedirectToAction("Index"));
             }
 

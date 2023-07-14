@@ -1,4 +1,12 @@
-﻿<!DOCTYPE html>
+﻿@using Basecode.Data.ViewModels
+@model HrSchedulerViewModel
+
+@{
+    ViewData["Title"] = "HR Scheduler";
+    Layout = "~/Views/Shared/_LayoutHR.cshtml";
+}
+
+<!DOCTYPE html>
 <html>
 <head>
     <title>Hr Scheduler</title>
@@ -6,6 +14,7 @@
 </head>
 <body>
     <form>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <h2>Interviewer Schedule Input Form</h2>
         <hr>
 
@@ -15,17 +24,20 @@
             <h4 class="section-title">Interviewer's Name</h4>
             <div class="input-group">
                 <input type="text" id="first-name" class="text-input">
+                <span asp-validation-for="FirstName" class-type="text-danger"></span>
                 <br>
                 <label for="first-name">First Name</label>
             </div>
             <div class="input-group">
                 <input type="text" id="last-name" class="text-input">
+                <span asp-validation-for="LastName" class-type="text-danger"></span>
                 <br>
                 <label for="last-name">Last Name</label>
             </div>
             <h4 class="section-title">Email Address</h4>
             <div class="input-email">
                 <input type="email" id="email" class="text-input" placeholder="email@email.com">
+                <span asp-validation-for="EmailAddress" class-type="text-danger"></span>
                 <br>
                 <br>
                 <br>
@@ -38,25 +50,35 @@
             <h4 class="section-title">Date</h4>
             <div class="input-group-availability">
                 <input type="date" id="date" class="date-input" placeholder="dd/mm/yyyy">
+                <span asp-validation-for="Date" class-type="text-danger"></span>
                 <br>
             </div>
             <h4 class="section-title">Time</h4>
             <div class="input-group-availability">
                 <input type="time" id="start-time" class="time-input" placeholder="00:00">
+                <span asp-validation-for="StartTime" class-type="text-danger"></span>
                 <br>
                 <label for="start-time">Start Time</label>
             </div>
             <div class="input-group-availability">
                 <input type="time" id="end-time" class="time-input" placeholder="00:00">
+                <span asp-validation-for="EndTime" class-type="text-danger"></span>
                 <br>
                 <label for="end-time">End Time</label>
             </div>
             <br>
             <label for="instructions">Additional Instructions (Optional):</label>
             <textarea id="instructions" class="instructions-textarea"></textarea>
+            <span asp-validation-for="AdditionalInstruction" class-type="text-danger"></span>
         </div>
 
         <button type="submit" class="save-button">Save</button>
+
+        @section Scripts {
+            @{
+                await Html.RenderPartialAsync("_ValidationScriptsPartial");
+            }
+        }
     </form>
     <div class="triangle"></div>
     <div class="triangle1"></div>

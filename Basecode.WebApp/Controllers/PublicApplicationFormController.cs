@@ -1,25 +1,33 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Basecode.Services.Interfaces;
+using Basecode.Data.ViewModels;
+using Microsoft.AspNetCore.Mvc;
+using Basecode.Data.Models;
 
 namespace Basecode.WebApp.Controllers
 {
     public class PublicApplicationFormController : Controller
     {
-        [Route("public-application-form")]
+        private readonly IPublicApplicationFormService _service;
+        
+        public PublicApplicationFormController(IPublicApplicationFormService service)
+        {
+            _service = service;
+        }
+
         public IActionResult Index()
         {
             return View();
         }
 
-        [Route("page2-public-application-form")]
-        public IActionResult IndexTwo()
+        [HttpPost]
+        public IActionResult AddForm(PublicApplicationFormViewModel viewModel)
         {
-            return View();
+            // Call the service method to create the form
+            _service.AddForm(viewModel);
+
+            // Redirect or show a success message to the user
+            return RedirectToAction("Index", "ApplicantHomepage");
         }
 
-        [Route("page3-public-application-form")]
-        public IActionResult IndexThree()
-        {
-            return View();
-        }
     }
 }
