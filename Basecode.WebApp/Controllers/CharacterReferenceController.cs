@@ -1,12 +1,15 @@
-﻿using Basecode.Data.ViewModels;
+﻿
+using Basecode.Data.ViewModels;
 using Basecode.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using NLog;
 
 namespace Basecode.WebApp.Controllers
 {
     public class CharacterReferenceController : Controller
     {
         private readonly ICharacterReferenceService _service;
+        private static Logger Logger = LogManager.GetCurrentClassLogger();
 
         public CharacterReferenceController(ICharacterReferenceService service)
         {
@@ -15,6 +18,7 @@ namespace Basecode.WebApp.Controllers
 
         public IActionResult Index()
         {
+            Logger.Trace("CharacterReference Controller Accessed");
             return View();
         }
 
@@ -25,10 +29,23 @@ namespace Basecode.WebApp.Controllers
         /// <returns>A redirect to the index action.</returns>
         public IActionResult Add(CharacterReferenceViewModel viewModel)
         {
-            // Call the service method to create the form
-            _service.AddCharacterReference(viewModel);
+            try
+            {
+                // Call the service method to create the form
+                _service.AddCharacterReference(viewModel);
 
-            return RedirectToAction("Index");
+                Logger.Info("Character reference added successfully.");
+
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex, "Error occurred while adding character reference: {errorMessage}", ex.Message);
+
+                // You can customize the error handling based on your application's requirements
+                // For example, you can return a specific error view or redirect to an error page.
+                return BadRequest("An error occurred while generating the report.");
+            }
         }
 
         /// <summary>
@@ -38,8 +55,20 @@ namespace Basecode.WebApp.Controllers
         [Route("CharacterReferenceReport")]
         public IActionResult GenerateCharacterReferenceReport()
         {
-            var data = _service.RetrieveAll();
-            return View(data);
+            try
+            {
+                var data = _service.RetrieveAll();
+                Logger.Info("Successfully retrieve data. Report Generated.");
+                return View(data);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex, "Error occurred while generating character reference report: {errorMessage}", ex.Message);
+
+                // You can customize the error handling based on your application's requirements
+                // For example, you can return a specific error view or redirect to an error page.
+                return BadRequest("An error occurred while generating the report.");
+            }
         }
     }
 }
