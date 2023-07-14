@@ -9,7 +9,7 @@ namespace Basecode.WebApp.Controllers
     public class CharacterReferenceController : Controller
     {
         private readonly ICharacterReferenceService _service;
-        private static Logger Logger = LogManager.GetCurrentClassLogger();
+        private static Logger _logger = LogManager.GetCurrentClassLogger();
 
         public CharacterReferenceController(ICharacterReferenceService service)
         {
@@ -18,7 +18,7 @@ namespace Basecode.WebApp.Controllers
 
         public IActionResult Index()
         {
-            Logger.Trace("CharacterReference Controller Accessed");
+            _logger.Trace("CharacterReference Controller Accessed");
             return View();
         }
 
@@ -34,13 +34,13 @@ namespace Basecode.WebApp.Controllers
                 // Call the service method to create the form
                 _service.AddCharacterReference(viewModel);
 
-                Logger.Info("Character reference added successfully.");
+                _logger.Info("Character reference added successfully.");
 
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
-                Logger.Error(ex, "Error occurred while adding character reference: {errorMessage}", ex.Message);
+                _logger.Error(ex, "Error occurred while adding character reference: {errorMessage}", ex.Message);
 
                 // You can customize the error handling based on your application's requirements
                 // For example, you can return a specific error view or redirect to an error page.
@@ -58,12 +58,12 @@ namespace Basecode.WebApp.Controllers
             try
             {
                 var data = _service.RetrieveAll();
-                Logger.Info("Successfully retrieve data. Report Generated.");
+                _logger.Info("Successfully retrieve data. Report Generated.");
                 return View(data);
             }
             catch (Exception ex)
             {
-                Logger.Error(ex, "Error occurred while generating character reference report: {errorMessage}", ex.Message);
+                _logger.Error(ex, "Error occurred while generating character reference report: {errorMessage}", ex.Message);
 
                 // You can customize the error handling based on your application's requirements
                 // For example, you can return a specific error view or redirect to an error page.
