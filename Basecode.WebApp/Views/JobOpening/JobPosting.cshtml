@@ -17,6 +17,8 @@
         <form asp-action="Add">
             <h2>ADD A NEW JOB</h2>
             <hr>
+
+            <div class="half-width job-posting">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
@@ -47,12 +49,19 @@
                 </div>
                 <div class="schedule-input-group">
                     <label for="shift" class="small-label">Shift:</label>
-                    <input asp-for="Shift" placeholder="Enter Morning or Night" class="input-schedule">
+                    <select asp-for="Shift" class="input-schedule">
+                        <option value="" disabled selected>Choose Shift</option>
+                        <option value="Morning">Morning</option>
+                        <option value="Evening">Evening</option>
+                    </select>
                     <span asp-validation-for="Shift" class="text-danger"></span>
                 </div>
             </div>
+        </div>
+
+        <div class="half-width job-posting">
             <div class="form-group">
-                <label for="details" class="label-bold">Description:</label>
+                <label for="details" class="label-bold-description">Description:</label>
                 <br>
                 <textarea asp-for="Description" id="description" placeholder="Job description" class="input-description"></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
@@ -60,6 +69,7 @@
             <div class="button-container">
                 <button type="submit" class="btn">Add Job</button>
             </div>
+        </div>
             @section Scripts {
                 @{
                     await Html.RenderPartialAsync("_ValidationScriptsPartial");
