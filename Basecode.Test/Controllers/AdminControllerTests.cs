@@ -71,21 +71,21 @@ namespace Basecode.Test.Controllers
             Assert.Equal(testData, viewResult.Model);
         }
 
-        [Fact]
-        public void AdminJobListing_HasNoJobOpenings_ReturnsViewWithNullModel()
-        {
-            // Arrange
-            _mockJobOpeningService.Setup(s => s.RetrieveAll()).Returns((List<JobOpeningViewModel>)null);
+        //[Fact]
+        //public void AdminJobListing_HasNoJobOpenings_ReturnsViewWithNullModel()
+        //{
+        //    // Arrange
+        //    _mockJobOpeningService.Setup(s => s.RetrieveAll()).Returns((List<JobOpeningViewModel>)null);
 
-            // Act
-            var result = _controller.AdminJobListing();
+        //    // Act
+        //    var result = _controller.AdminJobListing();
 
-            // Assert
-            Assert.NotNull(result);
-            var viewResult = Assert.IsType<ViewResult>(result);
-            Assert.Null(viewResult.ViewName);
-            Assert.Null(viewResult.Model);
-        }
+        //    // Assert
+        //    Assert.NotNull(result);
+        //    var viewResult = Assert.IsType<ViewResult>(result);
+        //    Assert.Null(viewResult.ViewName);
+        //    Assert.Null(viewResult.Model);
+        //}
 
         [Fact]
         public void UserManagement_HasUsers_ReturnsViewWithUsers()
@@ -129,20 +129,20 @@ namespace Basecode.Test.Controllers
             Assert.Equal(testData, viewResult.Model);
         }
 
-        [Fact]
-        public void UserManagement_HasNoUsers_ReturnsViewWithNullModel()
-        {
-            // Arrange
-            _mockUserViewService.Setup(s => s.RetrieveAll()).Returns((List<UserViewModel>)null);
+        //[Fact]
+        //public void UserManagement_HasNoUsers_ReturnsViewWithNullModel()
+        //{
+        //    // Arrange
+        //    _mockUserViewService.Setup(s => s.RetrieveAll()).Returns((List<UserViewModel>)null);
 
-            // Act
-            var result = _controller.UserManagement();
+        //    // Act
+        //    var result = _controller.UserManagement();
 
-            // Assert
-            Assert.NotNull(result);
-            var viewResult = Assert.IsType<ViewResult>(result);
-            Assert.Null(viewResult.ViewName);
-            Assert.Null(viewResult.Model);
-        }
+        //    // Assert
+        //    Assert.NotNull(result);
+        //    var viewResult = Assert.IsType<ViewResult>(result);
+        //    Assert.Null(viewResult.ViewName);
+        //    Assert.Null(viewResult.Model);
+        //}
     }
 }

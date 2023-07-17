@@ -5,14 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using Basecode.Data.Models;
 using System.Linq;
+using Basecode.Data.Interfaces;
 
 namespace Basecode.Data.Repositories
 {
-    public class CurrentHiresRepository
+    public class CurrentHiresRepository : BaseRepository, ICurrentHiresRepository
     {
         private readonly BasecodeContext _context;
 
-        public CurrentHiresRepository(BasecodeContext context)
+        public CurrentHiresRepository(IUnitOfWork unitOfWork, BasecodeContext context) : base(unitOfWork) 
         {
             _context = context;
         }

@@ -3,6 +3,7 @@ using Basecode.Data.Repositories;
 using Basecode.Services.Interfaces;
 using Basecode.Services.Services;
 using Microsoft.AspNetCore.Mvc;
+using NLog;
 
 namespace Basecode.WebApp.Controllers
 {
@@ -10,6 +11,7 @@ namespace Basecode.WebApp.Controllers
     {
         private readonly IApplicantListService _service;
         private readonly CurrentHiresRepository _repository;
+        private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
 
         public ApplicantListController(IApplicantListService service)
         {
@@ -23,6 +25,7 @@ namespace Basecode.WebApp.Controllers
         public IActionResult Index()
         {
             var data = _service.RetrieveAll();
+            _logger.Trace("ApplicantList Controller Accessed");
             return View(data);
         }
 
