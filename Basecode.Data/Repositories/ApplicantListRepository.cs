@@ -34,5 +34,15 @@ namespace Basecode.Data.Repositories
             return _context.Applicant.FirstOrDefault(a => a.Id == id);
         }
 
+        public void UpdateStatus(int applicantId, string status)
+        {
+            var applicant = _context.Applicant.Find(applicantId);
+            if (applicant != null)
+            {
+                applicant.Grading = status;
+                _context.SaveChanges();
+            }
+        }
+
     }
 }

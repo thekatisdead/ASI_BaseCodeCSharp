@@ -38,5 +38,10 @@ namespace Basecode.Services.Services
 
             return data;
         }
+
+        public void UpdateStatus(int applicantId, string status)
+        {
+            _repository.UpdateStatus(applicantId, status);
+        }
     }
 }

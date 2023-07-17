@@ -27,6 +27,7 @@ namespace Basecode.WebApp.Controllers
         /// <returns>The index view.</returns>
         public IActionResult Index()
         {
+            _service.UpdateStatus(2,"Withheld");
             var data = _service.RetrieveAll();
             return View(data);
         }

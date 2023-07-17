@@ -15,6 +15,8 @@ namespace Basecode.Data.Interfaces
         /// <returns>An IQueryable of Applicant containing all applicants.</returns>
         IQueryable<Applicant> RetrieveAll();
 
+        void UpdateStatus(int applicantId, string status);
+
         Applicant GetById(int id);
     }
 }
