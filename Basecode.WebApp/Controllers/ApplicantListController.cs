@@ -10,10 +10,12 @@ namespace Basecode.WebApp.Controllers
     {
         private readonly IApplicantListService _service;
         private readonly CurrentHiresRepository _repository;
+        private readonly IPublicApplicationFormService _publicApplicationFormService;
 
-        public ApplicantListController(IApplicantListService service)
+        public ApplicantListController(IApplicantListService service,IPublicApplicationFormService publicApplicationFormService)
         {
             _service = service;
+            _publicApplicationFormService= publicApplicationFormService;
         }
 
         /// <summary>
@@ -25,9 +27,10 @@ namespace Basecode.WebApp.Controllers
             var data = _service.RetrieveAll();
             return View(data);
         }
-        public IActionResult ViewProfile()
+        public IActionResult ViewProfile(int id)
         {
-            return View();
+            var applicant = _publicApplicationFormService.GetById(1);
+            return View(applicant);
         }
 
         /// <summary>
