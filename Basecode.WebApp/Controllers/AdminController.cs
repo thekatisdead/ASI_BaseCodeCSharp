@@ -1,12 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Basecode.Services.Interfaces;
 using Basecode.Data.Models;
+using NLog;
+
 namespace Basecode.WebApp.Controllers
 {
     public class AdminController : Controller
     {
         private readonly IJobOpeningService _jobOpeningService;
         private readonly IUserViewService _userService;
+        private static Logger _logger = LogManager.GetCurrentClassLogger();
 
         public AdminController(IJobOpeningService jobOpeningService, IUserViewService userService)
         {
@@ -15,17 +18,53 @@ namespace Basecode.WebApp.Controllers
         }
         public IActionResult Index()
         {
+            _logger.Trace("Admin Controller Accessed");
             return View();
         }
         public IActionResult AdminJobListing()
         {
-            var job = _jobOpeningService.RetrieveAll();
-            return View(job);
+            try
+            {
+                var jobs = _jobOpeningService.RetrieveAll();
+
+                // Log the number of retrieved job openings
+                _logger.Info("Retrieved {jobCount} job openings for admin listing", jobs.Count);
+
+                return View(jobs);
+            }
+            catch (Exception ex)
+            {
+                // Log the error using a logger
+                _logger.Error(ex, "Error occurred while retrieving admin job listings: {errorMessage}", ex.Message);
+
+                // You can customize the error handling based on your application's requirements
+                // For example, you can return a specific error view or redirect to an error page.
+                return BadRequest("An error occurred while retrieving the job openings.");
+            }
         }
+
+
         public IActionResult UserManagement()
         {
-            var users = _userService.RetrieveAll();
-            return View(users);
+            try
+            {
+                var users = _userService.RetrieveAll();
+
+                // Log the number of retrieved users
+                _logger.Info("Retrieved {userCount} users for user management", users.Count);
+
+                return View(users);
+            }
+            catch (Exception ex)
+            {
+                // Log the error using a logger
+                _logger.Error(ex, "Error occurred while retrieving users for user management: {errorMessage}", ex.Message);
+
+                // You can customize the error handling based on your application's requirements
+                // For example, you can return a specific error view or redirect to an error page.
+                return BadRequest("An error occurred while retrieving users.");
+            }
         }
+
     }
 }
