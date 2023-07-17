@@ -3,7 +3,6 @@ using Basecode.Data.Repositories;
 using Basecode.Services.Interfaces;
 using Basecode.Services.Services;
 using Microsoft.AspNetCore.Mvc;
-using AutoMapper;
 using Basecode.Data.ViewModels;
 using NLog;
 namespace Basecode.WebApp.Controllers
@@ -13,14 +12,12 @@ namespace Basecode.WebApp.Controllers
         private readonly IApplicantListService _service;
         private readonly CurrentHiresRepository _repository;
         private readonly IPublicApplicationFormService _publicApplicationFormService;
-        private readonly IMapper _mapper;
         private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
 
-        public ApplicantListController(IApplicantListService service,IPublicApplicationFormService publicApplicationFormService, IMapper mapper)
+        public ApplicantListController(IApplicantListService service,IPublicApplicationFormService publicApplicationFormService)
         {
             _service = service;
-            _publicApplicationFormService = publicApplicationFormService;
-            _mapper = mapper;       
+            _publicApplicationFormService = publicApplicationFormService;      
         }
 
         /// <summary>
