@@ -5,6 +5,7 @@ using Basecode.Services.Services;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
 using Basecode.Data.ViewModels;
+using NLog;
 namespace Basecode.WebApp.Controllers
 {
     public class ApplicantListController : Controller
@@ -13,6 +14,8 @@ namespace Basecode.WebApp.Controllers
         private readonly CurrentHiresRepository _repository;
         private readonly IPublicApplicationFormService _publicApplicationFormService;
         private readonly IMapper _mapper;
+        private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
+
         public ApplicantListController(IApplicantListService service,IPublicApplicationFormService publicApplicationFormService, IMapper mapper)
         {
             _service = service;
