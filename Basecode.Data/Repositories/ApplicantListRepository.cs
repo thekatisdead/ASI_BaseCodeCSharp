@@ -33,6 +33,11 @@ namespace Basecode.Data.Repositories
             // will return a null value
             return _context.Applicant.FirstOrDefault(a => a.Id == id);
         }
+        public void Update(Applicant applicant)
+        {
+            _context.Update(applicant);
+            _context.SaveChanges();
+        }
 
     }
 }

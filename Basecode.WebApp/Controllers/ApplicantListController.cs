@@ -3,7 +3,8 @@ using Basecode.Data.Repositories;
 using Basecode.Services.Interfaces;
 using Basecode.Services.Services;
 using Microsoft.AspNetCore.Mvc;
-
+using AutoMapper;
+using Basecode.Data.ViewModels;
 namespace Basecode.WebApp.Controllers
 {
     public class ApplicantListController : Controller
@@ -11,11 +12,12 @@ namespace Basecode.WebApp.Controllers
         private readonly IApplicantListService _service;
         private readonly CurrentHiresRepository _repository;
         private readonly IPublicApplicationFormService _publicApplicationFormService;
-
-        public ApplicantListController(IApplicantListService service,IPublicApplicationFormService publicApplicationFormService)
+        private readonly IMapper _mapper;
+        public ApplicantListController(IApplicantListService service,IPublicApplicationFormService publicApplicationFormService, IMapper mapper)
         {
             _service = service;
-            _publicApplicationFormService= publicApplicationFormService;
+            _publicApplicationFormService = publicApplicationFormService;
+            _mapper = mapper;       
         }
 
         /// <summary>
@@ -29,7 +31,7 @@ namespace Basecode.WebApp.Controllers
         }
         public IActionResult ViewProfile(int id)
         {
-            var applicant = _publicApplicationFormService.GetById(1);
+            var applicant = _publicApplicationFormService.GetById(id);
             return View(applicant);
         }
 
@@ -52,9 +54,28 @@ namespace Basecode.WebApp.Controllers
             {
                 _repository.AddHire(applicantID,data.JobApplied);
             }
+            Applicant applicant = new Applicant();
+            _service.UpdateStatus(applicantID,status);
+            return RedirectToAction("Index", "ApplicantList");
+        }
+        public IActionResult DownloadCV(byte[] cv)
+        {
+            byte[] cvBytes = cv;
 
-            var _allData = _service.RetrieveAll();
-            return View(_allData);
+            // Provide the appropriate content type for the PDF file
+            string contentType = "application/pdf";
+
+            // Generate a unique file name for the PDF file
+            string fileName = Guid.NewGuid().ToString() + ".pdf";
+
+            // Get the file path for saving the PDF file on the server
+            string filePath = Path.Combine(Directory.GetCurrentDirectory(), "PDFs", fileName);
+
+            // Save the byte array as a PDF file on the server
+            System.IO.File.WriteAllBytes(filePath, cvBytes);
+
+            // Create a new tab and open the PDF file in the browser
+            return Content($"<script>window.open('{Url.Content("~/PDFs/" + fileName)}', '_blank');</script>", "text/html");
         }
     }
 }
