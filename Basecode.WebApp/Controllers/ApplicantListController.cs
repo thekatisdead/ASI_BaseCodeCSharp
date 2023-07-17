@@ -25,6 +25,10 @@ namespace Basecode.WebApp.Controllers
             var data = _service.RetrieveAll();
             return View(data);
         }
+        public IActionResult ViewProfile()
+        {
+            return View();
+        }
 
         /// <summary>
         /// Takes in the Applicant ID and then use it to locate the 
