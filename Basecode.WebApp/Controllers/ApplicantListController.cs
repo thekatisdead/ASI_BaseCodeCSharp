@@ -12,6 +12,7 @@ namespace Basecode.WebApp.Controllers
     {
         private readonly IApplicantListService _service;
         private readonly CurrentHiresRepository _repository;
+        private readonly IPublicApplicationFormService _publicApplicationFormService;
         private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
 
         public ApplicantListController(IApplicantListService service)
