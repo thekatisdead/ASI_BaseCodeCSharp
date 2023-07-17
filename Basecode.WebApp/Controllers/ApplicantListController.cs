@@ -3,6 +3,7 @@ using Basecode.Data.Repositories;
 using Basecode.Services.Interfaces;
 using Basecode.Services.Services;
 using Microsoft.AspNetCore.Mvc;
+using Basecode.Data.ViewModels;
 using NLog;
 
 namespace Basecode.WebApp.Controllers
