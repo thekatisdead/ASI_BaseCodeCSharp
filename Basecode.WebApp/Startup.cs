@@ -27,6 +27,8 @@ namespace Basecode.WebApp
             // Add services to the container.
             services.AddControllersWithViews();
             services.AddScoped<ApplicationTrackingRepository>();
+            services.AddScoped<UserRepository>();
+            services.AddScoped<CurrentHiresRepository>();
             services.AddScoped<JobOpeningRepository>();
             services.AddScoped<BasecodeContext>();
             services.AddTransient<IEmailSenderService, EmailSenderService>();

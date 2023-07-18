@@ -10,6 +10,10 @@ namespace Basecode.Data.Repositories
         private UserManager<IdentityUser> _userManager;
         private RoleManager<IdentityRole> _roleManager;
 
+        /// <summary>
+        /// Creates an instance of Basecode context
+        /// </summary>
+
         public UserRepository(IUnitOfWork unitOfWork, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager) 
             : base(unitOfWork)
         {

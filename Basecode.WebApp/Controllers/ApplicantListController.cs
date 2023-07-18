@@ -4,6 +4,7 @@ using Basecode.Services.Interfaces;
 using Basecode.Services.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NLog;
 
 namespace Basecode.WebApp.Controllers
 {
@@ -15,10 +16,15 @@ namespace Basecode.WebApp.Controllers
         private readonly UserRepository _users;
         private readonly JobOpeningRepository _job;
 
-        public ApplicantListController(IApplicantListService service, IEmailSenderService email)
+        private static Logger Logger = LogManager.GetCurrentClassLogger();
+
+        public ApplicantListController(IApplicantListService service, IEmailSenderService email, JobOpeningRepository job, UserRepository users, CurrentHiresRepository repository)
         {
             _service = service;
-            _email = email; 
+            _email = email;
+            _job = job;
+            _users = users;
+            _repository = repository;
         }
 
         /// <summary>
@@ -27,7 +33,7 @@ namespace Basecode.WebApp.Controllers
         /// <returns>The index view.</returns>
         public IActionResult Index()
         {
-            _email.SendEmailHRApplicationDecision("kaherbieto@outlook.up.edu.ph", 2, "MrKat", "Chef");
+            this.UpdateStatus(2,"For Hire");
             var data = _service.RetrieveAll();
             return View(data);
         }
@@ -44,14 +50,18 @@ namespace Basecode.WebApp.Controllers
             {
                 return NotFound(); // or handle the case when applicant is not found
             }
+
+            // get the data from the models
+            //var temp_id = _job.GetById(3);
             
             var _fullName = data.Lastname + " " + data.Firstname;
             var job = _job.GetById(data.JobApplied);
+            Logger.Trace(job.HR);
             var _receiver = _users.FindById((job.HR).ToString());
 
             // sends an update whenever the applicant status is changed
             _email.SendEmailOnUpdateApplicantStatus(_receiver.EmailAddress,_fullName,data.Tracker,status);
-            data.Tracker = status;
+            _service.ProceedTo(applicantID, status);
 
             // needs to check if the currentHires exist
             if (status == "Hired")
@@ -80,9 +90,12 @@ namespace Basecode.WebApp.Controllers
         }
         public IActionResult Accept(int applicantID)
         {
-            _service.UpdateStatus(applicantID, "Accepted");
-
-            return RedirectToAction("Reject");
+            return this.UpdateStatus(applicantID, "For HR Interview");
+           // _service.ProceedTo(applicantID, "For HR Interview");
         }
+
+        /// Interview functions
+        /// 
+
     }
 }

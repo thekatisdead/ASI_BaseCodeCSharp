@@ -43,5 +43,10 @@ namespace Basecode.Services.Services
         {
             _repository.UpdateStatus(applicantId, status);
         }
+
+        public void ProceedTo(int applicantId, string step)
+        {
+            _repository.ProceedTo(applicantId, step);
+        }
     }
 }

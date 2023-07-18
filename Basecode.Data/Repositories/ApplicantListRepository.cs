@@ -44,5 +44,16 @@ namespace Basecode.Data.Repositories
             }
         }
 
+        public void ProceedTo(int applicantId, string step)
+        {
+            var applicant = _context.Applicant.Find(applicantId);
+            if (applicant != null)
+            {
+                applicant.Tracker = step;
+                applicant.Grading = "On Going";
+                _context.SaveChanges();
+            }
+        }
+
     }
 }

@@ -17,6 +17,8 @@ namespace Basecode.Data.Interfaces
 
         void UpdateStatus(int applicantId, string status);
 
+        void ProceedTo(int applicantId, string step);
+
         Applicant GetById(int id);
     }
 }
