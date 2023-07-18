@@ -15,5 +15,6 @@ namespace Basecode.Services.Interfaces
         /// </summary>
         /// <returns>A list of ApplicantListViewModel objects representing all applicants.</returns>
         List<ApplicantListViewModel> RetrieveAll();
+        public void UpdateStatus(int applicantID, string status);
     }
 }
