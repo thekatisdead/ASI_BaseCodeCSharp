@@ -91,6 +91,126 @@ namespace Basecode.Services.Services
             }
         }
 
+        public void SendEmailRejectInterview(string receiverEmail, string applicantName, string companyName, string jobPosition)
+        {
+            var email = new MimeMessage();
+
+            // If you wanna test for email functionalities, change the Sender Name to your email
+            // and the receiver name to your other email.
+            // To perform it properly, follow the link below
+            // https://mailtrap.io/blog/csharp-send-email-gmail/
+
+            email.From.Add(new MailboxAddress("HR Site", "kermherbieto52@gmail.com"));
+            email.To.Add(new MailboxAddress(applicantName, receiverEmail));
+
+            email.Subject = "Interview Rejection";
+
+            var htmlContent = File.ReadAllText("EmailTemplates/RejectInterview.html");
+
+            // this is to replace the placeholders
+            htmlContent = htmlContent.Replace("{applicantName}", applicantName);
+            htmlContent = htmlContent.Replace("{companyName}", companyName);
+            htmlContent = htmlContent.Replace("{jobPosition}", jobPosition);
+
+
+            email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
+            {
+                Text = htmlContent
+            };
+
+            using (var smtp = new SmtpClient())
+            {
+                smtp.Connect("smtp.gmail.com", 587, false);
+
+                // Note: only needed if the SMTP server requires authentication
+                // Also: This is PM's email kek, rip bozo ig.
+                smtp.Authenticate("kermherbieto52@gmail.com", "sfltmfkdvdiuhabi");
+
+                smtp.Send(email);
+                smtp.Disconnect(true);
+            }
+        }
+
+        public void SendEmailInterviewDecision(string receiverEmail, string applicantName, string companyName, string jobPosition)
+        {
+            var email = new MimeMessage();
+
+            // If you wanna test for email functionalities, change the Sender Name to your email
+            // and the receiver name to your other email.
+            // To perform it properly, follow the link below
+            // https://mailtrap.io/blog/csharp-send-email-gmail/
+
+            email.From.Add(new MailboxAddress("HR Site", "kermherbieto52@gmail.com"));
+            email.To.Add(new MailboxAddress(applicantName, receiverEmail));
+
+            email.Subject = "Interview Decision";
+
+            var htmlContent = File.ReadAllText("EmailTemplates/InterviewDecision.html");
+
+            // this is to replace the placeholders
+            htmlContent = htmlContent.Replace("{applicantName}", applicantName);
+            htmlContent = htmlContent.Replace("{companyName}", companyName);
+            htmlContent = htmlContent.Replace("{jobPosition}", jobPosition);
+
+
+            email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
+            {
+                Text = htmlContent
+            };
+
+            using (var smtp = new SmtpClient())
+            {
+                smtp.Connect("smtp.gmail.com", 587, false);
+
+                // Note: only needed if the SMTP server requires authentication
+                // Also: This is PM's email kek, rip bozo ig.
+                smtp.Authenticate("kermherbieto52@gmail.com", "sfltmfkdvdiuhabi");
+
+                smtp.Send(email);
+                smtp.Disconnect(true);
+            }
+        }
+
+        public void SendEmailInterviewReminder(string receiverEmail, string applicantName, string companyName, string jobPosition, DateTime date)
+        {
+            var email = new MimeMessage();
+
+            // If you wanna test for email functionalities, change the Sender Name to your email
+            // and the receiver name to your other email.
+            // To perform it properly, follow the link below
+            // https://mailtrap.io/blog/csharp-send-email-gmail/
+
+            email.From.Add(new MailboxAddress("HR Site", "kermherbieto52@gmail.com"));
+            email.To.Add(new MailboxAddress(applicantName, receiverEmail));
+
+            email.Subject = "Interview Reminder";
+
+            var htmlContent = File.ReadAllText("EmailTemplates/InterviewReminder.html");
+
+            // this is to replace the placeholders
+            htmlContent = htmlContent.Replace("{applicantName}", applicantName);
+            htmlContent = htmlContent.Replace("{companyName}", companyName);
+            htmlContent = htmlContent.Replace("{interviewDate}", date.ToString());
+            htmlContent = htmlContent.Replace("{jobPosition}", jobPosition);
+
+
+            email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
+            {
+                Text = htmlContent
+            };
+
+            using (var smtp = new SmtpClient())
+            {
+                smtp.Connect("smtp.gmail.com", 587, false);
+
+                // Note: only needed if the SMTP server requires authentication
+                // Also: This is PM's email kek, rip bozo ig.
+                smtp.Authenticate("kermherbieto52@gmail.com", "sfltmfkdvdiuhabi");
+
+                smtp.Send(email);
+                smtp.Disconnect(true);
+            }
+        }
         // Approval Email in Application and Screening
         public void SendEmailHRApplicationDecision(string receiverEmail, int applicantId ,string applicantName, string jobPosition)
         {

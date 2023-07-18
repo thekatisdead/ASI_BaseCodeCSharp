@@ -11,6 +11,9 @@ namespace Basecode.Services.Interfaces
     {
         void SendEmailInterviewSchedule(HrScheduler HrScheduler);
         void SendEmailRejectApplication(string receiverEmail, string applicantName,string companyName, string jobPosition);
+        void SendEmailRejectInterview(string receiverEmail, string applicantName, string companyName, string jobPosition);
+        void SendEmailInterviewDecision(string receiverEmail, string applicantName, string companyName, string jobPosition);
+        void SendEmailInterviewReminder(string receiverEmail, string applicantName, string companyName, string jobPosition, DateTime date);
         void SendEmailOnUpdateApplicantStatus(string receiverEmail, string applicantName, string previousStatus, string newStatus);
         void SendEmailHRApplicationDecision(string receiverEmail, int applicantId,string applicantName, string jobPosition);
     }

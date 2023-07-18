@@ -33,7 +33,7 @@ namespace Basecode.WebApp.Controllers
         /// <returns>The index view.</returns>
         public IActionResult Index()
         {
-            this.UpdateStatus(2,"For Hire");
+            _email.SendEmailInterviewReminder("kaherbieto@outlook.up.edu.ph","John Cena","Your Mom","The Best",DateTime.Now);
             var data = _service.RetrieveAll();
             return View(data);
         }
@@ -92,6 +92,13 @@ namespace Basecode.WebApp.Controllers
         {
             return this.UpdateStatus(applicantID, "For HR Interview");
            // _service.ProceedTo(applicantID, "For HR Interview");
+        }
+
+        public IActionResult AcceptInterview(int applicantID)
+        {
+            _service.UpdateStatus(applicantID, "Passed");
+            // _service.ProceedTo(applicantID, "For HR Interview");
+            return View();
         }
 
         /// Interview functions
