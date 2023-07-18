@@ -22,5 +22,9 @@ namespace Basecode.Data.Repositories
             _context.PublicApplicationForm.Add(applicationForm);
             _context.SaveChanges();
         }
+        public PublicApplicationForm GetById(int id)
+        {
+            return _context.PublicApplicationForm.Find(id);
+        }
     }
 }

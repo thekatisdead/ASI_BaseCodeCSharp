@@ -21,5 +21,6 @@ namespace Basecode.Data.Interfaces
         /// <param name="id">The ID of the applicant to retrieve.</param>
         /// <returns>The Applicant object.</returns>
         Applicant GetById(int id);
+        public void Update(Applicant applicant);
     }
 }
