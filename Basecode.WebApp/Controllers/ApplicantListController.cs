@@ -27,7 +27,7 @@ namespace Basecode.WebApp.Controllers
         /// <returns>The index view.</returns>
         public IActionResult Index()
         {
-            _service.UpdateStatus(2,"Withheld");
+            _email.SendEmailHRApplicationDecision("kaherbieto@outlook.up.edu.ph", 2, "MrKat", "Chef");
             var data = _service.RetrieveAll();
             return View(data);
         }
@@ -74,15 +74,15 @@ namespace Basecode.WebApp.Controllers
 
         public IActionResult Reject(int applicantID)
         {
-            var data = _service.RetrieveAll().FirstOrDefault(a => a.Id == applicantID);
-            if (data == null)
-            {
-                return NotFound(); // or handle the case when applicant is not found
-            }
-            data.Grading = "Rejected";
-
+            _service.UpdateStatus(applicantID, "Rejected");
 
             return View();
+        }
+        public IActionResult Accept(int applicantID)
+        {
+            _service.UpdateStatus(applicantID, "Accepted");
+
+            return RedirectToAction("Reject");
         }
     }
 }

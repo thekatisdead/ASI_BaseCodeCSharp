@@ -90,6 +90,8 @@ namespace Basecode.Services.Services
                 smtp.Disconnect(true);
             }
         }
+
+        // Approval Email in Application and Screening
         public void SendEmailHRApplicationDecision(string receiverEmail, int applicantId ,string applicantName, string jobPosition)
         {
             var email = new MimeMessage();
@@ -100,9 +102,9 @@ namespace Basecode.Services.Services
             // https://mailtrap.io/blog/csharp-send-email-gmail/
 
             email.From.Add(new MailboxAddress("Sender Name", "kermherbieto52@gmail.com"));
-            email.To.Add(new MailboxAddress("Receiver Name", "kaherbieto@outlook.up.edu.ph"));
+            email.To.Add(new MailboxAddress("Receiver Name", receiverEmail));
 
-            email.Subject = "Application Rejection";
+            email.Subject = "Application Decision";
 
             var htmlContent = File.ReadAllText("EmailTemplates/HRApplicationDecision.html");
 
@@ -110,6 +112,7 @@ namespace Basecode.Services.Services
             htmlContent = htmlContent.Replace("{applicantName}", applicantName);
             //htmlContent = htmlContent.Replace("{companyName}", companyName);
             htmlContent = htmlContent.Replace("{jobPosition}", jobPosition);
+            htmlContent = htmlContent.Replace("{applicantId}", applicantId.ToString());
 
 
             email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
