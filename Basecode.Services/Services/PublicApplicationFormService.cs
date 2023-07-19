@@ -29,6 +29,7 @@ namespace Basecode.Services.Services
 
             _repository.AddForm(_mapper.Map<PublicApplicationForm>(applicationForm));
         }
+
         public PublicApplicationFormViewModel GetById(int id)
         {
             var data = (PublicApplicationForm)_repository.GetById(id);

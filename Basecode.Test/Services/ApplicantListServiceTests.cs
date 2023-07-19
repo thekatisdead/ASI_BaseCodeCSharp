@@ -64,5 +64,31 @@ namespace Basecode.Tests.Services
             // Assert
             Assert.Empty(result);
         }
+
+        [Fact]
+        public void UpdateStatus_ValidApplicantId_UpdatesApplicantStatus()
+        {
+            // Arrange
+            int applicantId = 1;
+            string newStatus = "Hired";
+
+            var applicant = new Applicant
+            {
+                Id = applicantId,
+                Firstname = "John",
+                Lastname = "Doe",
+                JobApplied = 1,
+                Tracker = "Pending"
+            };
+
+            _fakeApplicantListRepository.Setup(repo => repo.GetById(applicantId)).Returns(applicant);
+
+            // Act
+            _service.UpdateStatus(applicantId, newStatus);
+
+            // Assert
+            Assert.Equal(newStatus, applicant.Tracker);
+            _fakeApplicantListRepository.Verify(repo => repo.Update(applicant), Times.Once);
+        }
     }
 }
