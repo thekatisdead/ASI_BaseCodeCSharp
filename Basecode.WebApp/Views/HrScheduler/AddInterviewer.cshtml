@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewData["Title"] = "HR Scheduler";
+    Layout = "~/Views/Shared/_LayoutHR.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hr Scheduler</title>
+    <link rel="stylesheet" href="~/css/hrscheduler.css" asp-append-version="true" />
+</head>
+<body>
+    <form>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <h2>Interviewer Details Input Form</h2>
+        <hr>
+
+        <div>
+            <h3 class="section-title">Interviewer Details</h3>
+            <hr class="divider">
+            <h4 class="section-title">Interviewer's Name</h4>
+            <div class="input-group">
+                <input type="text" id="first-name" class="text-input">
+              @*  <span asp-validation-for="FirstName" class-type="text-danger"></span>*@
+                <br>
+                <label for="first-name">First Name</label>
+            </div>
+            <div class="input-group">
+                <input type="text" id="last-name" class="text-input">
+                @*<span asp-validation-for="LastName" class-type="text-danger"></span>*@
+                <br>
+                <label for="last-name">Last Name</label>
+            </div>
+            <h4 class="section-title">Email Address</h4>
+            <div class="input-email">
+                <input type="email" id="email" class="text-input" placeholder="email@email.com">
+                @*<span asp-validation-for="EmailAddress" class-type="text-danger"></span>*@
+               
+            </div>
+            <div class="input-group">
+                <input type="text" id="last-name" class="text-input">
+                @*<span asp-validation-for="LastName" class-type="text-danger"></span>*@
+                <br>
+                <label for="last-name">Contact Number</label>
+            </div>
+        </div>
+        <button type="submit" class="save-button">Save</button>
+
+        @section Scripts {
+            @{
+                await Html.RenderPartialAsync("_ValidationScriptsPartial");
+            }
+        }
+    </form>
+    <div class="triangle"></div>
+    <div class="triangle1"></div>
+</body>
+</html>

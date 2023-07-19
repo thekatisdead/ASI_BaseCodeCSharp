@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "HR Scheduler";
+    Layout = "~/Views/Shared/_LayoutHR.cshtml";
+}
+<html>
+    <head>
+    <title>Hr Scheduler</title>
+    <link rel="stylesheet" href="~/css/hrscheduler.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/applicantlist.css" asp-append-version="true" />
+    </head>
+    <body>
+    <div class="mt-2 mb-2 p-3">
+        <a asp-action="AddInterviewer"><button class="btn btn-danger" style="margin-right:15px">Manage Interviewer</button></a>
+        <button class="btn btn-danger">Assign Schedule</button>
+    </div>
+        
+        <table class="table py-lg-4 rounded-table table-light">
+            <thead>
+                <tr class="text-center header">
+                    <th scope="col">Job</th>
+                    <th scope="col">Interviewer</th>
+                    <th scope="col">Schedule</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>
