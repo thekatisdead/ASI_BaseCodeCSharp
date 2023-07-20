@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = "HR Scheduler";
+    Layout = "~/Views/Shared/_LayoutHR.cshtml";
+}
+@using Basecode.Data.ViewModels
+@model List<InterviewerViewModel>
+<html>
+    <head>
+        <title>Hr Scheduler</title>
+        <link rel="stylesheet" href="~/css/hrscheduler.css" asp-append-version="true" />
+    </head>
+    <body>
+        <table class="table py-lg-4 rounded-table table-light">
+        <thead>
+                <tr class="text-center header">
+                    <th scope="col">Job</th>
+                    <th scope="col">Interviewer</th>
+                    <th scope="col">Schedule</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

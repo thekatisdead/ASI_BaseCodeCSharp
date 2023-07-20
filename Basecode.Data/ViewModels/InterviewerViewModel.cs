@@ -13,7 +13,7 @@ namespace Basecode.Data.ViewModels
         [Required(ErrorMessage = "First name is required.")]
         [StringLength(15, ErrorMessage = "First name must not exceed 15 characters.")]
         [Display(Name = "First name")]
-        public string? FistName { get; set; }
+        public string? FirstName { get; set; }
         [Required(ErrorMessage = "Last name is required.")]
         [StringLength(15, ErrorMessage = "Last name must not exceed 15 characters.")]
         [Display(Name = "Last name")]

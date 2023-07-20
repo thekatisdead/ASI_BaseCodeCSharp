@@ -9,7 +9,7 @@ namespace Basecode.Data.Models
     public class Interviewer
     {
         public int? InterviewerId { get; set; }
-        public string? FistName { get; set; }
+        public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public string? Email { get; set; }
         public string? ContactNo { get; set; }
