@@ -13,5 +13,6 @@ namespace Basecode.Data.Interfaces
         public IQueryable<Interviewer> GetAll();
         public void Update(Interviewer interviewer);
         public Interviewer GetById(int id);
+        public void Delete(Interviewer interviewer);
     }
 }

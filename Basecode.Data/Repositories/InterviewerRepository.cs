@@ -33,5 +33,9 @@ namespace Basecode.Data.Repositories
         {
             return _context.Interviewer.Find(id);
         }
+        public void Delete(Interviewer interviewer)
+        {
+            _context.
+        }
     }
 }
