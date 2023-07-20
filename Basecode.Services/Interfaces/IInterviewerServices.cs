@@ -14,5 +14,6 @@ namespace Basecode.Services.Interfaces
         public List<InterviewerViewModel> GetAll();
         public void Update(Interviewer interviewer);
         public InterviewerViewModel GetById(int id);
+        public void Delete(int id);
     }
 }

@@ -59,5 +59,10 @@ namespace Basecode.Services.Services
             var data= _interviewerRepository.GetById(id);
             return _mapper.Map<InterviewerViewModel>(data);
         }
+        public void Delete(int id)
+        {
+            var interviewer = _interviewerRepository.GetById(id);
+            _interviewerRepository.Delete(interviewer);
+        }
     }
 }

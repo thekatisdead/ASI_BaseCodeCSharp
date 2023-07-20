@@ -2,6 +2,7 @@
 using NLog;
 using Basecode.Data.Models;
 using Basecode.Services.Interfaces;
+using AutoMapper.Configuration.Conventions;
 
 namespace Basecode.WebApp.Controllers
 {
@@ -40,6 +41,11 @@ namespace Basecode.WebApp.Controllers
         public IActionResult Update(Interviewer interviewer)
         {
             _interviewerServices.Update(interviewer);
+            return RedirectToAction("InterviewerList","HrScheduler");
+        }
+        public IActionResult Delete(int id)
+        {
+            _interviewerServices.Delete(id);
             return RedirectToAction("InterviewerList","HrScheduler");
         }
     }

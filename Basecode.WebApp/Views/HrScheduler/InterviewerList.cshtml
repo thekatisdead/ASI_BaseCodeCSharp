@@ -33,8 +33,8 @@
                             <td>@interviewer.LastName</td>
                             <td>@interviewer.Email</td>
                             <td>@interviewer.ContactNo</td>
-                            <td><a asp-action="UpdateInterviewer" asp-route-id="@interviewer.InterviewerId">Edit</a> <a href="">Delete</a></td>                          
-                        </tr>
+                    <td><a asp-action="UpdateInterviewer" asp-route-id="@interviewer.InterviewerId">Edit</a> <a asp-action="Delete" asp-route-id="@interviewer.InterviewerId">Delete</a></td>
+                </tr>
                     }
                 </tbody>
             </thead>

@@ -35,7 +35,8 @@ namespace Basecode.Data.Repositories
         }
         public void Delete(Interviewer interviewer)
         {
-            _context.
+            _context.Interviewer.Remove(interviewer);
+            _context.SaveChanges();
         }
     }
 }
