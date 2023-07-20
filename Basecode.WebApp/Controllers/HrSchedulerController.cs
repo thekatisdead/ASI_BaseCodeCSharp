@@ -48,5 +48,9 @@ namespace Basecode.WebApp.Controllers
             _interviewerServices.Delete(id);
             return RedirectToAction("InterviewerList","HrScheduler");
         }
+        public IActionResult AddSchedule()
+        {
+            return View();
+        }
     }
 }
