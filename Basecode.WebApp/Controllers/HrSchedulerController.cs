@@ -3,6 +3,7 @@ using NLog;
 using Basecode.Data.Models;
 using Basecode.Services.Interfaces;
 using AutoMapper.Configuration.Conventions;
+using Basecode.Data.ViewModels;
 
 namespace Basecode.WebApp.Controllers
 {
@@ -10,9 +11,13 @@ namespace Basecode.WebApp.Controllers
     {
         private static Logger _logger = LogManager.GetCurrentClassLogger();
         IInterviewerServices _interviewerServices;
-        public HrSchedulerController(IInterviewerServices services) 
+        IJobOpeningService _jobOpeningService;
+        IScheduleService _scheduleService;
+        public HrSchedulerController(IInterviewerServices services,IJobOpeningService jobOpeningService,IScheduleService scheduleService) 
         { 
             _interviewerServices= services;
+            _jobOpeningService= jobOpeningService;
+            _scheduleService =  scheduleService;
         }
         public IActionResult AddInterviewer()
         {
@@ -50,7 +55,15 @@ namespace Basecode.WebApp.Controllers
         }
         public IActionResult ViewAddSchedule()
         {
-            return View();
+            var schedule = new ScheduleViewModel();
+            schedule.JobOpenings = _jobOpeningService.RetrieveAll();
+            schedule.Interviewers = _interviewerServices.GetAll();
+            return View(schedule);
+        }
+        public IActionResult AddSchedule(Schedule schedule)
+        {
+            _scheduleService.Add(schedule);
+            return RedirectToAction("home", "HrScheduler");
         }
     }
 }

@@ -18,6 +18,10 @@ namespace Basecode.Services.Services
         }
         public void Add(Schedule schedule)
         {
+            schedule.CreatedBy = "Jimwill";
+            schedule.CreatedTime= DateTime.Now;
+            schedule.UpdatedBy = "Jimwill";
+            schedule.UpdatedTime = DateTime.Now;
             _scheduleRepository.Add(schedule);
         }
 
