@@ -8,10 +8,11 @@
     <head>
         <title>Hr Scheduler</title>
         <link rel="stylesheet" href="~/css/hrscheduler.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/applicantlist.css" asp-append-version="true" />
     </head>
     <body>
          <a asp-action="AddInterviewer"><button class="btn btn-danger" style="margin-right:15px">Manage Interviewer</button></a>
-        <table class="table py-lg-4 rounded-table table-light">
+    <table class="table py-lg-4 rounded-table table-light">
         <thead>
                 <tr class="text-center header">
                      <th scope="col">Id</th>
@@ -25,12 +26,12 @@
                     @foreach(var interviewer in Model)
                     {
                         <tr>
+                            <td>@interviewer.InterviewerId</td>
                             <td>@interviewer.FirstName</td>
                             <td>@interviewer.LastName</td>
                             <td>@interviewer.Email</td>
                             <td>@interviewer.ContactNo</td>
-                            <a>Edit</a>
-                            <a>Delete</a>
+                            <td><a>Edit</a><a>Delete</a></td>                          
                         </tr>
                     }
                 </tbody>
