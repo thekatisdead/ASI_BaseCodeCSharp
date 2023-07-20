@@ -24,5 +24,14 @@ namespace Basecode.Data.Repositories
         {
             return this.GetDbSet<Interviewer>();
         }
+        public void Update(Interviewer interviewer)
+        {
+            _context.Interviewer.Update(interviewer);
+            _context.SaveChanges();
+        }
+        public Interviewer GetById(int id) 
+        {
+            return _context.Interviewer.Find(id);
+        }
     }
 }

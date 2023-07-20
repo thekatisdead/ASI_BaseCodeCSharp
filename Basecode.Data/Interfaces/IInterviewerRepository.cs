@@ -11,5 +11,7 @@ namespace Basecode.Data.Interfaces
     {
         public void Add(Interviewer interviewer);
         public IQueryable<Interviewer> GetAll();
+        public void Update(Interviewer interviewer);
+        public Interviewer GetById(int id);
     }
 }

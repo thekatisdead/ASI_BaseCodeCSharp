@@ -11,8 +11,10 @@
         <link rel="stylesheet" href="~/css/applicantlist.css" asp-append-version="true" />
     </head>
     <body>
-         <a asp-action="AddInterviewer"><button class="btn btn-danger" style="margin-right:15px">Manage Interviewer</button></a>
-    <table class="table py-lg-4 rounded-table table-light">
+    <div class="mt-2 mb-2 p-3">
+         <a asp-action="AddInterviewer"><button class="btn btn-danger" style="margin-right:15px">Add Interviewer</button></a>
+    </div>
+    <table class="table py-lg-4 rounded-table table-light text-center">
         <thead>
                 <tr class="text-center header">
                      <th scope="col">Id</th>
@@ -31,7 +33,7 @@
                             <td>@interviewer.LastName</td>
                             <td>@interviewer.Email</td>
                             <td>@interviewer.ContactNo</td>
-                            <td><a>Edit</a><a>Delete</a></td>                          
+                            <td><a href="">Edit</a> <a href="">Delete</a></td>                          
                         </tr>
                     }
                 </tbody>

@@ -8,15 +8,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Basecode.Services.Interfaces;
+using AutoMapper;
 namespace Basecode.Services.Services
 {
     public class InterviewerServices: IInterviewerServices
     {
         private readonly IInterviewerRepository _interviewerRepository;
-
-        public InterviewerServices(IInterviewerRepository interviewerRepository)
+        private readonly IMapper _mapper;
+        public InterviewerServices(IInterviewerRepository interviewerRepository,IMapper mapper)
         {
             _interviewerRepository = interviewerRepository;
+            _mapper = mapper;
         }
 
         public void Add(Interviewer interviewer)
@@ -39,6 +41,23 @@ namespace Basecode.Services.Services
             }).ToList();
 
             return interviewers;
+        }
+        public void Update(Interviewer interviewer) 
+        {
+            var data = _interviewerRepository.GetById(interviewer.InterviewerId);
+            data.FirstName = interviewer.FirstName;
+            data.LastName = interviewer.LastName;
+            data.Email = interviewer.Email;
+            data.ContactNo = interviewer.ContactNo;
+            data.UpdatedBy = System.Environment.UserName;
+            data.UpdatedTime = DateTime.Now;
+
+            _interviewerRepository.Update(data);
+        }
+        public InterviewerViewModel GetById(int id)
+        {
+            var data= _interviewerRepository.GetById(id);
+            return _mapper.Map<InterviewerViewModel>(data);
         }
     }
 }

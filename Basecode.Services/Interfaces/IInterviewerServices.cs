@@ -12,5 +12,7 @@ namespace Basecode.Services.Interfaces
     {
         public void Add(Interviewer interviewer);
         public List<InterviewerViewModel> GetAll();
+        public void Update(Interviewer interviewer);
+        public InterviewerViewModel GetById(int id);
     }
 }

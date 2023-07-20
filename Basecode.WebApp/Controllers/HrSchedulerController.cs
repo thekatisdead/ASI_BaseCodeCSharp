@@ -32,5 +32,10 @@ namespace Basecode.WebApp.Controllers
             var interviewers = _interviewerServices.GetAll();
             return View(interviewers); 
         }
+        public IActionResult UpdateInterviewer(int id) 
+        {
+            var interviewer = _interviewerServices.GetById(id);
+            return View();
+        }
     }
 }
