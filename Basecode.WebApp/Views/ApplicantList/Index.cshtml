@@ -8,13 +8,20 @@
 <!DOCTYPE html>
 <head>
     <link rel="stylesheet" href="~/css/applicantlist.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.9.2/semantic.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.semanticui.min.css" />
+    <script defer src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+    <script defer src="https://cdn.datatables.net/1.13.5/js/dataTables.semanticui.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.9.2/semantic.min.js"></script>
+
+    <script defer src="~/js/AdminTable.js"></script>
 </head>
 <html>
-    <body>
+<body style="background-color:#2E3830; color:aliceblue">
 <main><br />
-<table class="table py-lg-4 rounded-table">
+<table id="myTable" class="table py-lg-4 rounded-table table-light">
     <thead>
-        <tr class="text-center header" style="color:white;">
+        <tr class="text-center header">
             <th scope="col">Applicant Name</th>
             <th scope="col">Position</th>
             <th scope="col">Status</th>

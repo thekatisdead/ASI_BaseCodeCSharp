@@ -57,5 +57,24 @@ namespace Basecode.Test.Services
             // Assert
             _fakePublicApplicationFormRepository.Verify(repo => repo.AddForm(It.IsAny<PublicApplicationForm>()), Times.Once);
         }
+
+        [Fact]
+        public void GetById_ExistingFormId_ReturnsPublicApplicationFormViewModel()
+        {
+            // Arrange
+            int formId = 1;
+
+            var applicationForm = new PublicApplicationForm();
+            var formViewModel = new PublicApplicationFormViewModel();
+
+            _fakePublicApplicationFormRepository.Setup(repo => repo.GetById(formId)).Returns(applicationForm);
+            _fakeMapper.Setup(mapper => mapper.Map<PublicApplicationFormViewModel>(applicationForm)).Returns(formViewModel);
+
+            // Act
+            var result = _service.GetById(formId);
+
+            // Assert
+            Assert.Equal(formViewModel, result);
+        }
     }
 }
