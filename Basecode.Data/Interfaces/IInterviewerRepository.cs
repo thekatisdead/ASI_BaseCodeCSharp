@@ -10,5 +10,6 @@ namespace Basecode.Data.Interfaces
     public interface IInterviewerRepository
     {
         public void Add(Interviewer interviewer);
+        public IQueryable<Interviewer> GetAll();
     }
 }

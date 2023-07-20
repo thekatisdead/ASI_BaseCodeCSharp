@@ -27,5 +27,10 @@ namespace Basecode.WebApp.Controllers
             _interviewerServices.Add(interviewer);
             return RedirectToAction("InterviewerList", "HrScheduler");
         }
+        public IActionResult InterviewerList()
+        { 
+            var interviewers = _interviewerServices.GetAll();
+            return View(interviewers); 
+        }
     }
 }

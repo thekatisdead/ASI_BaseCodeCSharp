@@ -10,15 +10,30 @@
         <link rel="stylesheet" href="~/css/hrscheduler.css" asp-append-version="true" />
     </head>
     <body>
+         <a asp-action="AddInterviewer"><button class="btn btn-danger" style="margin-right:15px">Manage Interviewer</button></a>
         <table class="table py-lg-4 rounded-table table-light">
         <thead>
                 <tr class="text-center header">
-                    <th scope="col">Job</th>
-                    <th scope="col">Interviewer</th>
-                    <th scope="col">Schedule</th>
-                    <th scope="col">Date</th>
+                     <th scope="col">Id</th>
+                    <th scope="col">Fistname</th>
+                    <th scope="col">Lastname</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Contact Number</th>
                     <th scope="col">Action</th>
                 </tr>
+                <tbody>
+                    @foreach(var interviewer in Model)
+                    {
+                        <tr>
+                            <td>@interviewer.FirstName</td>
+                            <td>@interviewer.LastName</td>
+                            <td>@interviewer.Email</td>
+                            <td>@interviewer.ContactNo</td>
+                            <a>Edit</a>
+                            <a>Delete</a>
+                        </tr>
+                    }
+                </tbody>
             </thead>
         </table>
     </body>

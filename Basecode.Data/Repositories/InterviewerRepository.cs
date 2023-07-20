@@ -20,5 +20,9 @@ namespace Basecode.Data.Repositories
             _context.Interviewer.Add(interviewer);
             _context.SaveChanges();
         }
+        public IQueryable <Interviewer> GetAll()
+        {
+            return this.GetDbSet<Interviewer>();
+        }
     }
 }
