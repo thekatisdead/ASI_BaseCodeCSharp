@@ -12,5 +12,6 @@ namespace Basecode.Services.Interfaces
     {
         public void Add(Schedule schedule);
         public List<ScheduleViewModel> GetAll();
+        public List<ScheduleDetails> GetDetails();
     }
 }
