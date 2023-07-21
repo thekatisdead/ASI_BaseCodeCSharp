@@ -10,6 +10,7 @@ using MailKit;
 using MimeKit;
 using Basecode.Data.Models;
 
+
 namespace Basecode.Services.Services
 {
     public class EmailSenderService : IEmailSenderService
@@ -170,7 +171,14 @@ namespace Basecode.Services.Services
                 smtp.Disconnect(true);
             }
         }
-
+        /// <summary>
+        /// Sends an email Reminder to receiverEmail about the date
+        /// </summary>
+        /// <param name="receiverEmail"></param>
+        /// <param name="applicantName"></param>
+        /// <param name="companyName"></param>
+        /// <param name="jobPosition"></param>
+        /// <param name="date"></param>
         public void SendEmailInterviewReminder(string receiverEmail, string applicantName, string companyName, string jobPosition, DateTime date)
         {
             var email = new MimeMessage();
@@ -187,12 +195,14 @@ namespace Basecode.Services.Services
 
             var htmlContent = File.ReadAllText("EmailTemplates/InterviewReminder.html");
 
+            var button = "<a href=" + jobPosition + ">click me!</a>";
+
             // this is to replace the placeholders
             htmlContent = htmlContent.Replace("{applicantName}", applicantName);
             htmlContent = htmlContent.Replace("{companyName}", companyName);
             htmlContent = htmlContent.Replace("{interviewDate}", date.ToString());
-            htmlContent = htmlContent.Replace("{jobPosition}", jobPosition);
-
+            //htmlContent = htmlContent.Replace("{jobPosition}", jobPosition);
+            htmlContent = htmlContent.Replace("{jobPosition}", button);
 
             email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
             {

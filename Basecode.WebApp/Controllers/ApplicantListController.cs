@@ -12,16 +12,18 @@ namespace Basecode.WebApp.Controllers
     {
         private readonly IApplicantListService _service;
         private readonly IEmailSenderService _email;
+        private readonly ITeamsService _teamsService;
         private readonly CurrentHiresRepository _repository;
         private readonly UserRepository _users;
         private readonly JobOpeningRepository _job;
 
         private static Logger Logger = LogManager.GetCurrentClassLogger();
 
-        public ApplicantListController(IApplicantListService service, IEmailSenderService email, JobOpeningRepository job, UserRepository users, CurrentHiresRepository repository)
+        public ApplicantListController(IApplicantListService service, ITeamsService teamsService, IEmailSenderService email, JobOpeningRepository job, UserRepository users, CurrentHiresRepository repository)
         {
             _service = service;
             _email = email;
+            _teamsService = teamsService;
             _job = job;
             _users = users;
             _repository = repository;
@@ -33,7 +35,10 @@ namespace Basecode.WebApp.Controllers
         /// <returns>The index view.</returns>
         public IActionResult Index()
         {
-            _email.SendEmailInterviewReminder("kaherbieto@outlook.up.edu.ph","John Cena","Your Mom","The Best",DateTime.Now);
+            // temporary thing to test out the thing
+            var scape = _teamsService.GenerateTeamsMeetingLink("Interview HR", 1, 24, "kermherbieto52@gmail.com");
+            //_email.SendEmailInterviewReminder("kaherbieto@outlook.up.edu.ph","John Cena","Your Mom","The Best",DateTime.Now);
+            _email.SendEmailInterviewReminder("kaherbieto@outlook.up.edu.ph", "John Cena", "Your Mom", scape, DateTime.Now);
             var data = _service.RetrieveAll();
             return View(data);
         }

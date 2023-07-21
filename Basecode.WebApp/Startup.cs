@@ -3,6 +3,19 @@ using Basecode.Services.Interfaces;
 using Basecode.Services.Services;
 using Basecode.Data;
 
+using Microsoft.Identity.Web;
+using Microsoft.Identity.Web.UI;
+using Microsoft.Identity.Client;
+
+using Microsoft.Graph.Core;
+using Microsoft.Graph;
+using Microsoft.Graph.Auth;
+
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+
+
 namespace Basecode.WebApp
 {
     public partial class Startup
@@ -25,13 +38,18 @@ namespace Basecode.WebApp
             this.ConfigureMVC(services);                // Configuration for MVC                  
 
             // Add services to the container.
-            services.AddControllersWithViews();
+            services.AddControllersWithViews()
+                .AddMicrosoftIdentityUI(); ;
             services.AddScoped<ApplicationTrackingRepository>();
             services.AddScoped<UserRepository>();
             services.AddScoped<CurrentHiresRepository>();
             services.AddScoped<JobOpeningRepository>();
             services.AddScoped<BasecodeContext>();
             services.AddTransient<IEmailSenderService, EmailSenderService>();
+            services.AddScoped<ITeamsService, TeamsService>();
+
+
+            // Azure AD for generating teams link
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,5 +76,6 @@ namespace Basecode.WebApp
             app.UseAuthorization();
             this.ConfigureAuth(app);        // Configuration for Token Authentication
         }
+
     }
 }
