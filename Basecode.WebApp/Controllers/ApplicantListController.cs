@@ -36,9 +36,21 @@ namespace Basecode.WebApp.Controllers
         public IActionResult Index()
         {
             // temporary thing to test out the thing
-            var scape = _teamsService.GenerateTeamsMeetingLink("Interview HR", 1, 24, "kermherbieto52@gmail.com");
-            //_email.SendEmailInterviewReminder("kaherbieto@outlook.up.edu.ph","John Cena","Your Mom","The Best",DateTime.Now);
-            _email.SendEmailInterviewReminder("kaherbieto@outlook.up.edu.ph", "John Cena", "Your Mom", scape, DateTime.Now);
+            //var scape = _teamsService.GenerateTeamsMeetingLink("Interview HR", 1, 24, "kermherbieto52@gmail.com");
+
+            // test that email service works sob
+            //_email.SendEmailInterviewReminder("kaherbieto@outlook.up.edu.ph", "John Cena", "Your Mom", scape, DateTime.Now);
+
+            // reject a person
+            //_email.SendEmailRejectApplication("kaherbieto@outlook.up.edu.ph","Kerm Herbieto","Alliance","Bottom");
+            //this.Reject(2);
+
+            // update a person's status
+            //_email.SendEmailOnUpdateApplicantStatus("kaherbieto@outlook.up.edu.ph","Kerm Herbieto","Bottom","Top");
+
+            // give the HR a decision
+            //_email.SendEmailHRApplicationDecision("kaherbieto@outlook.up.edu.ph", 1, "Kerm Herbieto", "Bottom");
+
             var data = _service.RetrieveAll();
             return View(data);
         }
