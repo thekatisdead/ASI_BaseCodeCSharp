@@ -1,4 +1,5 @@
 ﻿using Basecode.Data.Models;
+using Basecode.Data.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,6 @@ namespace Basecode.Services.Interfaces
     public interface IScheduleService
     {
         public void Add(Schedule schedule);
+        public List<ScheduleViewModel> GetAll();
     }
 }

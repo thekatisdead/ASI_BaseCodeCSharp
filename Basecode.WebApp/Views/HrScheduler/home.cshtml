@@ -2,6 +2,8 @@
     ViewData["Title"] = "HR Scheduler";
     Layout = "~/Views/Shared/_LayoutHR.cshtml";
 }
+@using Basecode.Data.ViewModels
+@model List<ScheduleViewModel>
 <html>
     <head>
     <title>Hr Scheduler</title>
@@ -19,11 +21,32 @@
                 <tr class="text-center header">
                     <th scope="col">Job</th>
                     <th scope="col">Interviewer</th>
-                    <th scope="col">Schedule</th>
+                    <th scope="col">Start Time</th>
+                    <th scope="col">End Time</th>
                     <th scope="col">Date</th>
+                    <th scope="col">Instruction</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
+            <tbody>
+            @{
+                var joblist = Model[0].JobOpenings;
+                var interviewer = Model[0].Interviewers;
+                int x = 0;
+            }
+            @foreach(var schedule in Model)
+             {
+                <tr>
+                    <td>@joblist[x].Position</td>
+                    <td>@interviewer[x].FirstName @interviewer[x].LastName</td>
+                    <td>@schedule.StartTime</td>
+                    <td>@schedule.EndTime</td>
+                    <td>@schedule.Date</td>
+                    <td>@schedule.Instruction</td>
+                    <td><a href="">Edit</a> <a href="">Delete</a></td>
+                </tr>
+             }
+            </tbody>
         </table>
     </body>
 </html>

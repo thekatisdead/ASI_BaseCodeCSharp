@@ -26,7 +26,10 @@ namespace Basecode.WebApp.Controllers
         }
         public IActionResult home()
         {
-            return View();
+            var schedules = _scheduleService.GetAll();
+            schedules[0].Interviewers = _interviewerServices.GetAll();
+            schedules[0].JobOpenings = _jobOpeningService.RetrieveAll();
+            return View(schedules);
         }
         public IActionResult Add(Interviewer interviewer)
         {

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Basecode.Data.ViewModels;
 namespace Basecode.Services.Services
 {
     public class ScheduleService:IScheduleService
@@ -24,6 +24,18 @@ namespace Basecode.Services.Services
             schedule.UpdatedTime = DateTime.Now;
             _scheduleRepository.Add(schedule);
         }
+        public List<ScheduleViewModel> GetAll() 
+        {
+            var schedules = _scheduleRepository.GetAll().Select(s => new ScheduleViewModel { 
+                ScheduleId= s.ScheduleId,
+                InterviewerId = s.InterviewerId,
+                JobId= s.JobId,
+                StartTime = s.StartTime,
+                EndTime = s.EndTime,
+                Instruction = s.Instruction
+            }).ToList();
 
+            return schedules;
+        }
     }
 }

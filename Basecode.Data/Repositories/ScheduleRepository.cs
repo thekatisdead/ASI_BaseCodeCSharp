@@ -20,5 +20,9 @@ namespace Basecode.Data.Repositories
             _context.Schedule.Add(schedule);
             _context.SaveChanges();
         }
+        public IQueryable<Schedule> GetAll()
+        {
+            return this.GetDbSet<Schedule>();
+        }
     }
 }

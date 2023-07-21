@@ -10,5 +10,6 @@ namespace Basecode.Data.Interfaces
     public interface IScheduleRepository
     {
         public void Add(Schedule schedule);
+        public IQueryable<Schedule> GetAll();
     }
 }
