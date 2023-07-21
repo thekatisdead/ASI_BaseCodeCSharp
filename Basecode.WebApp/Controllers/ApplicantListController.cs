@@ -56,9 +56,7 @@ namespace Basecode.WebApp.Controllers
                 return NotFound(); // or handle the case when applicant is not found
             }
 
-            // get the data from the models
-            //var temp_id = _job.GetById(3);
-            
+            // get the data from the models            
             var _fullName = data.Lastname + " " + data.Firstname;
             var job = _job.GetById(data.JobApplied);
             Logger.Trace(job.HR);
