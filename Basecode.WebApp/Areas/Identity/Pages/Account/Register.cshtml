@@ -2,6 +2,7 @@
 @model RegisterModel
 @{
     ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_NoLayout.cshtml";
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -18,7 +19,7 @@
                 <span>@TempData["SuccessMessage"]</span>
             </div>
         }
-        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+        <form id="signupForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group-instructions">
                 <label class="form-check-instructions">Please fill in the necessary information below.</label>
@@ -35,7 +36,7 @@
             </div>
             <div class="form-group-emailaddress">
                 <label asp-for="Input.Email" class="control-label">Email Address</label>
-                <input asp-for="Input.Email" class="form-control-emailaddress" placeholder="Email Address" />
+                <input asp-for="Input.Email" id="emailInput" class="form-control-emailaddress" placeholder="Email Address" />
                 <span asp-validation-for="Input.Email" class="text-danger-emailadress"></span>
             </div>
             <div class="form-group-contactnumber">
@@ -49,9 +50,9 @@
                 <span asp-validation-for="Input.Address" class="text-danger-address"></span>
             </div>
             <div class="form-group-username">
-                <label class="control-label"></label>
-                <input name="Username" class="form-control-username" placeholder="Username" />
-                <span class="text-danger-username"></span>
+                <label asp-for="Input.Username" class="control-label"></label>
+                <input name="Username" asp-for="Input.Username" id="usernameInput" class="form-control-username" placeholder="Username" readonly/>
+                <span asp-validation-for="Input.Username" class="text-danger-username"></span>
             </div>
 
             <div class="form-group-password">
@@ -64,14 +65,6 @@
                 <label asp-for="Input.ConfirmPassword" class="control-label">Confirm Password</label>
                 <input type="password" asp-for="Input.ConfirmPassword" class="form-control-confirmpassword" placeholder="Confirm Password" />
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger-confirmpassword"></span>
-            </div>
-            <div class="form-group-role">
-                <label class="control-label"></label>
-                <select class="form-control-role">
-                    <option value="" disabled selected>Choose a role</option>
-                    <option value="Applicant">Applicant</option>
-                </select>
-                <span class="text-danger-role"></span>
             </div>
             <div class="form-group-terms">
                 <input type="checkbox" id="terms-checkbox" class="form-check-input-terms" />
@@ -95,7 +88,7 @@
         </div>
         <div class="hasAccount">
             <label class="form-check-label" for="flexCheckDefault">
-                Already have an account? <a asp-controller="Login" asp-action="Index"><u>Login here.</u></a>
+                Already have an account? <a asp-page="/Account/Login"><u>Login here.</u></a>
             </label>
         </div>
         <div class="triangle"></div>
@@ -105,6 +98,19 @@
 
 <script>
     $(document).ready(function () {
+        // Get references to the email and username input fields
+        const emailInput = $('#emailInput');
+        const usernameInput = $('#usernameInput');
+
+        // Set the initial value of the username field to be the same as the email field
+        usernameInput.val(emailInput.val());
+
+        // Listen for changes in the email input field
+        emailInput.on('input', function () {
+            // Update the value of the username field whenever the email field changes
+            usernameInput.val($(this).val());
+        });
+
         var successMessage = $('#successMessage');
         if (successMessage.length > 0) {
             successMessage.fadeIn('fast').delay(3000).fadeOut('fast', function () {
@@ -112,48 +118,6 @@
                 window.location.href = '@Url.Action("Index", "Login")';
             });
         }
-        // Delay the form submission after showing the popup message
-        $('#signupForm').submit(function (event) {
-            event.preventDefault(); // Prevent the default form submission
-            var form = this;
-            var fields = ['FirstName', 'LastName', 'EmailAddress', 'ContactNumber', 'Address', 'Username', 'Password', 'ConfirmPassword', 'Role'];
-            var emptyFields = [];
-
-            for (var i = 0; i < fields.length; i++) {
-                var fieldValue = $('#' + fields[i]).val();
-                if (!fieldValue) {
-                    emptyFields.push(fields[i]);
-                }
-            }
-
-            if (emptyFields.length > 0) {
-                var message = "Please fill in the following field/s: " + emptyFields.join(", ") + " to proceed with creating your account.";
-                showPopupMessage(message);
-                return; // Stop further validation checks if empty fields exist
-            }
-
-            var password = $('#Password').val();
-            var confirmPassword = $('#ConfirmPassword').val();
-
-            if (password !== confirmPassword) {
-                showPopupMessage("Password and Confirm Password fields should have the same value/s.");
-                return; // Stop further validation checks if passwords do not match
-            }
-
-            var termsCheckbox = $('#terms-checkbox');
-            var termsValidationError = $('#terms-validation-error');
-
-            if (!termsCheckbox.prop('checked')) {
-                showPopupMessage("Please accept/check the terms and conditions first before creating an account.");
-                return; // Stop further validation checks if terms are not accepted
-            }
-            else {
-                termsValidationError.empty();
-            }
-
-            // Proceed with form submission after all validations pass
-            form.submit();
-        });
 
         function showPopupMessage(message) {
             var popupMessage = $('<div class="message">' + message + '</div>');

@@ -97,9 +97,10 @@ namespace Basecode.WebApp.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
-            public string? FirstName { get; set; }
-            public string? LastName { get; set; }
-            public string? Address { get; set; }
+            public string FirstName { get; set; }
+            public string LastName { get; set; }
+            public string Address { get; set; }
+            public string Username { get; set; }
         }
 
 
@@ -128,6 +129,9 @@ namespace Basecode.WebApp.Areas.Identity.Pages.Account
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+
+                    returnUrl = Url.Page("/Account/Login", pageHandler: null, values: new { area = "Identity" });
+
                     var callbackUrl = Url.Page(
                         "/Account/ConfirmEmail",
                         pageHandler: null,

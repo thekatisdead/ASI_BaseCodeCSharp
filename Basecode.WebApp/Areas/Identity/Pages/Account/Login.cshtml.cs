@@ -118,7 +118,7 @@ namespace Basecode.WebApp.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
+                    return LocalRedirect("~/HrHomepage/Index");
                 }
                 if (result.RequiresTwoFactor)
                 {
