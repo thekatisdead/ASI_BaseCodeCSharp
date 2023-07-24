@@ -12,12 +12,10 @@ namespace Basecode.Services.Services
     public class CurrentHiresService : ICurrentHiresService
     {
         private readonly ICurrentHiresRepository _repository;
-        private readonly IMapper _mapper;
 
-        public CurrentHiresService(ICurrentHiresRepository repository, IMapper mapper)
+        public CurrentHiresService(ICurrentHiresRepository repository)
         {
             _repository = repository;
-            _mapper = mapper;
         }
 
         public void AddHire(int applicantId, int jobId)
