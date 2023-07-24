@@ -9,11 +9,13 @@ namespace Basecode.WebApp.Controllers
     public class CharacterReferenceController : Controller
     {
         private readonly ICharacterReferenceService _service;
+        private readonly IEmailSenderService _email;
         private static Logger _logger = LogManager.GetCurrentClassLogger();
 
-        public CharacterReferenceController(ICharacterReferenceService service)
+        public CharacterReferenceController(ICharacterReferenceService service, IEmailSenderService email)
         {
             _service = service;
+            _email = email;
         }
 
         public IActionResult Index()
@@ -31,6 +33,8 @@ namespace Basecode.WebApp.Controllers
         {
             try
             {
+                // needs communication with Public form DB
+                _email.SendEmailOnCharacterReferenceResponse("kaherbieto@outlook.up.edu.ph",viewModel.CandidateLastName,viewModel.LastName,1,3);
                 // Call the service method to create the form
                 _service.AddCharacterReference(viewModel);
 

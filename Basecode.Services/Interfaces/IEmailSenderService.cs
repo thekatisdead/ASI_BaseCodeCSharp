@@ -59,5 +59,22 @@ namespace Basecode.Services.Interfaces
         /// <param name="applicantName"></param>
         /// <param name="jobPosition"></param>
         void SendEmailHRApplicationDecision(string receiverEmail, int applicantId,string applicantName, string jobPosition);
+
+        /// <summary>
+        /// Sends a Character Reference Form to the references found in the Public application form
+        /// </summary>
+        /// <param name="receiverEmail"></param>
+        /// <param name="applicantName"></param>
+        /// <param name="referenceName"></param>
+        public void SendEmailCharacterReference(string receiverEmail, string applicantName, string referenceName);
+        /// <summary>
+        /// Sends a Response to the HR when the Character Reference Form has been Answered
+        /// </summary>
+        /// <param name="receiverEmail"></param>
+        /// <param name="applicantName"></param>
+        /// <param name="referenceName"></param>
+        /// <param name="answeredNumerator"></param>
+        /// <param name="answeredDenominator"></param>
+        public void SendEmailOnCharacterReferenceResponse(string receiverEmail, string applicantName, string referenceName, int answeredNumerator, int answeredDenominator);
     }
 }
