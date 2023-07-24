@@ -11,7 +11,11 @@ namespace Basecode.Test.Controllers
     {
         private readonly ApplicantListController _controller;
         private readonly Mock<IApplicantListService> _fakeApplicantListService;
+        private readonly Mock<ITeamsService> _fakeTeamsService;
+        private readonly Mock<IEmailSenderService> _fakeEmailSenderService;
         private readonly Mock<CurrentHiresRepository> _fakeCurrentHiresRepository;
+        private readonly Mock<JobOpeningRepository> _fakeJobOpeningRepository;
+        private readonly Mock<UserRepository> _fakeUserRepository;
         private readonly Mock<IPublicApplicationFormService> _fakePublicApplicationFormService;
 
         public ApplicantListControllerTests()
@@ -19,7 +23,11 @@ namespace Basecode.Test.Controllers
             _fakeApplicantListService = new Mock<IApplicantListService>();
             _fakePublicApplicationFormService = new Mock<IPublicApplicationFormService>();
             _fakeCurrentHiresRepository = new Mock<CurrentHiresRepository>();
-            _controller = new ApplicantListController(_fakeApplicantListService.Object, _fakePublicApplicationFormService.Object);
+            _fakeTeamsService = new Mock<ITeamsService>();
+            _fakeEmailSenderService = new Mock<IEmailSenderService>();
+            _fakeJobOpeningRepository = new Mock<JobOpeningRepository>();
+            _fakeUserRepository = new Mock<UserRepository>();
+            _controller = new ApplicantListController(_fakeApplicantListService.Object, _fakeTeamsService.Object,_fakePublicApplicationFormService.Object,_fakeEmailSenderService.Object,_fakeJobOpeningRepository.Object,_fakeUserRepository.Object,_fakeCurrentHiresRepository.Object);
         }
 
         [Fact]
