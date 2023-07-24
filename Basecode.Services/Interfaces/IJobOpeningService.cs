@@ -40,5 +40,10 @@ namespace Basecode.Services.Interfaces
         /// <param name="jobOpening"></param>
         public void Delete(int id);
 
-	}
+        /// <summary>
+        /// Retrieves the most recent job opening from the database.
+        /// </summary>
+        /// <returns>The most recent job opening.</returns>
+        JobOpeningViewModel GetMostRecentJobOpening();
+    }
 }

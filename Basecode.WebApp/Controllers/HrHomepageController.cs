@@ -1,21 +1,57 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Basecode.Data.Interfaces;
+using Basecode.Data.Repositories;
+using Basecode.Data.ViewModels;
+using Basecode.Services.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 using NLog;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Basecode.WebApp.Controllers
 {
     public class HrHomepageController : Controller
     {
         private static Logger _logger = LogManager.GetCurrentClassLogger();
+        private readonly IJobOpeningService _jobOpeningService;
+        private readonly IApplicantListService _service;
+
+        public HrHomepageController(IJobOpeningService jobOpeningService, IApplicantListService applicantListService)
+        {
+            _jobOpeningService = jobOpeningService;
+            _service = applicantListService;
+        }
 
         public IActionResult Index(string Username)
         {
-            // This part is unresolved, mainly because it requires a 'session'
-            // This code just takes the username from the forms and uses it in our dashboard
-            // In the actual program, this will be replaced by the first and last name
-            // once we have defined our models
             _logger.Trace("HrHomepage Controller Accessed");
+
+            int totalJobOpenings = _jobOpeningService.RetrieveAll().Count();
+            ViewBag.TotalJobOpenings = totalJobOpenings;
+
+            var data = _service.RetrieveAll();
+            int totalApplications = data.Count(); // Fetch the total count of applications
+            ViewBag.TotalApplications = totalApplications;
+
+            //// Fetch the recent job opening data from the repository
+            //var recentJobOpening = _jobOpeningService.GetMostRecentJobOpening();
+
+            //ViewBag.Name = Username;
+            //return View(recentJobOpening); // Pass the recent job opening data to the view
+
+            // Fetch the recent job opening data from the repository
+            var recentJobOpening = _jobOpeningService.GetMostRecentJobOpening();
+
+            // Fetch the applicant data from the service
+            var applicantsData = _service.GetMostRecentApplicant();
+
+            // Pass the data to the view using a composite view model or ViewBag/ViewData
+            // Using composite view model approach
+            var compositeViewModel = new CompositeViewModel
+            {
+                JobOpeningData = recentJobOpening,
+                ApplicantsData = applicantsData
+            };
             ViewBag.Name = Username;
-            return View();
+            return View(compositeViewModel);
         }
     }
 }
