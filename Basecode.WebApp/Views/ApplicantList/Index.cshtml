@@ -8,35 +8,42 @@
 <!DOCTYPE html>
 <head>
     <link rel="stylesheet" href="~/css/applicantlist.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.9.2/semantic.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.semanticui.min.css" />
+    <script defer src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+    <script defer src="https://cdn.datatables.net/1.13.5/js/dataTables.semanticui.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.9.2/semantic.min.js"></script>
+
+    <script defer src="~/js/AdminTable.js"></script>
 </head>
 <html>
-    <body>
+<body style="background-color:#2E3830; color:aliceblue">
 <main><br />
-<table class="table py-lg-4 rounded-table">
-    <thead>
-        <tr class="text-center header" style="color:white;">
-            <th scope="col">Applcicant Name</th>
-            <th scope="col">Position</th>
-            <th scope="col">Status</th>
-            <th scope="col">Last Activity</th>
-            <th scope="col">Action</th>
-        </tr>
-    </thead>
+<table id="myTable" class="table py-lg-4 rounded-table table-light">
+            <thead>
+                <tr class="header">
+                    <th scope="col" class="text-center">Applicant Name</th>
+                    <th scope="col" class="text-center">Position</th> 
+                    <th scope="col" class="text-center">Status</th>
+                    <th scope="col" class="text-center">Last Activity</th> 
+                    <th scope="col" class="text-center">Action</th>
+                </tr>
+            </thead>
     <tbody>
         @foreach(var applicant in Model){
             <tr class="text-center">
                 <td>@applicant.Firstname @applicant.Lastname</td>
                 <td>@applicant.JobApplied</td>
-                <td>N/A</td>
+                <td>@applicant.Tracker</td>
                 <td>N/A</td>
                 <td>
-                    <button class="btn btn-secondary">View Profile</button>
-                    <button class="btn btn-secondary">Update Status</button>
+                   <a asp-action="ViewProfile" asp-route-id="@applicant.Id"><button class="btn btn-secondary">View Profile</button></a>
                 </td>
             </tr>
         }      
     </tbody>
 </table>
+        
 <div class="triangle"></div>
 <div class="small-triangle"> </div>
 </main>

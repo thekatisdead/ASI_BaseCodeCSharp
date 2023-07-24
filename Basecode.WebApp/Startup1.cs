@@ -18,9 +18,9 @@ using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 
 namespace Basecode.WebApp
 {
-    public partial class Startup
+    public partial class Startup1
     {
-        public Startup(IConfiguration configuration)
+        public Startup1(IConfiguration configuration)
         {
             Configuration = configuration;
         }

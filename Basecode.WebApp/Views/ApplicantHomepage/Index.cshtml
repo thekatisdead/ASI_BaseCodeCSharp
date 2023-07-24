@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "Applicant Homepage";
-    Layout = "~/Views/Shared/_LayoutHR.cshtml";
+    Layout = "~/Views/Shared/_LayoutApplicant.cshtml";
 }
 
 <!DOCTYPE html>
@@ -46,7 +46,7 @@
                     <a asp-controller="ApplicantHomepage" asp-action="Index">
                         <button class="view-profile-button">Apply</button>
                     </a>
-                    <a asp-controller="ApplicantHomepage" asp-action="Index">
+                    <a asp-action="JobListing">
                         <button class="view-profile-button">View Job Listing</button>
                     </a>
                 </div>

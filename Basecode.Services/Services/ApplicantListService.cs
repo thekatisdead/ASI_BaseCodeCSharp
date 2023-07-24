@@ -33,20 +33,28 @@ namespace Basecode.Services.Services
                 Id = s.Id,
                 Firstname = s.Firstname,
                 Lastname = s.Lastname,
-                JobApplied = s.JobApplied
+                JobApplied = s.JobApplied,
+                Tracker = s.Tracker
             }).ToList();
 
             return data;
         }
 
-        public void UpdateStatus(int applicantId, string status)
+        // old function, stored just in case 
+        /*public void UpdateStatus(int applicantId, string status)
         {
             _repository.UpdateStatus(applicantId, status);
-        }
+        }*/
 
         public void ProceedTo(int applicantId, string step)
         {
             _repository.ProceedTo(applicantId, step);
+        public void UpdateStatus(int applicantID, string status)
+        {
+            var _applicant = _repository.GetById(applicantID);
+            _applicant.Tracker= status;
+
+            _repository.Update(_applicant);
         }
     }
 }

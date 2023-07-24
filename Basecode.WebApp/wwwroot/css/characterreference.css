@@ -8,28 +8,29 @@ body {
 
 /* Form Styles */
 form {
-    top: 75px;
+    margin: 20px auto;
+    border-radius: 15px;
     left: 50%;
     transform: translateX(-50%);
     width: 931px;
     height: 1300px;
     position: absolute;
     align-items: flex-start;
-    flex-shrink: 0;
     background-color: rgba(255, 252, 252, 1);
-    display:table-column
+    display: table-column;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
 }
 
-.form-header {
-    top: 15px;
-    text-align: center;
-    vertical-align: middle;
+header {
+    background-color: #c53211;
+    display: flex;
 }
+
 
 h1 {
     font-weight: bold;
     text-align: center;
-    margin-top: 0;
+    margin-top: 10px;
 }
 
 h2 {
@@ -50,21 +51,8 @@ hr {
     right: 0;
     width: 0;
     height: 0;
-    z-index: -1;
-    border-bottom: 150px solid #c53211;
-    border-left: 150px solid transparent;
-    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 10));
-}
-
-.triangle1 {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 0;
-    height: 0;
-    z-index: -1;
-    border-top: 150px solid #c53211;
-    border-right: 150px solid transparent;
+    border-bottom: 200px solid #c53211;
+    border-left: 200px solid transparent;
     filter: drop-shadow(0 0 10px rgba(0, 0, 0, 10));
 }
 
@@ -150,6 +138,15 @@ label[for="candidate"] {
     right: 100px;
     border-radius: 10px;
 }
+
+.alert.success-animation {
+    animation: fadeAndScale 0.5s;
+    background-color: red;
+    color: white;
+    border: 2px solid red;
+    text-align: center;
+}
+
 
 
 

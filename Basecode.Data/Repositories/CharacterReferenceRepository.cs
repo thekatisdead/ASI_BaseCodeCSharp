@@ -17,11 +17,19 @@ namespace Basecode.Data.Repositories
             _context = context;
         }
 
-        public CharacterReference GetById(int id)
+        /// <summary>
+        /// Retrieves all character references.
+        /// </summary>
+        /// <returns>An IQueryable of CharacterReference.</returns>
+        public IQueryable<CharacterReference> RetrieveAll()
         {
-            return _context.CharacterReference.Find(id);
+            return this.GetDbSet<CharacterReference>();
         }
 
+        /// <summary>
+        /// Adds a new character reference.
+        /// </summary>
+        /// <param name="characterReference">The character reference to add.</param>
         public void Add(CharacterReference characterReference)
         {
             _context.CharacterReference.Add(characterReference);

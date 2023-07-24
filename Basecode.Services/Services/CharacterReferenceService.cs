@@ -16,18 +16,46 @@ namespace Basecode.Services.Services
         private readonly ICharacterReferenceRepository _repository;
         private readonly IMapper _mapper;
 
+        /// <summary>
+        /// Initializes a new instance of the CharacterReferenceService class.
+        /// </summary>
+        /// <param name="repository">The character reference repository.</param>
+        /// <param name="mapper">The mapper used for object mapping.</param>
         public CharacterReferenceService(ICharacterReferenceRepository repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Adds a new character reference.
+        /// </summary>
+        /// <param name="characterReference">The character reference to add.</param>
         public void AddCharacterReference(CharacterReferenceViewModel characterReference)
         {
             characterReference.CreatedTime = DateTime.Now;
             characterReference.CreatedBy = System.Environment.UserName;
 
             _repository.Add(_mapper.Map<CharacterReference>(characterReference));
+        }
+
+        /// <summary>
+        /// Retrieves all character references.
+        /// </summary>
+        /// <returns>A list of CharacterReferenceViewModel.</returns>
+        public List<CharacterReferenceViewModel> RetrieveAll()
+        {
+            var data = _repository.RetrieveAll().Select(s => new CharacterReferenceViewModel
+            {
+                Id = s.Id,
+                FirstName = s.FirstName,
+                LastName = s.LastName,
+                JobTitle = s.JobTitle,
+                CandidateFirstName = s.CandidateFirstName,
+                CandidateLastName = s.CandidateLastName
+            }).ToList();
+
+            return data;
         }
     }
 }

@@ -7,14 +7,22 @@
 form {
     top: 75px;
     left: 50%;
+    margin: 20px auto;
+    border-radius: 15px;
     transform: translateX(-50%);
     width: 931px;
-    height: 2400px;
+    height: 2350px;
     display: flex;
     position: absolute;
     align-items: flex-start;
     flex-shrink: 0;
     background-color: rgba(255, 252, 252, 1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+header {
+    background-color: #c53211;
+    display: flex;
 }
 
 .text-public {
@@ -942,20 +950,7 @@ form {
     right: 0;
     width: 0;
     height: 0;
-    z-index: -1;
-    border-bottom: 150px solid #c53211;
-    border-left: 150px solid transparent;
-    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 10));
-}
-
-.triangle2 {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 0;
-    height: 0;
-    z-index: -1;
-    border-top: 150px solid #c53211;
-    border-right: 150px solid transparent;
+    border-bottom: 200px solid #c53211;
+    border-left: 200px solid transparent;
     filter: drop-shadow(0 0 10px rgba(0, 0, 0, 10));
 }

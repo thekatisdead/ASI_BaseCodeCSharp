@@ -1,12 +1,14 @@
-﻿using Basecode.Data.Models;
+using Basecode.Data.Models;
 using Basecode.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using NLog;
 
 namespace Basecode.WebApp.Controllers
 {
     public class HrSchedulerController : Controller
     {
         private readonly IEmailSenderService _emailSender;
+        private static Logger _logger = LogManager.GetCurrentClassLogger();
 
         public HrSchedulerController(IEmailSenderService emailSender)
         {
@@ -15,6 +17,7 @@ namespace Basecode.WebApp.Controllers
 
         public IActionResult Index()
         {
+            _logger.Trace("HrScheduler Controller Accessed");
             return View();
         }
 

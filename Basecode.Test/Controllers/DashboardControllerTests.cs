@@ -1,9 +1,5 @@
 ﻿using Basecode.WebApp.Controllers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Basecode.Test.Controllers
 {
@@ -16,5 +12,16 @@ namespace Basecode.Test.Controllers
             _controller = new DashboardController();
         }
 
+        [Fact]
+        public void Index_ReturnsView()
+        {
+            // Act
+            var result = _controller.Index();
+
+            // Assert
+            Assert.NotNull(result);
+            var viewResult = Assert.IsType<ViewResult>(result);
+            Assert.Null(viewResult.ViewName);
+        }
     }
 }

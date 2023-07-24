@@ -10,6 +10,10 @@ namespace Basecode.Data.Interfaces
 {
     public interface IUserViewRepository
     {
+        /// <summary>
+        /// Retrieves all instances of sign-ups from the sign-up repository.
+        /// </summary>
+        /// <returns>An IQueryable collection of SignUp instances representing all sign-up records.</returns>
         public IQueryable<SignUp> RetrieveAll();
     }
 }

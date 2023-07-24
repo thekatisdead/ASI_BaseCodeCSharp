@@ -4,6 +4,7 @@ using Basecode.Services.Interfaces;
 using Basecode.Services.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Basecode.Data.ViewModels;
 using NLog;
 
 namespace Basecode.WebApp.Controllers
@@ -17,9 +18,10 @@ namespace Basecode.WebApp.Controllers
         private readonly UserRepository _users;
         private readonly JobOpeningRepository _job;
 
-        private static Logger Logger = LogManager.GetCurrentClassLogger();
+        private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
+        private readonly IPublicApplicationFormService _publicApplicationFormService;
 
-        public ApplicantListController(IApplicantListService service, ITeamsService teamsService, IEmailSenderService email, JobOpeningRepository job, UserRepository users, CurrentHiresRepository repository)
+        public ApplicantListController(IApplicantListService service, ITeamsService teamsService, IPublicApplicationFormService publicApplicationFormService,IEmailSenderService email, JobOpeningRepository job, UserRepository users, CurrentHiresRepository repository)
         {
             _service = service;
             _email = email;
@@ -27,6 +29,7 @@ namespace Basecode.WebApp.Controllers
             _job = job;
             _users = users;
             _repository = repository;
+            _publicApplicationFormService = publicApplicationFormService;      
         }
 
         /// <summary>
@@ -52,7 +55,13 @@ namespace Basecode.WebApp.Controllers
             //_email.SendEmailHRApplicationDecision("kaherbieto@outlook.up.edu.ph", 1, "Kerm Herbieto", "Bottom");
 
             var data = _service.RetrieveAll();
+            _logger.Trace("ApplicantList Controller Accessed");
             return View(data);
+        }
+        public IActionResult ViewProfile(int id)
+        {
+            var applicant = _publicApplicationFormService.GetById(id);
+            return View(applicant);
         }
 
         /// <summary>
@@ -91,10 +100,28 @@ namespace Basecode.WebApp.Controllers
                 
                 _email.SendEmailHRApplicationDecision(_receiver.EmailAddress,applicantID,_fullName,job.Position);
             }
-                    
+            Applicant applicant = new Applicant();
+            _service.UpdateStatus(applicantID,status);
+            return RedirectToAction("Index", "ApplicantList");
+        }
+        public IActionResult DownloadCV(byte[] cv)
+        {
+            byte[] cvBytes = cv;
 
-            var _allData = _service.RetrieveAll();
-            return RedirectToAction("Index");
+            // Provide the appropriate content type for the PDF file
+            string contentType = "application/pdf";
+
+            // Generate a unique file name for the PDF file
+            string fileName = Guid.NewGuid().ToString() + ".pdf";
+
+            // Get the file path for saving the PDF file on the server
+            string filePath = Path.Combine(Directory.GetCurrentDirectory(), "PDFs", fileName);
+
+            // Save the byte array as a PDF file on the server
+            System.IO.File.WriteAllBytes(filePath, cvBytes);
+
+            // Create a new tab and open the PDF file in the browser
+            return Content($"<script>window.open('{Url.Content("~/PDFs/" + fileName)}', '_blank');</script>", "text/html");
         }
 
         public IActionResult Reject(int applicantID)

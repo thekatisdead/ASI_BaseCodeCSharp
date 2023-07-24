@@ -16,7 +16,6 @@ namespace Basecode.Services.Services
     {
         private readonly IPublicApplicationFormRepository _repository;
         private readonly IMapper _mapper;
-
         public PublicApplicationFormService(IPublicApplicationFormRepository repository, IMapper mapper)
         {
             _repository = repository;
@@ -29,6 +28,12 @@ namespace Basecode.Services.Services
             applicationForm.CreatedBy = System.Environment.UserName;
 
             _repository.AddForm(_mapper.Map<PublicApplicationForm>(applicationForm));
+        }
+
+        public PublicApplicationFormViewModel GetById(int id)
+        {
+            var data = (PublicApplicationForm)_repository.GetById(id);
+            return _mapper.Map<PublicApplicationFormViewModel>(data);
         }
     }
 }
