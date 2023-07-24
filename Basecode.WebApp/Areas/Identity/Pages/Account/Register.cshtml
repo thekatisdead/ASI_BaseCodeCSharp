@@ -7,11 +7,17 @@
 
 <h1>@ViewData["Title"]</h1>
 
-<div class="row">
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="~/css/signup.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.13/jquery.validate.unobtrusive.min.js"></script>
+</head>
+<body>
+    <div class="row">
     <div class="col-md-4">
         @if (TempData["SuccessMessage"] != null)
         {
@@ -27,17 +33,17 @@
             <div class="form-group-firstname">
                 <label asp-for="Input.FirstName" class="control-label-firstname">First Name</label>
                 <input asp-for="Input.FirstName" class="form-control-firstname" placeholder="First Name" />
-                <span asp-validation-for="Input.FirstName" class="text-danger-firstname"></span>
+                <span asp-validation-for="Input.FirstName" class="text-danger"></span>
             </div>
             <div class="form-group-lastname">
                 <label asp-for="Input.LastName" class="control-label">Last Name</label>
                 <input asp-for="Input.LastName" class="form-control-lastname" placeholder="Last Name" />
-                <span asp-validation-for="Input.LastName" class="text-danger-lastname"></span>
+                <span asp-validation-for="Input.LastName" class="text-danger"></span>
             </div>
             <div class="form-group-emailaddress">
                 <label asp-for="Input.Email" class="control-label">Email Address</label>
                 <input asp-for="Input.Email" id="emailInput" class="form-control-emailaddress" placeholder="Email Address" />
-                <span asp-validation-for="Input.Email" class="text-danger-emailadress"></span>
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
             </div>
             <div class="form-group-contactnumber">
                 <label class="control-label">Contact Number</label>
@@ -47,29 +53,29 @@
             <div class="form-group-address">
                 <label asp-for="Input.Address" class="control-label"></label>
                 <input asp-for="Input.Address" class="form-control-address" placeholder="Address" />
-                <span asp-validation-for="Input.Address" class="text-danger-address"></span>
+                <span asp-validation-for="Input.Address" class="text-danger"></span>
             </div>
             <div class="form-group-username">
                 <label asp-for="Input.Username" class="control-label"></label>
                 <input name="Username" asp-for="Input.Username" id="usernameInput" class="form-control-username" placeholder="Username" readonly/>
-                <span asp-validation-for="Input.Username" class="text-danger-username"></span>
+                <span asp-validation-for="Input.Username" class="text-danger"></span>
             </div>
 
             <div class="form-group-password">
                 <label asp-for="Input.Password" class="control-label"></label>
                 <input type="password" asp-for="Input.Password" class="form-control-password" placeholder="Password" />
-                <span asp-validation-for="Input.Password" class="text-danger-password"></span>
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
             </div>
 
             <div class="form-group-confirmpassword">
                 <label asp-for="Input.ConfirmPassword" class="control-label">Confirm Password</label>
                 <input type="password" asp-for="Input.ConfirmPassword" class="form-control-confirmpassword" placeholder="Confirm Password" />
-                <span asp-validation-for="Input.ConfirmPassword" class="text-danger-confirmpassword"></span>
+                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
             <div class="form-group-terms">
                 <input type="checkbox" id="terms-checkbox" class="form-check-input-terms" />
                 <label for="terms-checkbox" class="form-check-label-terms">I accept the Terms and Conditions</label>
-                <span id="terms-validation-error" class="text-danger-terms"></span>
+                <span id="terms-validation-error" class="text-danger"></span>
             </div>
             <div class="form-group-signup">
                 <button type="submit" class="btn">Sign Up</button>
@@ -131,3 +137,5 @@
         }
     });
 </script>
+</body>
+</html>
