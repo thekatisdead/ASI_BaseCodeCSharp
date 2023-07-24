@@ -34,5 +34,10 @@ namespace Basecode.Data.Repositories
             _context.Schedule.Update(schedule);
             _context.SaveChanges();
         }
+        public void DeleteSchedule(Schedule schedule)
+        {
+            _context.Schedule.Remove(schedule);
+            _context.SaveChanges();
+        }
     }
 }

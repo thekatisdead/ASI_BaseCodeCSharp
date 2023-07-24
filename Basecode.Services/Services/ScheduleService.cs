@@ -105,5 +105,10 @@ namespace Basecode.Services.Services
 
             _scheduleRepository.UpdateSchedule(_schedule);
         }
+        public void DeleteSchedule(int id)
+        {
+            var schedule = _scheduleRepository.GetById(id);
+            _scheduleRepository.DeleteSchedule(schedule);
+        }
     }
 }

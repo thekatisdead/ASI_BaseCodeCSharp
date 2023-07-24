@@ -99,5 +99,10 @@ namespace Basecode.WebApp.Controllers
                 return RedirectToAction("home", "HrScheduler");
 
         }
+        public IActionResult DeleteSchedule(int id) 
+        { 
+            _scheduleService.DeleteSchedule(id);
+            return RedirectToAction("home", "HrScheduler");
+        }  
     }
 }

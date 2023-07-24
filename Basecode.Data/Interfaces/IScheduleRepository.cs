@@ -13,5 +13,6 @@ namespace Basecode.Data.Interfaces
         public IQueryable<Schedule> GetAll();
         public Schedule GetById(int id);
         public void UpdateSchedule(Schedule schedule);
+        public void DeleteSchedule(Schedule schedule);
     }
 }
