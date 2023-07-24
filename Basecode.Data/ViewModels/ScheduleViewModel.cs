@@ -9,9 +9,10 @@ namespace Basecode.Data.ViewModels
 {
     public class ScheduleViewModel
     {
+        public int? ScheduleId { get; set; }
         public  List<JobOpeningViewModel> JobOpenings { get; set; }
         public List<InterviewerViewModel> Interviewers { get; set; }    
-        public int? ScheduleId { get; set; }
+       
         [Required(ErrorMessage = "Select an Interviewer")]
         public int InterviewerId { get; set; }
         [Required(ErrorMessage = "Select a Job Opening")]

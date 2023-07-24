@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Basecode.Data.ViewModels;
 using System.Data;
+using AutoMapper;
 
 namespace Basecode.Services.Services
 {
@@ -16,11 +17,13 @@ namespace Basecode.Services.Services
         private readonly IScheduleRepository _scheduleRepository;
         private readonly IJobOpeningRepository  _jobOpeningRepository;
         private readonly IInterviewerRepository _interviewerRepository;
-        public  ScheduleService(IScheduleRepository scheduleRepository, IJobOpeningRepository jobOpeningRepository,IInterviewerRepository interviewerRepository)
+        private readonly IMapper _mapper;
+        public  ScheduleService(IScheduleRepository scheduleRepository, IJobOpeningRepository jobOpeningRepository,IInterviewerRepository interviewerRepository, IMapper mapper)
         {
             _scheduleRepository = scheduleRepository;
             _jobOpeningRepository = jobOpeningRepository;
             _interviewerRepository = interviewerRepository;
+            _mapper = mapper;
         }
         public void Add(Schedule schedule)
         {
@@ -68,6 +71,9 @@ namespace Basecode.Services.Services
             });
             var details = from sched in schedule join inter in interviewers on sched.InterviewerId equals inter.InterviewerId join job in jobopnings on sched.JobId equals job.JobId
                           select new ScheduleDetails { 
+                                 ScheduleId =sched.ScheduleId,
+                                 JobId = job.JobId,
+                                 InterviewerId = inter.InterviewerId,
                                  Position =job.Position,
                                  FirstName = inter.Firstname,
                                  LastName= inter.LastName,
@@ -77,6 +83,27 @@ namespace Basecode.Services.Services
                                  instruction = sched.Instruction                       
                           };
             return details.ToList();                 
+        }
+
+        public ScheduleViewModel GetById(int id)
+        {
+            var data = _scheduleRepository.GetById(id);
+            return _mapper.Map<ScheduleViewModel>(data);
+        }
+
+        public void UpdateSchedule(Schedule schedule)
+        {
+            var _schedule = _scheduleRepository.GetById(schedule.ScheduleId);
+            _schedule.InterviewerId = schedule.InterviewerId;
+            _schedule.JobId = schedule.JobId;
+            _schedule.StartTime = schedule.StartTime;
+            _schedule.EndTime = schedule.EndTime;
+            _schedule.Date = schedule.Date;
+            _schedule.Instruction = schedule.Instruction;
+            _schedule.UpdatedBy = "Jimwill";
+            _schedule.UpdatedTime = DateTime.Now;
+
+            _scheduleRepository.UpdateSchedule(_schedule);
         }
     }
 }

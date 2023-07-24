@@ -71,5 +71,33 @@ namespace Basecode.WebApp.Controllers
             _scheduleService.Add(schedule);
             return RedirectToAction("home", "HrScheduler");
         }
+        public IActionResult EditSchedule(int id)
+        {  
+            var schedule = _scheduleService.GetById(id);
+            schedule.Interviewers = _interviewerServices.GetAll();
+            schedule.JobOpenings = _jobOpeningService.RetrieveAll();
+
+            DateTime.TryParseExact(schedule.StartTime, "hh:mm tt", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out DateTime startTime);
+            DateTime.TryParseExact(schedule.EndTime, "hh:mm tt", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out DateTime endTime);
+
+            schedule.StartTime = startTime.ToString("HH:mm");
+            schedule.EndTime = endTime.ToString("HH:mm");
+
+            return View(schedule);
+        }
+        public IActionResult UpdateSchedule(Schedule schedule)
+        {
+         
+                
+                DateTime.TryParseExact(schedule.StartTime, "HH:mm", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out DateTime startTime);
+                DateTime.TryParseExact(schedule.EndTime, "HH:mm", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out DateTime endTime);
+               
+                schedule.StartTime = startTime.ToString("hh:mm tt", System.Globalization.CultureInfo.InvariantCulture);
+                schedule.EndTime = endTime.ToString("hh:mm tt", System.Globalization.CultureInfo.InvariantCulture);
+
+                _scheduleService.UpdateSchedule(schedule);  
+                return RedirectToAction("home", "HrScheduler");
+
+        }
     }
 }

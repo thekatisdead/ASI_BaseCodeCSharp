@@ -8,6 +8,7 @@ namespace Basecode.Data.ViewModels
 {
     public class ScheduleDetails
     {
+        public int ScheduleId;
         public int JobId;
         public int InterviewerId;
         public string Position;

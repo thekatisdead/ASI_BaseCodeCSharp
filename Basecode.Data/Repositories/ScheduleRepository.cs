@@ -1,4 +1,5 @@
-﻿using Basecode.Data.Interfaces;
+﻿using AutoMapper.Configuration.Conventions;
+using Basecode.Data.Interfaces;
 using Basecode.Data.Models;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,15 @@ namespace Basecode.Data.Repositories
         public IQueryable<Schedule> GetAll()
         {
             return this.GetDbSet<Schedule>();
+        }
+        public Schedule GetById(int id)
+        {
+            return _context.Schedule.Find(id);
+        }
+        public void UpdateSchedule(Schedule schedule)
+        {
+            _context.Schedule.Update(schedule);
+            _context.SaveChanges();
         }
     }
 }
