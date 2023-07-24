@@ -12,12 +12,14 @@ namespace Basecode.Test.Controllers
         private readonly ApplicantListController _controller;
         private readonly Mock<IApplicantListService> _fakeApplicantListService;
         private readonly Mock<CurrentHiresRepository> _fakeCurrentHiresRepository;
+        private readonly Mock<IPublicApplicationFormService> _fakePublicApplicationFormService;
 
         public ApplicantListControllerTests()
         {
             _fakeApplicantListService = new Mock<IApplicantListService>();
+            _fakePublicApplicationFormService = new Mock<IPublicApplicationFormService>();
             _fakeCurrentHiresRepository = new Mock<CurrentHiresRepository>();
-            _controller = new ApplicantListController(_fakeApplicantListService.Object);
+            _controller = new ApplicantListController(_fakeApplicantListService.Object, _fakePublicApplicationFormService.Object);
         }
 
         [Fact]
