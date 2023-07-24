@@ -12,9 +12,9 @@ namespace Basecode.Data.Models
         public int ScheduleId { get; set; } 
         public int InterviewerId { get; set; } 
         public int JobId { get; set; }
-        public TimeSpan StartTime { get; set; }
-        public TimeSpan EndTime { get; set; }
-        public DateTime Date { get; set; }
+        public string StartTime { get; set; }
+        public string EndTime { get; set; }
+        public string Date { get; set; }
         public string Instruction { get; set; }
         public DateTime CreatedTime { get; set; } = DateTime.Now;
         public string CreatedBy { get; set; } = System.Environment.UserName;

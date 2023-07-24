@@ -13,9 +13,9 @@ namespace Basecode.Data.ViewModels
         public string Position;
         public string FirstName;
         public string LastName;
-        public TimeSpan StartTime;
-        public TimeSpan EndTime;
-        public DateTime Date;
+        public string StartTime;
+        public string EndTime;
+        public string Date;
         public string instruction;
       
     }

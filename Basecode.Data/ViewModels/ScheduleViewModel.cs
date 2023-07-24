@@ -19,15 +19,15 @@ namespace Basecode.Data.ViewModels
         [Required(ErrorMessage = "Start time is required.")]
         [DataType(DataType.Time,ErrorMessage ="Invalid Time")]
         [Display(Name = "Time")]
-        public TimeSpan StartTime { get; set; }
+        public string StartTime { get; set; }
         [Required(ErrorMessage = "End time is required.")]
         [DataType(DataType.Time, ErrorMessage = "Invalid Time")]
         [Display(Name = "Time")]
-        public TimeSpan EndTime { get; set; }
+        public string EndTime { get; set; }
         [Required(ErrorMessage = "Date is required.")]
         [DataType(DataType.Date, ErrorMessage = "Invalid Date")]
         [Display(Name = "Date")]
-        public DateTime Date { get; set; }
+        public string Date { get; set; }
         public string Instruction { get; set; }
     }
 }
