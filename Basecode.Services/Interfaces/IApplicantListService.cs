@@ -19,5 +19,6 @@ namespace Basecode.Services.Interfaces
 
         void ProceedTo(int applicantId, string step);
         public void UpdateStatus(int applicantID, string status);
+        public void UpdateGrade(int applicantID, string grade);
     }
 }

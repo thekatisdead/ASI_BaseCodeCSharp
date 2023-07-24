@@ -53,15 +53,9 @@ namespace Basecode.WebApp.Controllers
 
             // give the HR a decision
             //_email.SendEmailHRApplicationDecision("kaherbieto@outlook.up.edu.ph", 1, "Kerm Herbieto", "Bottom");
-
             var data = _service.RetrieveAll();
             _logger.Trace("ApplicantList Controller Accessed");
             return View(data);
-        }
-        public IActionResult ViewProfile(int id)
-        {
-            var applicant = _publicApplicationFormService.GetById(id);
-            return View(applicant);
         }
 
         /// <summary>
@@ -80,7 +74,6 @@ namespace Basecode.WebApp.Controllers
             // get the data from the models            
             var _fullName = data.Lastname + " " + data.Firstname;
             var job = _job.GetById(data.JobApplied);
-            Logger.Trace(job.HR);
             var _receiver = _users.FindById((job.HR).ToString());
 
             // sends an update whenever the applicant status is changed
@@ -99,10 +92,17 @@ namespace Basecode.WebApp.Controllers
                 // data in the models
                 
                 _email.SendEmailHRApplicationDecision(_receiver.EmailAddress,applicantID,_fullName,job.Position);
+
             }
             Applicant applicant = new Applicant();
             _service.UpdateStatus(applicantID,status);
             return RedirectToAction("Index", "ApplicantList");
+        }
+
+        public IActionResult ViewProfile(int id)
+        {
+            var applicant = _publicApplicationFormService.GetById(id);
+            return View(applicant);
         }
         public IActionResult DownloadCV(byte[] cv)
         {
@@ -124,9 +124,12 @@ namespace Basecode.WebApp.Controllers
             return Content($"<script>window.open('{Url.Content("~/PDFs/" + fileName)}', '_blank');</script>", "text/html");
         }
 
+        /// Interview functions
+        /// These are functions that are used in emails and not in the code
+        /// so even though they are unreferenced, they are certainly used
         public IActionResult Reject(int applicantID)
         {
-            _service.UpdateStatus(applicantID, "Rejected");
+            _service.UpdateGrade(applicantID, "Rejected");
 
             return View();
         }
@@ -138,13 +141,12 @@ namespace Basecode.WebApp.Controllers
 
         public IActionResult AcceptInterview(int applicantID)
         {
-            _service.UpdateStatus(applicantID, "Passed");
+            _service.UpdateGrade(applicantID, "Passed");
             // _service.ProceedTo(applicantID, "For HR Interview");
             return View();
         }
 
-        /// Interview functions
-        /// 
+        
 
     }
 }

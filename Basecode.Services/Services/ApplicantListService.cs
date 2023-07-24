@@ -13,11 +13,11 @@ using System.Threading.Tasks;
 
 namespace Basecode.Services.Services
 {
-    public class ApplicantListService: IApplicantListService
+    public class ApplicantListService : IApplicantListService
     {
         private readonly IApplicantListRepository _repository;
 
-        public ApplicantListService(IApplicantListRepository repository) 
+        public ApplicantListService(IApplicantListRepository repository)
         {
             _repository = repository;
         }
@@ -49,10 +49,18 @@ namespace Basecode.Services.Services
         public void ProceedTo(int applicantId, string step)
         {
             _repository.ProceedTo(applicantId, step);
+        }
         public void UpdateStatus(int applicantID, string status)
         {
             var _applicant = _repository.GetById(applicantID);
-            _applicant.Tracker= status;
+            _applicant.Tracker = status;
+
+            _repository.Update(_applicant);
+        }
+        public void UpdateGrade(int applicantID, string grade)
+        {
+            var _applicant = _repository.GetById(applicantID);
+            _applicant.Grading = grade;
 
             _repository.Update(_applicant);
         }
