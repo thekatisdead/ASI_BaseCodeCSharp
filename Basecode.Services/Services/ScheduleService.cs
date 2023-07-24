@@ -17,12 +17,14 @@ namespace Basecode.Services.Services
         private readonly IScheduleRepository _scheduleRepository;
         private readonly IJobOpeningRepository  _jobOpeningRepository;
         private readonly IInterviewerRepository _interviewerRepository;
+        private readonly IApplicantListRepository _applicantListRepository;
         private readonly IMapper _mapper;
-        public  ScheduleService(IScheduleRepository scheduleRepository, IJobOpeningRepository jobOpeningRepository,IInterviewerRepository interviewerRepository, IMapper mapper)
+        public  ScheduleService(IScheduleRepository scheduleRepository, IJobOpeningRepository jobOpeningRepository,IInterviewerRepository interviewerRepository, IApplicantListRepository applicantListRepository,IMapper mapper)
         {
             _scheduleRepository = scheduleRepository;
             _jobOpeningRepository = jobOpeningRepository;
             _interviewerRepository = interviewerRepository;
+            _applicantListRepository = applicantListRepository;
             _mapper = mapper;
         }
         public void Add(Schedule schedule)
@@ -109,6 +111,19 @@ namespace Basecode.Services.Services
         {
             var schedule = _scheduleRepository.GetById(id);
             _scheduleRepository.DeleteSchedule(schedule);
+        }
+        public List<ApplicantListViewModel> GetApplicantListAccordingToJobApplied(int jobId)
+        {
+            var data = _applicantListRepository.RetrieveAll().Where(s=> s.JobApplied ==jobId).Select(s => new ApplicantListViewModel
+            {
+                Id=s.Id,
+                JobApplied=s.JobApplied,
+                Firstname =s.Firstname,
+                Lastname =s.Lastname,
+                Tracker = s.Tracker,
+                EmailAddress = s.EmailAddress   
+            } );
+            return data.ToList();
         }
     }
 }

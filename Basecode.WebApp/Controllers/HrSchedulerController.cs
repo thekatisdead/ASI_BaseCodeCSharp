@@ -103,6 +103,11 @@ namespace Basecode.WebApp.Controllers
         { 
             _scheduleService.DeleteSchedule(id);
             return RedirectToAction("home", "HrScheduler");
-        }  
+        }
+        [HttpPost]
+        public IActionResult ApplicantList()
+        {
+            return View();
+        }
     }
 }

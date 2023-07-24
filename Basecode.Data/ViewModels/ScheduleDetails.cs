@@ -18,6 +18,6 @@ namespace Basecode.Data.ViewModels
         public string EndTime;
         public string Date;
         public string instruction;
-      
+        public List<ApplicantListViewModel> Applicants { get; set; }
     }
 }
