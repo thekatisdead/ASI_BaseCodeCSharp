@@ -1,4 +1,5 @@
 ﻿using Basecode.Data.Models;
+using Basecode.Data.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,5 +36,10 @@ namespace Basecode.Data.Interfaces
         void Update(JobOpening jobOpening);
         public void Delete(JobOpening job);
 
-	}
+        /// <summary>
+        /// Retrieves the most recent job opening from the database.
+        /// </summary>
+        /// <returns>The most recent job opening.</returns>
+        JobOpeningViewModel GetMostRecentJobOpening();
+    }
 }
