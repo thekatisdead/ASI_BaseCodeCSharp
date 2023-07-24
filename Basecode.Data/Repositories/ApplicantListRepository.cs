@@ -1,5 +1,6 @@
 ﻿using Basecode.Data.Interfaces;
 using Basecode.Data.Models;
+using Basecode.Data.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -60,5 +61,24 @@ namespace Basecode.Data.Repositories
             }
         }
 
+        public ApplicantListViewModel GetMostRecentApplicant()
+        {
+            // Fetch the most recent applicant's info from the database
+            var recentApplicant = _context.Applicant
+                .OrderByDescending(j => j.CreatedTime)
+                .FirstOrDefault();
+
+            // Map the Applicant model to ApplicantListViewModel
+            var recentApplicantViewModel = new ApplicantListViewModel
+            {
+                Id = recentApplicant.Id,
+                Firstname = recentApplicant.Firstname,
+                Lastname = recentApplicant.Lastname,
+                Tracker = recentApplicant.Tracker,
+                JobApplied = recentApplicant.JobApplied
+            };
+
+            return recentApplicantViewModel;
+        }
     }
 }

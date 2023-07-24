@@ -1,5 +1,6 @@
 ﻿using Basecode.Data.Interfaces;
 using Basecode.Data.Models;
+using Basecode.Data.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -69,6 +70,28 @@ namespace Basecode.Data.Repositories
                 _context.JobOpening.Remove(job);
                 _context.SaveChanges();
             }
+        }
+
+        public JobOpeningViewModel GetMostRecentJobOpening()
+        {
+            // Fetch the most recent job opening from the database
+            var recentJobOpening = _context.JobOpening
+                .OrderByDescending(j => j.CreatedTime)
+                .FirstOrDefault();
+
+            // Map the JobOpening model to JobOpeningViewModel
+            var recentJobOpeningViewModel = new JobOpeningViewModel
+            {
+                Id = recentJobOpening.Id,
+                Position = recentJobOpening.Position,
+                JobType = recentJobOpening.JobType,
+                Salary = recentJobOpening.Salary,
+                Hours = recentJobOpening.Hours,
+                Shift = recentJobOpening.Shift,
+                Description = recentJobOpening.Description
+            };
+
+            return recentJobOpeningViewModel;
         }
     }
 }
