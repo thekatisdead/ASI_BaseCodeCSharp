@@ -14,11 +14,11 @@
     <link rel="stylesheet" href="~/css/jobposting.css" asp-append-version="true" />
 </head>
 <body>
-        <form asp-action="Add">
-            <h2>ADD A NEW JOB</h2>
-            <hr>
+    <form asp-action="Add">
+        <h2>ADD A NEW JOB</h2>
+        <hr>
 
-            <div class="half-width job-posting">
+        <div class="half-width job-posting">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
@@ -44,7 +44,7 @@
                 <br>
                 <div class="schedule-input-group">
                     <label for="hours" class="small-label">Hours:</label>
-                    <input asp-for="Hours" placeholder="Please enter a time" class="input-schedule">
+                    <input asp-for="Hours" placeholder="Input number of Hours" class="input-schedule">
                     <span asp-validation-for="Hours" class="text-danger"></span>
                 </div>
                 <div class="schedule-input-group">
@@ -52,7 +52,7 @@
                     <select asp-for="Shift" class="input-schedule">
                         <option value="" disabled selected>Choose Shift</option>
                         <option value="Morning">Morning</option>
-                        <option value="Evening">Evening</option>
+                        <option value="Night">Night</option>
                     </select>
                     <span asp-validation-for="Shift" class="text-danger"></span>
                 </div>
@@ -70,12 +70,12 @@
                 <button type="submit" class="btn">Add Job</button>
             </div>
         </div>
-            @section Scripts {
-                @{
-                    await Html.RenderPartialAsync("_ValidationScriptsPartial");
-                }
-            }
-        </form>
+    </form>
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
     <div class="triangle"></div>
     <div class="triangle1"></div>
 </body>
