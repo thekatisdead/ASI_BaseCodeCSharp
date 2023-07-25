@@ -13,21 +13,25 @@ namespace Basecode.Test.Controllers
         private readonly Mock<IApplicantListService> _fakeApplicantListService;
         private readonly Mock<ITeamsService> _fakeTeamsService;
         private readonly Mock<IEmailSenderService> _fakeEmailSenderService;
-        private readonly Mock<CurrentHiresRepository> _fakeCurrentHiresRepository;
-        private readonly Mock<JobOpeningRepository> _fakeJobOpeningRepository;
-        private readonly Mock<UserRepository> _fakeUserRepository;
+        private readonly CurrentHiresRepository _fakeCurrentHiresRepository;
+        private readonly JobOpeningRepository _fakeJobOpeningRepository;
+        private readonly UserRepository _fakeUserRepository;
         private readonly Mock<IPublicApplicationFormService> _fakePublicApplicationFormService;
 
         public ApplicantListControllerTests()
         {
             _fakeApplicantListService = new Mock<IApplicantListService>();
             _fakePublicApplicationFormService = new Mock<IPublicApplicationFormService>();
-            _fakeCurrentHiresRepository = new Mock<CurrentHiresRepository>();
             _fakeTeamsService = new Mock<ITeamsService>();
             _fakeEmailSenderService = new Mock<IEmailSenderService>();
-            _fakeJobOpeningRepository = new Mock<JobOpeningRepository>();
-            _fakeUserRepository = new Mock<UserRepository>();
-            _controller = new ApplicantListController(_fakeApplicantListService.Object, _fakeTeamsService.Object,_fakePublicApplicationFormService.Object,_fakeEmailSenderService.Object,_fakeJobOpeningRepository.Object,_fakeUserRepository.Object,_fakeCurrentHiresRepository.Object);
+            _controller = new ApplicantListController(
+                                _fakeApplicantListService.Object, 
+                                _fakeTeamsService.Object, 
+                                _fakePublicApplicationFormService.Object, 
+                                _fakeEmailSenderService.Object,
+                                _fakeJobOpeningRepository,
+                                _fakeUserRepository, 
+                                _fakeCurrentHiresRepository);
         }
 
         [Fact]
@@ -89,9 +93,9 @@ namespace Basecode.Test.Controllers
 
             // Assert
             Assert.NotNull(result);
-            foreach(var applicant in applicantData)
+            foreach (var applicant in applicantData)
             {
-                if(applicant.Id == applicantId)
+                if (applicant.Id == applicantId)
                 {
                     Assert.Equal(status, applicant.Tracker);
                 }
