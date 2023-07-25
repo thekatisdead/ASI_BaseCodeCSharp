@@ -68,6 +68,18 @@ namespace Basecode.Data.Repositories
                 .OrderByDescending(j => j.CreatedTime)
                 .FirstOrDefault();
 
+            if (recentApplicant == null)
+            {
+                // If no job openings are available, return a specific ViewModel with a message
+                return new ApplicantListViewModel
+                {
+                    Firstname = "N/A",
+                    Lastname = "N/A",
+                    Tracker = "N/A",
+                    JobApplied = 0
+                };
+            }
+
             // Map the Applicant model to ApplicantListViewModel
             var recentApplicantViewModel = new ApplicantListViewModel
             {

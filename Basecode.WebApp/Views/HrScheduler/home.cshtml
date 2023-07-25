@@ -1,0 +1,50 @@
+﻿@{
+    ViewData["Title"] = "HR Scheduler";
+    Layout = "~/Views/Shared/_LayoutHR.cshtml";
+}
+@using Basecode.Data.ViewModels
+@model List<ScheduleDetails>
+<html>
+    <head>
+    <title>Hr Scheduler</title>
+    <link rel="stylesheet" href="~/css/hrscheduler.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/applicantlist.css" asp-append-version="true" />
+    <script type="text/javascript" src='https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.3.min.js'></script>
+    </head>
+    <body>
+    <div class="mt-2 mb-2 p-3">
+        <a asp-action="InterviewerList"><button class="btn btn-danger" style="margin-right:15px">Manage Interviewer</button></a>
+        <a asp-action="ViewAddSchedule"><button class="btn btn-danger">Assign Schedule</button></a>
+    </div>
+        
+        <table class="table py-lg-4 rounded-table table-light text-center">
+            <thead>
+                <tr class="text-center header">
+                    <th scope="col">Job</th>
+                    <th scope="col">Interviewer</th>
+                    <th scope="col">Start Time</th>
+                    <th scope="col">End Time</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Instruction</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var schedule in Model)
+                {
+                    <tr>
+                        <td>@schedule.Position</td>
+                        <td>@schedule.FirstName @schedule.LastName</td>
+                        <td>@schedule.StartTime</td>
+                        <td>@schedule.EndTime</td>
+                        <td>@schedule.Date</td>
+                        <td>@schedule.instruction</td>
+                    <td><a asp-action="EditSchedule" asp-route-id="@schedule.ScheduleId">Edit</a> <a asp-action="DeleteSchedule" asp-route-id="@schedule.ScheduleId">Delete</a> <a href="#">Applicants</a></td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+
+    </body>
+</html>
