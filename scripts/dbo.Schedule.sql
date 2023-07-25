@@ -1,13 +1,3 @@
-USE [HRAutomationSystem]
-GO
-
-/****** Object: Table [dbo].[Schedule] Script Date: 21/07/2023 12:12:42 pm ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
 CREATE TABLE [dbo].[Schedule] (
     [ScheduleId]    INT            IDENTITY (1, 1) NOT NULL,
     [InterviewerId] INT            NOT NULL,
@@ -19,7 +9,10 @@ CREATE TABLE [dbo].[Schedule] (
     [CreatedTime]   DATETIME2 (7)  NULL,
     [CreatedBy]     NVARCHAR (50)  NULL,
     [UpdatedTime]   DATETIME2 (7)  NULL,
-    [UpdatedBy]     NVARCHAR (50)  NULL
+    [UpdatedBy]     NVARCHAR (50)  NULL,
+    PRIMARY KEY CLUSTERED ([ScheduleId] ASC),
+    FOREIGN KEY ([JobId]) REFERENCES [dbo].[JobOpening] ([Id]),
+    FOREIGN KEY ([InterviewerId]) REFERENCES [dbo].[Interviewer] ([InterviewerId])
 );
 
 
