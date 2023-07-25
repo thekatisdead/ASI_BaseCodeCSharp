@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Basecode.Data.ViewModels;
 using NLog;
+using Hangfire;
 
 namespace Basecode.WebApp.Controllers
 {
@@ -38,21 +39,9 @@ namespace Basecode.WebApp.Controllers
         /// <returns>The index view.</returns>
         public IActionResult Index()
         {
-            // temporary thing to test out the thing
-            //var scape = _teamsService.GenerateTeamsMeetingLink("Interview HR", 1, 24, "kermherbieto52@gmail.com");
-
-            // test that email service works sob
-            //_email.SendEmailInterviewReminder("kaherbieto@outlook.up.edu.ph", "John Cena", "Your Mom", scape, DateTime.Now);
-
-            // reject a person
-            //_email.SendEmailRejectApplication("kaherbieto@outlook.up.edu.ph","Kerm Herbieto","Alliance","Bottom");
-            //this.Reject(2);
-
-            // update a person's status
-            //_email.SendEmailOnUpdateApplicantStatus("kaherbieto@outlook.up.edu.ph","Kerm Herbieto","Bottom","Top");
-
-            // give the HR a decision
-            //_email.SendEmailHRApplicationDecision("kaherbieto@outlook.up.edu.ph", 1, "Kerm Herbieto", "Bottom");
+            // test for Hangfire
+            BackgroundJob.Enqueue(()=> _email.SendEmailCharacterReference("kaherbieto@outlook.up.edu.ph","Dat Kat","Kat Dat"));
+            
             var data = _service.RetrieveAll();
             _logger.Trace("ApplicantList Controller Accessed");
             return View(data);
