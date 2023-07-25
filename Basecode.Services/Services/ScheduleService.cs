@@ -29,9 +29,9 @@ namespace Basecode.Services.Services
         }
         public void Add(Schedule schedule)
         {
-            schedule.CreatedBy = "Jimwill";
+            schedule.CreatedBy = System.Environment.UserName;
             schedule.CreatedTime= DateTime.Now;
-            schedule.UpdatedBy = "Jimwill";
+            schedule.UpdatedBy = System.Environment.UserName;
             schedule.UpdatedTime = DateTime.Now;
             _scheduleRepository.Add(schedule);
         }
@@ -102,7 +102,7 @@ namespace Basecode.Services.Services
             _schedule.EndTime = schedule.EndTime;
             _schedule.Date = schedule.Date;
             _schedule.Instruction = schedule.Instruction;
-            _schedule.UpdatedBy = "Jimwill";
+            _schedule.UpdatedBy = System.Environment.UserName;
             _schedule.UpdatedTime = DateTime.Now;
 
             _scheduleRepository.UpdateSchedule(_schedule);
