@@ -38,6 +38,7 @@ namespace Basecode.Services.Services
 
             return data;
         }
+
         public void UpdateStatus(int applicantID, string status)
         {
             var _applicant = _repository.GetById(applicantID);
