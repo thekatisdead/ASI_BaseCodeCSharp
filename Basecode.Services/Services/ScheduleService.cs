@@ -27,6 +27,7 @@ namespace Basecode.Services.Services
             _applicantListRepository = applicantListRepository;
             _mapper = mapper;
         }
+
         public void Add(Schedule schedule)
         {
             schedule.CreatedBy = System.Environment.UserName;
@@ -35,6 +36,7 @@ namespace Basecode.Services.Services
             schedule.UpdatedTime = DateTime.Now;
             _scheduleRepository.Add(schedule);
         }
+        
         public List<ScheduleViewModel> GetAll() 
         {
             var schedules = _scheduleRepository.GetAll().Select(s => new ScheduleViewModel { 
@@ -107,11 +109,13 @@ namespace Basecode.Services.Services
 
             _scheduleRepository.UpdateSchedule(_schedule);
         }
+
         public void DeleteSchedule(int id)
         {
             var schedule = _scheduleRepository.GetById(id);
             _scheduleRepository.DeleteSchedule(schedule);
         }
+
         public List<ApplicantListViewModel> GetApplicantListAccordingToJobApplied(int jobId)
         {
             var data = _applicantListRepository.RetrieveAll().Where(s=> s.JobApplied ==jobId).Select(s => new ApplicantListViewModel
