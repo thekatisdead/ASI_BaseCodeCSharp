@@ -25,12 +25,12 @@ namespace Basecode.Test.Controllers
             _fakeTeamsService = new Mock<ITeamsService>();
             _fakeEmailSenderService = new Mock<IEmailSenderService>();
             _controller = new ApplicantListController(
-                                _fakeApplicantListService.Object, 
-                                _fakeTeamsService.Object, 
-                                _fakePublicApplicationFormService.Object, 
+                                _fakeApplicantListService.Object,
+                                _fakeTeamsService.Object,
+                                _fakePublicApplicationFormService.Object,
                                 _fakeEmailSenderService.Object,
                                 _fakeJobOpeningRepository,
-                                _fakeUserRepository, 
+                                _fakeUserRepository,
                                 _fakeCurrentHiresRepository);
         }
 

@@ -1,6 +1,5 @@
 ﻿using Basecode.Data.ViewModels;
 using Basecode.Services.Interfaces;
-using Basecode.Services.Services;
 using Basecode.WebApp.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
@@ -12,7 +11,7 @@ namespace Basecode.Test.Controllers
         private readonly HrHomepageController _controller;
         private readonly Mock<IJobOpeningService> _jobOpeningService;
         private readonly Mock<IApplicantListService> _applicantListService;
-       
+
         public HrHomepageControllerTests()
         {
             _jobOpeningService = new Mock<IJobOpeningService>();
@@ -34,7 +33,7 @@ namespace Basecode.Test.Controllers
                 Shift = "Day",
                 Description = "Job description for testing",
             };
-            
+
             var applicantsData = new ApplicantListViewModel
             {
                 Id = 1,
