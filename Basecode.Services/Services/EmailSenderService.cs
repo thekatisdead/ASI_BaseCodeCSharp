@@ -172,6 +172,45 @@ namespace Basecode.Services.Services
             }
         }
 
+        public void SendEmailCharacterReferenceDecision(string receiverEmail, string applicantName, int applicantID, string jobPosition)
+        {
+            var email = new MimeMessage();
+
+            // If you wanna test for email functionalities, change the Sender Name to your email
+            // and the receiver name to your other email.
+            // To perform it properly, follow the link below
+            // https://mailtrap.io/blog/csharp-send-email-gmail/
+
+            email.From.Add(new MailboxAddress("HR Automated Tracking", "kermherbieto52@gmail.com"));
+            email.To.Add(new MailboxAddress(applicantName, receiverEmail));
+
+            email.Subject = "Interview Decision";
+
+            var htmlContent = File.ReadAllText("EmailTemplates/CharacterReferenceDecision.html");
+
+            // this is to replace the placeholders
+            htmlContent = htmlContent.Replace("{applicantName}", applicantName);
+            htmlContent = htmlContent.Replace("{applicantID}", applicantID.ToString());
+            htmlContent = htmlContent.Replace("{jobPosition}", jobPosition);
+
+
+            email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
+            {
+                Text = htmlContent
+            };
+
+            using (var smtp = new SmtpClient())
+            {
+                smtp.Connect("smtp.gmail.com", 587, false);
+
+                // Note: only needed if the SMTP server requires authentication
+                // Also: This is PM's email kek, rip bozo ig.
+                smtp.Authenticate("kermherbieto52@gmail.com", "sfltmfkdvdiuhabi");
+
+                smtp.Send(email);
+                smtp.Disconnect(true);
+            }
+        }
         public void SendEmailCharacterReference(string receiverEmail, string applicantName, string referenceName)
         {
             var email = new MimeMessage();
@@ -261,6 +300,47 @@ namespace Basecode.Services.Services
                 smtp.Disconnect(true);
             }
         }
+        public void SendEmailCharacterReferenceReminder(string receiverEmail, string applicantName, string referenceName, string jobPosition)
+        {
+            var email = new MimeMessage();
+
+            // If you wanna test for email functionalities, change the Sender Name to your email
+            // and the receiver name to your other email.
+            // To perform it properly, follow the link below
+            // https://mailtrap.io/blog/csharp-send-email-gmail/
+
+            email.From.Add(new MailboxAddress("HR Automated Tracking", "kermherbieto52@gmail.com"));
+            email.To.Add(new MailboxAddress(applicantName, receiverEmail));
+
+            email.Subject = "Interview Reminder";
+
+            var htmlContent = File.ReadAllText("EmailTemplates/CharacterReferenceReminder.html");
+
+            var button = "<a href=" + jobPosition + ">click me!</a>";
+
+            // this is to replace the placeholders
+            htmlContent = htmlContent.Replace("{applicantName}", applicantName);
+            htmlContent = htmlContent.Replace("{referenceName}", referenceName);
+            htmlContent = htmlContent.Replace("{jobPosition}", button);
+
+            email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
+            {
+                Text = htmlContent
+            };
+
+            using (var smtp = new SmtpClient())
+            {
+                smtp.Connect("smtp.gmail.com", 587, false);
+
+                // Note: only needed if the SMTP server requires authentication
+                // Also: This is PM's email kek, rip bozo ig.
+                smtp.Authenticate("kermherbieto52@gmail.com", "sfltmfkdvdiuhabi");
+
+                smtp.Send(email);
+                smtp.Disconnect(true);
+            }
+        }
+
         // Approval Email in Application and Screening
         public void SendEmailHRApplicationDecision(string receiverEmail, int applicantId ,string applicantName, string jobPosition)
         {

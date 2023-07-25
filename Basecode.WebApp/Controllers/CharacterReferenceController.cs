@@ -35,6 +35,9 @@ namespace Basecode.WebApp.Controllers
             {
                 // needs communication with Public form DB
                 _email.SendEmailOnCharacterReferenceResponse("kaherbieto@outlook.up.edu.ph",viewModel.CandidateLastName,viewModel.LastName,1,3);
+                // needs communication on when to send the decision, after all are completed or after a certain period of time
+                _email.SendEmailCharacterReferenceDecision("kaherbieto@outlook.up.edu.ph",viewModel.LastName,1,viewModel.Position);
+
                 // Call the service method to create the form
                 _service.AddCharacterReference(viewModel);
 
@@ -68,6 +71,27 @@ namespace Basecode.WebApp.Controllers
             catch (Exception ex)
             {
                 _logger.Error(ex, "Error occurred while generating character reference report: {errorMessage}", ex.Message);
+
+                // You can customize the error handling based on your application's requirements
+                // For example, you can return a specific error view or redirect to an error page.
+                return BadRequest("An error occurred while generating the report.");
+            }
+        }
+        public IActionResult DecisionLanding()
+        {
+            return View();
+        }
+
+        public IActionResult Decision(int applicantID, int decision)
+        {
+            try
+            {
+                // thing change in the database
+                return RedirectToAction("DecisionLanding");
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "Error occurred while in the rejection phase of the Character Reference From: {errorMessage}", ex.Message);
 
                 // You can customize the error handling based on your application's requirements
                 // For example, you can return a specific error view or redirect to an error page.
