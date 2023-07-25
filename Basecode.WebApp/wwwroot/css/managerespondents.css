@@ -1,0 +1,122 @@
+﻿body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #2E3830;
+}
+
+header {
+    display: flex;
+    background-color: #fff;
+    padding: 10px;
+    text-align: right;
+}
+
+.add-reference-container {
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+.add-reference-btn {
+    background-color: #C53211;
+    color: #FFFFFF;
+    border: none;
+    padding: 6px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+main {
+    padding: 20px;
+}
+
+.reference-listing {
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.section-title {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.search-label {
+    font-size: 15px;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+#search-reference {
+    padding: 8px;
+    padding-right: 50px;
+    font-size: 14px;
+    border: 1px solid #CCCCCC;
+    border-radius: 10px;
+}
+
+.reference-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.table-header {
+    background-color: #C53211;
+    color: #FFFFFF;
+    font-weight: bold;
+    padding: 10px;
+    text-align: center;
+}
+
+.table-cell {
+    border: 1px solid #CCCCCC;
+    padding: 10px;
+    text-align: center;
+}
+
+.generate-btn {
+    background-color: #C53211;
+    color: #FFFFFF;
+    border: none;
+    padding: 4px 8px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+    .generate-btn:hover {
+        opacity: 0.8;
+    }
+
+.triangle1 {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    z-index: -1;
+    border-bottom: 250px solid #2E3830;
+    border-left: 250px solid transparent;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.triangle {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-bottom: 150px solid #C53211;
+    border-left: 150px solid transparent;
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.1));
+}
