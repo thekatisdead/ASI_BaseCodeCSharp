@@ -1,5 +1,6 @@
 ﻿CREATE TABLE [dbo].[JobOpening] (
     [Id]          INT            IDENTITY (1, 1) NOT NULL,
+	[HR]		  INT			 NULL,
     [Position]    NVARCHAR (50)  NOT NULL,
     [JobType]     NVARCHAR (50)  NOT NULL,
     [Salary]      DECIMAL (18)   NOT NULL,
@@ -12,3 +13,4 @@
     [UpdatedBy]   NVARCHAR (50)  NULL,
     PRIMARY KEY CLUSTERED ([Id] ASC)
 );
+
