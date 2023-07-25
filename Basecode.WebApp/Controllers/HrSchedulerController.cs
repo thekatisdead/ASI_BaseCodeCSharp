@@ -16,11 +16,12 @@ namespace Basecode.WebApp.Controllers
         IInterviewerServices _interviewerServices;
         IJobOpeningService _jobOpeningService;
         IScheduleService _scheduleService;
-        public HrSchedulerController(IInterviewerServices services,IJobOpeningService jobOpeningService,IScheduleService scheduleService) 
+        public HrSchedulerController(IInterviewerServices services,IJobOpeningService jobOpeningService,IScheduleService scheduleService,IEmailSenderService emailSender) 
         { 
             _interviewerServices= services;
             _jobOpeningService= jobOpeningService;
             _scheduleService =  scheduleService;
+            _emailSender = emailSender;
         }
         public IActionResult AddInterviewer()
         {
