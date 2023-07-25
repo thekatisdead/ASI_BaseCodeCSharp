@@ -57,5 +57,21 @@ namespace Basecode.Services.Services
 
             return data;
         }
+
+        public List<CharacterReferenceViewModel> RetrieveResponses()
+        {
+            var data = _repository.RetrieveAll().Select(s => new CharacterReferenceViewModel
+            {
+                Id = s.Id,
+                FirstName = s.FirstName,
+                LastName = s.LastName,
+                JobTitle = s.JobTitle,
+                CandidateFirstName = s.CandidateFirstName,
+                CandidateLastName = s.CandidateLastName,
+                Relationship = s.Relationship
+            }).ToList();
+
+            return data;
+        }
     }
 }
