@@ -79,6 +79,20 @@ namespace Basecode.Data.Repositories
                 .OrderByDescending(j => j.CreatedTime)
                 .FirstOrDefault();
 
+            if (recentJobOpening == null)
+            {
+                // If no job openings are available, return a specific ViewModel with a message
+                return new JobOpeningViewModel
+                {
+                    Position = "No job openings available",
+                    JobType = "N/A",
+                    Salary = 0,
+                    Hours = 0,
+                    Shift = "N/A",
+                    Description = "N/A"
+                };
+            }
+
             // Map the JobOpening model to JobOpeningViewModel
             var recentJobOpeningViewModel = new JobOpeningViewModel
             {
