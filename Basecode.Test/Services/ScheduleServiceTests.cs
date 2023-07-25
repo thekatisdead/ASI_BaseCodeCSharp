@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Basecode.Data.Interfaces;
 using Basecode.Data.Models;
+using Basecode.Data.ViewModels;
 using Basecode.Services.Services;
 using Microsoft.Graph.Beta.Models;
 using Moq;
@@ -20,7 +21,7 @@ namespace Basecode.Test.Services
         private readonly Mock<IJobOpeningRepository> _jobOpeningRepository;
         private readonly Mock<IInterviewerRepository> _interviewerRepository;
         private readonly Mock<IApplicantListRepository> _applicantListRepository;
-        private readonly Mock<IMapper> _mapper;
+        private readonly IMapper _mapper;
 
         public ScheduleServiceTests()
         {
@@ -28,8 +29,7 @@ namespace Basecode.Test.Services
             _jobOpeningRepository = new Mock<IJobOpeningRepository>();
             _interviewerRepository = new Mock<IInterviewerRepository>();
             _applicantListRepository = new Mock<IApplicantListRepository>();
-            _mapper = new Mock<IMapper>();
-            _scheduleService = new ScheduleService(_scheduleRepository.Object, _jobOpeningRepository.Object, _interviewerRepository.Object, _applicantListRepository.Object, _mapper.Object);
+            _scheduleService = new ScheduleService(_scheduleRepository.Object, _jobOpeningRepository.Object, _interviewerRepository.Object, _applicantListRepository.Object, _mapper);
         }
 
         [Fact]
@@ -166,6 +166,145 @@ namespace Basecode.Test.Services
 
             // Assert
             Assert.Empty(result);
+        }
+
+        [Fact]
+        public void GetById_ValidId_ReturnsScheduleViewModel()
+        {
+            // Arrange
+            var id = 1;
+
+            var schedule1 = new Schedule
+            {
+                ScheduleId = 1,
+                InterviewerId = 1,
+                JobId = 1,
+                Instruction = "Test"
+            };
+
+            var schedule = new ScheduleViewModel
+            {
+                ScheduleId = 1,
+                JobOpenings = new List<JobOpeningViewModel>
+                {
+                    new JobOpeningViewModel
+                    {
+                        Id = id,
+                        Position = "Software Developer",
+                        JobType = "Hello World",
+                        Salary = 100000,
+                        Hours = 40,
+                        Shift = "Morning",
+                        Description = "Test",
+                    }
+                },
+                Interviewers = new List<InterviewerViewModel>
+                {
+                    new InterviewerViewModel
+                    {
+                        InterviewerId = 1,
+                        FirstName = "Ella",
+                        LastName = "Abueva",
+                        Email = "ella@gmail.com",
+                        ContactNo = "09995067663"
+                    }
+                },
+                InterviewerId = 1,
+                JobId = 1,
+                Instruction = "Test"
+            };
+
+            _scheduleRepository.Setup(r => r.GetById(id)).Returns(schedule1);
+
+            // Act
+            var result = _scheduleService.GetById(id);
+            
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<ScheduleViewModel>(result);
+        }
+
+        [Fact]
+        public void GetById_InvalidId_ReturnsScheduleViewModel()
+        {
+            // Arrange
+            var id = 0;
+
+            var schedule1 = new Schedule();
+
+            var schedule = new ScheduleViewModel();
+
+            _scheduleRepository.Setup(r => r.GetById(id)).Returns(schedule1);
+
+            // Act
+            var result = _scheduleService.GetById(id);
+
+            // Assert
+            Assert.NotNull(result);
+        }
+
+        [Fact]
+        public void UpdateSchedule_ValidSchedule_ReturnsNone()
+        {
+            // Arrange
+            var schedule = new Schedule
+            {
+                ScheduleId = 1,
+                InterviewerId = 1,
+                JobId = 1,
+                Instruction = "Test"
+            };
+
+            // Act
+            _scheduleService.UpdateSchedule(schedule);
+
+            // Assert
+            _scheduleRepository.Verify(r => r.UpdateSchedule(It.IsAny<Schedule>()), Times.Never);
+        }
+
+        [Fact]
+        public void UpdateSchedule_InvalidSchedule_ShouldReturnNone()
+        {
+            // Arrange
+            var schedule = new Schedule();
+
+            // Act
+            _scheduleService.UpdateSchedule(schedule);
+
+            // Assert 
+            _scheduleRepository.Verify(r => r.UpdateSchedule(It.IsAny<Schedule>()), Times.Never);
+        }
+
+        [Fact]
+        public void DeleteSchedule_ValidSchedule_ReturnsNone()
+        {
+            // Arrange
+            var schedule = new Schedule
+            {
+                ScheduleId = 1,
+                InterviewerId = 1,
+                JobId = 1,
+                Instruction = "Test"
+            };
+
+            // Act
+            _scheduleService.DeleteSchedule(schedule.ScheduleId);
+
+            // Assert
+            _scheduleRepository.Verify(r => r.DeleteSchedule(It.IsAny<Schedule>()), Times.Once);
+        }
+
+        [Fact]
+        public void DeleteSchedule_InvalidSchedule_ShouldReturnNone()
+        {
+            // Arrange
+            var schedule = new Schedule();
+
+            // Act
+            _scheduleService.DeleteSchedule(schedule.ScheduleId);
+
+            // Assert 
+            _scheduleRepository.Verify(r => r.DeleteSchedule(It.IsAny<Schedule>()), Times.Once);
         }
     }
 }
