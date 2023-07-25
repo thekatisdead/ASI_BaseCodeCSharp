@@ -9,11 +9,13 @@ namespace Basecode.WebApp.Controllers
     public class PublicApplicationFormController : Controller
     {
         private readonly IPublicApplicationFormService _service;
+        private readonly IEmailSenderService _email;
         private static Logger _logger = LogManager.GetCurrentClassLogger();
         
-        public PublicApplicationFormController(IPublicApplicationFormService service)
+        public PublicApplicationFormController(IPublicApplicationFormService service, IEmailSenderService email)
         {
             _service = service;
+            _email = email;
         }
 
         public IActionResult Index()
@@ -27,6 +29,19 @@ namespace Basecode.WebApp.Controllers
         {
             try
             {
+                // contacts the references for each thting when creating the form
+                if(viewModel.ContactInfoOne != null)
+                {
+                    _email.SendEmailCharacterReference(viewModel.ContactInfoOne,viewModel.LastName,viewModel.ReferenceOneFullName);
+                }
+                else if (viewModel.ContactInfoTwo != null)
+                {
+                    _email.SendEmailCharacterReference(viewModel.ContactInfoTwo, viewModel.LastName, viewModel.ReferenceTwoFullName);
+                }
+                else if (viewModel.ContactInfoThree != null)
+                {
+                    _email.SendEmailCharacterReference(viewModel.ContactInfoThree, viewModel.LastName, viewModel.ReferenceThreeFullName);
+                }
                 // Call the service method to create the form
                 _service.AddForm(viewModel);
                 _logger.Info("Form added successfully.");

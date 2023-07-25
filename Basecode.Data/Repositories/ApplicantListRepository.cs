@@ -40,6 +40,27 @@ namespace Basecode.Data.Repositories
             _context.SaveChanges();
         }
 
+        public void UpdateStatus(int applicantId, string status)
+        {
+            var applicant = _context.Applicant.Find(applicantId);
+            if (applicant != null)
+            {
+                applicant.Grading = status;
+                _context.SaveChanges();
+            }
+        }
+
+        public void ProceedTo(int applicantId, string step)
+        {
+            var applicant = _context.Applicant.Find(applicantId);
+            if (applicant != null)
+            {
+                applicant.Tracker = step;
+                applicant.Grading = "On Going";
+                _context.SaveChanges();
+            }
+        }
+
         public ApplicantListViewModel GetMostRecentApplicant()
         {
             // Fetch the most recent applicant's info from the database
