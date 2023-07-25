@@ -23,8 +23,8 @@ namespace Basecode.Services.Services
 
         public void Add(Interviewer interviewer)
         {
-            interviewer.CreatedBy = "jimwill";
-            interviewer.UpdatedBy = "jimwill";
+            interviewer.CreatedBy = System.Environment.UserName;
+            interviewer.UpdatedBy = System.Environment.UserName;
             interviewer.CreatedTime= DateTime.Now;
             interviewer.UpdatedTime= DateTime.Now;
             _interviewerRepository.Add(interviewer);
