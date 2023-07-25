@@ -10,7 +10,7 @@
 <html>
 <head>
     <title>Character Reference Report</title>
-    <link rel="stylesheet" href="~/css/characterreferencereport.css" asp-append-version="true" />  
+    <link rel="stylesheet" href="~/css/characterreferencereport.css" asp-append-version="true" />
 </head>
 <body>
     <main>
@@ -21,50 +21,93 @@
 
         <section class="reference-listing">
             <h2 class="section-title">Character Reference Report</h2>
-            <div class="search-bar">
-                <label for="search-reference" class="search-label">Search:</label>
-                <input type="text" id="search-reference" placeholder="Search here.....">
-            </div>
-            <table class="reference-table">
-                <thead>
-                    <tr>
-                        <th class="table-header">Respondents ID</th>
-                        <th class="table-header">Name</th>
-                        <th class="table-header">Current Job Title</th>
-                        <th class="table-header">Candidate's Name Being Evaluated</th>
-                        <th class="table-header">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
+
+            @if (Model.Count > 0)
+            {
+                <div class="respondent-cards">
                     @foreach (var reference in Model)
                     {
-                        <tr>
-                            <td class="table-cell">@reference.Id</td>
-                            <td class="table-cell">@reference.FirstName @reference.LastName</td>
-                            <td class="table-cell">@reference.JobTitle</td>
-                            <td class="table-cell">@reference.CandidateFirstName @reference.CandidateLastName</td>
-                            <td class="table-cell">
-                                <button class="generate-btn">Generate Report</button>
-                            </td>
-                        </tr>
+                        <div class="card">
+                            <h3><strong>@reference.CandidateFirstName @reference.CandidateLastName</strong></h3>
+                            <p><strong>Applying for the position of:</strong> @reference.Position</p>
+
+                            <h5>Personal Information of the Referrer:</h5>
+                            <p><strong>Your Name:</strong> @reference.FirstName @reference.LastName</p>
+                            <p><strong>Your Current Job Title:</strong> @reference.JobTitle</p>
+                            <p><strong>Relationship to the Candidate:</strong> @reference.Relationship</p>
+                            <p><strong>How long have you known this person?:</strong> @reference.RelationshipDuration</p>
+                            <p><strong>Have you worked with this person?:</strong> @reference.WorkedWithCandidate</p>
+
+                            <h5>Review:</h5>
+                            <p>The character reference form was completed on <span id="submission-date">@reference.CreatedTime</span>.</p>
+                            <p>The candidate being referred is @reference.CandidateFirstName @reference.CandidateLastName who is applying for the position of @reference.Position. The referrer has known the candidate for @reference.RelationshipDuration, and they have @reference.WorkedWithCandidate together.</p>
+
+                            <h5>Character and Work Ethics:</h5>
+                            <ul>
+                                <li>@reference.CharacterEthics</li>
+                            </ul>
+
+                            <h5>Qualifications and Soft Skills:</h5>
+                            <ul>
+                                <li>@reference.Qualifications</li>
+                            </ul>
+
+                            <h5>Reason to Hire the Candidate:</h5>
+                            <p>@reference.ReasonToHire</p>
+                        </div>
                     }
-                </tbody>
-            </table>
+                </div>
+
+                <div class="pagination">
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        <button onclick="goToPage(@i)">@i</button>
+                    }
+                </div>
+            }
+            else
+            {
+                <p>No respondents found.</p>
+            }
         </section>
+
         <div class="triangle"></div>
         <div class="triangle1"></div>
     </main>
+    <!-- Back button to go back to the previous screen -->
+    <button id="back-button">Back</button>
+
+    <!-- Add JavaScript to handle the back button functionality and date formatting -->
+    <script>
+        // JavaScript function to handle pagination
+        var currentCardIndex = 0;
+        var cards = document.getElementsByClassName("card");
+
+        function goToPage(pageNumber) {
+            currentCardIndex = pageNumber;
+            updateCardDisplay();
+        }
+
+        function updateCardDisplay() {
+            for (var i = 0; i < cards.length; i++) {
+                if (i === currentCardIndex) {
+                    cards[i].style.display = "block";
+                } else {
+                    cards[i].style.display = "none";
+                }
+            }
+        }
+
+        document.getElementById("back-button").addEventListener("click", function () {
+            window.history.back(); // Go back in the browser history
+        });
+
+        // Hide all cards except the first one initially
+        document.addEventListener("DOMContentLoaded", function () {
+            for (var i = 1; i < cards.length; i++) {
+                cards[i].style.display = "none";
+            }
+        });
+    </script>
 </body>
 </html>
-
-
-<script>
-    $(document).ready(function () {
-        $("#search-reference").on("keyup", function () {
-            var value = $(this).val().toLowerCase();
-            $(".reference-table tbody tr").filter(function () {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
-        });
-    });
-</script>
