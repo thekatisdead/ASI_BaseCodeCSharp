@@ -13,13 +13,6 @@ namespace Basecode.WebApp.Controllers
     {
         private readonly IEmailSenderService _emailSender;
         private static Logger _logger = LogManager.GetCurrentClassLogger();
-
-        public HrSchedulerController(IEmailSenderService emailSender)
-        {
-            _emailSender = emailSender;
-        }
-
-        public IActionResult Index()
         IInterviewerServices _interviewerServices;
         IJobOpeningService _jobOpeningService;
         IScheduleService _scheduleService;
@@ -39,6 +32,7 @@ namespace Basecode.WebApp.Controllers
         {
             _emailSender.SendEmailInterviewSchedule(HrScheduler);
             return RedirectToAction("Index");
+        }
         public IActionResult home()
         {
             var schedules = _scheduleService.GetDetails();
