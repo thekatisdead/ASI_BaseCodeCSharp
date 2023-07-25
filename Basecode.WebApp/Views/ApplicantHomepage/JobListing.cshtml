@@ -2,34 +2,39 @@
 @model List<JobOpeningViewModel>
 @{
     ViewData["Title"] = "Applicant Homepage";
-    Layout = "~/Views/Shared/_LayoutHR.cshtml";
+    Layout = "~/Views/Shared/_LayoutApplicant.cshtml";
 }
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="~/css/applicanthomepage.css" />
+        <link rel="stylesheet" href="~/css/applyjob.css" />
     </head>
     <body>
-        <div class="container mt-5 mb-3">
+        <div class="container mt-5">
             <div class="row">
-                @foreach(var job in Model)
+                @foreach (var job in Model)
                 {
-                <div class="col-md-4">
-                    <div class="card p-3 mb-2">
-                        <div class="mt-5 mb-5">
+                    <div class="col-md-4">
+                        <div class="card p-3 mb-4">
                             <h5 class="card-title">@job.Position</h5>
-                            <span class="text-light p-1" style="background-color:gray;margin-left:5px">@job.JobType</span>
-                            <span class="text-light p-1" style="background-color:gray;margin-left:5px">&#8369;@job.Salary</span>
-                            <span class="text-light p-1" style="background-color:gray;margin-left:5px">@job.Hours hrs</span>
-                            <span class="text-light p-1" style="background-color:gray;margin-left:5px">@job.Shift Shift</span>
+                            <div class="job-details">
+                                <span class="badge">@job.JobType</span>
+                                <span class="badge">&#8369;@job.Salary</span>
+                                <span class="badge">@job.Hours hrs</span>
+                                <span class="badge">@job.Shift Shift</span>
+                            </div>
                             <p class="card-text">@job.Description</p>
-                            <button class="btn text-light" style="background-color:#c53211">Apply Now!</button>
+                            <div class="apply-actions">
+                                <a asp-controller="PublicApplicationForm" asp-action="Index">
+                                    <button class="apply-btn">Apply Now!</button>
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
                 }
-                
             </div>
         </div>
+        <div class="triangle"></div>
+        <div class="triangle1"></div>
     </body>
 </html>
