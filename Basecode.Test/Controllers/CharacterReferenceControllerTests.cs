@@ -10,11 +10,13 @@ namespace Basecode.Test.Controllers
     {
         private readonly CharacterReferenceController _controller;
         private readonly Mock<ICharacterReferenceService> _mockCharacterReferenceService;
+        private readonly Mock<IEmailSenderService> _mockEmailSenderService;
 
         public CharacterReferenceControllerTests()
         {
             _mockCharacterReferenceService = new Mock<ICharacterReferenceService>();
-            _controller = new CharacterReferenceController(_mockCharacterReferenceService.Object);
+            _mockEmailSenderService = new Mock<IEmailSenderService>();
+            _controller = new CharacterReferenceController(_mockCharacterReferenceService.Object, _mockEmailSenderService.Object);
         }
 
         [Fact]
