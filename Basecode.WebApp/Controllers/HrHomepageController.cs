@@ -24,11 +24,11 @@ namespace Basecode.WebApp.Controllers
         {
             _logger.Trace("HrHomepage Controller Accessed");
 
-            int totalJobOpenings = _jobOpeningService.RetrieveAll().Count();
+            int totalJobOpenings = _jobOpeningService.RetrieveAll()?.Count() ?? 0;
             ViewBag.TotalJobOpenings = totalJobOpenings;
 
             var data = _service.RetrieveAll();
-            int totalApplications = data.Count(); // Fetch the total count of applications
+            int totalApplications = data?.Count() ?? 0; // Fetch the total count of applications
             ViewBag.TotalApplications = totalApplications;
 
             //// Fetch the recent job opening data from the repository
