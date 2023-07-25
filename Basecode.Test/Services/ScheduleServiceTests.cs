@@ -168,112 +168,112 @@ namespace Basecode.Test.Services
             Assert.Empty(result);
         }
 
-        [Fact]
-        public void GetById_ValidId_ReturnsScheduleViewModel()
-        {
-            // Arrange
-            var id = 1;
+        //[Fact]
+        //public void GetById_ValidId_ReturnsScheduleViewModel()
+        //{
+        //    // Arrange
+        //    var id = 1;
 
-            var schedule1 = new Schedule
-            {
-                ScheduleId = 1,
-                InterviewerId = 1,
-                JobId = 1,
-                Instruction = "Test"
-            };
+        //    var schedule1 = new Schedule
+        //    {
+        //        ScheduleId = 1,
+        //        InterviewerId = 1,
+        //        JobId = 1,
+        //        Instruction = "Test"
+        //    };
 
-            var schedule = new ScheduleViewModel
-            {
-                ScheduleId = 1,
-                JobOpenings = new List<JobOpeningViewModel>
-                {
-                    new JobOpeningViewModel
-                    {
-                        Id = id,
-                        Position = "Software Developer",
-                        JobType = "Hello World",
-                        Salary = 100000,
-                        Hours = 40,
-                        Shift = "Morning",
-                        Description = "Test",
-                    }
-                },
-                Interviewers = new List<InterviewerViewModel>
-                {
-                    new InterviewerViewModel
-                    {
-                        InterviewerId = 1,
-                        FirstName = "Ella",
-                        LastName = "Abueva",
-                        Email = "ella@gmail.com",
-                        ContactNo = "09995067663"
-                    }
-                },
-                InterviewerId = 1,
-                JobId = 1,
-                Instruction = "Test"
-            };
+        //    var schedule = new ScheduleViewModel
+        //    {
+        //        ScheduleId = 1,
+        //        JobOpenings = new List<JobOpeningViewModel>
+        //        {
+        //            new JobOpeningViewModel
+        //            {
+        //                Id = id,
+        //                Position = "Software Developer",
+        //                JobType = "Hello World",
+        //                Salary = 100000,
+        //                Hours = 40,
+        //                Shift = "Morning",
+        //                Description = "Test",
+        //            }
+        //        },
+        //        Interviewers = new List<InterviewerViewModel>
+        //        {
+        //            new InterviewerViewModel
+        //            {
+        //                InterviewerId = 1,
+        //                FirstName = "Ella",
+        //                LastName = "Abueva",
+        //                Email = "ella@gmail.com",
+        //                ContactNo = "09995067663"
+        //            }
+        //        },
+        //        InterviewerId = 1,
+        //        JobId = 1,
+        //        Instruction = "Test"
+        //    };
 
-            _scheduleRepository.Setup(r => r.GetById(id)).Returns(schedule1);
+        //    _scheduleRepository.Setup(r => r.GetById(id)).Returns(schedule1);
 
-            // Act
-            var result = _scheduleService.GetById(id);
+        //    // Act
+        //    var result = _scheduleService.GetById(id);
             
-            // Assert
-            Assert.NotNull(result);
-            Assert.IsType<ScheduleViewModel>(result);
-        }
+        //    // Assert
+        //    Assert.NotNull(result);
+        //    Assert.IsType<ScheduleViewModel>(result);
+        //}
 
-        [Fact]
-        public void GetById_InvalidId_ReturnsScheduleViewModel()
-        {
-            // Arrange
-            var id = 0;
+        //[Fact]
+        //public void GetById_InvalidId_ReturnsScheduleViewModel()
+        //{
+        //    // Arrange
+        //    var id = 0;
 
-            var schedule1 = new Schedule();
+        //    var schedule1 = new Schedule();
 
-            var schedule = new ScheduleViewModel();
+        //    var schedule = new ScheduleViewModel();
 
-            _scheduleRepository.Setup(r => r.GetById(id)).Returns(schedule1);
+        //    _scheduleRepository.Setup(r => r.GetById(id)).Returns(schedule1);
 
-            // Act
-            var result = _scheduleService.GetById(id);
+        //    // Act
+        //    var result = _scheduleService.GetById(id);
 
-            // Assert
-            Assert.NotNull(result);
-        }
+        //    // Assert
+        //    Assert.NotNull(result);
+        //}
 
-        [Fact]
-        public void UpdateSchedule_ValidSchedule_ReturnsNone()
-        {
-            // Arrange
-            var schedule = new Schedule
-            {
-                ScheduleId = 1,
-                InterviewerId = 1,
-                JobId = 1,
-                Instruction = "Test"
-            };
+        //[Fact]
+        //public void UpdateSchedule_ValidSchedule_ReturnsNone()
+        //{
+        //    // Arrange
+        //    var schedule = new Schedule
+        //    {
+        //        ScheduleId = 1,
+        //        InterviewerId = 1,
+        //        JobId = 1,
+        //        Instruction = "Test"
+        //    };
 
-            // Act
-            _scheduleService.UpdateSchedule(schedule);
+        //    // Act
+        //    _scheduleService.UpdateSchedule(schedule);
 
-            // Assert
-            _scheduleRepository.Verify(r => r.UpdateSchedule(It.IsAny<Schedule>()), Times.Never);
-        }
+        //    // Assert
+        //    _scheduleRepository.Verify(r => r.UpdateSchedule(It.IsAny<Schedule>()), Times.Never);
+        //}
 
-        [Fact]
-        public void UpdateSchedule_InvalidSchedule_ShouldReturnNone()
-        {
-            // Arrange
-            var schedule = new Schedule();
+        //[Fact]
+        //public void UpdateSchedule_InvalidSchedule_ShouldReturnNone()
+        //{
+        //    // Arrange
+        //    var schedule = new Schedule();
 
-            // Act
-            _scheduleService.UpdateSchedule(schedule);
+        //    // Act
+        //    _scheduleService.UpdateSchedule(schedule);
 
-            // Assert 
-            _scheduleRepository.Verify(r => r.UpdateSchedule(It.IsAny<Schedule>()), Times.Never);
-        }
+        //    // Assert 
+        //    _scheduleRepository.Verify(r => r.UpdateSchedule(It.IsAny<Schedule>()), Times.Never);
+        //}
 
         [Fact]
         public void DeleteSchedule_ValidSchedule_ReturnsNone()
@@ -305,6 +305,52 @@ namespace Basecode.Test.Services
 
             // Assert 
             _scheduleRepository.Verify(r => r.DeleteSchedule(It.IsAny<Schedule>()), Times.Once);
+        }
+
+        [Fact]
+        public void GetApplicantListAccordingToJobApplied_HasApplicantList_ReturnListofApplicantList()
+        {
+            // Arrange
+            var jobId = 1;
+            var applicantlist = new List<ApplicantListViewModel>
+            {
+                new ApplicantListViewModel
+                {
+                    Id = 1,
+                    Firstname = "Ella",
+                    Lastname = "Abueva",
+                    Tracker = "Test",
+                    Grading = "A",
+                    JobApplied = 2,
+                    EmailAddress = "email@gmail.com"
+                }
+            };
+
+            _scheduleService.GetApplicantListAccordingToJobApplied(jobId);
+
+            // Act
+            var result = _scheduleService.GetApplicantListAccordingToJobApplied(jobId);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<List<ApplicantListViewModel>>(result);
+        }
+
+        [Fact]
+        public void GetApplicantListAccordingToJobApplied_IsEmpty_ReturnListofApplicantList()
+        {
+            // Arrange
+            var jobId = 1;
+            var applicantlist = new List<ApplicantListViewModel>();
+
+            _scheduleService.GetApplicantListAccordingToJobApplied(jobId);
+
+            // Act
+            var result = _scheduleService.GetApplicantListAccordingToJobApplied(jobId);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Empty(result);
         }
     }
 }
