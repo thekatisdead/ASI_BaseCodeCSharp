@@ -2,7 +2,7 @@
 @model List<ApplicantListViewModel>
 
 @{
-    ViewData["Title"] = "[Title] Application Tracking";
+    ViewData["Title"] = "Application Tracking";
     Layout = "~/Views/Shared/_LayoutHR.cshtml";
 }
 <!DOCTYPE html>
@@ -20,15 +20,15 @@
 <body style="background-color:#2E3830; color:aliceblue">
 <main><br />
 <table id="myTable" class="table py-lg-4 rounded-table table-light">
-    <thead>
-        <tr class="text-center header">
-            <th scope="col">Applicant Name</th>
-            <th scope="col">Position</th>
-            <th scope="col">Status</th>
-            <th scope="col">Last Activity</th>
-            <th scope="col">Action</th>
-        </tr>
-    </thead>
+            <thead>
+                <tr class="header">
+                    <th scope="col" class="text-center">Applicant Name</th>
+                    <th scope="col" class="text-center">Position</th> 
+                    <th scope="col" class="text-center">Status</th>
+                    <th scope="col" class="text-center">Last Activity</th> 
+                    <th scope="col" class="text-center">Action</th>
+                </tr>
+            </thead>
     <tbody>
         @foreach(var applicant in Model){
             <tr class="text-center">
@@ -43,9 +43,8 @@
         }      
     </tbody>
 </table>
-        
-<div class="triangle"></div>
-<div class="small-triangle"> </div>
+  <div class="triangle"></div>
+  <div class="triangle1"></div>
 </main>
 </body>
 </html>

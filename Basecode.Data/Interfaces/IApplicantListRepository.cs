@@ -1,4 +1,5 @@
 ﻿using Basecode.Data.Models;
+using Basecode.Data.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,5 +23,11 @@ namespace Basecode.Data.Interfaces
         /// <returns>The Applicant object.</returns>
         Applicant GetById(int id);
         public void Update(Applicant applicant);
+
+        /// <summary>
+        /// Retrieves the most recent applicant's info from the database.
+        /// </summary>
+        /// <returns>The most recent applicant's info.</returns>
+        ApplicantListViewModel GetMostRecentApplicant();
     }
 }

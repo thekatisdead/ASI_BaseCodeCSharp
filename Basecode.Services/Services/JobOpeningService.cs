@@ -97,5 +97,12 @@ namespace Basecode.Services.Services
             var job = _repository.GetById(id);
             _repository.Delete(job);
         }
+
+        public JobOpeningViewModel GetMostRecentJobOpening()
+        {
+            // Fetch the most recent job opening from the repository and map it to JobOpeningViewModel
+            var recentJobOpening = _repository.GetMostRecentJobOpening();
+            return _mapper.Map<JobOpeningViewModel>(recentJobOpening);
+        }
     }
 }

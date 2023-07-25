@@ -46,5 +46,21 @@ namespace Basecode.Services.Services
 
             _repository.Update(_applicant);
         }
+
+        public ApplicantListViewModel GetMostRecentApplicant()
+        {
+            // Fetch the most recent applicant's info from the repository and map it to ApplicantListViewModel
+            var recentApplicant = _repository.GetMostRecentApplicant();
+            var applicantViewModel = new ApplicantListViewModel
+            {
+                Id = recentApplicant.Id,
+                Firstname = recentApplicant.Firstname,
+                Lastname = recentApplicant.Lastname,
+                JobApplied = recentApplicant.JobApplied,
+                Tracker = recentApplicant.Tracker
+            };
+
+            return applicantViewModel;
+        }
     }
 }
