@@ -81,7 +81,7 @@ namespace Basecode.Test.Controllers
         }
 
         [Fact]
-        public void GenerateCharacterReferenceReport_Success_ReturnsViewWithData()
+        public void ManageRespondents_Success_ReturnsViewWithData()
         {
             // Arrange
             var testData = new List<CharacterReferenceViewModel>
@@ -107,7 +107,7 @@ namespace Basecode.Test.Controllers
             _mockCharacterReferenceService.Setup(s => s.RetrieveAll()).Returns(testData);
 
             // Act
-            var result = _controller.GenerateCharacterReferenceReport();
+            var result = _controller.ManageRespondents();
 
             // Assert
             Assert.NotNull(result);
@@ -116,13 +116,13 @@ namespace Basecode.Test.Controllers
         }
 
         [Fact]
-        public void GenerateCharacterReferenceReport_Exception_ReturnsBadRequest()
+        public void ManageRespondents_Exception_ReturnsBadRequest()
         {
             // Arrange
             _mockCharacterReferenceService.Setup(s => s.RetrieveAll()).Throws(new Exception("Test exception"));
 
             // Act
-            var result = _controller.GenerateCharacterReferenceReport();
+            var result = _controller.ManageRespondents();
 
             // Assert
             Assert.NotNull(result);
