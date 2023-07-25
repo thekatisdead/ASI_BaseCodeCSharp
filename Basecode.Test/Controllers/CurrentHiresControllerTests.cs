@@ -1,9 +1,6 @@
-﻿using Basecode.Data;
-using Basecode.Data.Repositories;
-using Basecode.Services.Interfaces;
+﻿using Basecode.Services.Interfaces;
 using Basecode.WebApp.Controllers;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Moq;
 
 namespace Basecode.Test.Controllers
