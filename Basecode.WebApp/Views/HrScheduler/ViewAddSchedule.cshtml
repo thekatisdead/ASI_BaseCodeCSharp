@@ -1,0 +1,85 @@
+﻿@{
+    ViewData["Title"] = "HR Scheduler";
+    Layout = "~/Views/Shared/_LayoutHR.cshtml";
+}
+@using Basecode.Data.ViewModels
+@model ScheduleViewModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hr Scheduler</title>
+    <link rel="stylesheet" href="~/css/hrscheduler.css" asp-append-version="true" />
+</head>
+<body>
+    <form asp-action="AddSchedule" style="height:600px">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="ScheduleId" />
+        <h2>Interview Schedule Details Input Form</h2>
+        <hr>
+
+        <div>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" />
+            <h3 class="section-title">Schedule Details</h3>
+            <hr class="divider">
+            <div class="input-group">
+                <select class="text-input" aria-label="Select Interviewer" asp-for="InterviewerId">
+                    <option value=" " selected>Select Interviewer</option>
+                   @foreach(var interviewer in Model.Interviewers)
+                    {
+                        <option value="@interviewer.InterviewerId">@interviewer.FirstName @interviewer.LastName</option>
+                    }
+                </select>
+                <span class-type="text-danger" asp-validation-for="InterviewerId"></span>
+                <br>
+                <label for="first-name">Interviewers Name</label>
+            </div>
+            <div class="input-group">
+                <select class="text-input" aria-label="Select Job Opening" asp-for="JobId">
+                    <option value=" " selected>Select Job Opening</option>
+                    @foreach(var job in Model.JobOpenings)
+                    {
+                        <option value="@job.Id">@job.Position</option>
+                    }
+                </select>
+                <span  class-type="text-danger" asp-validation-for="JobId"></span>
+                <br>
+                <label for="last-name">Job opening</label>
+            </div>
+            <h4 class="section-title">Time and Date</h4>
+            <div class="input-email">
+                <input  type="time" id="email" class="text-input" asp-for="StartTime">
+                <span  class-type="text-danger" asp-validation-for="StartTime"></span>
+                <br />
+                <label for="last-name">Start Time</label>
+            </div>
+            <div class="input-email">
+                <input type="time" id="email" class="text-input" asp-for="EndTime">
+                <span class-type="text-danger" asp-validation-for="EndTime"></span>
+                <br />
+                <label for="last-name">End Time</label>
+            </div>
+            <div class="input-email">
+                <input  type="date" id="last-name" class="text-input" asp-for="Date">
+                <span  class-type="text-danger"></span>
+                <br />
+                <label for="last-name">Date</label>
+            </div>
+            <div class="form-outline">
+                <textarea class="form-control" id="textAreaExample" rows="4" asp-for="Instruction"></textarea>
+                <label class="form-label" for="textAreaExample">Enter Instruction</label>
+            </div>
+        </div>
+        <button type="submit" class="save-button">Save</button>
+
+        @section Scripts {
+            @{
+                await Html.RenderPartialAsync("_ValidationScriptsPartial");
+            }
+        }
+    </form>
+    <div class="triangle"></div>
+    <div class="triangle1"></div>
+</body>
+</html>
