@@ -27,8 +27,12 @@ h2 {
 }
 
 header {
-    background-color: #c53211;
+    background-color: #FFFFFF;
     display: flex;
+}
+
+main {
+    padding: 10px;
 }
 
 .logo {
@@ -38,13 +42,10 @@ header {
     font-size: 24px;
 }
 
-main {
-    padding: 20px;
-}
 
 section {
-    margin-bottom: 30px;
-    background-color: #fff;
+    margin-bottom: 15px;
+    background-color: #FFFFFF;
     padding: 20px;
     border-radius: 4px;
     box-shadow: 0 5px 4px rgba(0, 0, 0, 0.2);
@@ -66,7 +67,7 @@ section {
 }
 
 #job-openings {
-    background-color: #e6dbc9;
+    background-color: #FFFFFF;
     border-width: 1px;
     border-style: solid;
     border-color: #000000;
@@ -119,7 +120,7 @@ section {
 }
 
 #applicant-tracking {
-    background-color: #e6dbc9;
+    background-color: #FFFFFF;
     border-width: 1px;
     border-style: solid;
     border-color: #000000;
