@@ -12,21 +12,6 @@ header {
     text-align: right;
 }
 
-.add-reference-container {
-    text-align: right;
-    margin-bottom: 20px;
-}
-
-.add-reference-btn {
-    background-color: #C53211;
-    color: #FFFFFF;
-    border: none;
-    padding: 6px 12px;
-    font-size: 14px;
-    cursor: pointer;
-    border-radius: 10px;
-}
-
 main {
     padding: 20px;
 }
@@ -37,67 +22,87 @@ main {
     padding: 20px;
 }
 
+/* Title styles */
 .section-title {
     font-size: 30px;
     font-weight: bold;
-    margin-bottom: 10px;
-}
-
-.search-label {
-    font-size: 15px;
-    font-weight: bold;
-    margin-right: 10px;
-}
-
-.search-bar {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
     margin-bottom: 20px;
 }
 
-#search-reference {
-    padding: 8px;
-    padding-right: 50px;
-    font-size: 14px;
-    border: 1px solid #CCCCCC;
-    border-radius: 10px;
+/* Card styles */
+.respondent-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
-.reference-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
+.card {
+    flex: 1 0 300px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
-.table-header {
-    background-color: #C53211;
-    color: #FFFFFF;
-    font-weight: bold;
-    padding: 10px;
-    text-align: center;
-}
-
-.table-cell {
-    border: 1px solid #CCCCCC;
-    padding: 10px;
-    text-align: center;
-}
-
-.generate-btn {
-    background-color: #C53211;
-    color: #FFFFFF;
-    border: none;
-    padding: 4px 8px;
-    font-size: 14px;
-    cursor: pointer;
-    margin-right: 5px;
-}
-
-    .generate-btn:hover {
-        opacity: 0.8;
+    .card h3 {
+        margin-top: 0;
+        font-size: 30px;
+        color: #C53211;
+        margin-bottom: 5px;
     }
 
+    .card h4 {
+        margin: 0;
+        font-size: 15px;
+        color: #666;
+        margin-bottom: 20px;
+    }
+
+    .card p {
+        margin: 5px 0;
+        font-size: 20px;
+    }
+
+/* Navigation arrows styles */
+.nav-arrows {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.prev-arrow,
+.next-arrow {
+    font-size: 1.5rem;
+    padding: 5px 10px;
+    margin: 0 10px;
+    color: #C53211;
+    cursor: pointer;
+    user-select: none;
+}
+
+    /* Style the arrows on hover */
+    .prev-arrow:hover,
+    .next-arrow:hover {
+        color: #981c0c;
+    }
+
+/* Back button styles */
+#back-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #C53211;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+    #back-button:hover {
+        background-color: #981c0c;
+    }
 .triangle1 {
     position: absolute;
     bottom: 0;
