@@ -17,7 +17,7 @@ namespace Basecode.Services.Interfaces
         /// <param name="applicantName"></param>
         /// <param name="companyName"></param>
         /// <param name="jobPosition"></param>
-        void SendEmailRejectApplication(string receiverEmail, string applicantName,string companyName, string jobPosition);
+        void SendEmailRejectApplication(string receiverEmail, string applicantName, string jobPosition);
         /// <summary>
         /// Sends an email to the Applicant that their Interview has been rejected
         /// </summary>
@@ -25,7 +25,7 @@ namespace Basecode.Services.Interfaces
         /// <param name="applicantName"></param>
         /// <param name="companyName"></param>
         /// <param name="jobPosition"></param>
-        void SendEmailRejectInterview(string receiverEmail, string applicantName, string companyName, string jobPosition);
+        void SendEmailRejectInterview(string receiverEmail, string applicantName, string jobPosition);
         /// <summary>
         /// Sends an Email to the Interviewer after the Interview about their decision
         /// </summary>

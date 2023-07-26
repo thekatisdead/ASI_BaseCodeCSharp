@@ -52,7 +52,7 @@ namespace Basecode.Services.Services
                 smtp.Disconnect(true);
             }
         }
-        public void SendEmailRejectApplication(string receiverEmail, string applicantName, string companyName, string jobPosition)
+        public void SendEmailRejectApplication(string receiverEmail, string applicantName,  string jobPosition)
         {
             var email = new MimeMessage();
 
@@ -70,7 +70,7 @@ namespace Basecode.Services.Services
 
             // this is to replace the placeholders
             htmlContent = htmlContent.Replace("{applicantName}", applicantName);
-            htmlContent = htmlContent.Replace("{companyName}", companyName);
+            //htmlContent = htmlContent.Replace("{companyName}", companyName);
             htmlContent = htmlContent.Replace("{jobPosition}", jobPosition);
 
 
@@ -92,7 +92,7 @@ namespace Basecode.Services.Services
             }
         }
 
-        public void SendEmailRejectInterview(string receiverEmail, string applicantName, string companyName, string jobPosition)
+        public void SendEmailRejectInterview(string receiverEmail, string applicantName, string jobPosition)
         {
             var email = new MimeMessage();
 
@@ -110,7 +110,7 @@ namespace Basecode.Services.Services
 
             // this is to replace the placeholders
             htmlContent = htmlContent.Replace("{applicantName}", applicantName);
-            htmlContent = htmlContent.Replace("{companyName}", companyName);
+            //htmlContent = htmlContent.Replace("{companyName}", companyName);
             htmlContent = htmlContent.Replace("{jobPosition}", jobPosition);
 
 

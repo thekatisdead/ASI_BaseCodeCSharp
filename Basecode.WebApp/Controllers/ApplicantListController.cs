@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Basecode.Data.ViewModels;
 using NLog;
 using Hangfire;
+using NLog.Fluent;
 
 namespace Basecode.WebApp.Controllers
 {
@@ -60,13 +61,16 @@ namespace Basecode.WebApp.Controllers
                 return NotFound(); // or handle the case when applicant is not found
             }
 
-            // get the data from the models            
+            // get the data from the models
+            // getting name from applicant list
+            // get the Id so that we can use that to locate the HR
+            // use ID to find the HR to send the email
             var _fullName = data.Lastname + " " + data.Firstname;
             var job = _job.GetById(data.JobApplied);
             var _receiver = _users.FindById((job.HR).ToString());
 
             // sends an update whenever the applicant status is changed
-            _email.SendEmailOnUpdateApplicantStatus(_receiver.EmailAddress,_fullName,data.Tracker,status);
+            _email.SendEmailOnUpdateApplicantStatus(_receiver.Address,_fullName,data.Tracker,status);
             _service.ProceedTo(applicantID, status);
 
             // needs to check if the currentHires exist
@@ -74,13 +78,10 @@ namespace Basecode.WebApp.Controllers
             {
                 _repository.AddHire(applicantID,data.JobApplied);
             }
-            else if(status == "Shortlisted")
-            { 
-                // WARNING! The problem with this code is I think that the repositories are empty
-                // This can be triggered every time the status is different but it does not get the
-                // data in the models
-                
-                _email.SendEmailHRApplicationDecision(_receiver.EmailAddress,applicantID,_fullName,job.Position);
+            else if(status == "shortlisted")
+            {
+
+                _email.SendEmailHRApplicationDecision(_receiver.Address,applicantID,_fullName,job.Position);
 
             }
             Applicant applicant = new Applicant();
@@ -116,9 +117,41 @@ namespace Basecode.WebApp.Controllers
         /// Interview functions
         /// These are functions that are used in emails and not in the code
         /// so even though they are unreferenced, they are certainly used
-        public IActionResult Reject(int applicantID)
+        public IActionResult Reject(int applicantID, string status)
         {
+            var data = _service.RetrieveAll().FirstOrDefault(a => a.Id == applicantID);
+            var _fullName = data.Lastname + " " + data.Firstname;
+            var job = _job.GetById(data.JobApplied);
+            if (data == null)
+            {
+                return NotFound(); // or handle the case when applicant is not found
+            }
+            
+            var _tempStatus = data.Tracker; // get the job stage
+            _logger.Trace($"{data.JobApplied},{data.EmailAddress},{data.Grading},{data.Tracker}");
+            if (_tempStatus.ToLower().Contains("interview"))
+            {
+                status = "Interview";
+            }
+            else if (_tempStatus.ToLower().Contains("shortlist") || _tempStatus.ToLower().Contains("application"))
+            {
+                status = "Application";
+            }
+
             _service.UpdateGrade(applicantID, "Rejected");
+            if(status == "Application")
+            {
+                _email.SendEmailRejectApplication(data.EmailAddress,_fullName,job.Position);
+            }
+            else if(status == "Interview")
+            {
+                _email.SendEmailRejectInterview(data.EmailAddress,_fullName, job.Position);
+            }
+            else
+            {
+                _logger.Trace($"Applicant was Rejected but there was no instance of a [{status}]");
+                return NotFound();
+            }
 
             return View();
         }
