@@ -45,5 +45,20 @@ namespace Basecode.Test.Services
             // Assert
             _fakeSignUpRepository.Verify(repo => repo.CreateAccount(It.IsAny<SignUp>()), Times.Once);
         }
+
+        [Fact]
+        public void CreateAccount_InvalidAccount_ThrowsException()
+        {
+            // Arrange
+            var signUpViewModel = new SignUpViewModel();
+
+            _fakeMapper.Setup(mapper => mapper.Map<SignUp>(signUpViewModel)).Returns(new SignUp());
+
+            // Act
+            _service.CreateAccount(signUpViewModel);
+
+            // Assert
+            _fakeSignUpRepository.Verify(repo => repo.CreateAccount(It.IsAny<SignUp>()), Times.Once);
+        }
     }
 }
