@@ -12,6 +12,7 @@
 <head>
     <title>Manage Character Reference Respondents</title>
     <link rel="stylesheet" href="~/css/managerespondents.css" asp-append-version="true" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-oCykCPta3mP6U8s5XMhDx6H6uKZBJATMiGnURqk+4X0=" crossorigin="anonymous"></script>
 </head>
 <body>
     <main>
@@ -21,7 +22,8 @@
         </div>
 
         <section class="reference-listing">
-            <h2 class="section-title">Character Reference Respondents</h2>
+            <h1 class="section-title">Character Reference Respondents</h1>
+            <hr>
             <div class="search-bar">
                 <label for="search-reference" class="search-label">Search:</label>
                 <input type="text" id="search-reference" placeholder="Search here.....">
@@ -57,17 +59,19 @@
         <div class="triangle"></div>
         <div class="triangle1"></div>
     </main>
+
+    <script>
+        $(document).ready(function () {
+            $("#search-reference").on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $(".reference-table tbody tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
 </body>
 </html>
 
 
-<script>
-    $(document).ready(function () {
-        $("#search-reference").on("keyup", function () {
-            var value = $(this).val().toLowerCase();
-            $(".reference-table tbody tr").filter(function () {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
-        });
-    });
-</script>
+
