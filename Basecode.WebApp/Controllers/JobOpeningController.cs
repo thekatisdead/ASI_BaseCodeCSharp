@@ -36,7 +36,7 @@ namespace Basecode.WebApp.Controllers
             {
                 _service.Add(jobOpening);
                 _logger.Info("Job opening added successfully.");
-                return RedirectToAction("AdminJobListing", "Admin");
+                return RedirectToAction("JobList", "JobOpening");
             }
             catch (Exception ex)
             {
@@ -60,7 +60,7 @@ namespace Basecode.WebApp.Controllers
             {
                 _service.Update(jobOpening);
                 _logger.Info("Job opening updated successfully.");
-                return RedirectToAction("AdminJobListing", "Admin");
+                return RedirectToAction("JobList", "JobOpening");
             }
             catch (Exception ex)
             {
@@ -76,12 +76,12 @@ namespace Basecode.WebApp.Controllers
             {
                 _service.Delete(id);
                 _logger.Info("Job opening deleted successfully.");
-                return RedirectToAction("AdminJobListing", "Admin");
+                return RedirectToAction("JobList", "JobOpening");
             }
             catch (Exception ex)
             {
                 _logger.Error(ex, "Error occurred while deleting job opening.");
-                return RedirectToAction("AdminJobListing", "Admin");
+                return RedirectToAction("JobList", "JobOpening");
             }
         }
 
