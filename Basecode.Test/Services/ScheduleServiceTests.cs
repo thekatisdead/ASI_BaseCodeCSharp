@@ -3,7 +3,13 @@ using Basecode.Data.Interfaces;
 using Basecode.Data.Models;
 using Basecode.Data.ViewModels;
 using Basecode.Services.Services;
+using Microsoft.Graph.Beta.Models;
 using Moq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Schedule = Basecode.Data.Models.Schedule;
 
 namespace Basecode.Test.Services
@@ -212,7 +218,7 @@ namespace Basecode.Test.Services
 
         //    // Act
         //    var result = _scheduleService.GetById(id);
-
+            
         //    // Assert
         //    Assert.NotNull(result);
         //    Assert.IsType<ScheduleViewModel>(result);
