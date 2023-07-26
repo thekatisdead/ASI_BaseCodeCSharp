@@ -25,7 +25,7 @@ namespace Basecode.Services.Services
 
             var email = new MimeMessage();
 
-            email.From.Add(new MailboxAddress("Sender Name", "kermherbieto52@gmail.com"));
+            email.From.Add(new MailboxAddress("HR Automated Tracking", "kermherbieto52@gmail.com"));
             email.To.Add(new MailboxAddress("Receiver Name", receiverEmail));
 
             email.Subject = "Interview Schedule";
@@ -211,7 +211,7 @@ namespace Basecode.Services.Services
                 smtp.Disconnect(true);
             }
         }
-        public void SendEmailCharacterReference(string receiverEmail, string applicantName, string referenceName)
+        public void SendEmailCharacterReference(string receiverEmail, string applicantName, int applicantID, string referenceName)
         {
             var email = new MimeMessage();
 
@@ -230,6 +230,7 @@ namespace Basecode.Services.Services
             // this is to replace the placeholders
             htmlContent = htmlContent.Replace("{applicantName}", applicantName);
             htmlContent = htmlContent.Replace("{referenceName}", referenceName);
+            htmlContent = htmlContent.Replace("{applicantID}", applicantID.ToString());
 
 
             email.Body = new TextPart(MimeKit.Text.TextFormat.Html)

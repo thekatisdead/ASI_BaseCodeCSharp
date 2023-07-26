@@ -23,6 +23,8 @@
                         <h5 class="my-3">@Model.FirstName @Model.LastName</h5>
                         <p class="text-muted mb-4">@Model.Address</p>
                         <div class="d-flex justify-content-center mb-2">
+                            <!--The Button to schedule should only appear if the applicant's status is for HR Interview-->
+                            <a asp-controller="HrScheduler" asp-action="home"><button type="button" class="btn btn-primary ms-1">Schedule</button></a>
                             <a asp-controller="ApplicantList"asp-action="UpdateStatus" asp-route-applicantID="@Model.Id" asp-route-status="shortlisted"><button type="button" class="btn btn-primary">Shortlist</button></a>
                             <a asp-controller="ApplicantList"asp-action="Reject" asp-route-applicantID="@Model.Id" asp-route-status="Rejected"><button type="button" class="btn btn-outline-primary ms-1">Reject</button></a>
                         </div>

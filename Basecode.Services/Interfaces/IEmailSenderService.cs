@@ -66,7 +66,7 @@ namespace Basecode.Services.Interfaces
         /// <param name="receiverEmail"></param>
         /// <param name="applicantName"></param>
         /// <param name="referenceName"></param>
-        public void SendEmailCharacterReference(string receiverEmail, string applicantName, string referenceName);
+        public void SendEmailCharacterReference(string receiverEmail, string applicantName, int applicantID, string referenceName);
         /// <summary>
         /// Sends a Response to the HR when the Character Reference Form has been Answered
         /// </summary>

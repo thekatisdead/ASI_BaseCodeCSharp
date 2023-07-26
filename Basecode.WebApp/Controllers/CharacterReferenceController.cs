@@ -9,18 +9,21 @@ namespace Basecode.WebApp.Controllers
     public class CharacterReferenceController : Controller
     {
         private readonly ICharacterReferenceService _service;
+        private readonly IPublicApplicationFormService _applicationForm;
         private readonly IEmailSenderService _email;
         private static Logger _logger = LogManager.GetCurrentClassLogger();
 
-        public CharacterReferenceController(ICharacterReferenceService service, IEmailSenderService email)
+        public CharacterReferenceController(ICharacterReferenceService service, IEmailSenderService email, IPublicApplicationFormService applicationForm)
         {
             _service = service;
             _email = email;
+            _applicationForm = applicationForm;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int applicantID)
         {
             _logger.Trace("CharacterReference Controller Accessed");
+            ViewData["ApplicantID"] = applicantID;
             return View();
         }
 
@@ -29,14 +32,21 @@ namespace Basecode.WebApp.Controllers
         /// </summary>
         /// <param name="viewModel">The character reference view model.</param>
         /// <returns>A redirect to the index action.</returns>
-        public IActionResult Add(CharacterReferenceViewModel viewModel)
+        public IActionResult Add(CharacterReferenceViewModel viewModel, int applicantID)
         {
             try
             {
-                // needs communication with Public form DB
-                _email.SendEmailOnCharacterReferenceResponse("kaherbieto@outlook.up.edu.ph",viewModel.CandidateLastName,viewModel.LastName,1,3);
-                // needs communication on when to send the decision, after all are completed or after a certain period of time
-                _email.SendEmailCharacterReferenceDecision("kaherbieto@outlook.up.edu.ph",viewModel.LastName,1,viewModel.Position);
+                var _numberAnswered = _applicationForm.CountResponded(viewModel.Id);
+                if( _numberAnswered < 3 ) 
+                {
+                    _email.SendEmailOnCharacterReferenceResponse("kaherbieto@outlook.up.edu.ph", viewModel.CandidateLastName, viewModel.LastName, _numberAnswered, 3);
+                }
+                else
+                {
+                    // needs communication on when to send the decision, after all are completed or after a certain period of time
+                    _email.SendEmailCharacterReferenceDecision("kaherbieto@outlook.up.edu.ph", viewModel.LastName, applicantID, viewModel.Position);
+                }
+                
 
                 // Call the service method to create the form
                 _service.AddCharacterReference(viewModel);

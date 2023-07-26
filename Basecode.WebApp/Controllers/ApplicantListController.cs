@@ -69,6 +69,7 @@ namespace Basecode.WebApp.Controllers
             var job = _job.GetById(data.JobApplied);
             var _receiver = _users.FindById((job.HR).ToString());
 
+            _logger.Trace("Updating Status");
             // sends an update whenever the applicant status is changed
             _email.SendEmailOnUpdateApplicantStatus(_receiver.Address,_fullName,data.Tracker,status);
             _service.ProceedTo(applicantID, status);
@@ -126,7 +127,7 @@ namespace Basecode.WebApp.Controllers
             {
                 return NotFound(); // or handle the case when applicant is not found
             }
-            
+            _logger.Trace("GRRR");
             var _tempStatus = data.Tracker; // get the job stage
             _logger.Trace($"{data.JobApplied},{data.EmailAddress},{data.Grading},{data.Tracker}");
             if (_tempStatus.ToLower().Contains("interview"))
