@@ -25,7 +25,7 @@
             <hr class="divider">
             <div class="input-group">
                 <select class="text-input" aria-label="Select Interviewer" asp-for="InterviewerId">
-                    <option value=" " selected>Select Interviewer</option>
+                    <option value=" " selected>Choose Interviewee</option>
                    @foreach(var interviewer in Model.Interviewers)
                     {
                         <option value="@interviewer.InterviewerId">@interviewer.FirstName @interviewer.LastName</option>
@@ -72,6 +72,7 @@
             </div>
         </div>
         <button type="submit" class="save-button">Save</button>
+        <a asp-action="home"><button  class="save-button">Cancel</button></a> 
 
         @section Scripts {
             @{
