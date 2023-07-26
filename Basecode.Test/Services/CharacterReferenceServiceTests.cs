@@ -78,7 +78,7 @@ namespace Basecode.Test.Services
             var characterReference = new CharacterReference();
 
             _fakeMapper.Setup(mapper => mapper.Map<CharacterReference>(characterReferenceViewModel))
-                .Returns(characterReference) ;
+                .Returns(characterReference);
 
             // Act
             _service.AddCharacterReference(characterReferenceViewModel);
