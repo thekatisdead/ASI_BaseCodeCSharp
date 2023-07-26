@@ -38,8 +38,20 @@ main {
 }
 
 .section-title {
-    font-size: 30px;
+    font-size: 40px;
     font-weight: bold;
+}
+
+h1 {
+    font-weight: bold;
+    text-align: center;
+    margin-top: 7px;
+}
+
+hr {
+    border: 2px solid black;
+    margin: 0 auto;
+    width: 100%;
     margin-bottom: 10px;
 }
 
@@ -84,18 +96,20 @@ main {
     text-align: center;
 }
 
-.generate-btn {
+.table-cell a {
+    display: inline-block;
+    padding: 8px 16px;
     background-color: #C53211;
-    color: #FFFFFF;
-    border: none;
-    padding: 4px 8px;
-    font-size: 14px;
-    cursor: pointer;
-    margin-right: 5px;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;   
+    margin: 5px 0;
 }
 
-    .generate-btn:hover {
-        opacity: 0.8;
+    /* On hover, change the background color slightly */
+    .table-cell1 a:hover {
+        background-color: #b2270f;
     }
 
 .triangle1 {
