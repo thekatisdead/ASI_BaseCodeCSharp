@@ -52,7 +52,38 @@ namespace Basecode.Test.Services
             var result = _service.GetByUsername(username);
 
             // Assert
-            Assert.NotNull(result);
+            Assert.Equal(signUp.Username, result.Username);
+            Assert.Equal(signUp.FirstName, result.FirstName);
+            Assert.Equal(signUp.LastName, result.LastName);
+            Assert.Equal(signUp.EmailAddress, result.EmailAddress);
+            Assert.Equal(signUp.ContactNumber, result.ContactNumber);
+            Assert.Equal(signUp.Address, result.Address);
+            Assert.Equal(signUp.Role, result.Role);
+        }
+
+        [Fact]
+        public void GetByUsername_GivenInvalidUsername_ReturnsNull()
+        {
+            // Arrange
+            var username = "john.doe";
+            var signUp = new SignUp();
+
+            _fakeLoginRepository.Setup(repo => repo.GetByUsername(username)).Returns(signUp);
+            _fakeMapper.Setup(mapper => mapper.Map<SignUpViewModel>(It.IsAny<SignUp>())).Returns(new SignUpViewModel
+            {
+                Username = signUp.Username,
+                FirstName = signUp.FirstName,
+                LastName = signUp.LastName,
+                EmailAddress = signUp.EmailAddress,
+                ContactNumber = signUp.ContactNumber,
+                Address = signUp.Address,
+                Role = signUp.Role
+            });
+
+            // Act
+            var result = _service.GetByUsername(username);
+
+            // Assert
             Assert.Equal(signUp.Username, result.Username);
             Assert.Equal(signUp.FirstName, result.FirstName);
             Assert.Equal(signUp.LastName, result.LastName);
