@@ -15,6 +15,8 @@ namespace Basecode.Services.Interfaces
         /// <returns>A list of CharacterReferenceViewModel.</returns>
         List<CharacterReferenceViewModel> RetrieveAll();
 
+        List<CharacterReferenceViewModel> RetrieveResponses();
+
         /// <summary>
         /// Adds a new character reference.
         /// </summary>

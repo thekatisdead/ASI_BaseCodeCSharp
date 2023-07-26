@@ -3,6 +3,7 @@ using Basecode.Data.ViewModels;
 using Basecode.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using NLog;
+using Org.BouncyCastle.Asn1.Ocsp;
 
 namespace Basecode.WebApp.Controllers
 {
@@ -52,26 +53,48 @@ namespace Basecode.WebApp.Controllers
             }
         }
 
-        /// <summary>
-        /// Generates a character reference report.
-        /// </summary>
-        /// <returns>The character reference report view.</returns>
-        [Route("CharacterReferenceReport")]
-        public IActionResult GenerateCharacterReferenceReport()
+        [Route("CharacterReference/ManageRespondents")]
+        public IActionResult ManageRespondents()
         {
             try
             {
                 var data = _service.RetrieveAll();
-                _logger.Info("Successfully retrieve data. Report Generated.");
+                _logger.Info("Successfully retrieved data. Character reference respondents list generated.");
                 return View(data);
             }
             catch (Exception ex)
             {
-                _logger.Error(ex, "Error occurred while generating character reference report: {errorMessage}", ex.Message);
+                _logger.Error(ex, "Error occurred while generating the character reference respondents list: {errorMessage}", ex.Message);
 
                 // You can customize the error handling based on your application's requirements
                 // For example, you can return a specific error view or redirect to an error page.
-                return BadRequest("An error occurred while generating the report.");
+                return BadRequest("An error occurred while generating the character reference respondents list.");
+            }
+        }
+
+        [Route("CharacterReference/Report")]
+        public IActionResult GenerateCharacterReferenceReport(int respondentId)
+        {
+            try
+            {
+                var respondent = _service.RetrieveResponses().FirstOrDefault(r => r.Id == respondentId);
+                if (respondent == null)
+                {
+                    return NotFound();
+                }
+
+                // Retrieve other respondents with the same candidate name
+                var relatedRespondents = _service.RetrieveResponses()
+                    .Where(r => r.CandidateFirstName == respondent.CandidateFirstName && r.CandidateLastName == respondent.CandidateLastName)
+                    .ToList();
+
+                ViewBag.CurrentRespondentId = respondentId;
+                return View(relatedRespondents);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "Error occurred while generating the character reference report: {errorMessage}", ex.Message);
+                return BadRequest("An error occurred while generating the character reference report.");
             }
         }
     }
