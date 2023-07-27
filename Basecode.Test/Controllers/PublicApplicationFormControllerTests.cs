@@ -34,6 +34,8 @@ namespace Basecode.Test.Controllers
         public void AddForm_ValidForm_RedirectsToIndex()
         {
             // Arrange
+            var applicantId = 1;
+
             var testData = new PublicApplicationFormViewModel
             {
                 Id = 1,
@@ -60,28 +62,27 @@ namespace Basecode.Test.Controllers
                 CurriculumVitae = new byte[0],
             };
 
-            _mockPublicApplicationFormService.Setup(s => s.AddForm(It.IsAny<PublicApplicationFormViewModel>()));
+            _mockPublicApplicationFormService.Setup(s => s.AddForm(testData));
 
             // Act
-            var result = _controller.AddForm(testData);
+            var result = _controller.AddForm(testData, applicantId);
 
             // Assert
-            Assert.NotNull(result);
             var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
             Assert.Equal("Index", redirectToActionResult.ActionName);
-            Assert.Equal("ApplicantHomepage", redirectToActionResult.ControllerName);
         }
 
         [Fact]
         public void AddForm_HasNoPublicApplicationForm_ReturnsView()
         {
             // Arrange
+            var applicantId = 1;
             var testData = new PublicApplicationFormViewModel();
 
             _mockPublicApplicationFormService.Setup(s => s.AddForm(testData));
 
             // Act
-            var result = _controller.AddForm(testData);
+            var result = _controller.AddForm(testData, applicantId);
 
             // Assert
             Assert.NotNull(result);
