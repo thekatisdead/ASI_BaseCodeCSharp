@@ -11,19 +11,22 @@ namespace Basecode.Test.Controllers
         private readonly CharacterReferenceController _controller;
         private readonly Mock<ICharacterReferenceService> _mockCharacterReferenceService;
         private readonly Mock<IEmailSenderService> _mockEmailSenderService;
+        private readonly Mock<IPublicApplicationFormService> _mockPublicApplicationFormService;
 
         public CharacterReferenceControllerTests()
         {
             _mockCharacterReferenceService = new Mock<ICharacterReferenceService>();
             _mockEmailSenderService = new Mock<IEmailSenderService>();
-            _controller = new CharacterReferenceController(_mockCharacterReferenceService.Object, _mockEmailSenderService.Object);
+            _mockPublicApplicationFormService = new Mock<IPublicApplicationFormService>();
+            _controller = new CharacterReferenceController(_mockCharacterReferenceService.Object, _mockEmailSenderService.Object, _mockPublicApplicationFormService.Object);
         }
 
         [Fact]
         public void Index_ReturnsView()
         {
             // Act
-            var result = _controller.Index();
+            var applicantId = 1;
+            var result = _controller.Index(applicantId);
 
             // Assert
             Assert.NotNull(result);
@@ -35,6 +38,7 @@ namespace Basecode.Test.Controllers
         public void Add_HasCharacterReference_ReturnsView()
         {
             // Arrange
+            var trigger = It.IsAny<int>();
             var testData = new CharacterReferenceViewModel
             {
                 Id = 1,
@@ -55,7 +59,7 @@ namespace Basecode.Test.Controllers
             _mockCharacterReferenceService.Setup(s => s.AddCharacterReference(testData));
 
             // Act
-            var result = _controller.Add(testData);
+            var result = _controller.Add(testData, testData.Id, trigger);
 
             // Assert
             Assert.NotNull(result);
@@ -67,12 +71,14 @@ namespace Basecode.Test.Controllers
         public void Add_HasNoCharacterReference_ReturnsRedirectToAction()
         {
             // Arrange
+            int id = It.IsAny<int>();
+            int trigger = It.IsAny<int>();
             var testData = new CharacterReferenceViewModel();
 
             _mockCharacterReferenceService.Setup(s => s.AddCharacterReference(testData));
 
             // Act
-            var result = _controller.Add(testData);
+            var result = _controller.Add(testData, id, trigger);
 
             // Assert
             Assert.NotNull(result);
