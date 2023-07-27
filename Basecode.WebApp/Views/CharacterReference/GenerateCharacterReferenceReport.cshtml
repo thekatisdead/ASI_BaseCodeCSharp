@@ -19,6 +19,10 @@
         </div>
 
         <section class="reference-listing">
+            <div class="back-link-container">
+                <a asp-controller="CharacterReference" asp-action="ManageRespondents" class="back-link">&#8592; Back</a>
+            </div>
+
             <h1 class="section-title">Character Reference Report</h1>
             <hr>
             @if (Model.Count > 0)
@@ -69,9 +73,10 @@
                 <p>No respondents found.</p>
             }
         </section>
-
+        <!--
         <div class="triangle"></div>
-        <div class="triangle1"></div>
+        <div class="triangle1"></div> 
+        -->
     </main>
 
     <script>
