@@ -57,6 +57,9 @@ namespace Basecode.Data.ViewModels
         public string? ContactInfoOne { get; set; }
 
         [Required(ErrorMessage = "This field is required.")]
+        public int? AnsweredOne { get; set; }
+
+        [Required(ErrorMessage = "This field is required.")]
         public string? ReferenceTwoFullName { get; set; }
 
         [Required(ErrorMessage = "This field is required.")]
@@ -66,6 +69,9 @@ namespace Basecode.Data.ViewModels
         public string? ContactInfoTwo { get; set; }
 
         [Required(ErrorMessage = "This field is required.")]
+        public int? AnsweredTwo { get; set; }
+
+        [Required(ErrorMessage = "This field is required.")]
         public string? ReferenceThreeFullName { get; set; }
 
         [Required(ErrorMessage = "This field is required.")]
@@ -73,6 +79,9 @@ namespace Basecode.Data.ViewModels
 
         [Required(ErrorMessage = "This field is required.")]
         public string? ContactInfoThree { get; set; }
+
+        [Required(ErrorMessage = "This field is required.")]
+        public int? AnsweredThree { get; set; }
 
         [Required(ErrorMessage = "This field is required.")]
         public byte[]? CurriculumVitae { get; set; }

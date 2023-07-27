@@ -33,6 +33,7 @@ namespace Basecode.Services.Services
                 Id = s.Id,
                 Firstname = s.Firstname,
                 Lastname = s.Lastname,
+                EmailAddress = s.EmailAddress,
                 JobApplied = s.JobApplied,
                 Tracker = s.Tracker
             }).ToList();

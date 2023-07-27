@@ -3,6 +3,8 @@ using Basecode.Services.Interfaces;
 using Basecode.Services.Services;
 using Basecode.Data;
 
+using Hangfire;
+
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
 using Microsoft.Identity.Client;
@@ -48,6 +50,9 @@ namespace Basecode.WebApp
             services.AddTransient<IEmailSenderService, EmailSenderService>();
             services.AddScoped<ITeamsService, TeamsService>();
 
+            // Hangfire for delayed functions
+            services.AddHangfire(x => x.UseSqlServerStorage(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddHangfireServer();
 
             // Azure AD for generating teams link
         }
@@ -72,6 +77,7 @@ namespace Basecode.WebApp
             app.UseAuthentication();        // Enables the ConfigureAuth service.
             app.UseMvc();
             app.UseAuthorization();
+            //app.UseHangfireDashboard();     // Hangfire for delayed functions
 
             this.ConfigureRoutes(app);      // Configuration for API controller routing
             this.ConfigureAuth(app);        // Configuration for Token Authentication

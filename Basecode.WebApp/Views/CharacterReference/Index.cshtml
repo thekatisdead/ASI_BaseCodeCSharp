@@ -2,6 +2,7 @@
 @model CharacterReferenceViewModel
 
 @{
+    var applicantID = (int)ViewData["ApplicantID"];
     ViewData["Title"] = "Character Reference Form";
     Layout = "~/Views/Shared/_LayoutApplicant.cshtml";
 }
@@ -17,7 +18,7 @@
 </head>
 
 <body>  
-    <form id="character-reference-form" method="post" asp-action="Add" asp-controller="CharacterReference">
+    <form id="character-reference-form" method="post" asp-action="Add" asp-route-applicantID="@applicantID" asp-route-trigger="1" asp-controller="CharacterReference">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-header">
             <h1>Character Reference Form</h1>

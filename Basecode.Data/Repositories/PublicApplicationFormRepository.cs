@@ -26,5 +26,23 @@ namespace Basecode.Data.Repositories
         {
             return _context.PublicApplicationForm.Find(id);
         }
+        public int CountResponded(int id)
+        {
+            var _application = this.GetById(id);
+            var total = 0;
+            if (_application.AnsweredOne != null)
+            {
+                total++;
+            }
+            if (_application.AnsweredTwo != null)
+            {
+                total++;
+            }
+            if (_application.AnsweredThree != null)
+            {
+                total++;
+            }
+            return total;
+        }
     }
 }
