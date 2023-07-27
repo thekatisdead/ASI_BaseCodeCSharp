@@ -170,8 +170,10 @@
                 <div class="straightlinethree"></div>
                 <div class="form-group-cv">
                     <label asp-for="CurriculumVitae" class="control-label-cv">Please upload your CV here.</label>
-                    <input asp-for="CurriculumVitae" type="file" class="form-control-cv" />
-                    <span asp-validation-for="CurriculumVitae" class="text-danger-cv"></span>
+                    <div class="cv-drop-zone">
+                        <input asp-for="CurriculumVitae" type="file" class="form-control-cv" />
+                        <span asp-validation-for="CurriculumVitae" class="text-danger-cv"></span>
+                    </div>
                     <span class="field-error"></span>
                 </div>
                 <div class="form-group-next">
@@ -188,6 +190,39 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function () {
+        // Function to prevent the default behavior of drag events
+        function preventDefault(event) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+
+        // Function to handle the dropped file
+        function handleDrop(event) {
+            preventDefault(event);
+
+            // Get the dropped file
+            var file = event.dataTransfer.files[0];
+
+            // Display the file name on the drop zone
+            dropZone.innerHTML = "<strong>File Uploaded:</strong> " + file.name;
+        }
+
+        // Get the drop zone element
+        var dropZone = $(".cv-drop-zone")[0];
+
+        // Add event listeners for drag events
+        dropZone.addEventListener("dragenter", preventDefault, false);
+        dropZone.addEventListener("dragleave", preventDefault, false);
+        dropZone.addEventListener("dragover", preventDefault, false);
+        dropZone.addEventListener("drop", handleDrop, false);
+
+        // Function to handle the file input change event (for regular file selection)
+        $(".form-control-cv").on("change", function () {
+            // Display the selected file name on the drop zone
+            dropZone.innerHTML = "<strong>File Uploaded:</strong> " + this.files[0].name;
+        });
+
+        // Form submission handling
         $('form').submit(function (event) {
             var formValid = true;
 
@@ -222,5 +257,22 @@
     .field-error {
         color: red;
         display: none;
+    }
+
+    .cv-drop-zone {
+        padding: 20px;
+        text-align: center;
+        cursor: pointer;
+        width: 300px;
+        position: absolute;
+    }
+
+    .form-control-cv {
+        border: 2px dashed #ccc;
+        top: 0px;
+        left: 0px;
+        width: 300px;
+        height: 100px;
+        position: absolute;
     }
 </style>
