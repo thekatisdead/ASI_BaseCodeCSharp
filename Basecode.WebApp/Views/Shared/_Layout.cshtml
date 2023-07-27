@@ -12,7 +12,9 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                <span style="padding-right:10px;">
+                    <img id="home-icon" src="~/img/asi.png" class="img-fluid rounded" style="width:157px;130px" />
+                </span>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -53,6 +55,21 @@
             &copy; 2023 - Basecode - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>*@
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Find the home icon by its ID
+            const homeIcon = document.getElementById("home-icon");
+
+            // Add a click event listener to the home icon
+            homeIcon.addEventListener("click", function () {
+                // Use Razor syntax to generate the URL for the homepage
+                const homepageUrl = "@Url.Action("Index", "Home")";
+
+                // Navigate to the homepage
+                window.location.href = homepageUrl;
+            });
+        });
+    </script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
