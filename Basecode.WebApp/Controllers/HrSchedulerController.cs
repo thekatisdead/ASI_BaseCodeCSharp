@@ -51,9 +51,13 @@ namespace Basecode.WebApp.Controllers
             var interviewers = _interviewerServices.GetAll();
             return View(interviewers); 
         }
-        public IActionResult UpdateInterviewer(int id) 
+        public IActionResult UpdateInterviewer(int id)
         {
             var interviewer = _interviewerServices.GetById(id);
+            if (interviewer == null)
+            {
+                return NotFound(); // Return a 404 Not Found result when the interviewer is not found
+            }
             return View(interviewer);
         }
         public IActionResult Update(Interviewer interviewer)
@@ -63,14 +67,29 @@ namespace Basecode.WebApp.Controllers
         }
         public IActionResult Delete(int id)
         {
+            var interviewer = _interviewerServices.GetById(id);
+            if (interviewer == null)
+            {
+                return NotFound(); // Return NotFound result if the interviewer is not found
+            }
+
             _interviewerServices.Delete(id);
-            return RedirectToAction("InterviewerList","HrScheduler");
+            return RedirectToAction("InterviewerList", "HrScheduler");
         }
         public IActionResult ViewAddSchedule()
         {
             var schedule = new ScheduleViewModel();
-            schedule.JobOpenings = _jobOpeningService.RetrieveAll();
-            schedule.Interviewers = _interviewerServices.GetAll();
+
+            // Get job openings and interviewers
+            var jobOpenings = _jobOpeningService.RetrieveAll();
+            var interviewers = _interviewerServices.GetAll();
+            if (jobOpenings == null && interviewers == null)
+            {
+                return BadRequest("No job openings and interviewers available.");
+            }
+            schedule.JobOpenings = jobOpenings;
+            schedule.Interviewers = interviewers;
+
             return View(schedule);
         }
         public IActionResult AddSchedule(Schedule schedule)
@@ -83,8 +102,14 @@ namespace Basecode.WebApp.Controllers
             return RedirectToAction("home", "HrScheduler");
         }
         public IActionResult EditSchedule(int id)
-        {  
+        {
             var schedule = _scheduleService.GetById(id);
+
+            if (schedule == null)
+            {
+                return NotFound();
+            }
+
             schedule.Interviewers = _interviewerServices.GetAll();
             schedule.JobOpenings = _jobOpeningService.RetrieveAll();
 
@@ -110,8 +135,8 @@ namespace Basecode.WebApp.Controllers
                 return RedirectToAction("home", "HrScheduler");
 
         }
-        public IActionResult DeleteSchedule(int id) 
-        { 
+        public IActionResult DeleteSchedule(int id)
+        {
             _scheduleService.DeleteSchedule(id);
             return RedirectToAction("home", "HrScheduler");
         }

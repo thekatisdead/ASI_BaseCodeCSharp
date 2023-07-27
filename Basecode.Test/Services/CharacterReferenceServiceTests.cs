@@ -69,5 +69,22 @@ namespace Basecode.Test.Services
             // Assert
             _fakeCharacterReferenceRepository.Verify(repo => repo.Add(characterReference), Times.Once);
         }
+
+        [Fact]
+        public void AddCharacterReference_GivenInvalidCharacterReferenceViewModel_ThrowsException()
+        {
+            // Arrange
+            var characterReferenceViewModel = new CharacterReferenceViewModel();
+            var characterReference = new CharacterReference();
+
+            _fakeMapper.Setup(mapper => mapper.Map<CharacterReference>(characterReferenceViewModel))
+                .Returns(characterReference);
+
+            // Act
+            _service.AddCharacterReference(characterReferenceViewModel);
+
+            // Assert
+            _fakeCharacterReferenceRepository.Verify(repo => repo.Add(characterReference), Times.Once);
+        }
     }
 }
