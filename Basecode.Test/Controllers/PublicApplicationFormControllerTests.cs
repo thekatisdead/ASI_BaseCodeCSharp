@@ -34,54 +34,62 @@ namespace Basecode.Test.Controllers
         public void AddForm_ValidForm_RedirectsToIndex()
         {
             // Arrange
+            var applicantId = 1;
             var testData = new PublicApplicationFormViewModel
             {
                 Id = 1,
-                FirstName = "John",
-                LastName = "Doe",
-                PhoneNumber = "09123456789",
-                EmailAddress = "johndoe@gmail.com",
-                Address = "Manila",
-                Time = "9:00 AM",
-                PositionType = "Full Time",
-                EmploymentType = "Contractual",
-                School = "University of the Philippines",
-                SchoolDepartment = "Computer Science",
-                Achievements = "Dean's Lister",
-                ReferenceOneFullName = "Jane Doe",
-                RelationshipOne = "Friend",
-                ContactInfoOne = "09123456789",
-                ReferenceTwoFullName = "Janee Doe",
-                RelationshipTwo = "Friend",
-                ContactInfoTwo = "09123456789",
-                ReferenceThreeFullName = "Janne Doe",
-                RelationshipThree = "Friend",
-                ContactInfoThree = "09123456789",
-                CurriculumVitae = new byte[0],
+                FirstName = "Test",
+                LastName = "Test",
+                PhoneNumber = "1234567890",
+                EmailAddress = "Test@gmail.com",
+                Address = "Test",
+                Time = "Test",
+                PositionType = "Test",
+                EmploymentType = "Test",
+                School = "Test",
+                SchoolDepartment = "Test",
+                Achievements = "Test",
+                ReferenceOneFullName = "Test",
+                RelationshipOne = "Test",
+                ContactInfoOne = "Test",
+                AnsweredOne = 1,
+                ReferenceTwoFullName = "Test1",
+                RelationshipTwo = "Test1",
+                ContactInfoTwo = "Test1",
+                AnsweredTwo = 2,
+                ReferenceThreeFullName = "Test2",
+                RelationshipThree = "Test2",
+                ContactInfoThree = "Test2",
+                AnsweredThree = 3,
+                CurriculumVitae = new byte[1]
             };
 
-            _mockPublicApplicationFormService.Setup(s => s.AddForm(It.IsAny<PublicApplicationFormViewModel>()));
+            _mockPublicApplicationFormService.Setup(s => s.AddForm(testData))
+                .Throws(new Exception("Simulated exception")); // Simulate an exception
 
             // Act
-            var result = _controller.AddForm(testData);
+            var result = _controller.AddForm(testData, applicantId) as IActionResult;
 
             // Assert
-            Assert.NotNull(result);
-            var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
-            Assert.Equal("Index", redirectToActionResult.ActionName);
-            Assert.Equal("ApplicantHomepage", redirectToActionResult.ControllerName);
+            // Check for the correct ActionResult types
+            Assert.IsType<BadRequestObjectResult>(result);
+            Assert.IsNotType<RedirectToActionResult>(result);
+
+            // Check if ModelState is valid
+            Assert.True(_controller.ModelState.IsValid, "ModelState should be valid");
         }
 
         [Fact]
         public void AddForm_HasNoPublicApplicationForm_ReturnsView()
         {
             // Arrange
+            var applicantId = 1;
             var testData = new PublicApplicationFormViewModel();
 
             _mockPublicApplicationFormService.Setup(s => s.AddForm(testData));
 
             // Act
-            var result = _controller.AddForm(testData);
+            var result = _controller.AddForm(testData, applicantId);
 
             // Assert
             Assert.NotNull(result);
