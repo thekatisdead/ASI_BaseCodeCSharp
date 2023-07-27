@@ -28,7 +28,7 @@
                             </div>
                             <p class="card-text">@job.Description</p>
                             <div class="apply-actions">
-                                <a asp-controller="PublicApplicationForm" asp-action="Index">
+                                <a asp-controller="PublicApplicationForm" asp-action="Index" asp-route-jobId="@job.Id">
                                     <button class="apply-btn">Apply Now!</button>
                                 </a>
                             </div>

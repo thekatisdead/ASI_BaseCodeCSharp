@@ -26,14 +26,12 @@ namespace Basecode.Test.Services
             // Arrange
             var applicationFormViewModel = new PublicApplicationFormViewModel
             {
-                FirstName = "John",
-                LastName = "Doe",
+                
                 PhoneNumber = "123456789",
-                EmailAddress = "john.doe@example.com",
+               
                 Address = "Cebu City",
                 Time = "9:00 AM",
-                PositionType = "Full-time",
-                EmploymentType = "Permanent",
+               
                 School = "CIT-U",
                 SchoolDepartment = "Computer Science",
                 Achievements = "Summa Cum Laude",

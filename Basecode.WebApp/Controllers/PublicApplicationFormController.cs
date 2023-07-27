@@ -18,10 +18,12 @@ namespace Basecode.WebApp.Controllers
             _email = email;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int jobId)
         {
             _logger.Trace("PublicApplicationForm Controller Accessed");
-            return View();
+            PublicApplicationFormViewModel form = new PublicApplicationFormViewModel();
+            form.Position= jobId;
+            return View(form);
         }
 
         [HttpPost]
@@ -30,18 +32,18 @@ namespace Basecode.WebApp.Controllers
             try
             {
                 // contacts the references for each thting when creating the form
-                if(viewModel.ContactInfoOne != null)
-                {
-                    _email.SendEmailCharacterReference(viewModel.ContactInfoOne,viewModel.LastName,viewModel.ReferenceOneFullName);
-                }
-                else if (viewModel.ContactInfoTwo != null)
-                {
-                    _email.SendEmailCharacterReference(viewModel.ContactInfoTwo, viewModel.LastName, viewModel.ReferenceTwoFullName);
-                }
-                else if (viewModel.ContactInfoThree != null)
-                {
-                    _email.SendEmailCharacterReference(viewModel.ContactInfoThree, viewModel.LastName, viewModel.ReferenceThreeFullName);
-                }
+                //if(viewModel.ContactInfoOne != null)
+                //{
+                //    _email.SendEmailCharacterReference(viewModel.ContactInfoOne,viewModel.LastName,viewModel.ReferenceOneFullName);
+                //}
+                //else if (viewModel.ContactInfoTwo != null)
+                //{
+                //    _email.SendEmailCharacterReference(viewModel.ContactInfoTwo, viewModel.LastName, viewModel.ReferenceTwoFullName);
+                //}
+                //else if (viewModel.ContactInfoThree != null)
+                //{
+                //    _email.SendEmailCharacterReference(viewModel.ContactInfoThree, viewModel.LastName, viewModel.ReferenceThreeFullName);
+                //}
                 // Call the service method to create the form
                 _service.AddForm(viewModel);
                 _logger.Info("Form added successfully.");

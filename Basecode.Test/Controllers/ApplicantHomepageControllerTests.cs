@@ -10,11 +10,12 @@ namespace Basecode.Test.Controllers
     {
         private readonly ApplicantHomepageController _controller;
         private readonly Mock<IJobOpeningService> _mockJobOpeningService;
+        private readonly Mock<IApplicantListService> _mockApplicantListService; 
 
         public ApplicantHomepageControllerTests()
         {
             _mockJobOpeningService = new Mock<IJobOpeningService>();
-            _controller = new ApplicantHomepageController(_mockJobOpeningService.Object);
+            _controller = new ApplicantHomepageController(_mockJobOpeningService.Object,_mockApplicantListService.Object);
         }
 
         [Fact]

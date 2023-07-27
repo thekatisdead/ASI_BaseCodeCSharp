@@ -23,7 +23,7 @@ namespace Basecode.Test.Controllers
         public void Index_ReturnsView()
         {
             // Act
-            var result = _controller.Index() as ViewResult;
+            var result = _controller.Index(1) as ViewResult;
 
             // Assert
             Assert.NotNull(result);
@@ -37,14 +37,12 @@ namespace Basecode.Test.Controllers
             var testData = new PublicApplicationFormViewModel
             {
                 Id = 1,
-                FirstName = "John",
-                LastName = "Doe",
+
                 PhoneNumber = "09123456789",
-                EmailAddress = "johndoe@gmail.com",
+               
                 Address = "Manila",
                 Time = "9:00 AM",
-                PositionType = "Full Time",
-                EmploymentType = "Contractual",
+   
                 School = "University of the Philippines",
                 SchoolDepartment = "Computer Science",
                 Achievements = "Dean's Lister",
