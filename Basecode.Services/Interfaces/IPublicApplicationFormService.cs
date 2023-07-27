@@ -12,5 +12,6 @@ namespace Basecode.Services.Interfaces
     {
         void AddForm(PublicApplicationFormViewModel applicationForm);
         public PublicApplicationFormViewModel GetById(int id);
+        public int CountResponded(int id);
     }
 }

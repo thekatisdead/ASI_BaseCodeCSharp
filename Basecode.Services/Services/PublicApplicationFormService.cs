@@ -35,5 +35,10 @@ namespace Basecode.Services.Services
             var data = (PublicApplicationForm)_repository.GetById(id);
             return _mapper.Map<PublicApplicationFormViewModel>(data);
         }
+
+        public int CountResponded(int id)
+        {
+            return _repository.CountResponded(id);
+        }
     }
 }

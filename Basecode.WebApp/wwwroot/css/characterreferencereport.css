@@ -2,14 +2,11 @@
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #2E3830;
+    background-color: #e6dbc9;
 }
 
 header {
-    display: flex;
-    background-color: #fff;
-    padding: 10px;
-    text-align: right;
+    display: none;
 }
 
 main {
@@ -22,14 +19,30 @@ main {
     padding: 20px;
 }
 
+.back-link-container {
+    position: absolute;
+}
+
+.back-link {
+    color: #C53211;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+    .back-link:hover {
+        color: #981c0c;
+    }
+
 /* Card styles */
 .respondent-cards {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
+    justify-content: center;
 }
 
 .section-title {
+    margin-top: 25px;
     font-size: 40px;
     font-weight: bold;
 }
@@ -48,12 +61,13 @@ hr {
 }
 
 .card {
-    flex: 1 0 300px;
-    padding: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #fff;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    flex: 1 0 calc(33% - 40px);
+    max-width: 90%; 
+    background-color: #f9f9f9; 
+    border-radius: 10px; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    padding: 25px
 }
 
     .card h3 {
@@ -78,7 +92,7 @@ hr {
 
     .card h5 {
         margin: 0;
-        font-size: 17px;
+        font-size: 18px;
         color: #000;
         margin-bottom: 20px;
         text-align: center;
@@ -112,7 +126,7 @@ hr {
     .card p {
         font-size: 15px;
         color: #000;
-        margin-top: 25px;
+        margin-top: 35px;
         margin-bottom: 0;
         text-align: center;
     }

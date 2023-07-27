@@ -17,7 +17,7 @@ namespace Basecode.Services.Interfaces
         /// <param name="applicantName"></param>
         /// <param name="companyName"></param>
         /// <param name="jobPosition"></param>
-        void SendEmailRejectApplication(string receiverEmail, string applicantName,string companyName, string jobPosition);
+        void SendEmailRejectApplication(string receiverEmail, string applicantName, string jobPosition);
         /// <summary>
         /// Sends an email to the Applicant that their Interview has been rejected
         /// </summary>
@@ -25,7 +25,7 @@ namespace Basecode.Services.Interfaces
         /// <param name="applicantName"></param>
         /// <param name="companyName"></param>
         /// <param name="jobPosition"></param>
-        void SendEmailRejectInterview(string receiverEmail, string applicantName, string companyName, string jobPosition);
+        void SendEmailRejectInterview(string receiverEmail, string applicantName, string jobPosition);
         /// <summary>
         /// Sends an Email to the Interviewer after the Interview about their decision
         /// </summary>
@@ -66,7 +66,7 @@ namespace Basecode.Services.Interfaces
         /// <param name="receiverEmail"></param>
         /// <param name="applicantName"></param>
         /// <param name="referenceName"></param>
-        public void SendEmailCharacterReference(string receiverEmail, string applicantName, string referenceName);
+        public void SendEmailCharacterReference(string receiverEmail, string applicantName, int applicantID, string referenceName);
         /// <summary>
         /// Sends a Response to the HR when the Character Reference Form has been Answered
         /// </summary>
@@ -76,5 +76,31 @@ namespace Basecode.Services.Interfaces
         /// <param name="answeredNumerator"></param>
         /// <param name="answeredDenominator"></param>
         public void SendEmailOnCharacterReferenceResponse(string receiverEmail, string applicantName, string referenceName, int answeredNumerator, int answeredDenominator);
+        /// <summary>
+        /// Sends a reminder to the Character Reference Form
+        /// </summary>
+        /// <param name="receiverEmail"></param>
+        /// <param name="applicantName"></param>
+        /// <param name="referenceName"></param>
+        /// <param name="jobPosition"></param>
+        public void SendEmailCharacterReferenceReminder(string receiverEmail, string applicantName, string referenceName, string jobPosition);
+        /// <summary>
+        /// Sends an email to the HR about deciding whether or not the Applicant is credible because of the Character Reference forms
+        /// </summary>
+        /// <param name="receiverEmail"></param>
+        /// <param name="applicantName"></param>
+        /// <param name="applicantID"></param>
+        /// <param name="jobPosition"></param>
+        public void SendEmailCharacterReferenceDecision(string receiverEmail, string applicantName, int applicantID, string jobPosition);
+        /// <summary>
+        /// Sends an email to the Responders saying thank you for responding to our Character Reference Form
+        /// </summary>
+        /// <param name="receiverEmail"></param>
+        /// <param name="applicantName"></param>
+        /// <param name="jobPosition"></param>
+        /// <param name="referenceName"></param>
+        public void SendEmailCharacterReferenceGratitude(string receiverEmail, string applicantName, string jobPosition, string referenceName);
+
+
     }
 }
