@@ -1,7 +1,7 @@
-﻿@using Basecode.Data.ViewModels
-@using System.Text
+﻿@using System.Text
+@using Basecode.Data.ViewModels
+@model ApplicantDetails
 
-@model PublicApplicationFormViewModel
 @{
     ViewData["Title"] = "[Title] Application Tracking";
     Layout = "~/Views/Shared/_LayoutHR.cshtml";
@@ -20,21 +20,21 @@
                     <div class="card-body text-center">
                         <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
                              class="rounded-circle img-fluid" style="width: 150px;">
-                        @*<h5 class="my-3">@Model.FirstName @Model.LastName</h5>*@
+                        <h5 class="my-3">@Model.FirstName @Model.LastName</h5>
                         <p class="text-muted mb-4">@Model.Address</p>
                         <div class="d-flex justify-content-center mb-2">
-                            <a asp-controller="ApplicantList"asp-action="UpdateStatus" asp-route-applicantID="@Model.Id" asp-route-status="Shortlisted"><button type="button" class="btn btn-primary">Shortlist</button></a>
-                             <a asp-controller="ApplicantList"asp-action="UpdateStatus" asp-route-applicantID="@Model.Id" asp-route-status="Rejected"><button type="button" class="btn btn-outline-primary ms-1">Reject</button></a>
+                            <a asp-controller="ApplicantList"asp-action="UpdateStatus" asp-route-applicantID="@Model.ApplicantId" asp-route-status="Shortlisted"><button type="button" class="btn btn-primary">Shortlist</button></a>
+                            <a asp-controller="ApplicantList" asp-action="UpdateStatus" asp-route-applicantID="@Model.ApplicantId" asp-route-status="Rejected"><button type="button" class="btn btn-outline-primary ms-1">Reject</button></a>
                         </div>
                     </div>
                 </div> 
                 <div class="card mb-4 mb-lg-0">
                     <div class="card-body p-4">
                         <p class="mb-4">
-                            @*<span class="text-primary font-italic me-1">Job Applied:</span> @Model.PositionType*@
+                            <span class="text-primary font-italic me-1">Job Applied:</span> @Model.Position
                         </p>
                         <p class="mb-4">
-                            @*<span class="text-primary font-italic me-1">Employment:</span> @Model.EmploymentType*@
+                            <span class="text-primary font-italic me-1">Employment:</span> @Model.EmploymentType
                         </p>
                         <div class="d-flex justify-content-center mb-2">
                             <button type="button" class="btn btn-primary">Download CV</button>
@@ -50,7 +50,7 @@
                                 <p class="mb-0">Full Name</p>
                             </div>
                             <div class="col-sm-9">
-                                @*<p class="text-muted mb-0">@Model.FirstName @Model.LastName</p>*@
+                                <p class="text-muted mb-0">@Model.FirstName @Model.LastName</p>
                             </div>
                         </div>
                         <hr>
@@ -59,7 +59,7 @@
                                 <p class="mb-0">Email</p>
                             </div>
                             <div class="col-sm-9">
-                                @*<p class="text-muted mb-0">@Model.EmailAddress</p>*@
+                                <p class="text-muted mb-0">@Model.Email</p>
                             </div>
                         </div>
                         <hr>

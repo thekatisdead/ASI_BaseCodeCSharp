@@ -29,12 +29,6 @@ namespace Basecode.Data.ViewModels
         public string? Time { get; set; }
 
         [Required(ErrorMessage = "This field is required.")]
-        public string? PositionType { get; set; }
-
-        [Required(ErrorMessage = "This field is required.")]
-        public string? EmploymentType { get; set; }
-
-        [Required(ErrorMessage = "This field is required.")]
         public string? School { get; set; }
 
         [Required(ErrorMessage = "This field is required.")]

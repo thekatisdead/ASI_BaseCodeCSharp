@@ -24,7 +24,7 @@ namespace Basecode.Data.Repositories
         }
         public PublicApplicationForm GetById(int id)
         {
-            return _context.PublicApplicationForm.Find(id);
+            return _context.PublicApplicationForm.FirstOrDefault(p =>p.ApplicantId == id);
         }
     }
 }

@@ -16,10 +16,12 @@ namespace Basecode.Services.Services
     public class ApplicantListService : IApplicantListService
     {
         private readonly IApplicantListRepository _repository;
+        private readonly IJobOpeningRepository _jobOpeningRepository;
 
-        public ApplicantListService(IApplicantListRepository repository)
+        public ApplicantListService(IApplicantListRepository repository,IJobOpeningRepository jobOpeningRepository)
         {
             _repository = repository;
+            _jobOpeningRepository = jobOpeningRepository;
         }
 
         /// <summary>
@@ -28,16 +30,33 @@ namespace Basecode.Services.Services
         /// <returns>A list of ApplicantListViewModel objects representing all applicants.</returns>
         public List<ApplicantListViewModel> RetrieveAll()
         {
-            var data = _repository.RetrieveAll().Select(s => new ApplicantListViewModel
+            var jobs = _jobOpeningRepository.RetrieveAll().Select(j => new
+            {
+                Id = j.Id,
+                Position = j.Position
+            });
+            var applicants = _repository.RetrieveAll().Select(s => new 
             {
                 Id = s.Id,
                 Firstname = s.Firstname,
                 Lastname = s.Lastname,
                 JobApplied = s.JobApplied,
                 Tracker = s.Tracker
-            }).ToList();
+            });
 
-            return data;
+            var data = from app in applicants
+                       join job in jobs on app.JobApplied equals job.Id
+                       select new ApplicantListViewModel
+                       {
+                           Id = app.Id,
+                           Firstname = app.Firstname,
+                           Lastname = app.Lastname,
+                           JobApplied = app.JobApplied,
+                           JobPosition = job.Position,
+                           Tracker = app.Tracker
+                       };
+
+            return data.ToList();
         }
 
         // old function, stored just in case 

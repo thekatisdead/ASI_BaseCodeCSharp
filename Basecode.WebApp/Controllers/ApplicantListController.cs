@@ -99,9 +99,9 @@ namespace Basecode.WebApp.Controllers
             return RedirectToAction("Index", "ApplicantList");
         }
 
-        public IActionResult ViewProfile(int id)
+        public IActionResult ViewProfile(int applicantId, int jobId)
         {
-            var applicant = _publicApplicationFormService.GetById(id);
+            var applicant = _publicApplicationFormService.GetApplicationFormById(applicantId, jobId);
             return View(applicant);
         }
         public IActionResult DownloadCV(byte[] cv)

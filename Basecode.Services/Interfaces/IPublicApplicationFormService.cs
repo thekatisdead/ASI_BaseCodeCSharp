@@ -12,5 +12,12 @@ namespace Basecode.Services.Interfaces
     {
         void AddForm(PublicApplicationFormViewModel applicationForm);
         public PublicApplicationFormViewModel GetById(int id);
+        /// <summary>
+        /// This function combines three tables which are Applicant, JobOpening and PublicApplicationForm.
+        /// </summary>
+        /// <param name="applicantId"></param>
+        /// <param name="jobId"></param>
+        /// <returns>An object reference containg the Applicant's Public Application details</returns>
+        public ApplicantDetails GetApplicationFormById(int applicantId, int jobId);
     }
 }
