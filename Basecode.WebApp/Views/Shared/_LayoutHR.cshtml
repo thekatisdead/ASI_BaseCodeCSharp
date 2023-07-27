@@ -12,16 +12,12 @@
     <header style="color:black;">
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light box-shadow mb-3">
             <div class="container-fluid">
-                <span style="padding-right:10px;" >
-                    <img src="~/img/asi.png" class="img-fluid rounded" style="width:157px;130px" />
+                <span style="padding-right:10px;">
+                    <img id="home-icon" src="~/img/asi.png" class="img-fluid rounded" style="width:157px;130px" />
                 </span>
-
                 <a style="color:black;" class="navbar-brand" asp-area="" asp-controller="HrHomepage" asp-action="Index">Home</a>
-
-                <a style="color:black; text-align   :right;" class="navbar-brand" asp-area="" asp-controller="HrScheduler" asp-action="home">Schedule Interview</a>
-                <a style="color:black; text-align   :right;" class="navbar-brand" asp-controller="CharacterReference" asp-action="ManageRespondents" class="btn btn-primary">Character Referrers</a>
-                <a style="color:black; text-align   :left;" class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Log Out</a>
-
+                <a style="color:black;" class="navbar-brand" asp-area="" asp-controller="HrScheduler" asp-action="home">Schedule Interview</a>
+                <a style="color:black;" class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Log Out</a>
             </div>
         </nav>
     </header>
@@ -37,6 +33,21 @@
             &copy; 2023 - Basecode - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>*@
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Find the home icon by its ID
+            const homeIcon = document.getElementById("home-icon");
+
+            // Add a click event listener to the home icon
+            homeIcon.addEventListener("click", function () {
+                // Use Razor syntax to generate the URL for the homepage
+                const homepageUrl = "@Url.Action("Index", "HrHomepage")";
+
+                // Navigate to the homepage
+                window.location.href = homepageUrl;
+            });
+        });
+    </script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
