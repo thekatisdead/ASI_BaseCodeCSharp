@@ -67,11 +67,12 @@ namespace Basecode.WebApp.Controllers
             // use ID to find the HR to send the email
             var _fullName = data.Lastname + " " + data.Firstname;
             var job = _job.GetById(data.JobApplied);
-            var _receiver = _users.FindById((job.HR).ToString());
+            //var _receiver = _users.FindById((job.HR).ToString());
 
             _logger.Trace("Updating Status");
             // sends an update whenever the applicant status is changed
-            _email.SendEmailOnUpdateApplicantStatus(_receiver.Address,_fullName,data.Tracker,status);
+            //_email.SendEmailOnUpdateApplicantStatus(_receiver.Address,_fullName,data.Tracker,status);
+            _email.SendEmailOnUpdateApplicantStatus("kaherbieto@outlook.up.edu.ph", _fullName, data.Tracker, status);
             _service.ProceedTo(applicantID, status);
 
             // needs to check if the currentHires exist
@@ -82,8 +83,8 @@ namespace Basecode.WebApp.Controllers
             else if(status == "shortlisted")
             {
 
-                _email.SendEmailHRApplicationDecision(_receiver.Address,applicantID,_fullName,job.Position);
-
+                //_email.SendEmailHRApplicationDecision(_receiver.Address,applicantID,_fullName,job.Position);
+                _email.SendEmailHRApplicationDecision("kaherbieto@outlook.up.edu.ph", applicantID, _fullName, job.Position);
             }
             Applicant applicant = new Applicant();
             _service.UpdateStatus(applicantID,status);
