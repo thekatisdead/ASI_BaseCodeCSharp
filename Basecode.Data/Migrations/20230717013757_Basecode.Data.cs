@@ -149,6 +149,7 @@ namespace Basecode.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    HR = table.Column<int>(type: "int", nullable: false),
                     Position = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     JobType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Salary = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
@@ -369,6 +370,60 @@ namespace Basecode.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Interviewer",
+                columns: table => new
+                {
+                    InterviewerId = table.Column<int>(type: "INT", nullable: false)
+                    .Annotation("SqlServer:Identity", "1, 1"),
+                    FirstName = table.Column<string>(type: "VARCHAR (20)", nullable: false),
+                    LastName = table.Column<string>(type: "VARCHAR (20)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ContactNo = table.Column<string>(type: "VARCHAR (20)", nullable: false),
+                    CreatedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdatedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Interviewer", x => x.InterviewerId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Schedule",
+                columns: table => new
+                {
+                    ScheduleId = table.Column<int>(type: "INT", nullable: false)
+                    .Annotation("SqlServer:Identity", "1, 1"),
+                    InterviewerId = table.Column<int>(type: "INT", nullable: false),
+                    JobId = table.Column<int>(type: "INT", nullable: false),
+                    StartTime = table.Column<string>(type: "VARCHAR (10)", nullable: false),
+                    EndTime = table.Column<string>(type: "VARCHAR (10)", nullable: false),
+                    Date = table.Column<string>(type: "VARCHAR (10)", nullable: false),
+                    Instruction = table.Column<string>(type: "NVARCHAR (MAX)", nullable: false),
+                    CreatedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdatedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Schedule", x => x.ScheduleId);
+                    table.ForeignKey(
+                        name: "FK_Interviewer",
+                        column: x => x.InterviewerId,
+                        principalTable: "Interviewer",
+                        principalColumn: "InterviewerId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Job",
+                        column: x => x.JobId,
+                        principalTable: "JobOpening",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -441,6 +496,10 @@ namespace Basecode.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "JobOpening");
+            migrationBuilder.DropTable(
+                name: "Interviewer");
+            migrationBuilder.DropTable(
+                name: "Schedule");
 
             migrationBuilder.DropTable(
                 name: "PublicApplicationForm");
