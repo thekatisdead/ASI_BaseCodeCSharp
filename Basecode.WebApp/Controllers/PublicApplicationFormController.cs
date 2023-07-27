@@ -68,14 +68,14 @@ namespace Basecode.WebApp.Controllers
                     // replace the _email function with a seperate function that checks if the thing has responded na
                     BackgroundJob.Schedule(()=>EmailCharacterReferenceHandler(applicantID,1,viewModel.ContactInfoOne,viewModel.LastName,viewModel.ReferenceOneFullName,viewModel.PositionType),dueTime);
                 }
-                else if (viewModel.ContactInfoTwo != null)
+                if (viewModel.ContactInfoTwo != null)
                 {
                     _email.SendEmailCharacterReference(viewModel.ContactInfoTwo, viewModel.LastName, applicantID,viewModel.ReferenceTwoFullName);
                     // replace the _email function with a seperate function that checks if the thing has responded na
                     // also change the variable names, handled in a seperate function
                     BackgroundJob.Schedule(() => EmailCharacterReferenceHandler(applicantID, 2, viewModel.ContactInfoTwo, viewModel.LastName, viewModel.ReferenceTwoFullName, viewModel.PositionType), dueTime);
                 }
-                else if (viewModel.ContactInfoThree != null)
+                if (viewModel.ContactInfoThree != null)
                 {
                     _email.SendEmailCharacterReference(viewModel.ContactInfoThree, viewModel.LastName, applicantID,viewModel.ReferenceThreeFullName);
                     // replace the _email function with a seperate function that checks if the thing has responded na

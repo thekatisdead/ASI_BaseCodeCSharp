@@ -92,5 +92,15 @@ namespace Basecode.Services.Interfaces
         /// <param name="applicantID"></param>
         /// <param name="jobPosition"></param>
         public void SendEmailCharacterReferenceDecision(string receiverEmail, string applicantName, int applicantID, string jobPosition);
+        /// <summary>
+        /// Sends an email to the Responders saying thank you for responding to our Character Reference Form
+        /// </summary>
+        /// <param name="receiverEmail"></param>
+        /// <param name="applicantName"></param>
+        /// <param name="jobPosition"></param>
+        /// <param name="referenceName"></param>
+        public void SendEmailCharacterReferenceGratitude(string receiverEmail, string applicantName, string jobPosition, string referenceName);
+
+
     }
 }

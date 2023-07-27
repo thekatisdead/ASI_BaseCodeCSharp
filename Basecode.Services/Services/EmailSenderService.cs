@@ -251,6 +251,46 @@ namespace Basecode.Services.Services
             }
         }
 
+        public void SendEmailCharacterReferenceGratitude(string receiverEmail, string applicantName, string jobPosition, string referenceName)
+        {
+            var email = new MimeMessage();
+
+            // If you wanna test for email functionalities, change the Sender Name to your email
+            // and the receiver name to your other email.
+            // To perform it properly, follow the link below
+            // https://mailtrap.io/blog/csharp-send-email-gmail/
+
+            email.From.Add(new MailboxAddress("HR Automated Tracking", "kermherbieto52@gmail.com"));
+            email.To.Add(new MailboxAddress(applicantName, receiverEmail));
+
+            email.Subject = "Character Reference Form for " + applicantName;
+
+            var htmlContent = File.ReadAllText("EmailTemplates/CharacterReferenceGratitude.html");
+
+            // this is to replace the placeholders
+            htmlContent = htmlContent.Replace("{applicantName}", applicantName);
+            htmlContent = htmlContent.Replace("{referenceName}", referenceName);
+            htmlContent = htmlContent.Replace("{jobPosition}", jobPosition);
+
+
+            email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
+            {
+                Text = htmlContent
+            };
+
+            using (var smtp = new SmtpClient())
+            {
+                smtp.Connect("smtp.gmail.com", 587, false);
+
+                // Note: only needed if the SMTP server requires authentication
+                // Also: This is PM's email kek, rip bozo ig.
+                smtp.Authenticate("kermherbieto52@gmail.com", "sfltmfkdvdiuhabi");
+
+                smtp.Send(email);
+                smtp.Disconnect(true);
+            }
+        }
+
         /// <summary>
         /// Sends an email Reminder to receiverEmail about the date
         /// </summary>
