@@ -73,11 +73,11 @@ namespace Basecode.WebApp.Controllers
 
             // get the data from the models            
             var _fullName = data.Lastname + " " + data.Firstname;
-            var job = _job.GetById(data.JobApplied);
-            var _receiver = _users.FindById((job.HR).ToString());
+            //var job = _job.GetById(data.JobApplied);
+            //var _receiver = _users.FindById((job.HR).ToString());
 
-            // sends an update whenever the applicant status is changed
-            _email.SendEmailOnUpdateApplicantStatus(_receiver.EmailAddress,_fullName,data.Tracker,status);
+            //// sends an update whenever the applicant status is changed
+            //_email.SendEmailOnUpdateApplicantStatus(_receiver.EmailAddress,_fullName,data.Tracker,status);
             _service.ProceedTo(applicantID, status);
 
             // needs to check if the currentHires exist
@@ -91,7 +91,7 @@ namespace Basecode.WebApp.Controllers
                 // This can be triggered every time the status is different but it does not get the
                 // data in the models
                 
-                _email.SendEmailHRApplicationDecision(_receiver.EmailAddress,applicantID,_fullName,job.Position);
+                //_email.SendEmailHRApplicationDecision(_receiver.EmailAddress,applicantID,_fullName,job.Position);
 
             }
             Applicant applicant = new Applicant();

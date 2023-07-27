@@ -23,8 +23,8 @@
                         <h5 class="my-3">@Model.FirstName @Model.LastName</h5>
                         <p class="text-muted mb-4">@Model.Address</p>
                         <div class="d-flex justify-content-center mb-2">
-                            <a asp-controller="ApplicantList"asp-action="UpdateStatus" asp-route-applicantID="@Model.Id" asp-route-status="shortlisted"><button type="button" class="btn btn-primary">Shortlist</button></a>
-                            <button type="button" class="btn btn-outline-primary ms-1">Reject</button>
+                            <a asp-controller="ApplicantList"asp-action="UpdateStatus" asp-route-applicantID="@Model.Id" asp-route-status="Shortlisted"><button type="button" class="btn btn-primary">Shortlist</button></a>
+                             <a asp-controller="ApplicantList"asp-action="UpdateStatus" asp-route-applicantID="@Model.Id" asp-route-status="Rejected"><button type="button" class="btn btn-outline-primary ms-1">Reject</button></a>
                         </div>
                     </div>
                 </div> 

@@ -80,5 +80,9 @@ namespace Basecode.Services.Services
 
             return applicantViewModel;
         }
+        public Applicant GetApplicantById(int id)
+        {
+            return _repository.GetById(id);
+        }
     }
 }
