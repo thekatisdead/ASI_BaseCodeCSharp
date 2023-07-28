@@ -1,0 +1,53 @@
+﻿@using Basecode.Data.ViewModels
+@model SignUpViewModel
+
+@{
+    ViewData["Title"] = "User Update";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User - Update</title>
+    <link rel="stylesheet" href="~/css/usermanagement.css" asp-append-version="true" />
+</head>
+<body>
+    <form asp-action="UpdateUser">
+        <h2>User Information</h2>
+        <hr>
+
+        <div class="half-width job-posting">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+
+            <div class="form-group-firstname">
+                <label asp-for="FirstName" class="control-label-firstname">First Name</label>
+                <input asp-for="FirstName" class="form-control-firstname" placeholder="First Name" />
+                <span asp-validation-for="FirstName" class="text-danger-firstname"></span>
+            </div>
+            <div class="form-group-lastname">
+                <label asp-for="LastName" class="control-label">Last Name</label>
+                <input asp-for="LastName" class="form-control-lastname" placeholder="Last Name" />
+                <span asp-validation-for="LastName" class="text-danger-lastname"></span>
+            </div>
+            <div class="form-group-contactnumber">
+                <label asp-for="ContactNumber" class="control-label">Contact Number</label>
+                <input asp-for="ContactNumber" class="form-control-contactnumber" placeholder="Contact Number" />
+                <span asp-validation-for="ContactNumber" class="text-danger-contactnumber"></span>
+            </div>
+            <div class="form-group-address">
+                <label asp-for="Address" class="control-label"></label>
+                <input asp-for="Address" class="form-control-address" placeholder="Address" />
+                <span asp-validation-for="Address" class="text-danger-address"></span>
+        </div>
+        @section Scripts {
+            @{
+                await Html.RenderPartialAsync("_ValidationScriptsPartial");
+            }
+        }
+    </form>
+    <div class="triangle"></div>
+    <div class="triangle1"></div>
+</body>
+</html>
