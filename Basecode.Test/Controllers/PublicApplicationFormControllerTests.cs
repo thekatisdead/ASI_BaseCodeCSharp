@@ -11,12 +11,15 @@ namespace Basecode.Test.Controllers
         private readonly PublicApplicationFormController _controller;
         private readonly Mock<IPublicApplicationFormService> _mockPublicApplicationFormService;
         private readonly Mock<IEmailSenderService> _mockEmailSenderService;
-
+        private readonly Mock<IJobOpeningService> _mockJobOpeningService;
+        private readonly Mock<IApplicantListService> _mockApplicantListService;
         public PublicApplicationFormControllerTests()
         {
             _mockPublicApplicationFormService = new Mock<IPublicApplicationFormService>();
             _mockEmailSenderService = new Mock<IEmailSenderService>();
-            _controller = new PublicApplicationFormController(_mockPublicApplicationFormService.Object, _mockEmailSenderService.Object);
+            _mockApplicantListService= new Mock<IApplicantListService>();
+            _mockJobOpeningService= new Mock<IJobOpeningService>();
+            _controller = new PublicApplicationFormController(_mockPublicApplicationFormService.Object, _mockEmailSenderService.Object,_mockApplicantListService.Object,_mockJobOpeningService.Object);
         }
 
         [Fact]

@@ -16,7 +16,6 @@ namespace Basecode.Data.ViewModels
         public string? Grading { get; set; }
         public int JobApplied { get; set; }
         public string JobPosition { get; set; }
-        public string? EmailAddress { get; set; }
 
     }
 }

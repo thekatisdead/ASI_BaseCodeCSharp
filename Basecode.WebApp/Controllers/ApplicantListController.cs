@@ -65,13 +65,13 @@ namespace Basecode.WebApp.Controllers
             // getting name from applicant list
             // get the Id so that we can use that to locate the HR
             // use ID to find the HR to send the email
-            var _fullName = data.Lastname + " " + data.Firstname;
+            //var _fullName = data.Lastname + " " + data.Firstname;
             //var job = _job.GetById(data.JobApplied);
             //var _receiver = _users.FindById((job.HR).ToString());
 
 
-            //// sends an update whenever the applicant status is changed
-            //_email.SendEmailOnUpdateApplicantStatus(_receiver.EmailAddress,_fullName,data.Tracker,status);
+            ////// sends an update whenever the applicant status is changed
+            //_email.SendEmailOnUpdateApplicantStatus(_receiver.Email,_fullName,data.Tracker,status);
 
             _logger.Trace("Updating Status");
 
@@ -89,7 +89,7 @@ namespace Basecode.WebApp.Controllers
                 // This can be triggered every time the status is different but it does not get the
                 // data in the models
                 
-                //_email.SendEmailHRApplicationDecision(_receiver.EmailAddress,applicantID,_fullName,job.Position);
+                //_email.SendEmailHRApplicationDecision(_receiver.Email,applicantID,_fullName,job.Position);
             }
             Applicant applicant = new Applicant();
             _service.UpdateStatus(applicantID,status);
