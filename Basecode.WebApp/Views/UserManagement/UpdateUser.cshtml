@@ -10,7 +10,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User - Update</title>
-    <link rel="stylesheet" href="~/css/usermanagement.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/userupdate.css" asp-append-version="true" />
 </head>
 <body>
     <form asp-action="UpdateUser">
@@ -21,22 +21,27 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
 
-            <div class="form-group-firstname">
+            <div class="form-group">
                 <label asp-for="FirstName" class="control-label-firstname">First Name</label>
                 <input asp-for="FirstName" class="form-control-firstname" placeholder="First Name" />
                 <span asp-validation-for="FirstName" class="text-danger-firstname"></span>
             </div>
-            <div class="form-group-lastname">
+            <div class="form-group">
                 <label asp-for="LastName" class="control-label">Last Name</label>
                 <input asp-for="LastName" class="form-control-lastname" placeholder="Last Name" />
                 <span asp-validation-for="LastName" class="text-danger-lastname"></span>
             </div>
-            <div class="form-group-contactnumber">
+            <div class="form-group">
+                <label asp-for="EmailAddress" class="control-label">Email Address</label>
+                <input asp-for="EmailAddress" class="form-control-emailaddress" placeholder="Email Address" />
+                <span asp-validation-for="EmailAddress" class="text-danger-emailadress"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="ContactNumber" class="control-label">Contact Number</label>
                 <input asp-for="ContactNumber" class="form-control-contactnumber" placeholder="Contact Number" />
                 <span asp-validation-for="ContactNumber" class="text-danger-contactnumber"></span>
             </div>
-            <div class="form-group-address">
+            <div class="form-group">
                 <label asp-for="Address" class="control-label"></label>
                 <input asp-for="Address" class="form-control-address" placeholder="Address" />
                 <span asp-validation-for="Address" class="text-danger-address"></span>
