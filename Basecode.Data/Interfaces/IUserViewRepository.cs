@@ -15,5 +15,8 @@ namespace Basecode.Data.Interfaces
         /// </summary>
         /// <returns>An IQueryable collection of SignUp instances representing all sign-up records.</returns>
         public IQueryable<SignUp> RetrieveAll();
+        SignUp GetUserById(int id);
+        void UpdateUser(SignUp user);
+        void DeleteUser(SignUp user);
     }
 }
