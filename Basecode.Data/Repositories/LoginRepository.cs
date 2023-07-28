@@ -32,12 +32,9 @@ namespace Basecode.Data.Repositories
                     .AsNoTracking()
                     .FirstOrDefault();
 
-                if (user != null)
-                {
-                    // Log the successful retrieval of the user
-                    _logger.Info($"SignUp entity retrieved by username: {username}");
-                }
-                else
+                _logger.Info($"SignUp entity retrieved by username: {username}");
+
+                if (user == null)
                 {
                     // Log a message if the SignUp entity is not found
                     _logger.Info($"SignUp entity not found for username: {username}");
