@@ -80,37 +80,134 @@ namespace Basecode.Services.Services
 
         public void ProceedTo(int applicantId, string step)
         {
-            _repository.ProceedTo(applicantId, step);
+            try
+            {
+                _repository.ProceedTo(applicantId, step);
+
+                // Log successful proceeding to the next step
+                _logger.Info($"Applicant {applicantId} proceeded to step: {step}");
+            }
+            catch (Exception ex)
+            {
+                // Log the exception if any occurs during the proceeding process
+                _logger.Error(ex, $"Error occurred while proceeding applicant {applicantId} to step: {step}");
+                throw;
+            }
         }
+
         public void UpdateStatus(int applicantID, string status)
         {
-            var _applicant = _repository.GetById(applicantID);
-            _applicant.Tracker = status;
+            try
+            {
+                var _applicant = _repository.GetById(applicantID);
+                _applicant.Tracker = status;
 
-            _repository.Update(_applicant);
+                _repository.Update(_applicant);
+
+                // Log successful status update
+                _logger.Info($"Status updated successfully for applicantID: {applicantID}, new status: {status}");
+            }
+            catch (Exception ex)
+            {
+                // Log the exception if any occurs during the status update process
+                _logger.Error(ex, $"Error occurred while updating status for applicantID: {applicantID}, new status: {status}");
+                throw;
+            }
         }
+
         public void UpdateGrade(int applicantID, string grade)
         {
-            var _applicant = _repository.GetById(applicantID);
-            _applicant.Grading = grade;
+            try
+            {
+                var _applicant = _repository.GetById(applicantID);
+                _applicant.Grading = grade;
 
-            _repository.Update(_applicant);
+                _repository.Update(_applicant);
+
+                // Log successful grade update
+                _logger.Info($"Grade updated successfully for applicantID: {applicantID}, new grade: {grade}");
+            }
+            catch (Exception ex)
+            {
+                // Log the exception if any occurs during the grade update process
+                _logger.Error(ex, $"Error occurred while updating grade for applicantID: {applicantID}, new grade: {grade}");
+                throw;
+            }
         }
 
         public ApplicantListViewModel GetMostRecentApplicant()
         {
-            // Fetch the most recent applicant's info from the repository and map it to ApplicantListViewModel
-            var recentApplicant = _repository.GetMostRecentApplicant();
-            var applicantViewModel = new ApplicantListViewModel
+            try
             {
-                Id = recentApplicant.Id,
-                Firstname = recentApplicant.Firstname,
-                Lastname = recentApplicant.Lastname,
-                JobApplied = recentApplicant.JobApplied,
-                Tracker = recentApplicant.Tracker
-            };
+                // Fetch the most recent applicant's info from the repository
+                var recentApplicant = _repository.GetMostRecentApplicant();
 
-            return applicantViewModel;
+                // Check if a recent applicant exists
+                if (recentApplicant == null)
+                {
+                    // Log that no recent applicant was found
+                    _logger.Info("No recent applicant found.");
+                    return null;
+                }
+
+                // Map the recent applicant to ApplicantListViewModel
+                var applicantViewModel = new ApplicantListViewModel
+                {
+                    Id = recentApplicant.Id,
+                    Firstname = recentApplicant.Firstname,
+                    Lastname = recentApplicant.Lastname,
+                    JobApplied = recentApplicant.JobApplied,
+                    Tracker = recentApplicant.Tracker
+                };
+
+                // Log successful retrieval of the most recent applicant
+                _logger.Info($"Most recent applicant retrieved with ID: {recentApplicant.Id}");
+
+                return applicantViewModel;
+            }
+            catch (Exception ex)
+            {
+                // Log the exception if any occurs during the retrieval process
+                _logger.Error(ex, "Error occurred while retrieving the most recent applicant.");
+                throw;
+            }
+        }
+
+        public ApplicantListViewModel GetMostRecentApplicantForRequirements()
+        {
+            try
+            {
+                // Fetch the most recent applicant's info from the repository
+                var recentApplicant = _repository.GetMostRecentApplicant();
+
+                // Check if a recent applicant exists
+                if (recentApplicant == null)
+                {
+                    // Log that no recent applicant was found
+                    _logger.Info("No recent applicant found for requirements.");
+                    return null;
+                }
+
+                // Map the recent applicant to ApplicantListViewModel
+                var applicantViewModel = new ApplicantListViewModel
+                {
+                    Id = recentApplicant.Id,
+                    Firstname = recentApplicant.Firstname,
+                    Lastname = recentApplicant.Lastname,
+                    JobApplied = recentApplicant.JobApplied
+                };
+
+                // Log successful retrieval of the most recent applicant for requirements
+                _logger.Info($"Most recent applicant retrieved with ID: {recentApplicant.Id} for requirements.");
+
+                return applicantViewModel;
+            }
+            catch (Exception ex)
+            {
+                // Log the exception if any occurs during the retrieval process
+                _logger.Error(ex, "Error occurred while retrieving the most recent applicant for requirements.");
+                throw;
+            }
         }
         public Applicant GetApplicantById(int id)
         {
