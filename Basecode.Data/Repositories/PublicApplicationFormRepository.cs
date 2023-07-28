@@ -14,7 +14,7 @@ namespace Basecode.Data.Repositories
     public class PublicApplicationFormRepository : BaseRepository, IPublicApplicationFormRepository
     {
         private readonly BasecodeContext _context;
-        private static ILogger _logger = LogManager.GetCurrentClassLogger();
+        private static Logger _logger = LogManager.GetCurrentClassLogger();
         public PublicApplicationFormRepository(IUnitOfWork unitOfWork, BasecodeContext context) : base(unitOfWork)
         {
             _context = context;
@@ -34,7 +34,7 @@ namespace Basecode.Data.Repositories
 
           try
             {
-                var form = _context.PublicApplicationForm.Find(id);
+                var form = _context.PublicApplicationForm.FirstOrDefault(p => p.ApplicantId == id);
                 _logger.Info($"Form retrieved successfully for ID: {id}");
 
                 if (form == null)

@@ -21,12 +21,15 @@ namespace Basecode.Data.Models
         public string? ReferenceOneFullName { get; set; }
         public string? RelationshipOne { get; set; }
         public string? ContactInfoOne { get; set; }
+        public int? AnsweredOne { get; set; }
         public string? ReferenceTwoFullName { get; set; }
         public string? RelationshipTwo { get; set; }
         public string? ContactInfoTwo { get; set; }
+        public int? AnsweredTwo { get; set; }
         public string? ReferenceThreeFullName { get; set; }
         public string? RelationshipThree { get; set; }
         public string? ContactInfoThree { get; set; }
+        public int? AnsweredThree { get; set; }
         public byte[]? CurriculumVitae { get; set; }
         public DateTime? CreatedTime { get; set; } = DateTime.Now;
         public string? CreatedBy { get; set; } = System.Environment.UserName;
