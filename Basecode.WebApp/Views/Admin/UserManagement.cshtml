@@ -2,7 +2,8 @@
     Layout = "~/Views/Shared/_NoLayout.cshtml";
 }
 @using Basecode.Data.ViewModels
-@model List<UserViewModel>
+@model List<SignUpViewModel>
+
 <html>
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.min.css" />
@@ -46,6 +47,9 @@
                                     <th>
                                         Role
                                     </th>
+                                    <th>
+                                        Action
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -53,7 +57,7 @@
                                 {
                                     <tr>
                                         <td>
-                                            @user.UserName
+                                            @user.Username
                                         <td>
                                             @user.Password
                                         </td>
@@ -67,7 +71,11 @@
                                             @user.EmailAddress
                                         </td>
                                         <td>
-                                            @user.RoleName
+                                            @user.Role
+                                        </td>
+                                        <td class="text-center">
+                                            <a asp-controller="UserManagement" asp-action="UpdateUser" asp-route-id="@user.Id">Edit</a>
+                                            <a asp-controller="UserManagement" asp-action="DeleteUser" asp-route-id="@user.Id">Delete</a>
                                         </td>
                                     </tr>
                                 }
