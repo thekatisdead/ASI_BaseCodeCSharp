@@ -42,7 +42,6 @@ namespace Basecode.WebApp.Controllers
         {
             // test for Hangfire
             //BackgroundJob.Enqueue(()=> _email.SendEmailCharacterReference("kaherbieto@outlook.up.edu.ph","Dat Kat","Kat Dat"));
-            
             var data = _service.RetrieveAll();
             _logger.Trace("ApplicantList Controller Accessed");
             return View(data);

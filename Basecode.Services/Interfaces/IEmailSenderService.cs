@@ -101,6 +101,6 @@ namespace Basecode.Services.Interfaces
         /// <param name="referenceName"></param>
         public void SendEmailCharacterReferenceGratitude(string receiverEmail, string applicantName, string jobPosition, string referenceName);
 
-
+        public void SendEmailApplicantGeneration(string receiverEmail, string applicantName, int applicantID, string jobPosition);
     }
 }
