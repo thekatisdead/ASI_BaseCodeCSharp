@@ -1,6 +1,5 @@
 ﻿using Basecode.Data.Interfaces;
 using Basecode.Data.Models;
-using Microsoft.Extensions.Logging;
 using NLog;
 using System;
 using System.Collections.Generic;
