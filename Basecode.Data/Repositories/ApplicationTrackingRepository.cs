@@ -30,12 +30,12 @@ namespace Basecode.Data.Repositories
                 if (applicant != null)
                 {
                     // Log the successful retrieval of the model
-                    _logger.Trace($"ApplicationTracking retrieved for applicantId: {applicantId}");
+                    _logger.Info($"ApplicationTracking retrieved for applicantId: {applicantId}");
                 }
                 else
                 {
                     // Log a message if the applicant is not found
-                    _logger.Trace($"ApplicationTracking not found for applicantId: {applicantId}");
+                    _logger.Info($"ApplicationTracking not found for applicantId: {applicantId}");
                 }
 
                 return applicant;
