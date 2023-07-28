@@ -15,5 +15,17 @@ namespace Basecode.Services.Interfaces
         /// </summary>
         /// <returns>A list of ApplicantListViewModel objects representing all applicants.</returns>
         List<ApplicantListViewModel> RetrieveAll();
+        //void UpdateStatus(int applicantId, string status);
+
+        void ProceedTo(int applicantId, string step);
+        public void UpdateStatus(int applicantID, string status);
+        public void UpdateGrade(int applicantID, string grade);
+
+        /// <summary>
+        /// Retrieves the most recent applicant's info from the database.
+        /// </summary>
+        /// <returns>The most recent applicant's info.</returns>
+        ApplicantListViewModel GetMostRecentApplicant();
+        ApplicantListViewModel GetMostRecentApplicantForRequirements();
     }
 }
