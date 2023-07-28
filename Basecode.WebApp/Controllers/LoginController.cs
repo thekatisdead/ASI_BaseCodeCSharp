@@ -18,9 +18,9 @@ namespace Basecode.WebApp.Controllers
             _loginService = loginService;
         }
 
-        [Route("login")]
         public IActionResult Index()
         {
+            _logger.Trace("Login Controller Accessed");
             return View();
         }
 

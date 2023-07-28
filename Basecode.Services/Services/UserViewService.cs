@@ -31,7 +31,9 @@ namespace Basecode.Services.Services
                 FirstName = s.FirstName,
                 LastName = s.LastName,
                 EmailAddress = s.EmailAddress,
+                Address = s.Address,
                 Role = s.Role
+
             }) ;
 
             return data.ToList();

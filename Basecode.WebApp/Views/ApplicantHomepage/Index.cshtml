@@ -1,0 +1,60 @@
+﻿@using Basecode.Data.Models
+
+@{
+    ViewData["Title"] = "Applicant Homepage";
+    Layout = "~/Views/Shared/_LayoutApplicant.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HR Automation System - Applicant Homepage</title>
+    <link rel="stylesheet" href="~/css/applicanthomepage.css" />
+</head>
+<body>
+    <main>
+        <section id="dashboard-overview">
+            <h1>Welcome, @ViewBag.Name</h1>
+            <h2>Applicant Overview</h2>
+        </section>
+
+        <section id="my-profile">
+            <h2>My Profile</h2>
+            <div class="my-profile-list">
+                <div class="my-profile">
+                    <div class="profile-details">
+                        <span>Name:</span>
+                        <span>Email:</span>
+                        <span>Phone:</span>
+                        <span>Placeholder:</span>
+                        <span>Placeholder:</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="job-openings">
+            <h2>Job Openings</h2>
+            <div class="job-summary">
+                <div class="job-info">
+                    <span>Job Title:</span>
+                    <span>Department:</span>
+                    <span>Location:</span>
+                    <span>Deadline:</span>
+                </div>
+                <div class="job-actions">
+                    <a asp-controller="PublicApplicationForm" asp-action="Index">
+                        <button class="view-profile-button">Apply</button>
+                    </a>
+                    <a asp-action="JobListing">
+                        <button class="view-profile-button">View Job Listing</button>
+                    </a>
+                </div>
+            </div>
+        </section>
+        <div class="triangle"></div>
+        <div class="triangle1"></div>
+    </main>
+</body>
+</html>
+

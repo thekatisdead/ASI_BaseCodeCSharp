@@ -1,53 +1,190 @@
-﻿<!DOCTYPE html>
+﻿@using Basecode.Data.ViewModels
+@model CharacterReferenceViewModel
+
+@{
+    var applicantID = (int)ViewData["ApplicantID"];
+    ViewData["Title"] = "Character Reference Form";
+    Layout = "~/Views/Shared/_LayoutApplicant.cshtml";
+}
+
+<!DOCTYPE html>
 <html>
+
 <head>
-    <title>Character Reference Form</title>
+    <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="~/css/characterreference.css" asp-append-version="true" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
 </head>
-<body>
-    <form id="character-reference-form" asp-action="Page2" asp-controller="CharacterReference">
-        <div class="page" id="page1">
-        <h1>Character Reference Form</h1>
 
-        <h2>Thanks for completing this form. We'd want to learn more about the qualifications
-            character, and work ethics of the job applicant you're willing to recommend.</h2>
-        <hr>
+<body>  
+    <form id="character-reference-form" method="post" asp-action="Add" asp-route-applicantID="@applicantID" asp-route-trigger="1" asp-controller="CharacterReference">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-header">
+            <h1>Character Reference Form</h1>
 
-        <div>
+            <h2>
+                Thanks for completing this form. We'd want to learn more about the qualifications
+                character, and work ethics of the job applicant you're willing to recommend.
+            </h2>
+            <hr>
+        </div>
+
+        <div class="form-section">
             <h3 class="section-title">Candidate's Personal Information</h3>
             <hr class="divider">
             <h4 class="section-title1">Candidate's Name</h4>
+
             <div class="input-group">
-                <input type="text" id="first-name" class="text-input">
+                <input asp-for="CandidateFirstName" class="text-input">
                 <br>
-                <label for="first-name">First Name</label>
+                <label asp-for="CandidateFirstName">First Name</label>
             </div>
+
             <div class="input-group">
-                <input type="text" id="last-name" class="text-input">
+                <input asp-for="CandidateLastName" class="text-input">
                 <br>
-                <label for="last-name">Last Name</label>
+                <label asp-for="CandidateLastName">Last Name</label>
             </div>
+
             <div class="input-group">
                 <h4 class="section-title2">Applying for the position of:</h4>
-                <input type="text" id="position" class="text-input">
+                <input asp-for="Position" class="text-input">
             </div>
+
             <div class="input-group">
                 <h4 class="section-title2">How long have you known this person?</h4>
-                <input type="text" id="known" class="text-input">
+                <input asp-for="RelationshipDuration" class="text-input">
             </div>
+
+            <div class="input-group1">
+                <label asp-for="Relationship">Tell us about your relationship to the person above.</label>
+                <textarea asp-for="Relationship" class="candidate-textarea"></textarea>
+                <label asp-for="CharacterEthics">What would you say about this person's character and work ethics?</label>
+                <textarea asp-for="CharacterEthics" class="candidate-textarea"></textarea>
+                <label asp-for="Qualifications">What qualifications and soft skills do you think this person possesses?</label>
+                <textarea asp-for="Qualifications" class="candidate-textarea"></textarea>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h3 class="section-title">Personal Information</h3>
+            <hr class="divider">
+            <h4 class="section-title1">Your Name</h4>
+
             <div class="input-group">
-                <label for="candidate">Tell us about your relationship to the person above.</label>
-                <textarea id="candidate" class="candidate-textarea"></textarea>
-                <label for="candidate">What would you say about this person's character and work ethics?</label>
-                <textarea id="candidate" class="candidate-textarea"></textarea>
-                <label for="candidate">What qualifications and soft skills do you think this person possesses?</label>
-                <textarea id="candidate" class="candidate-textarea"></textarea>
+                <input asp-for="FirstName" class="text-input">
+                <br>
+                <label asp-for="FirstName">First Name</label>
             </div>
-                <button type="submit" class="submit-button">Next</button>
-        </div> 
-    </div>
+
+            <div class="input-group">
+                <input asp-for="LastName" class="text-input">
+                <br>
+                <label asp-for="LastName">Last Name</label>
+            </div>
+
+            <div class="input-group">
+                <h4 class="section-title2">Your Current Job Title</h4>
+                <input asp-for="JobTitle" class="text-input">
+            </div>
+
+            <div class="input-group">
+                <h4 class="section-title2">Have work with this person?</h4>
+                <input type="radio" id="WorkedWithCandidate_Yes" name="WorkedWithCandidate" value="true">
+                <label for="WorkedWithCandidate_Yes">Yes</label>
+                <input type="radio" id="WorkedWithCandidate_No" name="WorkedWithCandidate" value="false">
+                <label for="WorkedWithCandidate_No">No</label>
+            </div>
+
+            <div class="input-group1">
+                <label asp-for="ReasonToHire">Why should we hire this person?</label>
+                <textarea asp-for="ReasonToHire" class="candidate-textarea"></textarea>
+            </div>
+
+        </div>
+
+        <button type="submit" class="submit-button">Submit</button>
+
     </form>
+
     <div class="triangle"></div>
     <div class="triangle1"></div>
 </body>
+
 </html>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+<script>
+    $(document).ready(function () 
+    {
+        $('form').submit(function (event) 
+        {
+            var formValid = true;
+            // Check each input field for empty value
+            $(this).find('input, select, textarea').each(function () 
+            {
+                if ($(this).is(':radio')) 
+                {
+                    var radioGroupName = $(this).attr('name');
+                    if ($('input[name="' + radioGroupName + '"]:checked').length === 0) 
+                    {
+                        formValid = false;
+                        $(this).addClass('error');
+                        $(this).siblings('.field-error').text('This field is required.').show();
+                    } 
+                    else 
+                    {
+                        $(this).removeClass('error');
+                        $(this).siblings('.field-error').hide();
+                    }
+                } else {
+                    if (!$(this).val()) 
+                    {
+                        formValid = false;
+                        $(this).addClass('error');
+                        $(this).siblings('.field-error').text('This field is required.').show();
+                    } 
+                    else 
+                    {
+                        $(this).removeClass('error');
+                        $(this).siblings('.field-error').hide();
+                    }
+                }
+            });
+            if (!formValid) 
+            {
+            event.preventDefault(); // Prevent form submission
+            Swal.fire(
+             {
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Please fill out all the required fields.',
+            });
+            } 
+            else 
+            {
+            // Show success message
+            Swal.fire(
+            {
+                icon: 'success',
+                title: 'Success!',
+                text: 'Character reference added successfully!',
+            });
+        }
+        });
+    });
+</script>
+
+
+
+
+
+
+
+
