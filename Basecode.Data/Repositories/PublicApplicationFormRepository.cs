@@ -14,6 +14,7 @@ namespace Basecode.Data.Repositories
     {
         private readonly BasecodeContext _context;
         private static Logger _logger = LogManager.GetCurrentClassLogger();
+
         public PublicApplicationFormRepository(IUnitOfWork unitOfWork, BasecodeContext context) : base(unitOfWork)
         {
             _context = context;
@@ -23,10 +24,6 @@ namespace Basecode.Data.Repositories
         {
             _context.PublicApplicationForm.Add(applicationForm);
             _context.SaveChanges();
-        }
-        public PublicApplicationForm GetByApplicantId(int id)
-        {
-            return _context.PublicApplicationForm.FirstOrDefault(p =>p.ApplicantId == id);
         }
         public PublicApplicationForm GetById(int id)
         {
