@@ -27,7 +27,6 @@ namespace Basecode.Data.Repositories
         }
         public PublicApplicationForm GetById(int id)
         {
-
           try
             {
                 var form = _context.PublicApplicationForm.FirstOrDefault(p => p.ApplicantId == id);
@@ -78,7 +77,6 @@ namespace Basecode.Data.Repositories
                 _logger.Error(ex, $"Error occurred while counting responses for ID: {id}");
                 throw;
             }
-
         }
     }
 }
