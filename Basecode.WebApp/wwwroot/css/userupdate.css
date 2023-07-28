@@ -1,0 +1,94 @@
+﻿body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #e6dbc9;
+}
+
+h2 {
+    color: #333;
+}
+
+form {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.control-label {
+    display: block;
+    font-weight: bold;
+}
+
+.input-group {
+    position: relative;
+}
+
+/* Form Input Styles */
+.form-control-firstname,
+.form-control-lastname,
+.form-control-emailaddress,
+.form-control-contactnumber,
+.form-control-address {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Validation Error Styles */
+.text-danger {
+    color: #dc3545;
+    font-size: 14px;
+    display: block;
+    margin-top: 5px;
+}
+
+.text-danger-firstname,
+.text-danger-lastname,
+.text-danger-emailaddress,
+.text-danger-contactnumber,
+.text-danger-address {
+    color: #dc3545;
+    font-size: 14px;
+}
+
+/* Triangle Styles (You can adjust these styles as needed) */
+.triangle,
+.triangle1 {
+    width: 0;
+    height: 0;
+    border-left: 100px solid transparent;
+    border-right: 100px solid transparent;
+}
+
+.triangle {
+    position: absolute;
+    top: 57px;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-top: 150px solid #c53211;
+    border-right: 150px solid transparent;
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 10));
+}
+
+.triangle1 {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-bottom: 150px solid #c53211;
+    border-left: 150px solid transparent;
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 10));
+}
