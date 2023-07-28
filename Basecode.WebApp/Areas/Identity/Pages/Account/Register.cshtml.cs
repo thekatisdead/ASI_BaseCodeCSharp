@@ -5,11 +5,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Text;
-using System.Text.Encodings.Web;
-using System.Threading;
-using System.Threading.Tasks;
 using Basecode.Data.Models;
 using Basecode.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication;
@@ -75,26 +71,36 @@ namespace Basecode.WebApp.Areas.Identity.Pages.Account
         /// </summary>
         public class InputModel
         {
-            [Required]
+            [Required(ErrorMessage = "Firstname is required.")]
             [RegularExpression(@"^[a-zA-Z\s]+$", ErrorMessage = "Name must contain only letters")]
+            [StringLength(15, ErrorMessage = "First name must not exceed 15 characters.")]
             [Display(Name = "FirstName")]
             public string FirstName { get; set; }
-            [Required]
+
+            [Required(ErrorMessage = "Lastname is required.")]
             [RegularExpression(@"^[a-zA-Z\s]+$", ErrorMessage = "Name must contain only letters")]
+            [StringLength(20, ErrorMessage = "Last name must not exceed 20 characters.")]
             [Display(Name = "LastName")]
             public string LastName { get; set; }
+
             [Display(Name = "Username")]
             public string Username { get; set; }
-            [Required]
+
+            [Required(ErrorMessage = "Address is required.")]
             [RegularExpression(@"^[a-zA-Z\s,]+$", ErrorMessage = "Address must be completed")]
             [Display(Name = "Address")]
             public string Address { get; set; }
+
+            [Required(ErrorMessage = "Contact number is required.")]
+            [StringLength(11, MinimumLength = 11, ErrorMessage = "Contact number must be 11 digits.")]
+            [RegularExpression(@"^[0-9]+$", ErrorMessage = "Contact number must contain only digits.")]
+            public string ContactNumber { get; set; }
 
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required]
+            [Required(ErrorMessage = "Email is required.")]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
@@ -103,7 +109,7 @@ namespace Basecode.WebApp.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required]
+            [Required(ErrorMessage = "Password is required.")]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Password")]
@@ -140,6 +146,7 @@ namespace Basecode.WebApp.Areas.Identity.Pages.Account
                     LastName = Input.LastName,
                     Address = Input.Address,
                     Email = Input.Email,
+                    ContactNumber = Input.ContactNumber,
                     CreatedDate = DateTime.Now
                 };
 
