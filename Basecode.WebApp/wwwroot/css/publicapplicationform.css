@@ -11,7 +11,7 @@ form {
     border-radius: 15px;
     transform: translateX(-50%);
     width: 931px;
-    height: 2350px;
+    height: 2150px;
     display: flex;
     position: absolute;
     align-items: flex-start;
@@ -900,20 +900,8 @@ header {
     font-size: 18px;
 }
 
-.form-control-cv {
-    top: 0px;
-    left: 0px;
-    width: 735px;
-    height: 300px;
-    position: absolute;
-    border-color: rgba(125, 131, 152, 0.30000001192092896);
-    border-style: solid;
-    border-width: 1px;
-    border-radius: 5px;
-}
-
 .btn-primary {
-    top: 2275px;
+    top: 2060px;
     left: 610px;
     width: 200px;
     height: 40px;
