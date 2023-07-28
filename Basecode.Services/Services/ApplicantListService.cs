@@ -5,6 +5,7 @@ using Basecode.Data.Repositories;
 using Basecode.Data.ViewModels;
 using Basecode.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,7 @@ namespace Basecode.Services.Services
     {
         private readonly IApplicantListRepository _repository;
         private readonly IJobOpeningRepository _jobOpeningRepository;
+        private static Logger _logger = LogManager.GetCurrentClassLogger();
 
         public ApplicantListService(IApplicantListRepository repository,IJobOpeningRepository jobOpeningRepository)
         {
@@ -30,33 +32,44 @@ namespace Basecode.Services.Services
         /// <returns>A list of ApplicantListViewModel objects representing all applicants.</returns>
         public List<ApplicantListViewModel> RetrieveAll()
         {
-            var jobs = _jobOpeningRepository.RetrieveAll().Select(j => new
+            try
             {
-                Id = j.Id,
-                Position = j.Position
-            });
-            var applicants = _repository.RetrieveAll().Select(s => new 
+                var jobs = _jobOpeningRepository.RetrieveAll().Select(j => new
+                {
+                    Id = j.Id,
+                    Position = j.Position
+                });
+                var applicants = _repository.RetrieveAll().Select(s => new
+                {
+                    Id = s.Id,
+                    Firstname = s.Firstname,
+                    Lastname = s.Lastname,
+                    JobApplied = s.JobApplied,
+                    Tracker = s.Tracker
+                });
+
+                var data = from app in applicants
+                           join job in jobs on app.JobApplied equals job.Id
+                           select new ApplicantListViewModel
+                           {
+                               Id = app.Id,
+                               Firstname = app.Firstname,
+                               Lastname = app.Lastname,
+                               JobApplied = app.JobApplied,
+                               JobPosition = job.Position,
+                               Tracker = app.Tracker
+                           };
+                // Log successful retrieval of the applicant list
+                _logger.Info("Successfully retrieved the list of applicants.");
+                return data.ToList();
+            }
+            catch (Exception ex)
             {
-                Id = s.Id,
-                Firstname = s.Firstname,
-                Lastname = s.Lastname,
-                JobApplied = s.JobApplied,
-                Tracker = s.Tracker
-            });
+                // Log the exception if any occurs during the retrieval process
+                _logger.Error(ex, "Error occurred while retrieving the list of applicants.");
+                throw;
+            }
 
-            var data = from app in applicants
-                       join job in jobs on app.JobApplied equals job.Id
-                       select new ApplicantListViewModel
-                       {
-                           Id = app.Id,
-                           Firstname = app.Firstname,
-                           Lastname = app.Lastname,
-                           JobApplied = app.JobApplied,
-                           JobPosition = job.Position,
-                           Tracker = app.Tracker
-                       };
-
-            return data.ToList();
         }
 
         // old function, stored just in case 
