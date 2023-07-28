@@ -175,7 +175,6 @@ namespace Basecode.Data.Migrations
                     ApplicantId = table.Column<int>(type: "INT", nullable: false),
                     Position = table.Column<int>(type: "INT", nullable:false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    EmailAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Time = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     School = table.Column<string>(type: "nvarchar(max)", nullable: true),
