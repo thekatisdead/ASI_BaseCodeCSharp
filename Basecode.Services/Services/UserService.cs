@@ -38,6 +38,10 @@ namespace Basecode.Services.Services
 
         public bool Create(User user)
         {
+            user.CreatedBy = System.Environment.UserName;
+            user.CreatedDate = DateTime.Now;
+            user.ModifiedBy = System.Environment.UserName;
+            user.ModifiedDate = DateTime.Now;
             return _userRepository.Create(user);
         }
 
