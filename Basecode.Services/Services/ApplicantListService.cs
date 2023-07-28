@@ -81,5 +81,20 @@ namespace Basecode.Services.Services
 
             return applicantViewModel;
         }
+
+        public ApplicantListViewModel GetMostRecentApplicantForRequirements()
+        {
+            // Fetch the most recent applicant's info from the repository and map it to ApplicantListViewModel
+            var recentApplicant = _repository.GetMostRecentApplicant();
+            var applicantViewModel = new ApplicantListViewModel
+            {
+                Id = recentApplicant.Id,
+                Firstname = recentApplicant.Firstname,
+                Lastname = recentApplicant.Lastname,
+                JobApplied = recentApplicant.JobApplied
+            };
+
+            return applicantViewModel;
+        }
     }
 }
