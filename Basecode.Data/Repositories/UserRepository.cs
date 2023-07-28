@@ -51,6 +51,7 @@ namespace Basecode.Data.Repositories
             }
             catch (Exception)
             {
+
                 return false;
             }
 
