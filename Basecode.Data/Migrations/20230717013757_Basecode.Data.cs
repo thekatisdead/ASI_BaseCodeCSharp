@@ -131,8 +131,10 @@ namespace Basecode.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ApplicantID = table.Column<int>(type: "int", nullable: false),
-                    JobID = table.Column<int>(type: "int", nullable: false),
+                    FirstName = table.Column<string>(type: "VARCHAR(30)", nullable: false),
+                    LastName = table.Column<string>(type: "VARCHAR(30)", nullable: false),
+                    Company = table.Column<string>(type: "VARCHAR(30)", nullable: false),
+                    DateHired = table.Column<string>(type: "VARCHAR(30)", nullable: false),
                     CreatedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -205,7 +207,7 @@ namespace Basecode.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Job",
+                        name: "FK_JobPublicApplication",
                         column: x => x.Position,
                         principalTable: "JobOpening",
                         principalColumn: "Id",
