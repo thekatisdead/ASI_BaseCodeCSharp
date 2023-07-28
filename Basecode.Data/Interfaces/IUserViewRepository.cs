@@ -11,5 +11,8 @@ namespace Basecode.Data.Interfaces
     public interface IUserViewRepository
     {
         public IQueryable<SignUp> RetrieveAll();
+        SignUp GetUserById(int id);
+        void UpdateUser(SignUp user);
+        void DeleteUser(SignUp user);
     }
 }
