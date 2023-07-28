@@ -3,6 +3,7 @@ using Basecode.Data.Interfaces;
 using Basecode.Data.Models;
 using Basecode.Data.ViewModels;
 using Basecode.Services.Interfaces;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,8 @@ namespace Basecode.Services.Services
     {
         private readonly IPublicApplicationFormRepository _repository;
         private readonly IMapper _mapper;
+        private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
+
         public PublicApplicationFormService(IPublicApplicationFormRepository repository, IMapper mapper)
         {
             _repository = repository;
@@ -24,21 +27,47 @@ namespace Basecode.Services.Services
 
         public void AddForm(PublicApplicationFormViewModel applicationForm)
         {
-            applicationForm.CreatedTime = DateTime.Now;
-            applicationForm.CreatedBy = System.Environment.UserName;
+            try
+            {
+                applicationForm.CreatedTime = DateTime.Now;
+                applicationForm.CreatedBy = System.Environment.UserName;
 
-            _repository.AddForm(_mapper.Map<PublicApplicationForm>(applicationForm));
+                _repository.AddForm(_mapper.Map<PublicApplicationForm>(applicationForm));
+
+                _logger.Info("Added a new public application form with ID {formId}.", applicationForm.Id);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "Error occurred while adding a new public application form: {errorMessage}", ex.Message);
+                throw;
+            }
         }
 
         public PublicApplicationFormViewModel GetById(int id)
         {
-            var data = (PublicApplicationForm)_repository.GetById(id);
-            return _mapper.Map<PublicApplicationFormViewModel>(data);
+            try
+            {
+                var data = (PublicApplicationForm)_repository.GetById(id);
+                return _mapper.Map<PublicApplicationFormViewModel>(data);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "Error occurred while retrieving public application form with ID {formId}: {errorMessage}", id, ex.Message);
+                throw;
+            }
         }
 
         public int CountResponded(int id)
         {
-            return _repository.CountResponded(id);
+            try
+            {
+                return _repository.CountResponded(id);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "Error occurred while counting responded public application forms for ID {formId}: {errorMessage}", id, ex.Message);
+                throw;
+            }
         }
     }
 }
