@@ -49,6 +49,9 @@ namespace Basecode.Data.ViewModels
         public int? AnsweredOne { get; set; }
 
         [Required(ErrorMessage = "This field is required.")]
+        public int? AnsweredOne { get; set; }
+
+        [Required(ErrorMessage = "This field is required.")]
         public string? ReferenceTwoFullName { get; set; }
 
         [Required(ErrorMessage = "This field is required.")]

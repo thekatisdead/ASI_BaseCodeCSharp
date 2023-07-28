@@ -22,12 +22,25 @@ namespace Basecode.Data.Repositories
 
         public void AddForm(PublicApplicationForm applicationForm)
         {
-            _context.PublicApplicationForm.Add(applicationForm);
-            _context.SaveChanges();
+            try
+            {
+                _context.PublicApplicationForm.Add(applicationForm);
+                _context.SaveChanges();
+
+                // Log successful form addition
+                _logger.Info($"Form added successfully with ID: {applicationForm.Id}");
+            }
+            catch (Exception ex)
+            {
+                // Log the exception if any occurs during the form addition process
+                _logger.Error(ex, $"Error occurred while adding form with ID: {applicationForm.Id}");
+                throw;
+            }
         }
+
         public PublicApplicationForm GetById(int id)
         {
-          try
+            try
             {
                 var form = _context.PublicApplicationForm.FirstOrDefault(p => p.ApplicantId == id);
                 _logger.Info($"Form retrieved successfully for ID: {id}");

@@ -74,9 +74,6 @@ namespace Basecode.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    LastName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    Address = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -234,6 +231,60 @@ namespace Basecode.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Interviewer",
+                columns: table => new
+                {
+                    InterviewerId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FirstName = table.Column<string>(type: "nvarchar(20)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(20)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ContactNo = table.Column<string>(type: "nvarchar(20)", nullable: false),
+                    CreatedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdatedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Interviewer", x => x.InterviewerId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Schedule",
+                columns: table => new
+                {
+                    ScheduleId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    InterviewerId = table.Column<int>(type: "int", nullable: false),
+                    JobId = table.Column<int>(type: "int", nullable: false),
+                    StartTime = table.Column<string>(type: "nvarchar(10)", nullable: false),
+                    EndTime = table.Column<string>(type: "nvarchar(10)", nullable: false),
+                    Date = table.Column<string>(type: "nvarchar(10)", nullable: false),
+                    Instruction = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdatedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Schedule", x => x.ScheduleId);
+                    table.ForeignKey(
+                        name: "FK_JobOPening",
+                        column: x => x.JobId,
+                        principalTable: "JobOpening",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Interviewer",
+                        column: x => x.InterviewerId,
+                        principalTable: "Interviewer",
+                        principalColumn: "InterviewerId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "User",
                 columns: table => new
                 {
@@ -242,6 +293,8 @@ namespace Basecode.Data.Migrations
                     Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ContactNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),

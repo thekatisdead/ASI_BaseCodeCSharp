@@ -10,18 +10,21 @@ namespace Basecode.WebApp.Controllers
     public class CharacterReferenceController : Controller
     {
         private readonly ICharacterReferenceService _service;
+        private readonly IPublicApplicationFormService _applicationForm;
         private readonly IEmailSenderService _email;
         private static Logger _logger = LogManager.GetCurrentClassLogger();
 
-        public CharacterReferenceController(ICharacterReferenceService service, IEmailSenderService email)
+        public CharacterReferenceController(ICharacterReferenceService service, IEmailSenderService email, IPublicApplicationFormService applicationForm)
         {
             _service = service;
             _email = email;
+            _applicationForm = applicationForm;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int applicantID)
         {
             _logger.Trace("CharacterReference Controller Accessed");
+            ViewData["ApplicantID"] = applicantID;
             return View();
         }
 
@@ -30,12 +33,36 @@ namespace Basecode.WebApp.Controllers
         /// </summary>
         /// <param name="viewModel">The character reference view model.</param>
         /// <returns>A redirect to the index action.</returns>
-        public IActionResult Add(CharacterReferenceViewModel viewModel)
+        public IActionResult Add(CharacterReferenceViewModel viewModel, int applicantID, int trigger)
         {
+            
             try
             {
-                // needs communication with Public form DB
-                _email.SendEmailOnCharacterReferenceResponse("kaherbieto@outlook.up.edu.ph",viewModel.CandidateLastName,viewModel.LastName,1,3);
+                _logger.Trace("flag 0 passed");
+                //var _numberAnswered = _applicationForm.CountResponded(viewModel.Id);
+                var _numberAnswered = 1; // temp variable because CountResponded is wrong apparently
+                _logger.Trace("flag 1 passed");
+                // sends an email to the HR
+                if ( _numberAnswered < 3 ) 
+                {
+                    _email.SendEmailOnCharacterReferenceResponse("kaherbieto@outlook.up.edu.ph", viewModel.CandidateLastName, viewModel.LastName, _numberAnswered, 3);
+                }
+                else
+                {
+                    // needs communication on when to send the decision, after all are completed or after a certain period of time
+                    _email.SendEmailCharacterReferenceDecision("kaherbieto@outlook.up.edu.ph", viewModel.LastName, applicantID, viewModel.Position);
+                }
+                // sends an email to the form
+                _logger.Trace("flag 2 passed");
+                var user = _applicationForm.GetById(applicantID);
+                // email changes here but it needs to be connected :sob:
+                if(trigger == 1)
+                {
+                    _email.SendEmailCharacterReferenceGratitude("kaherbieto@outlook.up.edu.ph", viewModel.LastName, viewModel.Position, viewModel.CandidateLastName);
+                }
+                _logger.Trace("flag 3 passed");
+
+
                 // Call the service method to create the form
                 _service.AddCharacterReference(viewModel);
 
@@ -95,6 +122,27 @@ namespace Basecode.WebApp.Controllers
             {
                 _logger.Error(ex, "Error occurred while generating the character reference report: {errorMessage}", ex.Message);
                 return BadRequest("An error occurred while generating the character reference report.");
+            }
+        }
+        public IActionResult DecisionLanding()
+        {
+            return View();
+        }
+
+        public IActionResult Decision(int applicantID, int decision)
+        {
+            try
+            {
+                // thing change in the database
+                return RedirectToAction("DecisionLanding");
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "Error occurred while in the rejection phase of the Character Reference From: {errorMessage}", ex.Message);
+
+                // You can customize the error handling based on your application's requirements
+                // For example, you can return a specific error view or redirect to an error page.
+                return BadRequest("An error occurred while generating the report.");
             }
         }
     }

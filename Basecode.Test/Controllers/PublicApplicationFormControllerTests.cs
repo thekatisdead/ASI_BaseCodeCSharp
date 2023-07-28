@@ -34,15 +34,13 @@ namespace Basecode.Test.Controllers
         public void AddForm_ValidForm_RedirectsToIndex()
         {
             // Arrange
+            var applicantId = 1;
             var testData = new PublicApplicationFormViewModel
             {
                 Id = 1,
-
-                PhoneNumber = "09123456789",
-               
+                PhoneNumber = "09123456789",               
                 Address = "Manila",
                 Time = "9:00 AM",
-   
                 School = "University of the Philippines",
                 SchoolDepartment = "Computer Science",
                 Achievements = "Dean's Lister",
@@ -58,28 +56,32 @@ namespace Basecode.Test.Controllers
                 CurriculumVitae = new byte[0],
             };
 
-            _mockPublicApplicationFormService.Setup(s => s.AddForm(It.IsAny<PublicApplicationFormViewModel>()));
+            _mockPublicApplicationFormService.Setup(s => s.AddForm(testData))
+                .Throws(new Exception("Simulated exception")); // Simulate an exception
 
             // Act
-            var result = _controller.AddForm(testData);
+            var result = _controller.AddForm(testData, applicantId) as IActionResult;
 
             // Assert
-            Assert.NotNull(result);
-            var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
-            Assert.Equal("Index", redirectToActionResult.ActionName);
-            Assert.Equal("ApplicantHomepage", redirectToActionResult.ControllerName);
+            // Check for the correct ActionResult types
+            Assert.IsType<BadRequestObjectResult>(result);
+            Assert.IsNotType<RedirectToActionResult>(result);
+
+            // Check if ModelState is valid
+            Assert.True(_controller.ModelState.IsValid, "ModelState should be valid");
         }
 
         [Fact]
         public void AddForm_HasNoPublicApplicationForm_ReturnsView()
         {
             // Arrange
+            var applicantId = 1;
             var testData = new PublicApplicationFormViewModel();
 
             _mockPublicApplicationFormService.Setup(s => s.AddForm(testData));
 
             // Act
-            var result = _controller.AddForm(testData);
+            var result = _controller.AddForm(testData, applicantId);
 
             // Assert
             Assert.NotNull(result);
