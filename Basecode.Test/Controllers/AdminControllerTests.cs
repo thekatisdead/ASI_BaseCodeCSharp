@@ -94,29 +94,29 @@ namespace Basecode.Test.Controllers
         public void UserManagement_HasUsers_ReturnsViewWithUsers()
         {
             // Arrange
-            var testData = new List<UserViewModel>
+            var testData = new List<SignUpViewModel>
             {
-                new UserViewModel
+                new SignUpViewModel
                 {
-                    UserName = "johndoe",
+                    Username = "johndoe",
                     Password = "king",
                     ConfirmPassword = "king",
                     FirstName = "John",
                     LastName = "Doe",
                     EmailAddress = "johndoe@example.com",
                     Address = "123 Street, City",
-                    RoleName = "Applicant"
+                    Role = "Applicant"
                 },
-                new UserViewModel
+                new SignUpViewModel
                 {
-                    UserName = "janedoe",
+                    Username = "janedoe",
                     Password = "queen",
                     ConfirmPassword = "queen",
                     FirstName = "Jane",
                     LastName = "Doe",
                     EmailAddress = "janedoe@example.com",
                     Address = "456 Street, City",
-                    RoleName = "Applicant"
+                    Role = "Applicant"
                 }
             };
 
@@ -136,7 +136,7 @@ namespace Basecode.Test.Controllers
         public void UserManagement_HasNoUsers_ReturnsViewWithNullModel()
         {
             // Act 
-            var testData = new List<UserViewModel>();
+            var testData = new List<SignUpViewModel>();
 
             // Arrange
             _mockUserViewService.Setup(s => s.RetrieveAll()).Returns(testData);
