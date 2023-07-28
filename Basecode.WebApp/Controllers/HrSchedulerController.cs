@@ -16,13 +16,15 @@ namespace Basecode.WebApp.Controllers
         IInterviewerServices _interviewerServices;
         IJobOpeningService _jobOpeningService;
         IScheduleService _scheduleService;
+        IUserService _userService;
         
-        public HrSchedulerController(IInterviewerServices services,IJobOpeningService jobOpeningService,IScheduleService scheduleService,IEmailSenderService emailSender) 
+        public HrSchedulerController(IInterviewerServices services,IJobOpeningService jobOpeningService,IScheduleService scheduleService,IEmailSenderService emailSender, IUserService userService) 
         { 
             _interviewerServices= services;
             _jobOpeningService= jobOpeningService;
             _scheduleService =  scheduleService;
             _emailSender = emailSender;
+            _userService = userService;
         }
         public IActionResult AddInterviewer()
         {
@@ -94,6 +96,8 @@ namespace Basecode.WebApp.Controllers
         }
         public IActionResult AddSchedule(Schedule schedule)
         {
+
+            var interviewer = _userService.FindById(schedule.InterviewerId.ToString());
             DateTime.TryParseExact(schedule.StartTime, "HH:mm", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out DateTime startTime);
             DateTime.TryParseExact(schedule.EndTime, "HH:mm", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out DateTime endTime);
             schedule.StartTime = startTime.ToString("hh:mm tt", System.Globalization.CultureInfo.InvariantCulture);
