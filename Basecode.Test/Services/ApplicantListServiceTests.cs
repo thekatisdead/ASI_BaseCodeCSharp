@@ -9,11 +9,14 @@ namespace Basecode.Tests.Services
     {
         private readonly ApplicantListService _service;
         private readonly Mock<IApplicantListRepository> _fakeApplicantListRepository;
+        private readonly Mock<IJobOpeningRepository> _fakeJobOpeningRepository;
 
         public ApplicantListServiceTests()
         {
             _fakeApplicantListRepository = new Mock<IApplicantListRepository>();
-            _service = new ApplicantListService(_fakeApplicantListRepository.Object);
+            _fakeJobOpeningRepository= new Mock<IJobOpeningRepository>();
+           
+            _service = new ApplicantListService(_fakeApplicantListRepository.Object,_fakeJobOpeningRepository.Object);
         }
 
         [Fact]

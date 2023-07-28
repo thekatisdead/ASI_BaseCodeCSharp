@@ -12,12 +12,15 @@ namespace Basecode.Test.Services
         private readonly PublicApplicationFormService _service;
         private readonly Mock<IPublicApplicationFormRepository> _fakePublicApplicationFormRepository;
         private readonly Mock<IMapper> _fakeMapper;
+        private readonly Mock<IApplicantListRepository> _fakeApplicantsListRepository;
+        private readonly Mock<IJobOpeningRepository> _fakeJobOpeningRepository;
 
         public PublicApplicationFormServiceTests()
         {
             _fakePublicApplicationFormRepository = new Mock<IPublicApplicationFormRepository>();
             _fakeMapper = new Mock<IMapper>();
-            _service = new PublicApplicationFormService(_fakePublicApplicationFormRepository.Object, _fakeMapper.Object);
+            _fakeApplicantsListRepository= new Mock<IApplicantListRepository>();        
+            _service = new PublicApplicationFormService(_fakePublicApplicationFormRepository.Object, _fakeMapper.Object,_fakeApplicantsListRepository.Object,_fakeJobOpeningRepository.Object);
         }
 
         [Fact]
