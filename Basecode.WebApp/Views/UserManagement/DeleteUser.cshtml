@@ -1,0 +1,32 @@
+﻿@using Basecode.Data.ViewModels
+@model UserViewModel
+
+@{
+    ViewData["Title"] = "Delete User";
+    Layout = "~/Views/Shared/_NoLayout.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/css/usermanagement.css" />
+    <title>User Management - Confirm Delete</title>
+</head>
+<body>
+    <header>
+    </header>
+    <main>
+        <section class="user-form">
+            <p>Before we proceed, we want to confirm if you'd like to remove the user account linked to @Model.FirstName @Model.LastName. This action is irreversible, so please ensure you have the appropriate authorization.</p>
+
+            <form asp-action="DeleteUser" asp-route-id="@Model.Id" method="post">
+                <button type="submit" class="btn btn-danger">Delete</button>
+                <a asp-controller="Admin" asp-action="UserManagement" class="btn btn-secondary">Cancel</a>
+            </form>
+        </section>
+    </main>
+    <div class="triangle"></div>
+    <div class="triangle1"></div>
+</body>
+</html>

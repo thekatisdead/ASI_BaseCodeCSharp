@@ -1,0 +1,53 @@
+﻿@using Basecode.Data.ViewModels
+@model UserViewModel
+
+@{
+    ViewData["Title"] = "User Update";
+    Layout = "~/Views/Shared/_NoLayout.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Posting - Update</title>
+    <link rel="stylesheet" href="~/css/usermanagement.css" asp-append-version="true" />
+</head>
+<body>
+    <form asp-action="Update">
+        <h2>User Information</h2>
+        <hr>
+
+        <div class="half-width job-posting">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+
+            <div class="form-group">
+                <label for="user" class="label-bold">Username:</label>
+                <br>
+                <input asp-for="UserName" placeholder="Enter username" class="input-large">
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="user" class="label-bold">Password:</label>
+                <br>
+                <input asp-for="Password" placeholder="Enter password" class="input-large">
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="user" class="label-bold">Confirm Password:</label>
+                <br>
+                <input asp-for="ConfirmPassword" placeholder="Please Confirm Password" class="input-large">
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+        </div>
+        @section Scripts {
+            @{
+                await Html.RenderPartialAsync("_ValidationScriptsPartial");
+            }
+        }
+    </form>
+    <div class="triangle"></div>
+    <div class="triangle1"></div>
+</body>
+</html>

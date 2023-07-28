@@ -33,5 +33,31 @@ namespace Basecode.Data.Repositories
                 throw;
             }
         }
+
+        public void DeleteUser(SignUp user)
+        {
+            if (user != null)
+            {
+                _context.UserManagement.Remove(user);
+                _context.SaveChanges();
+            }
+        }
+
+        public SignUp GetUserById(int id)
+        {
+            return _context.UserManagement.Find(id);
+        }
+
+        public void AddUser(SignUp user)
+        {
+            _context.UserManagement.Add(user);
+            _context.SaveChanges();
+        }
+
+        public void UpdateUser(SignUp user)
+        {
+            _context.UserManagement.Update(user);
+            _context.SaveChanges();
+        }
     }
 }
