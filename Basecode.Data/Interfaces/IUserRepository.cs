@@ -24,7 +24,7 @@ namespace Basecode.Data.Interfaces
         /// </summary>
         /// <param name="UserName">The username of the user to retrieve.</param>
         /// <returns>The User object if found, otherwise null.</returns>
-        User FindUser(string UserName);
+        IdentityUser FindUser(string UserName);
 
         /// <summary>
         /// Retrieves all users.
@@ -85,6 +85,6 @@ namespace Basecode.Data.Interfaces
         /// <param name="userName">The username of the user to find.</param>
         /// <param name="password">The password of the user to find.</param>
         /// <returns>A Task representing the asynchronous operation that returns a User object if found, otherwise null.</returns>
-        Task<User> FindUserAsync(string userName, string password);
+        Task<IdentityUser> FindUserAsync(string userName, string password);
     }
 }
