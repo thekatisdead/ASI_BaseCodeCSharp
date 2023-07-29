@@ -18,12 +18,12 @@ namespace Basecode.WebApp.Controllers
         private readonly IAdminService _service;
         private static Logger _logger = LogManager.GetCurrentClassLogger();
 
-        public AdminController(RoleManager<IdentityRole> roleManager, IAdminService service, IJobOpeningService jobOpeningService, IUserViewService userService)
+        public AdminController(IJobOpeningService jobOpeningService, IUserViewService userService, RoleManager<IdentityRole> roleManager, IAdminService service)
         {
-            _roleManager = roleManager;
-            _service = service;
             _jobOpeningService = jobOpeningService;
             _userService = userService;
+            _roleManager = roleManager;
+            _service = service;
         }
         public IActionResult Index()
         {
