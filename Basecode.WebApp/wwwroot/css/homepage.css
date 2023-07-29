@@ -2,21 +2,26 @@
 
 body {
     font-family: 'Rubik', Arial, sans-serif;
-    width: 21cm;
-    height: 29.7cm;
-    margin: 2cm auto;
-    background-color: #FFFFFF;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    background-color: #FCF5E5;
 }
 
 .container {
+    position: relative;
     max-width: 100%;
     padding: 20px;
+}
+
+.container1 {
+    background-color: #F0EAD6;
+    padding: 20px;
+    margin-bottom: 20px;
+    width: 100%;
 }
 
 .half-width {
     width: 50%;
     float: left;
+    height: 550px;
 }
 
 .home-applicant {
@@ -38,15 +43,22 @@ body {
 }
 
 .home-heading {
-    font-size: 30px;
+    margin-top: 50px;
+    font-size: 60px;
+}
+
+.home-description {
+    font-size: 20px;
 }
 
 .home-heading1 {
+    margin-left: 16%;
     font-size: 20px;
 }
 
 .home-heading-bold {
-    font-size: 20px;
+    margin-left: 16%;
+    font-size: 30px;
     font-weight: bold;
 }
 
@@ -60,6 +72,7 @@ body {
 .text-home-center1 {
     font-weight: bold;
     text-align: center;
+    font-size: 60px;
 }
 
 .text-home-container {
@@ -74,6 +87,7 @@ body {
     width: 60%;
     margin: 0 auto;
     text-align: center;
+    font-size: 20px;
     /* Add any other desired styles for the text container */
 }
 
@@ -89,11 +103,35 @@ body {
 
 button {
     padding: 8px;
-    padding: 8px;
     background-color: transparent;
     border: 5px solid #FFFFFF;
     color: #FFFFFF;
+    transition: all 0.3s ease; /* Add transition property for smooth animation */
 }
+
+/* Add responsive styles for the button */
+@media (max-width: 768px) {
+    button {
+        padding: 6px; /* Adjust the padding for smaller screens */
+        font-size: 14px; /* Adjust the font size for smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    button {
+        padding: 5px; /* Adjust the padding for even smaller screens */
+        font-size: 12px; /* Adjust the font size for even smaller screens */
+    }
+}
+
+/* Add hover styles for the button */
+button.apply:hover {
+    padding: 10px; /* Adjust the padding on hover */
+    background-color: transparent;
+    color: #C53211;
+    transform: scale(1.1); /* Increase the button size on hover */
+}
+
 
 input {
     padding: 10px;
@@ -113,6 +151,37 @@ home-applicant {
 }
 
 .building-img {
-    max-width: 100%;
+    max-width: 80%;
     height: auto;
+}
+
+.image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 40px;
+}
+
+.custom-form {
+    max-width: 1000px; /* Set the maximum width for the form */
+    margin: 0 auto; /* Center the form horizontally */
+}
+
+.form-container {
+    display: flex;
+    align-items: center;
+}
+
+.form-input {
+    width: 150%; /* Adjust the width of the input field */
+    text-align: center;
+    padding: 10px;
+}
+
+.form-button {
+    width: 60%; /* Adjust the width of the button */
+    background-color: #C53211;
+    color: #FFFFFF;
+    padding: 10px;
 }
