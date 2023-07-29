@@ -128,8 +128,10 @@ namespace Basecode.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ApplicantID = table.Column<int>(type: "int", nullable: false),
-                    JobID = table.Column<int>(type: "int", nullable: false),
+                    FirstName = table.Column<string>(type: "VARCHAR(30)", nullable: false),
+                    LastName = table.Column<string>(type: "VARCHAR(30)", nullable: false),
+                    Company = table.Column<string>(type: "VARCHAR(30)", nullable: false),
+                    DateHired = table.Column<string>(type: "VARCHAR(30)", nullable: false),
                     CreatedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -169,14 +171,11 @@ namespace Basecode.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ApplicantId = table.Column<int>(type: "INT", nullable: false),
+                    Position = table.Column<int>(type: "INT", nullable:false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    EmailAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Time = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PositionType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    EmploymentType = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     School = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SchoolDepartment = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Achievements = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -201,6 +200,18 @@ namespace Basecode.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PublicApplicationForm", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Applicant",
+                        column: x => x.ApplicantId,
+                        principalTable: "Applicant",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_JobPublicApplication",
+                        column: x => x.Position,
+                        principalTable: "JobOpening",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -498,6 +509,10 @@ namespace Basecode.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "JobOpening");
+            migrationBuilder.DropTable(
+                name: "Interviewer");
+            migrationBuilder.DropTable(
+                name: "Schedule");
 
             migrationBuilder.DropTable(
                 name: "PublicApplicationForm");

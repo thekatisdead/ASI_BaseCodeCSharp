@@ -12,12 +12,15 @@ namespace Basecode.Test.Services
         private readonly PublicApplicationFormService _service;
         private readonly Mock<IPublicApplicationFormRepository> _fakePublicApplicationFormRepository;
         private readonly Mock<IMapper> _fakeMapper;
+        private readonly Mock<IApplicantListRepository> _fakeApplicantsListRepository;
+        private readonly Mock<IJobOpeningRepository> _fakeJobOpeningRepository;
 
         public PublicApplicationFormServiceTests()
         {
             _fakePublicApplicationFormRepository = new Mock<IPublicApplicationFormRepository>();
             _fakeMapper = new Mock<IMapper>();
-            _service = new PublicApplicationFormService(_fakePublicApplicationFormRepository.Object, _fakeMapper.Object);
+            _fakeApplicantsListRepository= new Mock<IApplicantListRepository>();        
+            _service = new PublicApplicationFormService(_fakePublicApplicationFormRepository.Object, _fakeMapper.Object,_fakeApplicantsListRepository.Object,_fakeJobOpeningRepository.Object);
         }
 
         [Fact]
@@ -26,27 +29,30 @@ namespace Basecode.Test.Services
             // Arrange
             var applicationFormViewModel = new PublicApplicationFormViewModel
             {
-                FirstName = "John",
-                LastName = "Doe",
-                PhoneNumber = "123456789",
-                EmailAddress = "john.doe@example.com",
-                Address = "Cebu City",
-                Time = "9:00 AM",
-                PositionType = "Full-time",
-                EmploymentType = "Permanent",
-                School = "CIT-U",
-                SchoolDepartment = "Computer Science",
-                Achievements = "Summa Cum Laude",
-                ReferenceOneFullName = "Jane Smith",
-                RelationshipOne = "Manager",
-                ContactInfoOne = "jane.smith@example.com, 123-456-7890",
-                ReferenceTwoFullName = "Michael Johnson",
-                RelationshipTwo = "Colleague",
-                ContactInfoTwo = "michael.johnson@example.com, 987-654-3210",
-                ReferenceThreeFullName = "Emily Davis",
-                RelationshipThree = "Friend",
-                ContactInfoThree = "emily.davis@example.com, 555-123-4567",
-                CurriculumVitae = new byte[0]
+
+                Id = 1,
+                PhoneNumber = "1234567890",
+                ApplicantId= 1,
+                Position= 1,
+                Address = "Test",
+                Time = "Test",
+                School = "Test",
+                SchoolDepartment = "Test",
+                Achievements = "Test",
+                ReferenceOneFullName = "Test",
+                RelationshipOne = "Test",
+                ContactInfoOne = "Test",
+                AnsweredOne = 1,
+                ReferenceTwoFullName = "Test1",
+                RelationshipTwo = "Test1",
+                ContactInfoTwo = "Test1",
+                AnsweredTwo = 2,
+                ReferenceThreeFullName = "Test2",
+                RelationshipThree = "Test2",
+                ContactInfoThree = "Test2",
+                AnsweredThree = 3,
+                CurriculumVitae = new byte[1]
+
             };
 
             _fakeMapper.Setup(mapper => mapper.Map<PublicApplicationForm>(applicationFormViewModel)).Returns(new PublicApplicationForm());

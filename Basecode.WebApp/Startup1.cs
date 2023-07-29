@@ -39,6 +39,16 @@ namespace Basecode.WebApp
             this.ConfigureAuth(services);               // Configuration for Authentication logic
             this.ConfigureMVC(services);                // Configuration for MVC                  
 
+            services.AddDistributedMemoryCache();
+
+            // Configure session options
+            services.AddSession(options =>
+            {
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true; // Required for GDPR compliance
+                                                   // You can set other options as needed
+            });
+
             // Add services to the container.
             services.AddControllersWithViews();
             services.AddMvc(options => options.EnableEndpointRouting = false);
@@ -77,6 +87,7 @@ namespace Basecode.WebApp
             app.UseAuthentication();        // Enables the ConfigureAuth service.
             app.UseMvc();
             app.UseAuthorization();
+            app.UseSession();
             //app.UseHangfireDashboard();     // Hangfire for delayed functions
 
             this.ConfigureRoutes(app);      // Configuration for API controller routing

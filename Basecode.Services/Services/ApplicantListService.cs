@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Basecode.Data.Interfaces;
 using Basecode.Data.Models;
 using Basecode.Data.Repositories;
@@ -17,11 +17,13 @@ namespace Basecode.Services.Services
     public class ApplicantListService : IApplicantListService
     {
         private readonly IApplicantListRepository _repository;
+        private readonly IJobOpeningRepository _jobOpeningRepository;
         private static Logger _logger = LogManager.GetCurrentClassLogger();
 
-        public ApplicantListService(IApplicantListRepository repository)
+        public ApplicantListService(IApplicantListRepository repository,IJobOpeningRepository jobOpeningRepository)
         {
             _repository = repository;
+            _jobOpeningRepository = jobOpeningRepository;
         }
 
         /// <summary>
@@ -32,20 +34,34 @@ namespace Basecode.Services.Services
         {
             try
             {
-                var data = _repository.RetrieveAll().Select(s => new ApplicantListViewModel
+                var jobs = _jobOpeningRepository.RetrieveAll().Select(j => new
+                {
+                    Id = j.Id,
+                    Position = j.Position
+                });
+                var applicants = _repository.RetrieveAll().Select(s => new
                 {
                     Id = s.Id,
                     Firstname = s.Firstname,
                     Lastname = s.Lastname,
-                    EmailAddress = s.EmailAddress,
                     JobApplied = s.JobApplied,
                     Tracker = s.Tracker
-                }).ToList();
+                });
 
+                var data = from app in applicants
+                           join job in jobs on app.JobApplied equals job.Id
+                           select new ApplicantListViewModel
+                           {
+                               Id = app.Id,
+                               Firstname = app.Firstname,
+                               Lastname = app.Lastname,
+                               JobApplied = app.JobApplied,
+                               JobPosition = job.Position,
+                               Tracker = app.Tracker
+                           };
                 // Log successful retrieval of the applicant list
                 _logger.Info("Successfully retrieved the list of applicants.");
-
-                return data;
+                return data.ToList();
             }
             catch (Exception ex)
             {
@@ -53,6 +69,7 @@ namespace Basecode.Services.Services
                 _logger.Error(ex, "Error occurred while retrieving the list of applicants.");
                 throw;
             }
+
         }
 
         // old function, stored just in case 
@@ -191,6 +208,10 @@ namespace Basecode.Services.Services
                 _logger.Error(ex, "Error occurred while retrieving the most recent applicant for requirements.");
                 throw;
             }
+        }
+        public Applicant GetApplicantById(int id)
+        {
+            return _repository.GetById(id);
         }
     }
 }

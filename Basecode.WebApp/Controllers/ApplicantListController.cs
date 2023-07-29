@@ -65,13 +65,16 @@ namespace Basecode.WebApp.Controllers
             // getting name from applicant list
             // get the Id so that we can use that to locate the HR
             // use ID to find the HR to send the email
-            var _fullName = data.Lastname + " " + data.Firstname;
-            var job = _job.GetById(data.JobApplied);
-            var _receiver = _users.FindById((job.HR).ToString());
+            //var _fullName = data.Lastname + " " + data.Firstname;
+            //var job = _job.GetById(data.JobApplied);
+            //var _receiver = _users.FindById((job.HR).ToString());
+
+
+            ////// sends an update whenever the applicant status is changed
+            //_email.SendEmailOnUpdateApplicantStatus(_receiver.Email,_fullName,data.Tracker,status);
 
             _logger.Trace("Updating Status");
-            // sends an update whenever the applicant status is changed
-            _email.SendEmailOnUpdateApplicantStatus(_receiver.Address,_fullName,data.Tracker,status);
+
             _service.ProceedTo(applicantID, status);
 
             // needs to check if the currentHires exist
@@ -79,20 +82,23 @@ namespace Basecode.WebApp.Controllers
             {
                 _repository.AddHire(applicantID,data.JobApplied);
             }
-            else if(status == "shortlisted")
-            {
 
-                _email.SendEmailHRApplicationDecision(_receiver.Address,applicantID,_fullName,job.Position);
-
+            else if(status == "Shortlisted")
+            { 
+                // WARNING! The problem with this code is I think that the repositories are empty
+                // This can be triggered every time the status is different but it does not get the
+                // data in the models
+                
+                //_email.SendEmailHRApplicationDecision(_receiver.Email,applicantID,_fullName,job.Position);
             }
             Applicant applicant = new Applicant();
             _service.UpdateStatus(applicantID,status);
             return RedirectToAction("Index", "ApplicantList");
         }
 
-        public IActionResult ViewProfile(int id)
+        public IActionResult ViewProfile(int applicantId, int jobId)
         {
-            var applicant = _publicApplicationFormService.GetById(id);
+            var applicant = _publicApplicationFormService.GetApplicationFormById(applicantId, jobId);
             return View(applicant);
         }
         public IActionResult DownloadCV(byte[] cv)

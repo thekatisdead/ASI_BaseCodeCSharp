@@ -42,7 +42,7 @@ namespace Basecode.Data.Repositories
         {
             try
             {
-                var form = _context.PublicApplicationForm.Find(id);
+                var form = _context.PublicApplicationForm.FirstOrDefault(p => p.ApplicantId == id);
                 _logger.Info($"Form retrieved successfully for ID: {id}");
 
                 if (form == null)

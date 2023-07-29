@@ -3,6 +3,8 @@
 @{
     ViewData["Title"] = "Public Application Form";
     Layout = "~/Views/Shared/_LayoutApplicant.cshtml";
+    var httpContext = ViewContext.HttpContext;
+    int? applicantId = httpContext.Session.GetInt32("Key");
 }
 
 <!DOCTYPE html>
@@ -15,38 +17,20 @@
         <div class="col-md-4">
             <form asp-controller="PublicApplicationForm" asp-action="AddForm" enctype="multipart/form-data">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="ApplicantId" value="@applicantId"/>
+                <input type="hidden" asp-for="Position" />
+                
                     <label class="text-public">Public Job Application Form</label>
-                        <h5 class="text-position">Position Information</h5>
                         <h5 class="text-personal">Personal Information</h5>
                     <div class="line"></div>
-                    <div class="lineone"></div>
-                    <div class="name">
-                        <label class="text">Name</label>
-                    </div>
-                    <div class="form-group-firstname">
-                        <label asp-for="FirstName" class="control-label-firstname">First Name</label>
-                        <input asp-for="FirstName" class="form-control-firstname" placeholder="First Name" />
-                        <span asp-validation-for="FirstName" class="text-danger-firstname"></span>
-                    <span class="field-error"></span>
-                    </div>
-                    <div class="form-group-lastname">
-                        <label asp-for="LastName" class="control-label-lastname">Last Name</label>
-                        <input asp-for="LastName" class="form-control-lastname" placeholder="Last Name" />
-                        <span asp-validation-for="LastName" class="text-danger-lastname"></span>
-                    <span class="field-error"></span>
-                    </div>
                     <div class="form-group-number">
                         <label asp-for="PhoneNumber" class="control-label-number">Phone Number</label>
                         <input asp-for="PhoneNumber" class="form-control-number" placeholder="(000) 000-0000" />
                         <span asp-validation-for="PhoneNumber" class="text-danger-number"></span>
                     <span class="field-error"></span>
                     </div>
-                    <div class="form-group-email">
-                        <label asp-for="EmailAddress" class="control-label-email">Email Address</label>
-                    <input asp-for="EmailAddress" class="form-control-email" type="email" placeholder="example@example.com" />
-                        <span asp-validation-for="EmailAddress" class="text-danger-email"></span>
-                    <span class="field-error"></span>
-                    </div>
+
                     <div class="form-group-address">
                         <label asp-for="Address" class="control-label-address">Complete Address</label>
                         <input asp-for="Address" class="form-control-address" placeholder="Full Address Details" />
@@ -66,30 +50,6 @@
                     <span class="field-error"></span>
                         </div>
                         <div class="linetwo"></div>
-                        <div class="form-group-position">
-                            <label asp-for="PositionType" class="control-label-position">What position are you applying for?</label>
-                            <select asp-for="PositionType" class="form-control-position">
-                                <option value="" disabled selected>Please Select a Position</option>
-                                <option value="Sales">Sales</option>
-                                <option value="Marketing">Marketing</option>
-                                <option value="Human Resources">Human Resources</option>
-                                <option value="IT">IT</option>
-                                <option value="Customer Service">Customer Service</option>
-                            </select>
-                            <span asp-validation-for="PositionType" class="text-danger-position"></span>
-                    <span class="field-error"></span>
-                        </div>
-                        <div class="form-group-type">
-                            <label asp-for="EmploymentType" class="control-label-type">What is your desired employment?</label>
-                            <select asp-for="EmploymentType" class="form-control-type">
-                                <option value="" disabled selected>Please Select a Desired Employment</option>
-                                <option value="Full Time">Full Time</option>
-                                <option value="Part Time">Part Time</option>
-                                <option value="Internship">Internship</option>
-                            </select>
-                            <span asp-validation-for="EmploymentType" class="text-danger-type"></span>
-                    <span class="field-error"></span>
-                        </div>
                 <h5 class="text-education">Education</h5>
                 <div class="straightline"></div>
                 <div class="form-group-school">
