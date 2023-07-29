@@ -7,7 +7,6 @@ using static Basecode.Data.Constants;
 
 namespace Basecode.WebApp.Controllers
 {
-    [Authorize(AuthenticationSchemes = "Bearer", Roles = "HR, Admin")]
     public class JobOpeningController : Controller
     {
         private readonly IJobOpeningService _service;
