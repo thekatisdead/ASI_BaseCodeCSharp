@@ -6,7 +6,6 @@
     Layout = "~/Views/Shared/_NoLayout.cshtml";
 }
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,16 +13,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="~/css/loginstyles.css" asp-append-version="true" />
 </head>
-
 <body>
-    <section id="loginStyle">
-        <div class="text-center">
-            <div class="logInContainer">
-                <div>
-                    <h1>LOGIN</h1>
+    <div class="box-form">
+        <!-- Left Side -->
+        <div class="left">
+            <div class="overlay">
+                <h1>Hello World.</h1>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur et est sed felis aliquet sollicitudin</p>
 
+                <div class="back-to-home">
+                    <button type="button" onclick="location.href='@Url.Action("Index", "Home")'" class="forSubmit">
+                        Back to Home
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side -->
+        <div class="right">
+            <div class="text-center">
+                <div class="logInContainer">
+                    <h2 style="color: white;">Login</h2>
                     <form id="account" method="post">
-
                         <div class="forUsername">
                             <label class="control-label"></label>
                             <input name="Username" asp-for="Input.Username" placeholder="Username" class="username" />
@@ -44,22 +55,14 @@
                             <label class="form-check-label" for="flexCheckDefault">
                                 Don’t have an account yet? <a asp-page="/Account/Register" style="color: red;"><u>Sign Up</u></a>
                             </label>
-                            <br>
-                            <br>
-                            <label class="form-check-label" for="flexCheckDefault">
-                                <a asp-controller="Home" asp-action="Index" style="color: red;"><u>Back to Home</u></a>
-                            </label>
                         </div>
                         @section Scripts {
                             <partial name="_ValidationScriptsPartial" />
                         }
                     </form>
-                    <div class="triangle"></div>
-                    <div class="triangle1"></div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 </body>
-</html>
-                            
+</html>                       

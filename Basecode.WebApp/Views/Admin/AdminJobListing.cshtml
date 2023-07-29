@@ -23,9 +23,6 @@
                 </div>            
                 <div class="row flex-nowrap bg-light" style="height:87%">                    
                     <div class="col container table-responsive-sm">
-                        <div class="p-4">
-                            <a asp-controller="JobOpening" asp-action="JobPosting"> <button class="btn btn-success px-4">Add</button></a>
-                        </div>    
                         <table id="myTable" class=" table table-striped table-hover rounded-table" style="@(Model.Count() == 0 ? "display: none" : "")">
                             <thead>
                                 <tr>
