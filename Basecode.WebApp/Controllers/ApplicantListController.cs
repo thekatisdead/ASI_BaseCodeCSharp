@@ -45,16 +45,35 @@ namespace Basecode.WebApp.Controllers
         /// <returns>The index view.</returns>
         public IActionResult Index()
         {
-            // test for Hangfire
-            //BackgroundJob.Enqueue(()=> _email.SendEmailCharacterReference("kaherbieto@outlook.up.edu.ph","Dat Kat","Kat Dat"));
-            //var delay = TimeSpan.FromMinutes(1);
-            //BackgroundJob.Schedule(()=>_email.SendEmailApplicantGeneration("kaherbieto@up.edu.ph","yeet",123,"Bottom"), delay);
-            //_email.SendEmailInterviewDecision("kaherbieto@up.edu.ph","Yeet","American","woww");
             var data = _service.RetrieveAll();
             _logger.Trace("ApplicantList Controller Accessed");
             return View(data);
         }
+        public void EmailCharacterReferenceHandler(PublicApplicationFormViewModel publicForm, string candidateName, string referenceName, string position,int referenceTrigger)
+        {
 
+            if (referenceTrigger == 1)
+            {
+                if (publicForm.AnsweredOne == null)
+                {
+                    _email.SendEmailCharacterReferenceReminder(publicForm.ContactInfoOne, candidateName, referenceName, position);
+                }
+            }
+            else if (referenceTrigger == 2)
+            {
+                if (publicForm.AnsweredTwo == null)
+                {
+                    _email.SendEmailCharacterReferenceReminder(publicForm.ContactInfoTwo, candidateName, referenceName, position);
+                }
+            }
+            else if (referenceTrigger == 3)
+            {
+                if (publicForm.AnsweredThree == null)
+                {
+                    _email.SendEmailCharacterReferenceReminder(publicForm.ContactInfoThree, candidateName, referenceName, position);
+                }
+            }
+        }
         /// <summary>
         /// Takes in the Applicant ID and then use it to locate the 
         /// row of the Applicant. Updates the Status accordingly
@@ -72,7 +91,7 @@ namespace Basecode.WebApp.Controllers
             // getting name from applicant list
             // get the Id so that we can use that to locate the HR
             // use ID to find the HR to send the email
-            var _fullName = data.Lastname + " " + data.Firstname;
+            var _fullName = data.Lastname + ", " + data.Firstname;
             var job = _job.GetById(data.JobApplied);
             //var _receiver = _users.FindById((job.HR).ToString());
 
@@ -92,6 +111,36 @@ namespace Basecode.WebApp.Controllers
 
                 //_email.SendEmailHRApplicationDecision(_receiver.Address,applicantID,_fullName,job.Position);
                 _email.SendEmailHRApplicationDecision("kaherbieto@outlook.up.edu.ph", applicantID, _fullName, job.Position);
+            }
+            else if(status =="Undergoing Background Checks")
+            {
+                _logger.Trace($"{data.Id},{data.Tracker},{data.FormID}");
+                int formID = (int)data.FormID;
+                var viewModel = _publicApplicationFormService.GetByApplicationId(formID);
+                var dueTime = DateTime.UtcNow.AddHours(48);
+
+                // contacts the references for each thting when creating the form
+                if (viewModel.ContactInfoOne != null)
+                {
+                    _email.SendEmailCharacterReference(viewModel.ContactInfoOne, viewModel.LastName, applicantID, viewModel.ReferenceOneFullName);
+
+                    // replace the _email function with a seperate function that checks if the thing has responded na
+                    BackgroundJob.Schedule(() => EmailCharacterReferenceHandler(viewModel,_fullName,viewModel.ReferenceOneFullName,viewModel.PositionType,1), dueTime);
+                }
+                if (viewModel.ContactInfoTwo != null)
+                {
+                    _email.SendEmailCharacterReference(viewModel.ContactInfoTwo, viewModel.LastName, applicantID, viewModel.ReferenceTwoFullName);
+                    // replace the _email function with a seperate function that checks if the thing has responded na
+                    // also change the variable names, handled in a seperate function
+                    BackgroundJob.Schedule(() => EmailCharacterReferenceHandler(viewModel, _fullName, viewModel.ReferenceOneFullName, viewModel.PositionType, 2), dueTime);
+                }
+                if (viewModel.ContactInfoThree != null)
+                {
+                    _email.SendEmailCharacterReference(viewModel.ContactInfoThree, viewModel.LastName, applicantID, viewModel.ReferenceThreeFullName);
+                    // replace the _email function with a seperate function that checks if the thing has responded na
+                    // also change the variable names, handled in a seperate function
+                    BackgroundJob.Schedule(() => EmailCharacterReferenceHandler(viewModel, _fullName, viewModel.ReferenceOneFullName, viewModel.PositionType, 3), dueTime);
+                }
             }
             Applicant applicant = new Applicant();
             _service.UpdateStatus(applicantID,status);
@@ -185,7 +234,12 @@ namespace Basecode.WebApp.Controllers
             
             return this.UpdateStatus(applicantID,"Confirmed");
         }
-        
+        public IActionResult Hired(int applicantID)
+        {
+            // not yet finished
+            return this.UpdateStatus(applicantID, "Not Confirmed");
+        }
+
 
     }
 }

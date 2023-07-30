@@ -31,6 +31,7 @@ namespace Basecode.Services.Services
             var data = _repository.RetrieveAll().Select(s => new ApplicantListViewModel
             {
                 Id = s.Id,
+                FormID = s.FormID,
                 Firstname = s.Firstname,
                 Lastname = s.Lastname,
                 EmailAddress = s.EmailAddress,

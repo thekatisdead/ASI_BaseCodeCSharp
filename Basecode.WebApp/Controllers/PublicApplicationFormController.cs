@@ -29,64 +29,11 @@ namespace Basecode.WebApp.Controllers
             return View();
         }
 
-        public void EmailCharacterReferenceHandler(int applicantID, int referenceTrigger, string contact, string candidateName, string referenceName, string position)
-        {
-            var user = _service.GetById(applicantID);
-
-            if (referenceTrigger == 1)
-            {
-                if(user.AnsweredOne == null)
-                {
-                    _email.SendEmailCharacterReferenceReminder(contact, candidateName, referenceName, position);
-                }
-            }
-            else if (referenceTrigger == 2)
-            {
-                if (user.AnsweredTwo == null)
-                {
-                    _email.SendEmailCharacterReferenceReminder(contact, candidateName, referenceName, position);
-                }
-            }
-            else if (referenceTrigger == 3)
-            {
-                if (user.AnsweredThree == null)
-                {
-                    _email.SendEmailCharacterReferenceReminder(contact, candidateName, referenceName, position);
-                }
-            }
-        }
-
         [HttpPost]
         public IActionResult AddForm(PublicApplicationFormViewModel viewModel, int jobId)
         {
             try
             {
-                /*
-                // time that it takes for the function to execute
-                var dueTime = DateTime.UtcNow.AddHours(48);
-
-                // contacts the references for each thting when creating the form
-                if (viewModel.ContactInfoOne != null)
-                {
-                    _email.SendEmailCharacterReference(viewModel.ContactInfoOne,viewModel.LastName,applicantID,viewModel.ReferenceOneFullName);
-                    
-                    // replace the _email function with a seperate function that checks if the thing has responded na
-                    BackgroundJob.Schedule(()=>EmailCharacterReferenceHandler(applicantID,1,viewModel.ContactInfoOne,viewModel.LastName,viewModel.ReferenceOneFullName,viewModel.PositionType),dueTime);
-                }
-                if (viewModel.ContactInfoTwo != null)
-                {
-                    _email.SendEmailCharacterReference(viewModel.ContactInfoTwo, viewModel.LastName, applicantID,viewModel.ReferenceTwoFullName);
-                    // replace the _email function with a seperate function that checks if the thing has responded na
-                    // also change the variable names, handled in a seperate function
-                    BackgroundJob.Schedule(() => EmailCharacterReferenceHandler(applicantID, 2, viewModel.ContactInfoTwo, viewModel.LastName, viewModel.ReferenceTwoFullName, viewModel.PositionType), dueTime);
-                }
-                if (viewModel.ContactInfoThree != null)
-                {
-                    _email.SendEmailCharacterReference(viewModel.ContactInfoThree, viewModel.LastName, applicantID,viewModel.ReferenceThreeFullName);
-                    // replace the _email function with a seperate function that checks if the thing has responded na
-                    // also change the variable names, handled in a seperate function
-                    BackgroundJob.Schedule(() => EmailCharacterReferenceHandler(applicantID, 3, viewModel.ContactInfoThree, viewModel.LastName, viewModel.ReferenceThreeFullName, viewModel.PositionType), dueTime);
-                }*/
                 // Call the service method to create the form
                 // please help do the loop that makes sure that the id is unique sob
                 Random randNum = new Random();
@@ -104,9 +51,11 @@ namespace Basecode.WebApp.Controllers
                     UpdatedTime = DateTime.Now,
                 };
                 viewModel.ApplicationID = value;
-                
+
+                var fullName = viewModel.LastName + ", " + viewModel.FirstName;
                 _applicant.Add(newApplicant);
                 _service.AddForm(viewModel);
+                _email.SendEmailApplicantGeneration(viewModel.EmailAddress,fullName,value,viewModel.PositionType);
 
                 // add email here
 

@@ -437,12 +437,10 @@ namespace Basecode.Services.Services
 
             var htmlContent = File.ReadAllText("EmailTemplates/ApplicantGenerate.html");
 
-            var button = "<a href=" + jobPosition + ">click me!</a>";
-
             // this is to replace the placeholders
             htmlContent = htmlContent.Replace("{applicantName}", applicantName);
             htmlContent = htmlContent.Replace("{applicantID}", applicantID.ToString());
-            htmlContent = htmlContent.Replace("{jobPosition}", button);
+            htmlContent = htmlContent.Replace("{jobPosition}", jobPosition);
 
             email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
             {
