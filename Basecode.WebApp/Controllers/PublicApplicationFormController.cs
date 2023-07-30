@@ -22,8 +22,9 @@ namespace Basecode.WebApp.Controllers
             _applicant = applicant;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int jobId)
         {
+            ViewBag.JobId = jobId;
             _logger.Trace("PublicApplicationForm Controller Accessed");
             return View();
         }
@@ -56,7 +57,7 @@ namespace Basecode.WebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddForm(PublicApplicationFormViewModel viewModel, int applicantID)
+        public IActionResult AddForm(PublicApplicationFormViewModel viewModel, int jobId)
         {
             try
             {
@@ -87,6 +88,7 @@ namespace Basecode.WebApp.Controllers
                     BackgroundJob.Schedule(() => EmailCharacterReferenceHandler(applicantID, 3, viewModel.ContactInfoThree, viewModel.LastName, viewModel.ReferenceThreeFullName, viewModel.PositionType), dueTime);
                 }*/
                 // Call the service method to create the form
+                // please help do the loop that makes sure that the id is unique sob
                 Random randNum = new Random();
                 int value = randNum.Next(10000,99999);
                 var newApplicant = new Applicant
@@ -95,7 +97,7 @@ namespace Basecode.WebApp.Controllers
                     Firstname = viewModel.FirstName,
                     Lastname = viewModel.LastName,
                     EmailAddress = viewModel.EmailAddress,
-                    JobApplied = 0,
+                    JobApplied = jobId,
                     Tracker = "Application",
                     Grading = "On Going",
                     CreatedTime = DateTime.Now,
@@ -103,16 +105,15 @@ namespace Basecode.WebApp.Controllers
                 };
                 viewModel.ApplicationID = value;
                 
-                _logger.Trace("Flag 3");
                 _applicant.Add(newApplicant);
-
-                _logger.Trace("Flag 2");
                 _service.AddForm(viewModel);
+
+                // add email here
 
                 _logger.Info("Form added successfully.");
 
                 // Redirect or show a success message to the user
-                return RedirectToAction("Index", "ApplicantHomepage");
+                return RedirectToAction("Index", "Home");
             }
             catch (Exception ex)
             {

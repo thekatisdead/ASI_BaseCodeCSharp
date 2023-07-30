@@ -40,6 +40,13 @@ namespace Basecode.Data.Repositories
             // will return a null value
             return _context.Applicant.FirstOrDefault(a => a.Id == id);
         }
+
+        public Applicant GetByFormId(int id)
+        {
+            // warning here is that it is possible that the return below
+            // will return a null value
+            return _context.Applicant.FirstOrDefault(a => a.FormID == id);
+        }
         public void Update(Applicant applicant)
         {
             _context.Update(applicant);

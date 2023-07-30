@@ -26,6 +26,10 @@ namespace Basecode.Data.Repositories
         {
             return _context.PublicApplicationForm.Find(id);
         }
+        public PublicApplicationForm GetByApplicationId(int id)
+        {
+            return _context.PublicApplicationForm.FirstOrDefault(form => form.ApplicationID == id);
+        }
         public int CountResponded(int id)
         {
             var _application = this.GetById(id);

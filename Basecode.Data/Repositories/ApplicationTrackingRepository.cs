@@ -20,7 +20,7 @@ namespace Basecode.Data.Repositories
         public Applicant GetApplicationTracking(int applicantId)
         {
             // Retrieve the ApplicationTracking model from the database based on the applicantId
-            return _context.Applicant.FirstOrDefault(a => a.Id == applicantId);
+            return _context.Applicant.FirstOrDefault(a => a.FormID == applicantId);
         }
     }
 }

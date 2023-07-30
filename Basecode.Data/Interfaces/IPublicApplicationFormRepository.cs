@@ -15,6 +15,7 @@ namespace Basecode.Data.Interfaces
         /// <param name="applicationForm">An instance of the PublicApplicationFormViewModel class that holds the required data.</param>
         void AddForm(PublicApplicationForm applicationForm);
         public PublicApplicationForm GetById(int id);
+        public PublicApplicationForm GetByApplicationId(int id);
         public int CountResponded(int id);
     }
 }

@@ -8,6 +8,7 @@ using Basecode.Data.ViewModels;
 using NLog;
 using Hangfire;
 using NLog.Fluent;
+using Basecode.Data.Interfaces;
 
 namespace Basecode.WebApp.Controllers
 {
@@ -15,6 +16,7 @@ namespace Basecode.WebApp.Controllers
     {
         private readonly IApplicantListService _service;
         private readonly IEmailSenderService _email;
+        private readonly IApplicantListRepository _applicantList;
         private readonly ITeamsService _teamsService;
         private readonly CurrentHiresRepository _repository;
         private readonly UserRepository _users;
@@ -25,7 +27,7 @@ namespace Basecode.WebApp.Controllers
 
         string _dtEmail = "kaherbieto@outlook.up.edu.ph";
 
-        public ApplicantListController(IApplicantListService service, ITeamsService teamsService, IPublicApplicationFormService publicApplicationFormService,IEmailSenderService email, JobOpeningRepository job, UserRepository users, CurrentHiresRepository repository)
+        public ApplicantListController(IApplicantListService service, ITeamsService teamsService, IPublicApplicationFormService publicApplicationFormService,IEmailSenderService email, JobOpeningRepository job, UserRepository users, CurrentHiresRepository repository, IApplicantListRepository applicantList)
         {
             _service = service;
             _email = email;
@@ -34,6 +36,7 @@ namespace Basecode.WebApp.Controllers
             _users = users;
             _repository = repository;
             _publicApplicationFormService = publicApplicationFormService;      
+            _applicantList = applicantList;
         }
 
         /// <summary>
@@ -97,8 +100,13 @@ namespace Basecode.WebApp.Controllers
 
         public IActionResult ViewProfile(int id)
         {
-            var applicant = _publicApplicationFormService.GetById(id);
-            return View(applicant);
+            var applicant = _applicantList.GetById(id);
+            var formId = applicant.FormID;
+            var publicForm = _publicApplicationFormService.GetByApplicationId(formId);
+            ViewBag.Status = applicant.Tracker;
+            ViewBag.ID = id;
+            _logger.Trace($"{publicForm.LastName},{publicForm.ApplicationID}");
+            return View(publicForm);
         }
         public IActionResult DownloadCV(byte[] cv)
         {

@@ -17,6 +17,7 @@ namespace Basecode.Data.Interfaces
         IQueryable<Applicant> RetrieveAll();
 
         public void Add(Applicant applicant);
+        public Applicant GetByFormId(int id);
 
         void UpdateStatus(int applicantId, string status);
 
