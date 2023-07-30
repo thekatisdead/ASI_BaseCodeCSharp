@@ -2,8 +2,8 @@
     Layout = "~/Views/Shared/_NoLayout.cshtml";
 }
 
-@using Basecode.Data.ViewModels
-@model List<UserViewModel>
+@using Basecode.Data.Models
+@model List<User>
 
 <html>
 <head>
@@ -31,25 +31,23 @@
                             <thead class="text-center">
                                 <tr class="text-center">
                                     <th class="text-center">Username</th>
-                                    <th class="text-center">Password</th>
                                     <th class="text-center">Firstname</th>
                                     <th class="text-center">Lastname</th>
-                                    <th class="text-center">Email Address</th>
+                                    <th class="text-center">Email</th>
+                                    <th class="text-center">Contact Number</th>
                                     <th class="text-center">Address</th>
-                                    <th class="text-center">Role</th>
                                 </tr>
                             </thead>
                             <tbody class="text-center">
                                 @foreach (var user in Model)
                                 {
                                     <tr class="text-center">
-                                        <td class="text-center">@user.UserName</td>
-                                        <td class="text-center">@user.Password</td>
+                                        <td class="text-center">@user.Username</td>
                                         <td class="text-center">@user.FirstName</td>
                                         <td class="text-center">@user.LastName</td>
-                                        <td class="text-center">@user.EmailAddress</td>
+                                        <td class="text-center">@user.Email</td>
+                                        <td class="text-center">@user.ContactNumber</td>
                                         <td class="text-center">@user.Address</td>
-                                        <td class="text-center">@user.RoleName</td>
                                     </tr>
                                 }
                             </tbody>

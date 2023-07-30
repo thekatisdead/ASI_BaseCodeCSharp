@@ -12,12 +12,12 @@ namespace Basecode.WebApp.Controllers
     public class AdminController : Controller
     {
         private readonly IJobOpeningService _jobOpeningService;
-        private readonly IUserViewService _userService;
+        private readonly IUserService _userService;
         //private readonly RoleManager<IdentityRole> _roleManager;
         //private readonly IAdminService _service;
         private static Logger _logger = LogManager.GetCurrentClassLogger();
 
-        public AdminController(IJobOpeningService jobOpeningService, IUserViewService userService)
+        public AdminController(IJobOpeningService jobOpeningService, IUserService userService)
         {
             _jobOpeningService = jobOpeningService;
             _userService = userService;
