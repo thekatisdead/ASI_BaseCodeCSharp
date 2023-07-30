@@ -184,7 +184,7 @@ namespace Basecode.Services.Services
             email.From.Add(new MailboxAddress("HR Automated Tracking", "kermherbieto52@gmail.com"));
             email.To.Add(new MailboxAddress(applicantName, receiverEmail));
 
-            email.Subject = "Interview Decision";
+            email.Subject = "Character Reference Decision";
 
             var htmlContent = File.ReadAllText("EmailTemplates/CharacterReferenceDecision.html");
 
@@ -423,7 +423,7 @@ namespace Basecode.Services.Services
             }
         }
 
-        public void SendEmailInterviewGeneration(string receiverEmail, string interviewName, string applicantName, int applicantID, string jobPosition, DateOnly startTime, DateOnly endTime)
+        public void SendEmailInterviewGeneration(string receiverEmail, string interviewName, string applicantName, int applicantID, string jobPosition, DateOnly date, TimeOnly startTime, TimeOnly endTime)
         {
             var email = new MimeMessage();
 
@@ -437,6 +437,7 @@ namespace Basecode.Services.Services
 
             email.Subject = "Application Sent";
 
+   
             var htmlContent = File.ReadAllText("EmailTemplates/InterviewGenerate.html");
 
             // this is to replace the placeholders
@@ -444,10 +445,14 @@ namespace Basecode.Services.Services
             htmlContent = htmlContent.Replace("{applicantName}", applicantName);
             htmlContent = htmlContent.Replace("{applicantID}", applicantID.ToString());
             htmlContent = htmlContent.Replace("{jobPosition}", jobPosition);
-            //htmlContent = htmlContent.Replace("{startTime}", startTime.ToString().Replace('/','-'));
-            //htmlContent = htmlContent.Replace("{endTime}", startTime.ToString().Replace('/', '-'));
-            htmlContent = htmlContent.Replace("{startTime}","2023-07-28");
-            htmlContent = htmlContent.Replace("{endTime}", "2023-07-29");
+            htmlContent = htmlContent.Replace("{date}", date.ToString("yyyy-MM-dd"));
+            htmlContent = htmlContent.Replace("{startTime}", startTime.ToString("HH:mm"));
+            htmlContent = htmlContent.Replace("{endTime}", endTime.ToString("HH:mm"));
+
+            //var button = $" <input type = 'datetime-local' min = '{startTime.ToString(""yyyy-MM-dd"")}' max = '{endTime.ToString(""yyyy-MM-dd"")}'>";
+            //htmlContent = htmlContent.Replace("{button}",button);
+            //htmlContent = htmlContent.Replace("{startTime}","2023-07-28");
+            //htmlContent = htmlContent.Replace("{endTime}", "2023-07-29");
 
 
             email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
