@@ -18,5 +18,6 @@ namespace Basecode.Services.Interfaces
         Task<IdentityResult> CreateRole(string roleName);
         Task<IdentityUser> FindUser(string username, string password);
         Task<IdentityUser> FindUserAsync(string userName, string password);
+        public List<User> RetrieveAll();
     }
 }

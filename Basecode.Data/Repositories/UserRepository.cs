@@ -145,5 +145,10 @@ namespace Basecode.Data.Repositories
             }
             return userDB;
         }
+
+        public IQueryable<User> RetrieveAll()
+        {
+            return this.GetDbSet<User>();
+        }
     }
 }

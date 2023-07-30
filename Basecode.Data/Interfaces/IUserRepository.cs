@@ -86,5 +86,6 @@ namespace Basecode.Data.Interfaces
         /// <param name="password">The password of the user to find.</param>
         /// <returns>A Task representing the asynchronous operation that returns a User object if found, otherwise null.</returns>
         Task<IdentityUser> FindUserAsync(string userName, string password);
+        public IQueryable<User> RetrieveAll();
     }
 }
