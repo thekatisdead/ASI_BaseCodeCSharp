@@ -5,6 +5,7 @@ namespace Basecode.Data.ViewModels
 {
     public class UserViewModel
     {
+        public int Id { get; set; }
         [Required]
         [JsonProperty(PropertyName = "uname")]
         public string UserName { get; set; } = string.Empty;

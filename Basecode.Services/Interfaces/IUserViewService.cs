@@ -10,8 +10,8 @@ namespace Basecode.Services.Interfaces
 {
     public interface IUserViewService
     {
-        public List<SignUpViewModel> RetrieveAll();
-        SignUpViewModel GetUserById(int id);
+        public List<UserViewModel> RetrieveAll();
+        UserViewModel GetUserById(int id);
         void UpdateUser(SignUp user);
         void DeleteUser(int id);
     }
