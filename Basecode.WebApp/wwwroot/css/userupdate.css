@@ -9,14 +9,21 @@ h2 {
     color: #333;
 }
 
+hr {
+    border: 2px solid black;
+    margin: 0 auto;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
 form {
-    max-width: 600px;
-    margin: 20px auto;
+    background-color: #FFFFFF;
     padding: 20px;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    max-width: 80%;
+    height: 550px;
+    margin: 20px auto;
 }
 
 .form-group {
@@ -33,11 +40,7 @@ form {
 }
 
 /* Form Input Styles */
-.form-control-firstname,
-.form-control-lastname,
-.form-control-emailaddress,
-.form-control-contactnumber,
-.form-control-address {
+.form-control {
     width: 100%;
     padding: 10px;
     font-size: 16px;
@@ -53,33 +56,9 @@ form {
     margin-top: 5px;
 }
 
-.text-danger-firstname,
-.text-danger-lastname,
-.text-danger-emailaddress,
-.text-danger-contactnumber,
-.text-danger-address {
+.text-danger {
     color: #dc3545;
     font-size: 14px;
-}
-
-/* Triangle Styles (You can adjust these styles as needed) */
-.triangle,
-.triangle1 {
-    width: 0;
-    height: 0;
-    border-left: 100px solid transparent;
-    border-right: 100px solid transparent;
-}
-
-.triangle {
-    position: absolute;
-    top: 57px;
-    left: 0;
-    width: 0;
-    height: 0;
-    border-top: 150px solid #c53211;
-    border-right: 150px solid transparent;
-    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 10));
 }
 
 .triangle1 {
@@ -88,7 +67,19 @@ form {
     right: 0;
     width: 0;
     height: 0;
-    border-bottom: 150px solid #c53211;
+    z-index: -1;
+    border-bottom: 250px solid #2E3830;
+    border-left: 250px solid transparent;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.triangle {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-bottom: 150px solid #C53211;
     border-left: 150px solid transparent;
-    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 10));
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.1));
 }
