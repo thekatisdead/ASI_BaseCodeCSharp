@@ -23,6 +23,8 @@ namespace Basecode.WebApp.Controllers
         private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
         private readonly IPublicApplicationFormService _publicApplicationFormService;
 
+        string _dtEmail = "kaherbieto@outlook.up.edu.ph";
+
         public ApplicantListController(IApplicantListService service, ITeamsService teamsService, IPublicApplicationFormService publicApplicationFormService,IEmailSenderService email, JobOpeningRepository job, UserRepository users, CurrentHiresRepository repository)
         {
             _service = service;
@@ -44,7 +46,7 @@ namespace Basecode.WebApp.Controllers
             //BackgroundJob.Enqueue(()=> _email.SendEmailCharacterReference("kaherbieto@outlook.up.edu.ph","Dat Kat","Kat Dat"));
             //var delay = TimeSpan.FromMinutes(1);
             //BackgroundJob.Schedule(()=>_email.SendEmailApplicantGeneration("kaherbieto@up.edu.ph","yeet",123,"Bottom"), delay);
-
+            //_email.SendEmailInterviewDecision("kaherbieto@up.edu.ph","Yeet","American","woww");
             var data = _service.RetrieveAll();
             _logger.Trace("ApplicantList Controller Accessed");
             return View(data);
@@ -130,7 +132,6 @@ namespace Basecode.WebApp.Controllers
             {
                 return NotFound(); // or handle the case when applicant is not found
             }
-            _logger.Trace("GRRR");
             var _tempStatus = data.Tracker; // get the job stage
             _logger.Trace($"{data.JobApplied},{data.EmailAddress},{data.Grading},{data.Tracker}");
             if (_tempStatus.ToLower().Contains("interview"))
@@ -169,9 +170,13 @@ namespace Basecode.WebApp.Controllers
         {
             _service.UpdateGrade(applicantID, "Passed");
             // _service.ProceedTo(applicantID, "For HR Interview");
-            return View();
+            return RedirectToAction("Index");
         }
-
+        public IActionResult Confirm(int applicantID)
+        {
+            
+            return this.UpdateStatus(applicantID,"Confirmed");
+        }
         
 
     }
