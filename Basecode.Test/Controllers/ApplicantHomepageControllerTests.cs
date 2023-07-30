@@ -1,4 +1,5 @@
-﻿using Basecode.Data.ViewModels;
+﻿using Basecode.Data.Models;
+using Basecode.Data.ViewModels;
 using Basecode.Services.Interfaces;
 using Basecode.WebApp.Controllers;
 using Microsoft.AspNetCore.Mvc;
@@ -15,19 +16,35 @@ namespace Basecode.Test.Controllers
         public ApplicantHomepageControllerTests()
         {
             _mockJobOpeningService = new Mock<IJobOpeningService>();
+            _mockApplicantListService = new Mock<IApplicantListService>();
             _controller = new ApplicantHomepageController(_mockJobOpeningService.Object,_mockApplicantListService.Object);
         }
 
         [Fact]
         public void Index_ReturnsView()
         {
+            // Arrange
+            var id = 1;
+
+            var expectedApplicant = new Applicant
+            {
+                Id = 1,
+                Firstname = "John",
+                Lastname = "Doe",
+                EmailAddress = "johndoe@gmail.com",
+                JobApplied = 1,
+                Tracker = "Pending",
+                Grading = "A",
+            };
+
+            _mockApplicantListService.Setup(s => s.GetApplicantById(id)).Returns(expectedApplicant);
+
             // Act
-            var result = _controller.Index();
+            var result = _controller.Index() as ViewResult;
 
             // Assert
-            Assert.NotNull(result);
-            var viewResult = Assert.IsType<ViewResult>(result);
-            Assert.Null(viewResult.ViewName);
+            var model = Assert.IsType<Applicant>(result?.Model);
+            Assert.Equal(expectedApplicant.Id, model.Id);
         }
 
         [Fact]
