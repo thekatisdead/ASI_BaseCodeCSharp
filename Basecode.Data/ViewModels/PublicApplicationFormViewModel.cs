@@ -81,6 +81,9 @@ namespace Basecode.Data.ViewModels
         public string? ContactInfoThree { get; set; }
 
         [Required(ErrorMessage = "This field is required.")]
+        public int? ApplicationID { get; set; }
+
+        [Required(ErrorMessage = "This field is required.")]
         public int? AnsweredThree { get; set; }
 
         [Required(ErrorMessage = "This field is required.")]

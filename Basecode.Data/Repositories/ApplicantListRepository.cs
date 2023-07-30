@@ -28,6 +28,12 @@ namespace Basecode.Data.Repositories
             return this.GetDbSet<Applicant>();
         }
 
+        public void Add(Applicant applicant)
+        {
+            _context.Applicant.Add(applicant);
+            _context.SaveChanges();
+        }
+
         public Applicant GetById(int id)
         {
             // warning here is that it is possible that the return below

@@ -4,19 +4,22 @@ using Microsoft.AspNetCore.Mvc;
 using Basecode.Data.Models;
 using NLog;
 using Hangfire;
+using Basecode.Data.Interfaces;
 
 namespace Basecode.WebApp.Controllers
 {
     public class PublicApplicationFormController : Controller
     {
         private readonly IPublicApplicationFormService _service;
+        private readonly IApplicantListRepository _applicant;
         private readonly IEmailSenderService _email;
         private static Logger _logger = LogManager.GetCurrentClassLogger();
         
-        public PublicApplicationFormController(IPublicApplicationFormService service, IEmailSenderService email)
+        public PublicApplicationFormController(IPublicApplicationFormService service, IEmailSenderService email, IApplicantListRepository applicant)
         {
             _service = service;
             _email = email;
+            _applicant = applicant;
         }
 
         public IActionResult Index()
@@ -57,6 +60,7 @@ namespace Basecode.WebApp.Controllers
         {
             try
             {
+                /*
                 // time that it takes for the function to execute
                 var dueTime = DateTime.UtcNow.AddHours(48);
 
@@ -81,9 +85,30 @@ namespace Basecode.WebApp.Controllers
                     // replace the _email function with a seperate function that checks if the thing has responded na
                     // also change the variable names, handled in a seperate function
                     BackgroundJob.Schedule(() => EmailCharacterReferenceHandler(applicantID, 3, viewModel.ContactInfoThree, viewModel.LastName, viewModel.ReferenceThreeFullName, viewModel.PositionType), dueTime);
-                }
+                }*/
                 // Call the service method to create the form
+                Random randNum = new Random();
+                int value = randNum.Next(10000,99999);
+                var newApplicant = new Applicant
+                {
+                    FormID = value,
+                    Firstname = viewModel.FirstName,
+                    Lastname = viewModel.LastName,
+                    EmailAddress = viewModel.EmailAddress,
+                    JobApplied = 0,
+                    Tracker = "Application",
+                    Grading = "On Going",
+                    CreatedTime = DateTime.Now,
+                    UpdatedTime = DateTime.Now,
+                };
+                viewModel.ApplicationID = value;
+                
+                _logger.Trace("Flag 3");
+                _applicant.Add(newApplicant);
+
+                _logger.Trace("Flag 2");
                 _service.AddForm(viewModel);
+
                 _logger.Info("Form added successfully.");
 
                 // Redirect or show a success message to the user

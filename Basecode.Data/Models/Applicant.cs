@@ -13,6 +13,7 @@ namespace Basecode.Data.Models
     public class Applicant
     {
         public int Id { get; set; }
+        public int FormID { get; set; }
         public string? Firstname { get; set; }
         public string? Lastname { get; set; }
         public string? EmailAddress { get; set; }
