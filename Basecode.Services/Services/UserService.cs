@@ -1,5 +1,6 @@
 ﻿using Basecode.Data.Interfaces;
 using Basecode.Data.Models;
+using Basecode.Data.ViewModels;
 using Basecode.Services .Interfaces;
 using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
@@ -26,7 +27,7 @@ namespace Basecode.Services.Services
             return _userRepository.FindById(id);
         }
 
-        public User FindUser(string userName)
+        public IdentityUser FindUser(string userName)
         {
             return _userRepository.FindUser(userName);
         }
@@ -55,7 +56,7 @@ namespace Basecode.Services.Services
             _userRepository.Delete(user);
         }
 
-        public Task<User> FindUserAsync(string userName, string password)
+        public Task<IdentityUser> FindUserAsync(string userName, string password)
         {
             return _userRepository.FindUserAsync(userName, password);
         }
@@ -72,6 +73,21 @@ namespace Basecode.Services.Services
         public async Task<IdentityUser> FindUser(string username, string password)
         {
             return await _userRepository.FindUser(username, password);
+        }
+
+        public List<User> RetrieveAll()
+        {
+            var data = _userRepository.RetrieveAll().Select(s => new User
+            {
+                Username = s.Username,
+                FirstName = s.FirstName,
+                LastName = s.LastName,
+                Email = s.Email,
+                ContactNumber = s.ContactNumber,
+                Address = s.Address 
+            });
+
+            return data.ToList();
         }
     }
 }
