@@ -1,5 +1,12 @@
-﻿html {
+﻿body {
+    background: #70575Dff;
+}
+
+html {
     overflow-x: hidden;
+    height: 90%;
+    margin: 0;
+    padding: 0;
 }
 
 .text-danger {
@@ -11,6 +18,12 @@
     top: 100%;
 }
 
+*::placeholder {
+    color: white;
+    font-weight: 300; /* Thin text */
+    padding: 10px; /* Add padding here */
+}
+
 .form-group-instructions {
     left: 550px;
     width: 700px;
@@ -18,9 +31,12 @@
     font-size: 30px;
     display: flex;
     position: relative;
+    color: white;
 }
 
 .form-group-firstname {
+    font-weight: bold;
+    color: white;
     top: 35px;
     left: 550px;
     width: 314px;
@@ -36,10 +52,17 @@
     width: 314px;
     height: 45px;
     position: absolute;
-    border-style: solid;
+    background-color: transparent;
+    border: 4px solid white;
+    border-radius: 5px;
+    color: white;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
 }
 
 .form-group-lastname {
+    font-weight: bold;
+    color: white;
     top: -48px;
     left: 950px;
     width: 314px;
@@ -47,7 +70,6 @@
     display: flex;
     position: relative;
     align-items: flex-start;
-    flex-shrink: 1;
 }
 
 .form-control-lastname {
@@ -56,10 +78,17 @@
     width: 314px;
     height: 45px;
     position: absolute;
-    border-style: solid;
+    background-color: transparent;
+    border: 4px solid white;
+    border-radius: 5px;
+    color: white;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
 }
 
 .form-group-emailaddress {
+    font-weight: bold;
+    color: white;
     top: -10px;
     left: 550px;
     width: 692px;
@@ -67,7 +96,6 @@
     display: flex;
     position: relative;
     align-items: flex-start;
-    flex-shrink: 1;
 }
 
 .form-control-emailaddress {
@@ -76,9 +104,17 @@
     width: 715px;
     height: 45px;
     position: absolute;
+    background-color: transparent;
+    border: 4px solid white;
+    border-radius: 5px;
+    color: white;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
 }
 
 .form-group-contactnumber {
+    font-weight: bold;
+    color: white;
     top: 30px;
     left: 550px;
     width: 314px;
@@ -95,9 +131,17 @@
     width: 314px;
     height: 45px;
     position: absolute;
+    background-color: transparent;
+    border: 4px solid white;
+    border-radius: 5px;
+    color: white;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
 }
 
 .form-group-address {
+    font-weight: bold;
+    color: white;
     top: -53px;
     left: 963px;
     width: 314px;
@@ -114,9 +158,17 @@
     width: 305px;
     height: 45px;
     position: absolute;
+    background-color: transparent;
+    border: 4px solid white;
+    border-radius: 5px;
+    color: white;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
 }
 
 .form-group-username {
+    font-weight: bold;
+    color: white;
     top: -15px;
     left: 550px;
     width: 314px;
@@ -133,9 +185,17 @@
     width: 314px;
     height: 45px;
     position: absolute;
+    background-color: transparent;
+    border: 4px solid white;
+    border-radius: 5px;
+    color: white;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
 }
 
 .form-group-password {
+    font-weight: bold;
+    color: white;
     bottom: 99px;
     left: 963px;
     width: 314px;
@@ -152,9 +212,17 @@
     width: 305px;
     height: 45px;
     position: absolute;
+    background-color: transparent;
+    border: 4px solid white;
+    border-radius: 5px;
+    color: white;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
 }
 
 .form-group-confirmpassword {
+    font-weight: bold;
+    color: white;
     bottom: 57px;
     left: 550px;
     width: 314px;
@@ -171,11 +239,18 @@
     width: 314px;
     height: 45px;
     position: absolute;
+    background-color: transparent;
+    border: 4px solid white;
+    border-radius: 5px;
+    color: white;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
 }
 
 .form-group-terms {
-    top: -10px;
-    left: 550px;
+    color: white;
+    top: -130px;
+    left: 970px;
     width: 250px;
     height: 15px;
     display: flex;
@@ -185,8 +260,9 @@
 }
 
 .form-check-input-terms {
-    top: 2px;
-    left: 0px;
+    color: white;
+    top: 1px;
+    left: 1px;
     width: 14px;
     height: 14px;
     position: absolute;
@@ -218,7 +294,9 @@
 }
 
 .btn {
-    width: 223px;
+    top: -125px;
+    left: 420px;
+    width: 300px;
     text-align: center;
     height: 40px;
     display: flex;
@@ -229,14 +307,51 @@
     background-color: rgba(46, 56, 48, 1);
 }
 
-.btn:hover {
-    background-color: #C53211;
+    .btn:hover {
+        background-color: #C53211;
+        color: white;
+    }
+
+.hasAccount {
     color: white;
+    font-weight: bold;
+    top: -70px;
+    left: 970px;
+    width: 900px;
+    display: flex;
+    position: relative;
+    align-items: flex-start;
+    text-align: center;
+}
+
+.text {
+    top: 30%;
+    left: 50%;
+    color: white;
+    height: auto;
+    position: absolute;
+    font-size: 50px;
+    text-align: center;
+    font-weight: 700;
+    line-height: normal;
+    transform: translate(-50%, -50%);
+}
+
+.text-two {
+    top: 40%;
+    left: 50%;
+    color: white;
+    position: absolute;
+    font-size: 28px;
+    text-align: center;
+    font-weight: 500;
+    line-height: normal;
+    transform: translate(-50%, -50%);
 }
 
 .signup-form-side {
-    top: 0px;
-    left: 0px;
+    top: 0;
+    left: 0;
     width: 505px;
     height: 1024px;
     display: flex;
@@ -244,40 +359,7 @@
     align-items: flex-start;
     flex-shrink: 1;
     background-color: rgba(197, 50, 17, 1);
-}
-
-.text {
-    top: 151px;
-    left: 170px;
-    color: rgba(230, 219, 201, 1);
-    height: auto;
-    position: relative;
-    font-size: 32px;
-    text-align: left;
-    font-family: Inter;
-    font-weight: 700;
-    line-height: normal;
-    font-stretch: normal;
-    text-decoration: none;
-    overflow: hidden;
-    justify-content: center;
-}
-
-.text-two {
-    top: 235px;
-    left: -35px;
-    color: rgba(230, 219, 201, 1);
-    height: auto;
-    position: relative;
-    font-size: 32px;
-    text-align: left;
-    font-family: Inter;
-    font-weight: 300;
-    line-height: normal;
-    font-stretch: normal;
-    text-decoration: none;
-    overflow: hidden;
-    justify-content: center;
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 10));
 }
 
 .image-container-one {
@@ -288,55 +370,21 @@
     width: 100%;
     height: 100%;
 }
+
 .image {
-    top: 200px;
-    left: 0px;
+    z-index: -1;
     width: 506px;
-    height: 611px;
-    position: relative;
+    height: 100%;
     object-fit: cover;
 }
 
 .image-two {
-    top: 550px;
-    left: 135px;
     width: 171px;
     height: 47px;
     position: absolute;
-    justify-content: center;
-}
-
-.triangle1 {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    width: 0;
-    height: 0;
-    z-index: -1;
-    border-bottom: 250px solid #2E3830;
-    border-left: 250px solid transparent;
-    box-shadow: inset 0 0 20px rgba(0, 0, 0, 10);
-}
-
-.triangle {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    width: 0;
-    height: 0;
-    border-bottom: 150px solid #c53211;
-    border-left: 150px solid transparent;
-    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 10));
-}
-
-.hasAccount {
-    top: 60px;
-    left: 546px;
-    width: 900px;
-    display: flex;
-    position: relative;
-    align-items: flex-start;
-    text-align: center;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .popup-message {
@@ -369,3 +417,15 @@
     color: white;
 }
 
+.form-control-firstname:-webkit-autofill,
+.form-control-lastname:-webkit-autofill,
+.form-control-emailaddress:-webkit-autofill,
+.form-control-contactnumber:-webkit-autofill,
+.form-control-address:-webkit-autofill,
+.form-control-username:-webkit-autofill,
+.form-control-password:-webkit-autofill,
+.form-control-confirmpassword:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px #CEAA9Dff inset !important;
+    -webkit-text-fill-color: white !important;
+    background-color: transparent !important;
+}
