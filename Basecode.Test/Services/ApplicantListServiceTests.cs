@@ -1,6 +1,10 @@
-﻿using Basecode.Data.Interfaces;
+﻿using AutoMapper;
+using Basecode.Data.Interfaces;
 using Basecode.Data.Models;
+using Basecode.Data.ViewModels;
+using Basecode.Services.Interfaces;
 using Basecode.Services.Services;
+using Microsoft.IdentityModel.Tokens;
 using Moq;
 
 namespace Basecode.Tests.Services
@@ -10,12 +14,14 @@ namespace Basecode.Tests.Services
         private readonly ApplicantListService _service;
         private readonly Mock<IApplicantListRepository> _fakeApplicantListRepository;
         private readonly Mock<IJobOpeningRepository> _fakeJobOpeningRepository;
+        private readonly Mock<IMapper> _fakeMapper;
 
         public ApplicantListServiceTests()
         {
             _fakeApplicantListRepository = new Mock<IApplicantListRepository>();
             _fakeJobOpeningRepository= new Mock<IJobOpeningRepository>();
-           
+            _fakeMapper = new Mock<IMapper>();
+
             _service = new ApplicantListService(_fakeApplicantListRepository.Object,_fakeJobOpeningRepository.Object);
         }
 
@@ -29,30 +35,31 @@ namespace Basecode.Tests.Services
                 new Applicant { Id = 2, Firstname = "Jane", Lastname = "Smith", JobApplied = 2 }
             };
 
+            var applicantList = new List<ApplicantListViewModel>()
+            {
+                new ApplicantListViewModel { Id = 1, Firstname = "John", Lastname = "Doe", EmailAddress = "sminth@gmail.com", Tracker = "Pending", Grading = "a", JobApplied = 2, JobPosition = "jksd" },
+                new ApplicantListViewModel { Id = 2, Firstname = "Jane", Lastname = "Smith", EmailAddress = "sminthsss@gmail.com", Tracker = "Pending", Grading = "b", JobApplied = 2, JobPosition = "jksd" },
+            };
+
             _fakeApplicantListRepository.Setup(repo => repo.RetrieveAll()).Returns(applicants.AsQueryable());
+            _fakeMapper.Setup(mapper => mapper.Map<List<ApplicantListViewModel>>(applicants)).Returns(applicantList);
 
             // Act
-            var result = _service.RetrieveAll();
+            var result = _service.RetrieveAll(); // Use the actual service to invoke the method
 
             // Assert
-            Assert.Collection(result,
-                item =>
-                {
-                    Assert.Equal(applicants[0].Id, item.Id);
-                    Assert.Equal(applicants[0].Firstname, item.Firstname);
-                    Assert.Equal(applicants[0].Lastname, item.Lastname);
-                    Assert.Equal(applicants[0].JobApplied, item.JobApplied);
-                },
-                item =>
-                {
-                    Assert.Equal(applicants[1].Id, item.Id);
-                    Assert.Equal(applicants[1].Firstname, item.Firstname);
-                    Assert.Equal(applicants[1].Lastname, item.Lastname);
-                    Assert.Equal(applicants[1].JobApplied, item.JobApplied);
-                }
-            );
-        }
+            Assert.Equal(applicantList.Count, result.Count);
 
+            for (int i = 0; i < applicantList.Count; i++)
+            {
+                Assert.Equal(applicantList[i].Id, result[i].Id);
+                Assert.Equal(applicantList[i].Firstname, result[i].Firstname);
+                Assert.Equal(applicantList[i].Lastname, result[i].Lastname);
+                Assert.Equal(applicantList[i].JobApplied, result[i].JobApplied);
+                // Add more Assert statements if needed for other properties
+            }
+        }
+        
         [Fact]
         public void RetrieveAll_HasNoApplicants_ReturnsEmptyList()
         {
