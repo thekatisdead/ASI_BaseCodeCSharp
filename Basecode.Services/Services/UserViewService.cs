@@ -33,6 +33,7 @@ namespace Basecode.Services.Services
                 EmailAddress = s.EmailAddress,
                 Address = s.Address,
                 RoleName = s.Role
+
             }) ;
 
             return data.ToList();

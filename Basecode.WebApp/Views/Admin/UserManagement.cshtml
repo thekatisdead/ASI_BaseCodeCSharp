@@ -51,6 +51,9 @@
                                     <th>
                                         Action
                                     </th>
+                                    <th>
+                                        Action
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody class="text-center">
@@ -74,6 +77,8 @@
                                         <td>
                                             @user.RoleName
                                         </td>
+                                        <td class="text-center">
+                                            @user.RoleName
                                         <td class="text-center">
                                             <a asp-controller="UserManagement" asp-action="UpdateUser" asp-route-id="@user.Id">Edit</a>
                                             <a asp-controller="UserManagement" asp-action="DeleteUser" asp-route-id="@user.Id">Delete</a>
