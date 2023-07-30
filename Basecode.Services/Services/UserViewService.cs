@@ -21,11 +21,11 @@ namespace Basecode.Services.Services
             _repository = repository;
             _mapper = mapper;
         }
-        public List<UserViewModel> RetrieveAll() 
+        public List<SignUpViewModel> RetrieveAll() 
         {
-            var data = _repository.RetrieveAll().Select( s => new UserViewModel
+            var data = _repository.RetrieveAll().Select( s => new SignUpViewModel
             {
-                UserName =s.Username,
+                Username =s.Username,
                 Password =s.Password,
                 ConfirmPassword = s.ConfirmPassword,
                 FirstName = s.FirstName,
@@ -36,6 +36,30 @@ namespace Basecode.Services.Services
             }) ;
 
             return data.ToList();
+        }
+
+        public void DeleteUser(int id)
+        {
+            var user = _repository.GetUserById(id);
+            _repository.DeleteUser(user);
+        }
+
+        public SignUpViewModel GetUserById(int id)
+        {
+            var data = _repository.GetUserById(id);
+            return _mapper.Map<SignUpViewModel>(data);
+        }
+
+        public void UpdateUser(SignUp user)
+        {
+            var s = _repository.GetUserById(user.Id);
+            s.FirstName = user.FirstName;
+            s.LastName = user.LastName;
+            s.EmailAddress = user.EmailAddress;
+            s.ContactNumber = user.ContactNumber;
+            s.Address = user.Address;
+
+            _repository.UpdateUser(s);
         }
     }
 }
