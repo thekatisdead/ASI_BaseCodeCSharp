@@ -114,7 +114,7 @@ namespace Basecode.Services.Services
         public void DeleteUser(string id)
         {
             var user = _userRepository.FindById(id);
-            _userRepository.Delete(user);
+           _userRepository.Delete(user);
         }
     }
 }

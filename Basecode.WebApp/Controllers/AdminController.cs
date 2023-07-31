@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Identity;
 using Basecode.Data.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using static Basecode.Data.Constants;
+using User = Basecode.Data.Models.User;
+using Exception = System.Exception;
 
 namespace Basecode.WebApp.Controllers
 {
@@ -100,6 +102,51 @@ namespace Basecode.WebApp.Controllers
                 // You can customize the error handling based on your application's requirements
                 // For example, you can return a specific error view or redirect to an error page.
                 return BadRequest("An error occurred while retrieving users.");
+            }
+        }
+
+        public IActionResult UpdateUser(string id)
+        {
+            var data = _userService.FindById(id);
+            return View(data);
+        }
+
+        [HttpPost]
+        public IActionResult Update(User user)
+        {
+            _logger.Info("Update action called");
+            try
+            {
+                _userService.UpdateUser(user);
+                _logger.Info("User account updated successfully.");
+                return RedirectToAction("UserManagement");
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "Error occurred while updating user account.");
+                return RedirectToAction("UpdateUser", new { id = user.Id });
+            }
+        }
+
+        public IActionResult DeleteUser(User user)
+        {
+            _userService.Delete(user);
+            return View();
+        }
+
+        public IActionResult Delete(string id)
+        {
+            _logger.Info("Delete action called");
+            try
+            {
+                _userService.DeleteUser(id);
+                _logger.Info("User account deleted successfully.");
+                return RedirectToAction("UserManagement");
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "Error occurred while deleting user account.");
+                return RedirectToAction("UserManagement");
             }
         }
 
