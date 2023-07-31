@@ -32,7 +32,7 @@
                                 <a asp-controller="HrScheduler" asp-action="home"><button type="button" class="btn btn-primary ms-1">Schedule</button></a>
                                 <a asp-controller="ApplicantList" asp-route-FormID="@Model.ApplicationID" asp-action="Hired"><button type="button" class="btn btn-primary ms-1">Hire</button></a>
                                 // need a conditio nto add the thing when its interview time
-                                <a asp-controller="ApplicantList" asp-route-applicantId="@ID" asp-route-status="Undergoing Background Checks" asp-action="UpdateStatus"><button type="button" class="btn btn-primary ms-1">BG Check</button></a>
+                                <a asp-controller="ApplicantList" asp-route-applicantId="@ID" asp-route-status="Undergoing Background Checks" asp-action="UpdateStatus"><button type="button" class="btn btn-primary ms-1">Background Check</button></a>
                             }
                             else
                             {
