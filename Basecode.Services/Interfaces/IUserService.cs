@@ -7,7 +7,6 @@ namespace Basecode.Services.Interfaces
     public interface IUserService
     {
         User FindByUsername(string username);
-        User FindByEmail(string email);
         User FindById(string id);
         IdentityUser FindUser(string userName);
         IEnumerable<User> FindAll();
