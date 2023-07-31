@@ -35,6 +35,20 @@
                 <br>
                 <label for="first-name">Interviewers Name</label>
             </div>
+
+             <div class="input-group">
+                <select class="text-input" aria-label="Select Applicant" asp-for="InterviewerId">
+                    <option value=" " selected>Choose Applicant</option>
+                   @foreach(var interviewer in Model.Interviewers)
+                    {
+                        <option value="@interviewer.InterviewerId">@interviewer.FirstName @interviewer.LastName</option>
+                    }
+                </select>
+                <span class-type="text-danger" asp-validation-for="InterviewerId"></span>
+                <br>
+                <label for="first-name">Applicants Name</label>
+            </div>
+
             <div class="input-group">
                 <select class="text-input" aria-label="Select Job Opening" asp-for="JobId">
                     <option value=" " selected>Select Job Opening</option>
@@ -47,6 +61,7 @@
                 <br>
                 <label for="last-name">Job opening</label>
             </div>
+
             <h4 class="section-title">Time and Date</h4>
             <div class="input-email">
                 <input  type="time" id="email" class="text-input" asp-for="StartTime">
@@ -54,18 +69,21 @@
                 <br />
                 <label for="last-name">Start Time</label>
             </div>
+
             <div class="input-email">
                 <input type="time" id="email" class="text-input" asp-for="EndTime">
                 <span class-type="text-danger" asp-validation-for="EndTime"></span>
                 <br />
                 <label for="last-name">End Time</label>
             </div>
+
             <div class="input-email">
                 <input  type="date" id="last-name" class="text-input" asp-for="Date">
                 <span  class-type="text-danger"></span>
                 <br />
                 <label for="last-name">Date</label>
             </div>
+
             <div class="input-group">
                 <select class="text-input" aria-label="Select Type of Exam" asp-for="ExamType">
                     <option value=" " selected>Select Type of Exam</option>
@@ -78,17 +96,22 @@
                 <br>
                 <label for="last-name">Type of Exam</label>
             </div>
+          
             <div class="input-email">
                 <input type="text" id="email" class="text-input" asp-for="TeamsLink">
                 <span class-type="text-danger" asp-validation-for="TeamsLink"></span>
                 <br />
                 <label for="last-name">Link for Teams</label>
             </div>
+
             <div class="form-outline">
                 <textarea class="form-control" id="textAreaExample" rows="4" asp-for="Instruction"></textarea>
                 <label class="form-label" for="textAreaExample">Enter Instruction</label>
             </div>
+
         </div>
+
+
         <button type="submit" class="save-button">Save</button>
         
 

@@ -11,7 +11,7 @@ form {
     border-radius: 15px;
     transform: translateX(-50%);
     width: 931px;
-    height: 2150px;
+    height: 1950px;
     display: flex;
     position: absolute;
     align-items: flex-start;
@@ -51,7 +51,7 @@ header {
 }
 
 .text-personal {
-    top: 90px;
+    top: 95px;
     left: 90px;
     color: rgba(0, 0, 0, 1);
     width: 1000px;
@@ -93,7 +93,7 @@ header {
 }
 
 .linetwo {
-    top: 725px;
+    top: 150px;
     left: 49%;
     transform: translateX(-50%);
     width: 770px;
@@ -186,7 +186,7 @@ header {
 }
 
 .form-group-number {
-    top: 390px;
+    top: 215px;
     left: 93px;
     width: 314px;
     height: 97px;
@@ -254,7 +254,7 @@ header {
 }
 
 .form-group-address {
-    top: 500px;
+    top: 340px;
     left: 93px;
     width: 314px;
     height: 97px;
@@ -288,7 +288,7 @@ header {
 }
 
 .form-group-time {
-    top: 610px;
+    top: 475px;
     left: 93px;
     width: 314px;
     height: 97px;
@@ -390,7 +390,7 @@ header {
 }
 
 .text-education {
-    top: 850px;
+    top: 555px;
     left: 90px;
     color: rgba(0, 0, 0, 1);
     width: 1000px;
@@ -405,7 +405,7 @@ header {
 }
 
 .straightline {
-    top: 900px;
+    top: 615px;
     left: 49%;
     transform: translateX(-50%);
     width: 770px;
@@ -417,7 +417,7 @@ header {
 }
 
 .form-group-school {
-    top: 970px;
+    top: 690px;
     left: 95px;
     width: 314px;
     height: 97px;
@@ -451,7 +451,7 @@ header {
 }
 
 .form-group-department {
-    top: 971px;
+    top: 690px;
     right: 100px;
     width: 314px;
     height: 97px;
@@ -485,7 +485,7 @@ header {
 }
 
 .form-group-achievements {
-    top: 1100px;
+    top: 815px;
     left: 95px;
     width: 314px;
     height: 97px;
@@ -519,7 +519,7 @@ header {
 }
 
 .form-group-nameone {
-    top: 1475px;
+    top: 1200px;
     left: 95px;
     width: 314px;
     height: 97px;
@@ -553,7 +553,7 @@ header {
 }
 
 .text-references {
-    top: 1340px;
+    top: 1050px;
     left: 95px;
     color: rgba(0, 0, 0, 1);
     width: 1000px;
@@ -568,7 +568,7 @@ header {
 }
 
 .straightlinetwo {
-    top: 1400px;
+    top: 1115px;
     left: 49%;
     transform: translateX(-50%);
     width: 770px;
@@ -580,7 +580,7 @@ header {
 }
 
 .form-group-relationone {
-    top: 1475px;
+    top: 1200px;
     left: 347px;
     width: 314px;
     height: 97px;
@@ -614,7 +614,7 @@ header {
 }
 
 .form-group-contactone {
-    top: 1475px;
+    top: 1200px;
     left: 600px;
     width: 314px;
     height: 97px;
@@ -648,7 +648,7 @@ header {
 }
 
 .form-group-nametwo {
-    top: 1590px;
+    top: 1330px;
     left: 95px;
     width: 314px;
     height: 97px;
@@ -682,7 +682,7 @@ header {
 }
 
 .form-group-relationtwo {
-    top: 1590px;
+    top: 1330px;
     left: 347px;
     width: 314px;
     height: 97px;
@@ -716,7 +716,7 @@ header {
 }
 
 .form-group-contacttwo {
-    top: 1590px;
+    top: 1330px;
     left: 600px;
     width: 314px;
     height: 97px;
@@ -750,7 +750,7 @@ header {
 }
 
 .form-group-namethree {
-    top: 1705px;
+    top: 1460px;
     left: 95px;
     width: 314px;
     height: 97px;
@@ -784,7 +784,7 @@ header {
 }
 
 .form-group-relationthree {
-    top: 1705px;
+    top: 1460px;
     left: 347px;
     width: 314px;
     height: 97px;
@@ -818,7 +818,7 @@ header {
 }
 
 .form-group-contactthree {
-    top: 1705px;
+    top: 1460px;
     left: 600px;
     width: 314px;
     height: 97px;
@@ -852,7 +852,7 @@ header {
 }
 
 .text-cv {
-    top: 1785px;
+    top: 1540px;
     left: 95px;
     color: rgba(0, 0, 0, 1);
     width: 1000px;
@@ -867,7 +867,7 @@ header {
 }
 
 .straightlinethree {
-    top: 1845px;
+    top: 1605px;
     left: 49%;
     transform: translateX(-50%);
     width: 770px;
@@ -879,7 +879,7 @@ header {
 }
 
 .form-group-cv {
-    top: 1925px;
+    top: 1690px;
     left: 95px;
     width: 314px;
     height: 97px;
@@ -901,7 +901,7 @@ header {
 }
 
 .btn-primary {
-    top: 2060px;
+    top: 1860px;
     left: 610px;
     width: 200px;
     height: 40px;
@@ -916,11 +916,11 @@ header {
     z-index: 5;
 }
 
-.btn-primary:hover {
-    background-color: rgba(46, 56, 48, 1);
-    color: white;
-    text-align: center;
-}
+    .btn-primary:hover {
+        background-color: rgba(46, 56, 48, 1);
+        color: white;
+        text-align: center;
+    }
 
 .form-group-next {
     top: 5px;

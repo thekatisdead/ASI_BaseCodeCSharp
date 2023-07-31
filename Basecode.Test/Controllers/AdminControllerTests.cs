@@ -1,4 +1,5 @@
 ﻿using Basecode.Data.ViewModels;
+using Basecode.Data.Models;
 using Basecode.Services.Interfaces;
 using Basecode.WebApp.Controllers;
 using Microsoft.AspNetCore.Mvc;
@@ -10,12 +11,12 @@ namespace Basecode.Test.Controllers
     {
         private readonly AdminController _controller;
         private readonly Mock<IJobOpeningService> _mockJobOpeningService;
-        private readonly Mock<IUserViewService> _mockUserViewService;
+        private readonly Mock<IUserService> _mockUserViewService;
 
         public AdminControllerTests()
         {
             _mockJobOpeningService = new Mock<IJobOpeningService>();
-            _mockUserViewService = new Mock<IUserViewService>();
+            _mockUserViewService = new Mock<IUserService>();
             _controller = new AdminController(_mockJobOpeningService.Object, _mockUserViewService.Object);
         }
 
@@ -98,25 +99,21 @@ namespace Basecode.Test.Controllers
             {
                 new UserViewModel
                 {
-                    UserName = "johndoe",
-                    Password = "king",
-                    ConfirmPassword = "king",
+                    Username = "johndoe",
                     FirstName = "John",
                     LastName = "Doe",
-                    EmailAddress = "johndoe@example.com",
+                    Email = "johndoe@example.com",
+                    ContactNumber = "09323232323",
                     Address = "123 Street, City",
-                    RoleName = "Applicant"
                 },
                 new UserViewModel
                 {
-                    UserName = "janedoe",
-                    Password = "queen",
-                    ConfirmPassword = "queen",
+                    Username = "janedoe",
                     FirstName = "Jane",
                     LastName = "Doe",
-                    EmailAddress = "janedoe@example.com",
+                    Email = "janedoe@example.com",
+                    ContactNumber = "0912121212121",
                     Address = "456 Street, City",
-                    RoleName = "Applicant"
                 }
             };
 

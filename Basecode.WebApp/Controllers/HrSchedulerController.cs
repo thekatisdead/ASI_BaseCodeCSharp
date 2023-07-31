@@ -2,6 +2,7 @@ using Basecode.Data.Models;
 using Basecode.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using NLog;
+using Hangfire;
 using Basecode.Data.Models;
 using Basecode.Services.Interfaces;
 using AutoMapper.Configuration.Conventions;
@@ -15,14 +16,16 @@ namespace Basecode.WebApp.Controllers
         private static Logger _logger = LogManager.GetCurrentClassLogger();
         IInterviewerServices _interviewerServices;
         IJobOpeningService _jobOpeningService;
-        IScheduleService _scheduleService;
-       
-        public HrSchedulerController(IInterviewerServices services,IJobOpeningService jobOpeningService,IScheduleService scheduleService,IEmailSenderService emailSender) 
+        IScheduleService _scheduleService;    
+        IUserService _userService;
+        
+        public HrSchedulerController(IInterviewerServices services,IJobOpeningService jobOpeningService,IScheduleService scheduleService,IEmailSenderService emailSender, IUserService userService) 
         { 
             _interviewerServices= services;
             _jobOpeningService= jobOpeningService;
             _scheduleService =  scheduleService;
             _emailSender = emailSender;
+            _userService = userService;
         }
         public IActionResult AddInterviewer()
         {
@@ -94,6 +97,25 @@ namespace Basecode.WebApp.Controllers
         }
         public IActionResult AddSchedule(Schedule schedule)
         {
+            _logger.Trace(schedule.InterviewerId);
+            var interviewer = _interviewerServices.GetById(schedule.InterviewerId);
+            var date = DateTime.Parse(schedule.Date);
+            var time = TimeSpan.Parse(schedule.EndTime);
+            var combinedDateTime = date.Add(time);
+            var delay = combinedDateTime - DateTime.Now;
+            var interviewerName = interviewer.LastName + " " + interviewer.FirstName;
+
+            // sends an email for the interviewer after the discussion
+            // if you want to cancel an email, we have to like create another table
+            // this will be in the suggestions
+
+            BackgroundJob.Schedule(() => _emailSender.SendEmailInterviewDecision(interviewer.Email, interviewerName, "Alliance Software Inc.", schedule.JobId.ToString()),delay);
+            //_emailSender.SendEmailInterviewDecision(interviewer.Email,interviewerName,"Alliance Software Inc.",schedule.JobId.ToString());
+            
+            // requires the name of the applicant too
+            //_emailSender.SendEmailInterviewGeneration(interviewer.Email,interviewer.LastName,"Molly",1,"Bottom",schedule.Date,schedule.);
+            
+            
             DateTime.TryParseExact(schedule.StartTime, "HH:mm", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out DateTime startTime);
             DateTime.TryParseExact(schedule.EndTime, "HH:mm", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out DateTime endTime);
             schedule.StartTime = startTime.ToString("hh:mm tt", System.Globalization.CultureInfo.InvariantCulture);

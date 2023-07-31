@@ -1,4 +1,4 @@
-﻿using Basecode.Data.ViewModels;
+﻿using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Basecode.Services.Interfaces
 {
-    public interface IUserViewService
+    public interface IAdminService
     {
-        public List<UserViewModel> RetrieveAll();
+        Task<IdentityResult> CreateRole(string roleName);
     }
 }

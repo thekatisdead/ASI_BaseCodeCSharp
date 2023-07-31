@@ -12,8 +12,8 @@ namespace Basecode.WebApp
             var Config = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<Login, LoginViewModel>();
-                cfg.CreateMap<SignUp, SignUpViewModel>();
-                cfg.CreateMap<SignUpViewModel, SignUp>();
+                //cfg.CreateMap<SignUp, SignUpViewModel>();
+                //cfg.CreateMap<SignUpViewModel, SignUp>();
                 cfg.CreateMap<JobOpening, JobOpeningViewModel>();
                 cfg.CreateMap<PublicApplicationForm, PublicApplicationFormViewModel>();
                 cfg.CreateMap<PublicApplicationFormViewModel, PublicApplicationForm>();

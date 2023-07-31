@@ -42,7 +42,7 @@ namespace Basecode.Data.Repositories
         {
             try
             {
-                var form = _context.PublicApplicationForm.FirstOrDefault(p => p.ApplicantId == id);
+                var form = _context.PublicApplicationForm.FirstOrDefault(p => p.Id == id);
                 _logger.Info($"Form retrieved successfully for ID: {id}");
 
                 if (form == null)
@@ -59,7 +59,24 @@ namespace Basecode.Data.Repositories
                 throw;
             }
         }
+        public PublicApplicationForm GetByApplicationId(int id)
+        {
+            return _context.PublicApplicationForm.FirstOrDefault(form => form.ApplicationID == id);
+        }
 
+        public void Responded(int id)
+        {
+            var form = _context.PublicApplicationForm.FirstOrDefault(form => form.ApplicationID ==  id);
+            if (form.AnsweredOne == null)
+            {
+                form.AnsweredOne = 1;
+            }
+            else
+            {
+                form.AnsweredOne += 1;
+            }
+            _context.SaveChanges();
+        }
         public int CountResponded(int id)
         {
             try

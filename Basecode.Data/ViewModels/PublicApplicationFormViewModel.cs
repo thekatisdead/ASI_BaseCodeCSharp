@@ -12,15 +12,19 @@ namespace Basecode.Data.ViewModels
     {
         public int Id { get; set; }
 
+        public string? LastName { get; set; }
+        public string? FirstName { get; set; }
         [Required(ErrorMessage = "This field is required.")]
         public int ApplicantId { get; set; }
 
         [Required(ErrorMessage = "This field is required.")]
-        public int Position { get; set; }
+        public string Position { get; set; }
 
         [Required]
         [StringLength(11, MinimumLength = 11, ErrorMessage = "Contact number must be 11 digits.")]
         public string? PhoneNumber { get; set; }
+
+        public string? EmailAddress { get; set;}
 
         [Required(ErrorMessage = "This field is required.")]
         public string? Address { get; set; }
@@ -68,6 +72,9 @@ namespace Basecode.Data.ViewModels
 
         [Required(ErrorMessage = "This field is required.")]
         public string? ContactInfoThree { get; set; }
+
+        [Required(ErrorMessage = "This field is required.")]
+        public int? ApplicationID { get; set; }
 
         [Required(ErrorMessage = "This field is required.")]
         public int? AnsweredThree { get; set; }

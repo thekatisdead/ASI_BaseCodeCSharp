@@ -67,17 +67,30 @@ namespace Basecode.Services.Services
                 throw;
             }
         }
+        public PublicApplicationFormViewModel GetByApplicationId(int id)
+        {
+            var data = (PublicApplicationForm)_repository.GetByApplicationId(id);
+            return _mapper.Map<PublicApplicationFormViewModel>(data);
+        }
+
+        public void Responded(int id)
+        {
+            var Id = _applicantListRepository.GetById(id).FormId;
+            _repository.Responded((int)Id);
+        }
 
         public int CountResponded(int id)
         {
             try
             {
-                var count = _repository.CountResponded(id);
+                var Id = _applicantListRepository.GetById(id);
+                var form = _repository.GetByApplicationId(Id.FormId);
+                var count = form.AnsweredOne;
 
                 // Log successful count of responded forms
                 _logger.Info($"Count of responded forms with ID: {id} is {count}");
 
-                return count;
+                return (int)count;
             }
             catch (Exception ex)
             {
@@ -94,9 +107,9 @@ namespace Basecode.Services.Services
         /// <returns>An object reference containg the Applicant's Public Application details</returns>
         public ApplicantDetails GetApplicationFormById(int applicantId, int jobId)
         {
-            var applicant = _applicantListRepository.GetById(applicantId);
+            var applicant = _applicantListRepository.GetByFormId(applicantId);
             var job = _jobOpeningRepository.GetById(jobId);
-            var form = _repository.GetById(applicantId);
+            var form = _repository.GetByApplicationId(applicant.FormId);
             //This new variable combines the three tables instances to view accurately the applicant's public application form.
             var data = new ApplicantDetails
             {
@@ -119,7 +132,8 @@ namespace Basecode.Services.Services
                 ContactInfoTwo = form.ContactInfoTwo,
                 ReferenceThreeFullName = form.ReferenceThreeFullName,
                 RelationshipThree = form.RelationshipThree,
-                ContactInfoThree = form.ContactInfoThree
+                ContactInfoThree = form.ContactInfoThree,
+                ApplicationID = applicant.FormId,
             };
 
             return data;

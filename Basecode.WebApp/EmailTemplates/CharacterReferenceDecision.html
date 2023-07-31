@@ -66,6 +66,16 @@ td {
 p {
   margin: 0;
 }
+        .button-container {
+            display: flex; /* Use flexbox to position the buttons side by side */
+            justify-content: center; /* Horizontally center the buttons within the container */
+            align-items: center; /* Vertically center the buttons within the container */
+        }
+
+        .reject-button, .accept-button {
+            display: inline-block;
+            margin: 10px; /* Add some space between the buttons if needed */
+        }
 
 .ie-container table,
 .mso-container table {
@@ -210,7 +220,9 @@ table, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: under
               <p style="font-size: 14px; line-height: 130%;"><span style="font-size: 16px; line-height: 20.8px; font-family: Lato, sans-serif;">This is to inform you that the Character References for <b>{applicantName}</b> for the position of <b>{jobPosition}</b> has been answered.</span></p>
               <p style="font-size: 14px; line-height: 130%;">&nbsp;</p>
               <p style="font-size: 14px; line-height: 130%;"><span style="font-size: 16px; line-height: 20.8px; font-family: Lato, sans-serif;">Once you have deliberated your decision, you can either choose to reject or accept the background for <b>{applicantName}</b>. You can do so by clicking the buttons below.</span></p>
-              <p style="font-size: 14px; line-height: 130%;"><span style="font-size: 16px; line-height: 20.8px; font-family: Lato, sans-serif;"><a href="https://localhost:5001/CharacterReference/Decision?applicantID={applicantID}?decision=0"><button>Reject</button></a><br /><a href="https://localhost:5001/CharacterReference/Decision?applicantID={applicantID}?decision=1"></a><button>Accept</button></span></p>
+              <p style="font-size: 14px; line-height: 130%;"><span style="font-size: 16px; line-height: 20.8px; font-family: Lato, sans-serif;" class="button-container">
+                  <a href="https://localhost:5001/ApplicantList/Reject?applicantID={applicantID}&?status=0"><button class="reject-button">Reject</button></a><br />
+                  <a href="https://localhost:5001/ApplicantList/AcceptInterview?applicantID={applicantID}"><button class="accept-button">Accept</button></a></span></p>
           </div>
 
       </td>

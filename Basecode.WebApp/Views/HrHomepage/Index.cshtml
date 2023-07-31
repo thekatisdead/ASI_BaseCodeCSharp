@@ -3,6 +3,7 @@
 
 @{
     ViewData["Title"] = "HR Dashboard";
+    var Name = ViewBag.Name;
     Layout = "~/Views/Shared/_LayoutHR.cshtml";
 }
 
@@ -15,7 +16,7 @@
 <body>
     <main>
         <section id="dashboard-overview">
-            <h1>Welcome, @ViewBag.Name</h1>
+            <h1>Welcome, @ViewBag.Name!</h1>
             <h2>Dashboard Overview</h2>
             <div class="overview-items">
                 <div class="overview-item">
@@ -41,7 +42,7 @@
                         <span><strong>Description:</strong> @Model.JobOpeningData?.Description</span>
                     </div>
                     <div class="job-actions">
-                        <a asp-controller="JobOpening" asp-action="JobPosting">
+                        <a asp-controller="JobOpening" asp-route-HR="@Model." asp-action="JobPosting">
                             <button class="add-button">Add New Job Opening</button>
                         </a>
                         <a asp-controller="JobOpening" asp-action="JobList">
@@ -60,7 +61,7 @@
                     <div class="applicant-info">
                         <span><strong>Applicant Name:</strong> @Model.ApplicantsData.Firstname @Model.ApplicantsData.Lastname</span>
                         <span><strong>Status:</strong> @Model.ApplicantsData.Tracker</span>
-                        <span><strong>Last Activity:</strong> N/A</span>
+                        <span><strong>Last Activity:</strong> @Model.ApplicantsData.Grading</span>
                     </div>
                     <div class="applicant-actions">
                         <a asp-controller="ApplicantList" asp-action="Index">

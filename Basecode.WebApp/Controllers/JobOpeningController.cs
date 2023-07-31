@@ -2,9 +2,12 @@
 using Basecode.Data.Models;
 using Microsoft.AspNetCore.Mvc;
 using NLog;
+using Microsoft.AspNetCore.Authorization;
+using static Basecode.Data.Constants;
 
 namespace Basecode.WebApp.Controllers
 {
+    [Authorize(Roles = "HR, Admin")]
     public class JobOpeningController : Controller
     {
         private readonly IJobOpeningService _service;
@@ -38,7 +41,7 @@ namespace Basecode.WebApp.Controllers
                 _logger.Info("Job opening added successfully.");
                 return RedirectToAction("JobList", "JobOpening");
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 _logger.Error(ex, "Error occurred while adding job opening.");
                 return RedirectToAction("JobPosting");
@@ -62,7 +65,7 @@ namespace Basecode.WebApp.Controllers
                 _logger.Info("Job opening updated successfully.");
                 return RedirectToAction("JobList", "JobOpening");
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 _logger.Error(ex, "Error occurred while updating job opening.");
                 return RedirectToAction("UpdateJob", new { id = jobOpening.Id });
@@ -78,7 +81,7 @@ namespace Basecode.WebApp.Controllers
                 _logger.Info("Job opening deleted successfully.");
                 return RedirectToAction("JobList", "JobOpening");
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 _logger.Error(ex, "Error occurred while deleting job opening.");
                 return RedirectToAction("JobList", "JobOpening");

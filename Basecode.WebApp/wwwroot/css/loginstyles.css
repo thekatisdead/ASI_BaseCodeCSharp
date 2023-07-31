@@ -121,7 +121,7 @@ body {
 
 .right .logInContainer h2 {
     font-size: 3rem; /* Adjust the font size */
-    margin-top: -90px;
+    margin-top: -40px;
 }
 
 .right .inputs {
@@ -152,12 +152,6 @@ body {
     -webkit-box-shadow: 0 0 0 30px #4B3544ff inset !important;
     -webkit-text-fill-color: white !important;
     background-color: transparent !important;
-}
-
-.right .forNoAccount {
-    margin-top: 50px; /* Adjust margin */
-    font-size: 1rem; /* Adjust the font size */
-    color: white;
 }
 
 .right button {
