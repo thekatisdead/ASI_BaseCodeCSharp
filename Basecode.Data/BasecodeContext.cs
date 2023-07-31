@@ -1,5 +1,4 @@
 ﻿using Basecode.Data.Models;
-using Basecode.Data.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -28,7 +27,6 @@ namespace Basecode.Data
         /// Represents the collection of applicants in the database.
         /// </summary>
         public virtual DbSet<Applicant> Applicant { get; set; }
-        public virtual DbSet<SignUp> UserManagement { get; set; }
         public virtual DbSet<JobOpening> JobOpening { get; set; }
         public virtual DbSet<CurrentHires> CurrentHires{ get; set; }
         public virtual DbSet<HrScheduler> HrScheduler { get; set; }

@@ -95,9 +95,9 @@ namespace Basecode.Test.Controllers
         public void UserManagement_HasUsers_ReturnsViewWithUsers()
         {
             // Arrange
-            var testData = new List<User>
+            var testData = new List<UserViewModel>
             {
-                new User
+                new UserViewModel
                 {
                     Username = "johndoe",
                     FirstName = "John",
@@ -106,7 +106,7 @@ namespace Basecode.Test.Controllers
                     ContactNumber = "09323232323",
                     Address = "123 Street, City",
                 },
-                new User
+                new UserViewModel
                 {
                     Username = "janedoe",
                     FirstName = "Jane",
@@ -133,7 +133,7 @@ namespace Basecode.Test.Controllers
         public void UserManagement_HasNoUsers_ReturnsViewWithNullModel()
         {
             // Act 
-            var testData = new List<User>();
+            var testData = new List<UserViewModel>();
 
             // Arrange
             _mockUserViewService.Setup(s => s.RetrieveAll()).Returns(testData);

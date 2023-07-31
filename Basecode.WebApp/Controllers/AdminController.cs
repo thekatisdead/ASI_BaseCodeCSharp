@@ -9,6 +9,7 @@ using static Basecode.Data.Constants;
 
 namespace Basecode.WebApp.Controllers
 {
+    //[Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private readonly IJobOpeningService _jobOpeningService;
@@ -100,6 +101,40 @@ namespace Basecode.WebApp.Controllers
                 // You can customize the error handling based on your application's requirements
                 // For example, you can return a specific error view or redirect to an error page.
                 return BadRequest("An error occurred while retrieving users.");
+            }
+        }
+
+        public IActionResult Update(string id)
+        {
+            _logger.Info("Update action called");
+            try
+            {
+                var data = _userService.FindByUsername(id);
+                _userService.Update(data);
+                _logger.Info("User updated successfully.");
+                return RedirectToAction("UserManagement", "Admin");
+            }
+            catch (System.Exception ex)
+            {
+                _logger.Error(ex, "Error occurred while updating user.");
+                return RedirectToAction("UserManagement", "Admin");
+            }
+        }
+
+        public IActionResult Delete(string id)
+        {
+            _logger.Info("Delete action called");
+            try
+            {
+                var data = _userService.FindByUsername(id);
+                _userService.Delete(data);
+                _logger.Info("User deleted successfully.");
+                return RedirectToAction("UserManagement", "Admin");
+            }
+            catch (System.Exception ex)
+            {
+                _logger.Error(ex, "Error occurred while deleting user.");
+                return RedirectToAction("UserManagement", "Admin");
             }
         }
 
