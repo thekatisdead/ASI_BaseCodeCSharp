@@ -76,6 +76,7 @@ namespace Basecode.Services.Services
                 jobOpening.CreatedTime = DateTime.Now;
                 jobOpening.UpdatedBy = System.Environment.UserName;
                 jobOpening.UpdatedTime = DateTime.Now;
+                //jobOpening.HR= HR;
                 _repository.Add(jobOpening);
 
                 _logger.Info("Added a new job opening with ID {jobOpeningId}.", jobOpening.Id);

@@ -3,6 +3,7 @@
 
 @{
     ViewData["Title"] = "HR Dashboard";
+    var Name = ViewBag.Name;
     Layout = "~/Views/Shared/_LayoutHR.cshtml";
 }
 
@@ -41,7 +42,7 @@
                         <span><strong>Description:</strong> @Model.JobOpeningData?.Description</span>
                     </div>
                     <div class="job-actions">
-                        <a asp-controller="JobOpening" asp-action="JobPosting">
+                        <a asp-controller="JobOpening" asp-route-HR="@Model." asp-action="JobPosting">
                             <button class="add-button">Add New Job Opening</button>
                         </a>
                         <a asp-controller="JobOpening" asp-action="JobList">

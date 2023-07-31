@@ -41,8 +41,9 @@ namespace Basecode.WebApp.Controllers
         public IActionResult Add(CharacterReferenceViewModel viewModel, int applicantID, int trigger)
         {
             _applicationForm.Responded(applicantID);
-            var _job = _jobOpeningService.GetById(_applicantRepository.GetApplicantById(applicantID).JobApplied);
-            var _hrEmail = _userService.FindById(_job.Id.ToString()).Email;
+            // problem is that registration no user and thing
+            var _applicant = _applicantRepository.GetApplicantById(applicantID);
+            var _hrEmail = _userService.FindById(_applicant.JobApplied.ToString()).Email;
             try
             {
                 _logger.Trace("flag 0 passed");
