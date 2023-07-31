@@ -19,5 +19,8 @@ namespace Basecode.Services.Interfaces
         Task<IdentityUser> FindUser(string username, string password);
         Task<IdentityUser> FindUserAsync(string userName, string password);
         public List<User> RetrieveAll();
+        User GetUserById(string id);
+        void UpdateUser(User user);
+        void DeleteUser(string id);
     }
 }

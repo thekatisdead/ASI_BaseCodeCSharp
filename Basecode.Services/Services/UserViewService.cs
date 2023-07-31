@@ -38,29 +38,5 @@ namespace Basecode.Services.Services
 
             return data.ToList();
         }
-
-        public void DeleteUser(int id)
-        {
-            var user = _repository.GetUserById(id);
-            _repository.DeleteUser(user);
-        }
-
-        public UserViewModel GetUserById(int id)
-        {
-            var data = _repository.GetUserById(id);
-            return _mapper.Map<UserViewModel>(data);
-        }
-
-        public void UpdateUser(SignUp user)
-        {
-            var s = _repository.GetUserById(user.Id);
-            s.FirstName = user.FirstName;
-            s.LastName = user.LastName;
-            s.EmailAddress = user.EmailAddress;
-            s.ContactNumber = user.ContactNumber;
-            s.Address = user.Address;
-
-            _repository.UpdateUser(s);
-        }
     }
 }

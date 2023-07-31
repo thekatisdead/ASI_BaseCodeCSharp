@@ -1,17 +1,17 @@
 ﻿@{
     Layout = "~/Views/Shared/_NoLayout.cshtml";
 }
-@using Basecode.Data.ViewModels
-@model List<UserViewModel>
+@using Basecode.Data.Models
+@model List<User>
 
 <html>
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap5.min.css" />
     <link rel="stylesheet" href="~/css/admindashboard.css" asp-append-version="true" />
-    <script defer src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script defer src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
-    <script defer src="https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap5.min.js"></script>
     <script defer src="~/js/AdminTable.js"></script>
 </head>
 
@@ -29,13 +29,7 @@
                         </div>
                         <table id="myTable" class=" table table-striped table-hover rounded-table" style="">
                             <thead>
-                                <tr>
-                                    <th>
-                                        UserName
-                                    </th>
-                                    <th>
-                                        Password
-                                    </th>
+                                <tr> 
                                     <th>
                                         Firstname
                                     </th>
@@ -43,13 +37,13 @@
                                         Lastname
                                     </th>
                                     <th>
-                                        Email Address
+                                        Contact Number
                                     </th>
                                     <th>
-                                        RoleName
+                                        Email 
                                     </th>
                                     <th>
-                                        Action
+                                        Address
                                     </th>
                                     <th>
                                         Action
@@ -60,11 +54,7 @@
                                 @foreach (var user in Model)
                                 {
                                     <tr>
-                                        <td>
-                                            @user.UserName
-                                        <td>
-                                            @user.Password
-                                        </td>
+                                        
                                         <td>
                                             @user.FirstName
                                         </td>
@@ -72,13 +62,14 @@
                                             @user.LastName
                                         </td>
                                         <td>
-                                            @user.EmailAddress
+                                            @user.ContactNumber
                                         </td>
                                         <td>
-                                            @user.RoleName
+                                            @user.Email
                                         </td>
-                                        <td class="text-center">
-                                            @user.RoleName
+                                        <td>
+                                            @user.Address
+                                        </td>
                                         <td class="text-center">
                                             <a asp-controller="UserManagement" asp-action="UpdateUser" asp-route-id="@user.Id">Edit</a>
                                             <a asp-controller="UserManagement" asp-action="DeleteUser" asp-route-id="@user.Id">Delete</a>

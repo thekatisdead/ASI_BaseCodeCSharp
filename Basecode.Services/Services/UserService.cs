@@ -1,4 +1,5 @@
-﻿using Basecode.Data.Interfaces;
+﻿using AutoMapper;
+using Basecode.Data.Interfaces;
 using Basecode.Data.Models;
 using Basecode.Data.ViewModels;
 using Basecode.Services .Interfaces;
@@ -11,10 +12,12 @@ namespace Basecode.Services.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
+        private readonly IMapper _mapper;
 
-        public UserService(IUserRepository userRepository)
+        public UserService(IUserRepository userRepository, IMapper mapper)
         {
             _userRepository = userRepository;
+            _mapper = mapper;
         }
 
         public User FindByUsername(string username)
@@ -88,6 +91,30 @@ namespace Basecode.Services.Services
             });
 
             return data.ToList();
+        }
+
+        public User GetUserById(string id)
+        {
+            var data = _userRepository.FindById(id);
+            return _mapper.Map<User>(data);
+        }
+
+        public void UpdateUser(User user)
+        {
+            var s = _userRepository.FindById(user.Id);
+            s.FirstName = user.FirstName;
+            s.LastName = user.LastName;
+            s.Email = user.Email;
+            s.ContactNumber = user.ContactNumber;
+            s.Address = user.Address;
+
+            _userRepository.UpdateUser(s);
+        }
+
+        public void DeleteUser(string id)
+        {
+            var user = _userRepository.FindById(id);
+            _userRepository.Delete(user);
         }
     }
 }

@@ -87,5 +87,6 @@ namespace Basecode.Data.Interfaces
         /// <returns>A Task representing the asynchronous operation that returns a User object if found, otherwise null.</returns>
         Task<IdentityUser> FindUserAsync(string userName, string password);
         public IQueryable<User> RetrieveAll();
+        void UpdateUser(User user);
     }
 }

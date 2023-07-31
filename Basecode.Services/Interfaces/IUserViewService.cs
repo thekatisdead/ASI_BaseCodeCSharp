@@ -11,8 +11,5 @@ namespace Basecode.Services.Interfaces
     public interface IUserViewService
     {
         public List<UserViewModel> RetrieveAll();
-        UserViewModel GetUserById(int id);
-        void UpdateUser(SignUp user);
-        void DeleteUser(int id);
     }
 }

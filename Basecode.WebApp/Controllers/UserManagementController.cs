@@ -1,4 +1,5 @@
-﻿using Basecode.Data.Models;
+﻿using AutoMapper;
+using Basecode.Data.Models;
 using Basecode.Services.Interfaces;
 using Basecode.Services.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -8,22 +9,22 @@ namespace Basecode.WebApp.Controllers
 {
     public class UserManagementController : Controller
     {
-        private readonly IUserViewService _service;
+        private readonly IUserService _service;
         private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
 
-        public UserManagementController(IUserViewService userService)
+        public UserManagementController(IUserService userService)
         {
             _service = userService;
         }
 
-        public IActionResult UpdateUser(int id)
+        public IActionResult UpdateUser(string id)
         {
-            var data = _service.GetUserById(id);
+            var data = _service.FindById(id);
             return View(data);
         }
 
         [HttpPost]
-        public IActionResult Update(SignUp user)
+        public IActionResult Update(User user)
         {
             _logger.Info("Update action called");
             try
@@ -38,13 +39,13 @@ namespace Basecode.WebApp.Controllers
                 return RedirectToAction("UpdateUser", new { id = user.Id });
             }
         }
-        public IActionResult DeleteUser(int id)
+        public IActionResult DeleteUser(string id)
         {
-            var data = _service.GetUserById(id);
+            var data = _service.FindById(id);
             return View(data);
         }
 
-        public IActionResult Delete(int id)
+        public IActionResult Delete(string id)
         {
             _logger.Info("Delete action called");
             try
