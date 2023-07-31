@@ -22,6 +22,10 @@ namespace Basecode.Data.ViewModels
         [StringLength(11, MinimumLength = 11, ErrorMessage = "Contact number must be 11 digits.")]
         public string? PhoneNumber { get; set; }
 
+        public string? LastName { get; set; }
+        public string? FirstName { get; set;}
+        public string? EmailAddress { get; set;}
+
         [Required(ErrorMessage = "This field is required.")]
         public string? Address { get; set; }
 
