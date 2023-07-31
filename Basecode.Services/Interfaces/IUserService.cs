@@ -1,7 +1,6 @@
 ﻿using Basecode.Data.Models;
+using Basecode.Data.ViewModels;
 using Microsoft.AspNetCore.Identity;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Basecode.Services.Interfaces
 {
@@ -18,6 +17,6 @@ namespace Basecode.Services.Interfaces
         Task<IdentityResult> CreateRole(string roleName);
         Task<IdentityUser> FindUser(string username, string password);
         Task<IdentityUser> FindUserAsync(string userName, string password);
-        public List<User> RetrieveAll();
+        public List<UserViewModel> RetrieveAll();
     }
 }

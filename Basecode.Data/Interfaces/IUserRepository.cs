@@ -4,13 +4,15 @@ using Microsoft.AspNetCore.Identity;
 namespace Basecode.Data.Interfaces
 {
     public interface IUserRepository
-    {      
+    {
         /// <summary>
         /// Retrieves a user by their username.
         /// </summary>
         /// <param name="username">The username of the user to retrieve.</param>
         /// <returns>The User object if found, otherwise null.</returns>
         User FindByUsername(string username);
+
+        User FindByEmail(string email);
 
         /// <summary>
         /// Retrieves a user by their ID.

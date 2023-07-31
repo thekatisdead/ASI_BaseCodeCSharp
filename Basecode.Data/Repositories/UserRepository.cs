@@ -23,12 +23,32 @@ namespace Basecode.Data.Repositories
 
         public IEnumerable<User> FindAll()
         {
-            return GetDbSet<User>();
+            return base.GetDbSet<User>();
         }
 
-        public User FindByUsername(string username)
+        public User FindByUsername(string email)
         {
-            return GetDbSet<User>().Where(x => x.Username.ToLower().Equals(username.ToLower())).AsNoTracking().FirstOrDefault();
+            // Fetch all users from the database
+            var users = GetDbSet<User>().AsEnumerable();
+
+            // Perform case-insensitive search for the user by email
+            var user = users.FirstOrDefault(u => u.Username.Equals(email, StringComparison.OrdinalIgnoreCase));
+
+            if (user != null)
+            {
+                return new User
+                {
+                    FirstName = user.FirstName,
+                    LastName = user.LastName
+                };
+            }
+
+            return null;
+        }
+
+        public User FindByEmail(string email)
+        {
+            return GetDbSet<User>().Where(x => x.Email.ToLower().Equals(email.ToLower())).AsNoTracking().FirstOrDefault();
         }
 
         public User FindById(string id)
@@ -46,7 +66,7 @@ namespace Basecode.Data.Repositories
         {
             try
             {
-                GetDbSet<User>().Add(user);
+                base.GetDbSet<User>().Add(user);
                 UnitOfWork.SaveChanges();
             }
             catch (Exception)
@@ -75,7 +95,7 @@ namespace Basecode.Data.Repositories
 
         public void Delete(User user)
         {
-            GetDbSet<User>().Remove(user);
+            base.GetDbSet<User>().Remove(user);
             UnitOfWork.SaveChanges();
         }
 
