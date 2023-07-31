@@ -122,21 +122,21 @@ namespace Basecode.WebApp.Controllers
                 // contacts the references for each thting when creating the form
                 if (viewModel.ContactInfoOne != null)
                 {
-                    _email.SendEmailCharacterReference(viewModel.ContactInfoOne, viewModel.LastName, applicantID, viewModel.ReferenceOneFullName);
+                    _email.SendEmailCharacterReference(viewModel.ContactInfoOne, viewModel.LastName, applicantID, viewModel.ReferenceOneFullName,1);
 
                     // replace the _email function with a seperate function that checks if the thing has responded na
                     BackgroundJob.Schedule(() => EmailCharacterReferenceHandler(viewModel,_fullName,viewModel.ReferenceOneFullName,viewModel.Position.ToString(),1), dueTime);
                 }
                 if (viewModel.ContactInfoTwo != null)
                 {
-                    _email.SendEmailCharacterReference(viewModel.ContactInfoTwo, viewModel.LastName, applicantID, viewModel.ReferenceTwoFullName);
+                    _email.SendEmailCharacterReference(viewModel.ContactInfoTwo, viewModel.LastName, applicantID, viewModel.ReferenceTwoFullName,2);
                     // replace the _email function with a seperate function that checks if the thing has responded na
                     // also change the variable names, handled in a seperate function
                     BackgroundJob.Schedule(() => EmailCharacterReferenceHandler(viewModel, _fullName, viewModel.ReferenceOneFullName, viewModel.Position.ToString(), 2), dueTime);
                 }
                 if (viewModel.ContactInfoThree != null)
                 {
-                    _email.SendEmailCharacterReference(viewModel.ContactInfoThree, viewModel.LastName, applicantID, viewModel.ReferenceThreeFullName);
+                    _email.SendEmailCharacterReference(viewModel.ContactInfoThree, viewModel.LastName, applicantID, viewModel.ReferenceThreeFullName,3);
                     // replace the _email function with a seperate function that checks if the thing has responded na
                     // also change the variable names, handled in a seperate function
                     BackgroundJob.Schedule(() => EmailCharacterReferenceHandler(viewModel, _fullName, viewModel.ReferenceOneFullName, viewModel.Position.ToString(), 3), dueTime);

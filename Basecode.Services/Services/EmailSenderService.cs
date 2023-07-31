@@ -250,7 +250,7 @@ namespace Basecode.Services.Services
                 smtp.Disconnect(true);
             }
         }
-        public void SendEmailCharacterReference(string receiverEmail, string applicantName, int applicantID, string referenceName)
+        public void SendEmailCharacterReference(string receiverEmail, string applicantName, int applicantID, string referenceName, int trigger)
         {
             var email = new MimeMessage();
 
@@ -270,6 +270,7 @@ namespace Basecode.Services.Services
             htmlContent = htmlContent.Replace("{applicantName}", applicantName);
             htmlContent = htmlContent.Replace("{referenceName}", referenceName);
             htmlContent = htmlContent.Replace("{applicantID}", applicantID.ToString());
+            htmlContent = htmlContent.Replace("{trigger}", trigger.ToString());
 
 
             email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
