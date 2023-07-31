@@ -24,12 +24,24 @@ namespace Basecode.Data.Repositories
             return this.GetDbSet<Applicant>();
         }
 
+        public void Add(Applicant applicant)
+        {
+            _context.Applicant.Add(applicant);
+            _context.SaveChanges();
+        }
+
         public Applicant GetById(int id)
         {
             _logger.Info("Retrieving applicant by ID: {applicantId}", id);
             return _context.Applicant.FirstOrDefault(a => a.Id == id);
         }
 
+        public Applicant GetByFormId(int id)
+        {
+            // warning here is that it is possible that the return below
+            // will return a null value
+            return _context.Applicant.FirstOrDefault(a => a.FormId == id);
+        }
         public void Update(Applicant applicant)
         {
             try
@@ -112,6 +124,7 @@ namespace Basecode.Data.Repositories
                     Firstname = recentApplicant.Firstname,
                     Lastname = recentApplicant.Lastname,
                     Tracker = recentApplicant.Tracker,
+                    Grading = recentApplicant.Grading,
                     JobApplied = recentApplicant.JobApplied
                 };
 
@@ -150,6 +163,8 @@ namespace Basecode.Data.Repositories
                     Id = recentApplicant.Id,
                     Firstname = recentApplicant.Firstname,
                     Lastname = recentApplicant.Lastname,
+                    Tracker = recentApplicant.Tracker, 
+                    Grading = recentApplicant.Grading,
                     JobApplied = recentApplicant.JobApplied
                 };
 

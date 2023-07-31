@@ -4,12 +4,14 @@ using Microsoft.AspNetCore.Mvc;
 using Basecode.Data.Models;
 using NLog;
 using Hangfire;
+using Basecode.Data.Interfaces;
 
 namespace Basecode.WebApp.Controllers
 {
     public class PublicApplicationFormController : Controller
     {
         private readonly IPublicApplicationFormService _service;
+        private readonly IApplicantListRepository _applicant;
         private readonly IEmailSenderService _email;
         private static Logger _logger = LogManager.GetCurrentClassLogger();
         private readonly IApplicantListService _applicantListService;
@@ -25,78 +27,54 @@ namespace Basecode.WebApp.Controllers
 
         public IActionResult Index(int jobId)
         {
+            ViewBag.JobId = jobId;
             _logger.Trace("PublicApplicationForm Controller Accessed");
             PublicApplicationFormViewModel form = new PublicApplicationFormViewModel();
-            form.Position= jobId;
+            ViewBag.JobId = jobId;
             return View(form);
         }
 
-        public void EmailCharacterReferenceHandler(int applicantID, int referenceTrigger, string contact, string candidateName, string referenceName, string position)
-        {
-            var user = _service.GetById(applicantID);
-
-            if (referenceTrigger == 1)
-            {
-                if(user.AnsweredOne == null)
-                {
-                    _email.SendEmailCharacterReferenceReminder(contact, candidateName, referenceName, position);
-                }
-            }
-            else if (referenceTrigger == 2)
-            {
-                if (user.AnsweredTwo == null)
-                {
-                    _email.SendEmailCharacterReferenceReminder(contact, candidateName, referenceName, position);
-                }
-            }
-            else if (referenceTrigger == 3)
-            {
-                if (user.AnsweredThree == null)
-                {
-                    _email.SendEmailCharacterReferenceReminder(contact, candidateName, referenceName, position);
-                }
-            }
-        }
-
         [HttpPost]
-        public IActionResult AddForm(PublicApplicationFormViewModel viewModel)
+        public IActionResult AddForm(PublicApplicationFormViewModel viewModel, int jobId)
         {
             try
             {
-                // time that it takes for the function to execute
-                var dueTime = DateTime.UtcNow.AddHours(48);
-                var applicant = _applicantListService.GetApplicantById(viewModel.ApplicantId);
-                var job = _jobOpeningService.GetById(viewModel.Position);
-                // contacts the references for each thting when creating the form
-
-                if (viewModel.ContactInfoOne != null)
-                {
-                    _email.SendEmailCharacterReference(viewModel.ContactInfoOne,applicant.Lastname,viewModel.ApplicantId,viewModel.ReferenceOneFullName);
-                    
-                    // replace the _email function with a seperate function that checks if the thing has responded na
-                    BackgroundJob.Schedule(()=>EmailCharacterReferenceHandler(viewModel.ApplicantId, 1,viewModel.ContactInfoOne, applicant.Lastname, viewModel.ReferenceOneFullName,job.Position),dueTime);
-                }
-                if (viewModel.ContactInfoTwo != null)
-                {
-                    _email.SendEmailCharacterReference(viewModel.ContactInfoTwo, applicant.Lastname, viewModel.ApplicantId, viewModel.ReferenceTwoFullName);
-                    // replace the _email function with a seperate function that checks if the thing has responded na
-                    // also change the variable names, handled in a seperate function
-                    BackgroundJob.Schedule(() => EmailCharacterReferenceHandler(viewModel.ApplicantId, 2, viewModel.ContactInfoTwo, applicant.Lastname, viewModel.ReferenceTwoFullName, job.Position), dueTime);
-                }
-                if (viewModel.ContactInfoThree != null)
-                {
-                    _email.SendEmailCharacterReference(viewModel.ContactInfoThree, applicant.Lastname, viewModel.ApplicantId, viewModel.ReferenceThreeFullName);
-                    // replace the _email function with a seperate function that checks if the thing has responded na
-                    // also change the variable names, handled in a seperate function
-                    BackgroundJob.Schedule(() => EmailCharacterReferenceHandler(viewModel.ApplicantId, 3, viewModel.ContactInfoThree, applicant.Lastname, viewModel.ReferenceThreeFullName, job.Position), dueTime);
-                }
-
+                int value = 0;
                 // Call the service method to create the form
+                while(true){
+                    Random randNum = new Random();
+                    value = randNum.Next(10000, 99999);
+                    if ( _applicant.GetByFormId(value) == null)
+                    {
+                        break;
+                    }
+                }
+                
+                var newApplicant = new Applicant
+                {
+                    FormId = value,
+                    Firstname = viewModel.FirstName,
+                    Lastname = viewModel.LastName,
+                    EmailAddress = viewModel.EmailAddress,
+                    JobApplied = jobId,
+                    Tracker = "Application",
+                    Grading = "On Going",
+                    CreatedTime = DateTime.Now,
+                    UpdatedTime = DateTime.Now,
+                };
+                viewModel.ApplicationID = value;
+
+                var fullName = viewModel.LastName + ", " + viewModel.FirstName;
+                _applicant.Add(newApplicant);
                 _service.AddForm(viewModel);
+                _email.SendEmailApplicantGeneration(viewModel.EmailAddress,fullName,value,viewModel.Position.ToString());
+
+                // add email here
+
                 _logger.Info("Form added successfully.");
 
                 // Redirect or show a success message to the user
-                return RedirectToAction("Index", "ApplicantHomepage");
+                return RedirectToAction("Index", "Home");
             }
             catch (Exception ex)
             {

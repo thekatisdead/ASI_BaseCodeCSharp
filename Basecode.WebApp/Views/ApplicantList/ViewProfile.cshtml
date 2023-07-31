@@ -1,9 +1,11 @@
 ﻿@using System.Text
 @using Basecode.Data.ViewModels
-@model ApplicantDetails
+@model PublicApplicationFormViewModel
 
 @{
     ViewData["Title"] = "[Title] Application Tracking";
+    var Tracker = ViewBag.Status;
+    var ID = ViewBag.ID;
     Layout = "~/Views/Shared/_LayoutHR.cshtml";
 }
 <!DOCTYPE html>
@@ -25,10 +27,20 @@
                         <div class="d-flex justify-content-center mb-2">
 
                             <!--The Button to schedule should only appear if the applicant's status is for HR Interview-->
-                            <a asp-controller="HrScheduler" asp-action="home"><button type="button" class="btn btn-primary ms-1">Schedule</button></a>
-                            <a asp-controller="ApplicantList"asp-action="UpdateStatus" asp-route-applicantID="@Model.ApplicantId" asp-route-status="shortlisted"><button type="button" class="btn btn-primary">Shortlist</button></a>
-                            <a asp-controller="ApplicantList"asp-action="Reject" asp-route-applicantID="@Model.ApplicantId" asp-route-status="Rejected"><button type="button" class="btn btn-outline-primary ms-1">Reject</button></a>
+                            @if (Tracker != "Application")
+                            {
+                                <a asp-controller="HrScheduler" asp-action="home"><button type="button" class="btn btn-primary ms-1">Schedule</button></a>
+                                <a asp-controller="ApplicantList" asp-route-FormID="@Model.ApplicationID" asp-action="Hired"><button type="button" class="btn btn-primary ms-1">Hire</button></a>
+                                // need a conditio nto add the thing when its interview time
+                                <a asp-controller="ApplicantList" asp-route-applicantId="@ID" asp-route-status="Undergoing Background Checks" asp-action="UpdateStatus"><button type="button" class="btn btn-primary ms-1">BG Check</button></a>
+                            }
+                            else
+                            {
+                                <a asp-controller="ApplicantList" asp-action="UpdateStatus" asp-route-applicantID="@ID" asp-route-status="shortlisted"><button type="button" class="btn btn-primary">Shortlist</button></a>
+                            }
 
+                            
+                            <a asp-controller="ApplicantList" asp-action="Reject" asp-route-applicantID="@ID" asp-route-status="Rejected"><button type="button" class="btn btn-outline-primary ms-1">Reject</button></a>
                         </div>
                     </div>
                 </div> 
@@ -37,9 +49,7 @@
                         <p class="mb-4">
                             <span class="text-primary font-italic me-1">Job Applied:</span> @Model.Position
                         </p>
-                        <p class="mb-4">
-                            <span class="text-primary font-italic me-1">Employment:</span> @Model.EmploymentType
-                        </p>
+
                         <div class="d-flex justify-content-center mb-2">
                             <button type="button" class="btn btn-primary">Download CV</button>
                         </div>
@@ -63,7 +73,7 @@
                                 <p class="mb-0">Email</p>
                             </div>
                             <div class="col-sm-9">
-                                <p class="text-muted mb-0">@Model.Email</p>
+                                <p class="text-muted mb-0">@Model.EmailAddress</p>
                             </div>
                         </div>
                         <hr>
