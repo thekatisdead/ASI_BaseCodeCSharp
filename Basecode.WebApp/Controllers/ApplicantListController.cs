@@ -97,9 +97,7 @@ namespace Basecode.WebApp.Controllers
 
             _logger.Trace("Updating Status");
             // sends an update whenever the applicant status is changed
-            //_email.SendEmailOnUpdateApplicantStatus(_receiver.Address,_fullName,data.Tracker,status);
-            _email.SendEmailOnUpdateApplicantStatus("kaherbieto@outlook.up.edu.ph", _fullName, data.Tracker, status);
-            _service.ProceedTo(applicantID, status);
+            
 
             // needs to check if the currentHires exist
             if (status == "Hired")
@@ -111,11 +109,17 @@ namespace Basecode.WebApp.Controllers
 
                 //_email.SendEmailHRApplicationDecision(_receiver.Address,applicantID,_fullName,job.Position);
                 _email.SendEmailHRApplicationDecision("kaherbieto@outlook.up.edu.ph", applicantID, _fullName, job.Position);
+                //_email.SendEmailOnUpdateApplicantStatus(_receiver.Address,_fullName,data.Tracker,status);
+                _email.SendEmailOnUpdateApplicantStatus("kaherbieto@outlook.up.edu.ph", _fullName, data.Tracker, status);
+                _service.ProceedTo(applicantID, status);
             }
             else if(status =="Undergoing Background Checks")
             {
-                _logger.Trace($"{data.Id},{data.Tracker},{data.FormID}");
-                int formID = (int)data.FormID;
+                //_email.SendEmailOnUpdateApplicantStatus(_receiver.Address,_fullName,data.Tracker,status);
+                _email.SendEmailOnUpdateApplicantStatus("kaherbieto@outlook.up.edu.ph", _fullName, data.Tracker, status);
+                _service.ProceedTo(applicantID, status);
+                _logger.Trace($"{data.Id},{data.Tracker},{data.FormId}");
+                int formID = (int)data.FormId;
                 var viewModel = _publicApplicationFormService.GetByApplicationId(formID);
                 var dueTime = DateTime.UtcNow.AddHours(48);
 
@@ -150,7 +154,7 @@ namespace Basecode.WebApp.Controllers
         public IActionResult ViewProfile(int applicantId)
         {
             var applicant = _applicantList.GetById(applicantId);
-            var formId = applicant.FormID;
+            var formId = applicant.FormId;
             var publicForm = _publicApplicationFormService.GetByApplicationId(formId);
             
             ViewBag.Status = applicant.Tracker;
@@ -190,7 +194,6 @@ namespace Basecode.WebApp.Controllers
                 return NotFound(); // or handle the case when applicant is not found
             }
             var _tempStatus = data.Tracker; // get the job stage
-            _logger.Trace($"{data.JobApplied},{data.EmailAddress},{data.Grading},{data.Tracker}");
             if (_tempStatus.ToLower().Contains("interview"))
             {
                 status = "Interview";
@@ -209,13 +212,13 @@ namespace Basecode.WebApp.Controllers
             {
                 _email.SendEmailRejectInterview(data.EmailAddress,_fullName, job.Position);
             }
-            else
+            /*else
             {
                 _logger.Trace($"Applicant was Rejected but there was no instance of a [{status}]");
                 return NotFound();
-            }
+            }*/
 
-            return View();
+            return RedirectToAction("Index");
         }
         public IActionResult Accept(int applicantID)
         {
@@ -232,12 +235,21 @@ namespace Basecode.WebApp.Controllers
         public IActionResult Confirm(int applicantID)
         {
             
-            return this.UpdateStatus(applicantID,"Confirmed");
+            _service.UpdateGrade(applicantID,"Confirmed");
+            return RedirectToAction("Index");
         }
-        public IActionResult Hired(int applicantID)
+        public IActionResult Hired(int FormID)
         {
             // not yet finished
-            return this.UpdateStatus(applicantID, "Not Confirmed");
+            // sends an email to the HR saying He Needs to confirm if applicant has signed
+            var temporary = _applicantList.GetByFormId(FormID);
+            var _applicantId = temporary.Id;
+
+            // grade becomes hired not status
+            _service.UpdateGrade(_applicantId, "Not Confirmed");
+            _email.SendEmailHireConfirmation("kaherbieto@outlook.up.edu.ph", "Name",_applicantId,temporary.JobApplied.ToString());
+            return this.UpdateStatus(_applicantId, "Hired");
+
         }
 
 

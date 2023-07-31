@@ -75,7 +75,7 @@ namespace Basecode.Services.Services
 
         public void Responded(int id)
         {
-            var Id = _applicantListRepository.GetById(id).FormID;
+            var Id = _applicantListRepository.GetById(id).FormId;
             _repository.Responded((int)Id);
         }
 
@@ -84,7 +84,7 @@ namespace Basecode.Services.Services
             try
             {
                 var Id = _applicantListRepository.GetById(id);
-                var form = _repository.GetByApplicationId(Id.FormID);
+                var form = _repository.GetByApplicationId(Id.FormId);
                 var count = form.AnsweredOne;
 
                 // Log successful count of responded forms
@@ -109,7 +109,7 @@ namespace Basecode.Services.Services
         {
             var applicant = _applicantListRepository.GetByFormId(applicantId);
             var job = _jobOpeningRepository.GetById(jobId);
-            var form = _repository.GetByApplicationId(applicant.FormID);
+            var form = _repository.GetByApplicationId(applicant.FormId);
             //This new variable combines the three tables instances to view accurately the applicant's public application form.
             var data = new ApplicantDetails
             {
@@ -133,7 +133,7 @@ namespace Basecode.Services.Services
                 ReferenceThreeFullName = form.ReferenceThreeFullName,
                 RelationshipThree = form.RelationshipThree,
                 ContactInfoThree = form.ContactInfoThree,
-                ApplicationID = applicant.FormID,
+                ApplicationID = applicant.FormId,
             };
 
             return data;

@@ -184,7 +184,7 @@ namespace Basecode.Services.Services
             email.From.Add(new MailboxAddress("HR Automated Tracking", "kermherbieto52@gmail.com"));
             email.To.Add(new MailboxAddress(applicantName, receiverEmail));
 
-            email.Subject = "Interview Decision";
+            email.Subject = "Hiring Decision";
 
             var htmlContent = File.ReadAllText("EmailTemplates/HiringDecision.html");
 

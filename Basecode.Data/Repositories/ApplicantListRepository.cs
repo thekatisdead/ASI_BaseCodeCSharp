@@ -40,7 +40,7 @@ namespace Basecode.Data.Repositories
         {
             // warning here is that it is possible that the return below
             // will return a null value
-            return _context.Applicant.FirstOrDefault(a => a.FormID == id);
+            return _context.Applicant.FirstOrDefault(a => a.FormId == id);
         }
         public void Update(Applicant applicant)
         {

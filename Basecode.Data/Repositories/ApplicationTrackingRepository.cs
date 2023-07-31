@@ -25,7 +25,7 @@ namespace Basecode.Data.Repositories
             try
             {
                 // Retrieve the ApplicationTracking model from the database based on the applicantId
-                Applicant applicant = _context.Applicant.FirstOrDefault(a => a.FormID == applicantId);
+                Applicant applicant = _context.Applicant.FirstOrDefault(a => a.FormId == applicantId);
                 _logger.Info($"ApplicationTracking retrieved for applicantId: {applicantId}");
 
                 if (applicant == null)

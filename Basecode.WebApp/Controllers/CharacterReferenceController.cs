@@ -62,7 +62,7 @@ namespace Basecode.WebApp.Controllers
                 }
                 // sends an email to the form
                 _logger.Trace("flag 2 passed");
-                var user = _applicationForm.GetByApplicationId(_applicantRepository.GetApplicantById(applicantID).FormID);
+                var user = _applicationForm.GetByApplicationId(_applicantRepository.GetApplicantById(applicantID).FormId);
                 // email changes here but it needs to be connected :sob:
                 var _emailCharacter = "scape";
 

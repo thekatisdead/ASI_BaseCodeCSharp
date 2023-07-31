@@ -39,13 +39,20 @@ namespace Basecode.WebApp.Controllers
         {
             try
             {
+                int value = 0;
                 // Call the service method to create the form
-                // please help do the loop that makes sure that the id is unique sob
-                Random randNum = new Random();
-                int value = randNum.Next(10000,99999);
+                while(true){
+                    Random randNum = new Random();
+                    value = randNum.Next(10000, 99999);
+                    if ( _applicant.GetByFormId(value) == null)
+                    {
+                        break;
+                    }
+                }
+                
                 var newApplicant = new Applicant
                 {
-                    FormID = value,
+                    FormId = value,
                     Firstname = viewModel.FirstName,
                     Lastname = viewModel.LastName,
                     EmailAddress = viewModel.EmailAddress,

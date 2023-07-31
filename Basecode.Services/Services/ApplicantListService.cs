@@ -42,7 +42,8 @@ namespace Basecode.Services.Services
                 var applicants = _repository.RetrieveAll().Select(s => new
                 {
                     Id = s.Id,
-                    FormID = s.FormID,
+                    FormID = s.FormId,
+                    EmailAddress = s.EmailAddress,
                     Firstname = s.Firstname,
                     Lastname = s.Lastname,
                     JobApplied = s.JobApplied,
@@ -55,7 +56,8 @@ namespace Basecode.Services.Services
                            select new ApplicantListViewModel
                            {
                                Id = app.Id,
-                               FormID = app.FormID,
+                               FormId = app.FormID,
+                               EmailAddress = app.EmailAddress,
                                Firstname = app.Firstname,
                                Lastname = app.Lastname,
                                JobApplied = app.JobApplied,
