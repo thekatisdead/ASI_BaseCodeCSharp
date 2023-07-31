@@ -23,12 +23,17 @@ namespace Basecode.Data.Repositories
 
         public IEnumerable<User> FindAll()
         {
-            return GetDbSet<User>();
+            return base.GetDbSet<User>();
         }
 
         public User FindByUsername(string username)
         {
             return GetDbSet<User>().Where(x => x.Username.ToLower().Equals(username.ToLower())).AsNoTracking().FirstOrDefault();
+        }
+
+        public User FindByEmail(string email)
+        {
+            return GetDbSet<User>().Where(x => x.Email.ToLower().Equals(email.ToLower())).AsNoTracking().FirstOrDefault();
         }
 
         public User FindById(string id)
@@ -46,7 +51,7 @@ namespace Basecode.Data.Repositories
         {
             try
             {
-                GetDbSet<User>().Add(user);
+                base.GetDbSet<User>().Add(user);
                 UnitOfWork.SaveChanges();
             }
             catch (Exception)
@@ -75,7 +80,7 @@ namespace Basecode.Data.Repositories
 
         public void Delete(User user)
         {
-            GetDbSet<User>().Remove(user);
+            base.GetDbSet<User>().Remove(user);
             UnitOfWork.SaveChanges();
         }
 

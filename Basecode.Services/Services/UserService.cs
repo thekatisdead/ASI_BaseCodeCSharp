@@ -3,8 +3,6 @@ using Basecode.Data.Models;
 using Basecode.Data.ViewModels;
 using Basecode.Services .Interfaces;
 using Microsoft.AspNetCore.Identity;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Basecode.Services.Services
 {
@@ -20,6 +18,11 @@ namespace Basecode.Services.Services
         public User FindByUsername(string username)
         {
             return _userRepository.FindByUsername(username);
+        }        
+        
+        public User FindByEmail(string email)
+        {
+            return _userRepository.FindByEmail(email);
         }
 
         public User FindById(string id)
@@ -75,9 +78,9 @@ namespace Basecode.Services.Services
             return await _userRepository.FindUser(username, password);
         }
 
-        public List<User> RetrieveAll()
+        public List<UserViewModel> RetrieveAll()
         {
-            var data = _userRepository.RetrieveAll().Select(s => new User
+            var data = _userRepository.RetrieveAll().Select(s => new UserViewModel
             {
                 Username = s.Username,
                 FirstName = s.FirstName,

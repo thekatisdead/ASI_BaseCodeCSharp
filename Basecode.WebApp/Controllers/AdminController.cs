@@ -9,20 +9,21 @@ using static Basecode.Data.Constants;
 
 namespace Basecode.WebApp.Controllers
 {
+    //[Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private readonly IJobOpeningService _jobOpeningService;
         private readonly IUserService _userService;
-        //private readonly RoleManager<IdentityRole> _roleManager;
-        //private readonly IAdminService _service;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IAdminService _service;
         private static Logger _logger = LogManager.GetCurrentClassLogger();
 
-        public AdminController(IJobOpeningService jobOpeningService, IUserService userService)
+        public AdminController(IJobOpeningService jobOpeningService, IUserService userService, RoleManager<IdentityRole> roleManager, IAdminService service)
         {
             _jobOpeningService = jobOpeningService;
             _userService = userService;
-            //_roleManager = roleManager;
-            //_service = service;
+            _roleManager = roleManager;
+            _service = service;
             //RoleManager<IdentityRole> roleManager, IAdminService service //enable this if you want to add new role
         }
         public IActionResult Index()
@@ -41,22 +42,22 @@ namespace Basecode.WebApp.Controllers
             return View("RoleManagement/CreateRole");
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> CreateRole(CreateRoleViewModel createRoleViewModel)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
+        [HttpPost]
+        public async Task<IActionResult> CreateRole(CreateRoleViewModel createRoleViewModel)
+        {
+            if (ModelState.IsValid)
+            {
 
-        //        IdentityResult result = await _service.CreateRole(createRoleViewModel.RoleName);
+                IdentityResult result = await _service.CreateRole(createRoleViewModel.RoleName);
 
-        //        if (result.Succeeded)
-        //        {
-        //            return RedirectToAction("Index", "Admin");
-        //        }
-        //    }
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index", "Admin");
+                }
+            }
 
-        //    return View();
-        //}
+            return View();
+        }
 
         public IActionResult AdminJobListing()
         {
@@ -100,6 +101,40 @@ namespace Basecode.WebApp.Controllers
                 // You can customize the error handling based on your application's requirements
                 // For example, you can return a specific error view or redirect to an error page.
                 return BadRequest("An error occurred while retrieving users.");
+            }
+        }
+
+        public IActionResult Update(string id)
+        {
+            _logger.Info("Update action called");
+            try
+            {
+                var data = _userService.FindByUsername(id);
+                _userService.Update(data);
+                _logger.Info("User updated successfully.");
+                return RedirectToAction("UserManagement", "Admin");
+            }
+            catch (System.Exception ex)
+            {
+                _logger.Error(ex, "Error occurred while updating user.");
+                return RedirectToAction("UserManagement", "Admin");
+            }
+        }
+
+        public IActionResult Delete(string id)
+        {
+            _logger.Info("Delete action called");
+            try
+            {
+                var data = _userService.FindByUsername(id);
+                _userService.Delete(data);
+                _logger.Info("User deleted successfully.");
+                return RedirectToAction("UserManagement", "Admin");
+            }
+            catch (System.Exception ex)
+            {
+                _logger.Error(ex, "Error occurred while deleting user.");
+                return RedirectToAction("UserManagement", "Admin");
             }
         }
 
