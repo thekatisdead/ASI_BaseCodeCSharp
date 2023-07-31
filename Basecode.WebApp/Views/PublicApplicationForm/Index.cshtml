@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Public Application Form";
+    var jobId = ViewBag.JobId;
     Layout = "~/Views/Shared/_LayoutApplicant.cshtml";
     var httpContext = ViewContext.HttpContext;
     int? applicantId = httpContext.Session.GetInt32("Key");
@@ -15,7 +16,7 @@
 <body>
     <div class="row">
         <div class="col-md-4">
-            <form asp-controller="PublicApplicationForm" asp-action="AddForm" enctype="multipart/form-data">
+            <form asp-controller="PublicApplicationForm" asp-route-jobId="@jobId" asp-action="AddForm" enctype="multipart/form-data">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 @*<input type="hidden" asp-for="Id" />
                 <input type="hidden" asp-for="ApplicantId" value="@applicantId"/>

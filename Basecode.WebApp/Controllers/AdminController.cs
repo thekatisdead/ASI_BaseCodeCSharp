@@ -1,6 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Basecode.Services.Interfaces;
-using Basecode.Data.Models;
 using NLog;
 using Microsoft.AspNetCore.Identity;
 using Basecode.Data.ViewModels;

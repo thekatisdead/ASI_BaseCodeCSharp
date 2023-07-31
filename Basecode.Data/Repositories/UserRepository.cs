@@ -170,5 +170,11 @@ namespace Basecode.Data.Repositories
         {
             return this.GetDbSet<User>();
         }
+
+        public void UpdateUser(User user)
+        {
+            GetDbSet<User>().Update(user);
+            UnitOfWork.SaveChanges();
+        }
     }
 }

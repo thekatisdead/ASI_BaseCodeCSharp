@@ -8,6 +8,7 @@ using Basecode.Data.ViewModels;
 using NLog;
 using Hangfire;
 using NLog.Fluent;
+using Basecode.Data.Interfaces;
 
 namespace Basecode.WebApp.Controllers
 {
@@ -15,6 +16,7 @@ namespace Basecode.WebApp.Controllers
     {
         private readonly IApplicantListService _service;
         private readonly IEmailSenderService _email;
+        private readonly IApplicantListRepository _applicantList;
         private readonly ITeamsService _teamsService;
         private readonly CurrentHiresRepository _repository;
         private readonly UserRepository _users;
@@ -23,7 +25,9 @@ namespace Basecode.WebApp.Controllers
         private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
         private readonly IPublicApplicationFormService _publicApplicationFormService;
 
-        public ApplicantListController(IApplicantListService service, ITeamsService teamsService, IPublicApplicationFormService publicApplicationFormService,IEmailSenderService email, JobOpeningRepository job, UserRepository users, CurrentHiresRepository repository)
+        string _dtEmail = "kaherbieto@outlook.up.edu.ph";
+
+        public ApplicantListController(IApplicantListService service, ITeamsService teamsService, IPublicApplicationFormService publicApplicationFormService,IEmailSenderService email, JobOpeningRepository job, UserRepository users, CurrentHiresRepository repository, IApplicantListRepository applicantList)
         {
             _service = service;
             _email = email;
@@ -32,6 +36,7 @@ namespace Basecode.WebApp.Controllers
             _users = users;
             _repository = repository;
             _publicApplicationFormService = publicApplicationFormService;      
+            _applicantList = applicantList;
         }
 
         /// <summary>
@@ -40,14 +45,35 @@ namespace Basecode.WebApp.Controllers
         /// <returns>The index view.</returns>
         public IActionResult Index()
         {
-            // test for Hangfire
-            //BackgroundJob.Enqueue(()=> _email.SendEmailCharacterReference("kaherbieto@outlook.up.edu.ph","Dat Kat","Kat Dat"));
-            
             var data = _service.RetrieveAll();
             _logger.Trace("ApplicantList Controller Accessed");
             return View(data);
         }
+        public void EmailCharacterReferenceHandler(PublicApplicationFormViewModel publicForm, string candidateName, string referenceName, string position,int referenceTrigger)
+        {
 
+            if (referenceTrigger == 1)
+            {
+                if (publicForm.AnsweredOne == null)
+                {
+                    _email.SendEmailCharacterReferenceReminder(publicForm.ContactInfoOne, candidateName, referenceName, position);
+                }
+            }
+            else if (referenceTrigger == 2)
+            {
+                if (publicForm.AnsweredTwo == null)
+                {
+                    _email.SendEmailCharacterReferenceReminder(publicForm.ContactInfoTwo, candidateName, referenceName, position);
+                }
+            }
+            else if (referenceTrigger == 3)
+            {
+                if (publicForm.AnsweredThree == null)
+                {
+                    _email.SendEmailCharacterReferenceReminder(publicForm.ContactInfoThree, candidateName, referenceName, position);
+                }
+            }
+        }
         /// <summary>
         /// Takes in the Applicant ID and then use it to locate the 
         /// row of the Applicant. Updates the Status accordingly
@@ -65,41 +91,75 @@ namespace Basecode.WebApp.Controllers
             // getting name from applicant list
             // get the Id so that we can use that to locate the HR
             // use ID to find the HR to send the email
-            //var _fullName = data.Lastname + " " + data.Firstname;
-            //var job = _job.GetById(data.JobApplied);
+            var _fullName = data.Lastname + ", " + data.Firstname;
+            var job = _job.GetById(data.JobApplied);
             //var _receiver = _users.FindById((job.HR).ToString());
 
-
-            ////// sends an update whenever the applicant status is changed
-            //_email.SendEmailOnUpdateApplicantStatus(_receiver.Email,_fullName,data.Tracker,status);
-
             _logger.Trace("Updating Status");
-
-            _service.ProceedTo(applicantID, status);
+            // sends an update whenever the applicant status is changed
+            
 
             // needs to check if the currentHires exist
             if (status == "Hired")
             {
                 _repository.AddHire(applicantID,data.JobApplied);
             }
+            else if(status == "shortlisted")
+            {
 
-            else if(status == "Shortlisted")
-            { 
-                // WARNING! The problem with this code is I think that the repositories are empty
-                // This can be triggered every time the status is different but it does not get the
-                // data in the models
-                
-                //_email.SendEmailHRApplicationDecision(_receiver.Email,applicantID,_fullName,job.Position);
+                //_email.SendEmailHRApplicationDecision(_receiver.Address,applicantID,_fullName,job.Position);
+                _email.SendEmailHRApplicationDecision("kaherbieto@outlook.up.edu.ph", applicantID, _fullName, job.Position);
+                //_email.SendEmailOnUpdateApplicantStatus(_receiver.Address,_fullName,data.Tracker,status);
+                _email.SendEmailOnUpdateApplicantStatus("kaherbieto@outlook.up.edu.ph", _fullName, data.Tracker, status);
+                _service.ProceedTo(applicantID, status);
+            }
+            else if(status =="Undergoing Background Checks")
+            {
+                //_email.SendEmailOnUpdateApplicantStatus(_receiver.Address,_fullName,data.Tracker,status);
+                _email.SendEmailOnUpdateApplicantStatus("kaherbieto@outlook.up.edu.ph", _fullName, data.Tracker, status);
+                _service.ProceedTo(applicantID, status);
+                _logger.Trace($"{data.Id},{data.Tracker},{data.FormId}");
+                int formID = (int)data.FormId;
+                var viewModel = _publicApplicationFormService.GetByApplicationId(formID);
+                var dueTime = DateTime.UtcNow.AddHours(48);
+
+                // contacts the references for each thting when creating the form
+                if (viewModel.ContactInfoOne != null)
+                {
+                    _email.SendEmailCharacterReference(viewModel.ContactInfoOne, viewModel.LastName, applicantID, viewModel.ReferenceOneFullName,1);
+
+                    // replace the _email function with a seperate function that checks if the thing has responded na
+                    BackgroundJob.Schedule(() => EmailCharacterReferenceHandler(viewModel,_fullName,viewModel.ReferenceOneFullName,viewModel.Position.ToString(),1), dueTime);
+                }
+                if (viewModel.ContactInfoTwo != null)
+                {
+                    _email.SendEmailCharacterReference(viewModel.ContactInfoTwo, viewModel.LastName, applicantID, viewModel.ReferenceTwoFullName,2);
+                    // replace the _email function with a seperate function that checks if the thing has responded na
+                    // also change the variable names, handled in a seperate function
+                    BackgroundJob.Schedule(() => EmailCharacterReferenceHandler(viewModel, _fullName, viewModel.ReferenceOneFullName, viewModel.Position.ToString(), 2), dueTime);
+                }
+                if (viewModel.ContactInfoThree != null)
+                {
+                    _email.SendEmailCharacterReference(viewModel.ContactInfoThree, viewModel.LastName, applicantID, viewModel.ReferenceThreeFullName,3);
+                    // replace the _email function with a seperate function that checks if the thing has responded na
+                    // also change the variable names, handled in a seperate function
+                    BackgroundJob.Schedule(() => EmailCharacterReferenceHandler(viewModel, _fullName, viewModel.ReferenceOneFullName, viewModel.Position.ToString(), 3), dueTime);
+                }
             }
             Applicant applicant = new Applicant();
             _service.UpdateStatus(applicantID,status);
             return RedirectToAction("Index", "ApplicantList");
         }
 
-        public IActionResult ViewProfile(int applicantId, int jobId)
+        public IActionResult ViewProfile(int applicantId)
         {
-            var applicant = _publicApplicationFormService.GetApplicationFormById(applicantId, jobId);
-            return View(applicant);
+            var applicant = _applicantList.GetById(applicantId);
+            var formId = applicant.FormId;
+            var publicForm = _publicApplicationFormService.GetByApplicationId(formId);
+            
+            ViewBag.Status = applicant.Tracker;
+            ViewBag.ID = applicantId;
+            return View(publicForm);
         }
         public IActionResult DownloadCV(byte[] cv)
         {
@@ -133,9 +193,7 @@ namespace Basecode.WebApp.Controllers
             {
                 return NotFound(); // or handle the case when applicant is not found
             }
-            _logger.Trace("GRRR");
             var _tempStatus = data.Tracker; // get the job stage
-            _logger.Trace($"{data.JobApplied},{data.EmailAddress},{data.Grading},{data.Tracker}");
             if (_tempStatus.ToLower().Contains("interview"))
             {
                 status = "Interview";
@@ -154,13 +212,13 @@ namespace Basecode.WebApp.Controllers
             {
                 _email.SendEmailRejectInterview(data.EmailAddress,_fullName, job.Position);
             }
-            else
+            /*else
             {
                 _logger.Trace($"Applicant was Rejected but there was no instance of a [{status}]");
                 return NotFound();
-            }
+            }*/
 
-            return View();
+            return RedirectToAction("Index");
         }
         public IActionResult Accept(int applicantID)
         {
@@ -172,10 +230,28 @@ namespace Basecode.WebApp.Controllers
         {
             _service.UpdateGrade(applicantID, "Passed");
             // _service.ProceedTo(applicantID, "For HR Interview");
-            return View();
+            return RedirectToAction("Index");
+        }
+        public IActionResult Confirm(int applicantID)
+        {
+            
+            _service.UpdateGrade(applicantID,"Confirmed");
+            return RedirectToAction("Index");
+        }
+        public IActionResult Hired(int FormID)
+        {
+            // not yet finished
+            // sends an email to the HR saying He Needs to confirm if applicant has signed
+            var temporary = _applicantList.GetByFormId(FormID);
+            var _applicantId = temporary.Id;
+
+            // grade becomes hired not status
+            _service.UpdateGrade(_applicantId, "Not Confirmed");
+            _email.SendEmailHireConfirmation("kaherbieto@outlook.up.edu.ph", "Name",_applicantId,temporary.JobApplied.ToString());
+            return this.UpdateStatus(_applicantId, "Hired");
+
         }
 
-        
 
     }
 }

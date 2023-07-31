@@ -172,6 +172,45 @@ namespace Basecode.Services.Services
             }
         }
 
+        public void SendEmailHireConfirmation(string receiverEmail, string applicantName, int applicantID, string jobPosition)
+        {
+            var email = new MimeMessage();
+
+            // If you wanna test for email functionalities, change the Sender Name to your email
+            // and the receiver name to your other email.
+            // To perform it properly, follow the link below
+            // https://mailtrap.io/blog/csharp-send-email-gmail/
+
+            email.From.Add(new MailboxAddress("HR Automated Tracking", "kermherbieto52@gmail.com"));
+            email.To.Add(new MailboxAddress(applicantName, receiverEmail));
+
+            email.Subject = "Hiring Decision";
+
+            var htmlContent = File.ReadAllText("EmailTemplates/HiringDecision.html");
+
+            // this is to replace the placeholders
+            htmlContent = htmlContent.Replace("{applicantName}", applicantName);
+            htmlContent = htmlContent.Replace("{applicantID}", applicantID.ToString());
+            htmlContent = htmlContent.Replace("{jobPosition}", jobPosition);
+
+
+            email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
+            {
+                Text = htmlContent
+            };
+
+            using (var smtp = new SmtpClient())
+            {
+                smtp.Connect("smtp.gmail.com", 587, false);
+
+                // Note: only needed if the SMTP server requires authentication
+                // Also: This is PM's email kek, rip bozo ig.
+                smtp.Authenticate("kermherbieto52@gmail.com", "sfltmfkdvdiuhabi");
+
+                smtp.Send(email);
+                smtp.Disconnect(true);
+            }
+        }
         public void SendEmailCharacterReferenceDecision(string receiverEmail, string applicantName, int applicantID, string jobPosition)
         {
             var email = new MimeMessage();
@@ -184,7 +223,7 @@ namespace Basecode.Services.Services
             email.From.Add(new MailboxAddress("HR Automated Tracking", "kermherbieto52@gmail.com"));
             email.To.Add(new MailboxAddress(applicantName, receiverEmail));
 
-            email.Subject = "Interview Decision";
+            email.Subject = "Character Reference Decision";
 
             var htmlContent = File.ReadAllText("EmailTemplates/CharacterReferenceDecision.html");
 
@@ -211,7 +250,7 @@ namespace Basecode.Services.Services
                 smtp.Disconnect(true);
             }
         }
-        public void SendEmailCharacterReference(string receiverEmail, string applicantName, int applicantID, string referenceName)
+        public void SendEmailCharacterReference(string receiverEmail, string applicantName, int applicantID, string referenceName, int trigger)
         {
             var email = new MimeMessage();
 
@@ -231,6 +270,7 @@ namespace Basecode.Services.Services
             htmlContent = htmlContent.Replace("{applicantName}", applicantName);
             htmlContent = htmlContent.Replace("{referenceName}", referenceName);
             htmlContent = htmlContent.Replace("{applicantID}", applicantID.ToString());
+            htmlContent = htmlContent.Replace("{trigger}", trigger.ToString());
 
 
             email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
@@ -363,6 +403,95 @@ namespace Basecode.Services.Services
             htmlContent = htmlContent.Replace("{applicantName}", applicantName);
             htmlContent = htmlContent.Replace("{referenceName}", referenceName);
             htmlContent = htmlContent.Replace("{jobPosition}", button);
+
+            email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
+            {
+                Text = htmlContent
+            };
+
+            using (var smtp = new SmtpClient())
+            {
+                smtp.Connect("smtp.gmail.com", 587, false);
+
+                // Note: only needed if the SMTP server requires authentication
+                // Also: This is PM's email kek, rip bozo ig.
+                smtp.Authenticate("kermherbieto52@gmail.com", "sfltmfkdvdiuhabi");
+
+                smtp.Send(email);
+                smtp.Disconnect(true);
+            }
+        }
+
+        public void SendEmailApplicantGeneration(string receiverEmail, string applicantName, int applicantID, string jobPosition)
+        {
+            var email = new MimeMessage();
+
+            // If you wanna test for email functionalities, change the Sender Name to your email
+            // and the receiver name to your other email.
+            // To perform it properly, follow the link below
+            // https://mailtrap.io/blog/csharp-send-email-gmail/
+
+            email.From.Add(new MailboxAddress("HR Automated Tracking", "kermherbieto52@gmail.com"));
+            email.To.Add(new MailboxAddress(applicantName, receiverEmail));
+
+            email.Subject = "Application Sent";
+
+            var htmlContent = File.ReadAllText("EmailTemplates/ApplicantGenerate.html");
+
+            // this is to replace the placeholders
+            htmlContent = htmlContent.Replace("{applicantName}", applicantName);
+            htmlContent = htmlContent.Replace("{applicantID}", applicantID.ToString());
+            htmlContent = htmlContent.Replace("{jobPosition}", jobPosition);
+
+            email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
+            {
+                Text = htmlContent
+            };
+
+            using (var smtp = new SmtpClient())
+            {
+                smtp.Connect("smtp.gmail.com", 587, false);
+
+                // Note: only needed if the SMTP server requires authentication
+                // Also: This is PM's email kek, rip bozo ig.
+                smtp.Authenticate("kermherbieto52@gmail.com", "sfltmfkdvdiuhabi");
+
+                smtp.Send(email);
+                smtp.Disconnect(true);
+            }
+        }
+
+        public void SendEmailInterviewGeneration(string receiverEmail, string interviewName, string applicantName, int applicantID, string jobPosition, DateOnly date, TimeOnly startTime, TimeOnly endTime)
+        {
+            var email = new MimeMessage();
+
+            // If you wanna test for email functionalities, change the Sender Name to your email
+            // and the receiver name to your other email.
+            // To perform it properly, follow the link below
+            // https://mailtrap.io/blog/csharp-send-email-gmail/
+
+            email.From.Add(new MailboxAddress("HR Automated Tracking", "kermherbieto52@gmail.com"));
+            email.To.Add(new MailboxAddress(interviewName, receiverEmail));
+
+            email.Subject = "Application Sent";
+
+   
+            var htmlContent = File.ReadAllText("EmailTemplates/InterviewGenerate.html");
+
+            // this is to replace the placeholders
+            htmlContent = htmlContent.Replace("{interviewName}", interviewName);
+            htmlContent = htmlContent.Replace("{applicantName}", applicantName);
+            htmlContent = htmlContent.Replace("{applicantID}", applicantID.ToString());
+            htmlContent = htmlContent.Replace("{jobPosition}", jobPosition);
+            htmlContent = htmlContent.Replace("{date}", date.ToString("yyyy-MM-dd"));
+            htmlContent = htmlContent.Replace("{startTime}", startTime.ToString("HH:mm"));
+            htmlContent = htmlContent.Replace("{endTime}", endTime.ToString("HH:mm"));
+
+            //var button = $" <input type = 'datetime-local' min = '{startTime.ToString(""yyyy-MM-dd"")}' max = '{endTime.ToString(""yyyy-MM-dd"")}'>";
+            //htmlContent = htmlContent.Replace("{button}",button);
+            //htmlContent = htmlContent.Replace("{startTime}","2023-07-28");
+            //htmlContent = htmlContent.Replace("{endTime}", "2023-07-29");
+
 
             email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
             {

@@ -10,15 +10,20 @@ namespace Basecode.WebApp.Controllers
     public class CharacterReferenceController : Controller
     {
         private readonly ICharacterReferenceService _service;
-        private readonly IPublicApplicationFormService _applicationForm;
+        private IPublicApplicationFormService _applicationForm;
+        private readonly IApplicantListService _applicantRepository;
         private readonly IEmailSenderService _email;
+        private IJobOpeningService _jobOpeningService;
+        private IUserService _userService;
         private static Logger _logger = LogManager.GetCurrentClassLogger();
 
-        public CharacterReferenceController(ICharacterReferenceService service, IEmailSenderService email, IPublicApplicationFormService applicationForm)
+        public CharacterReferenceController(ICharacterReferenceService service, IEmailSenderService email, IPublicApplicationFormService applicationForm, IJobOpeningService jobOpeningService, IUserService userService)
         {
             _service = service;
             _email = email;
             _applicationForm = applicationForm;
+            _jobOpeningService = jobOpeningService;
+            _userService = userService;
         }
 
         public IActionResult Index(int applicantID)
@@ -35,31 +40,45 @@ namespace Basecode.WebApp.Controllers
         /// <returns>A redirect to the index action.</returns>
         public IActionResult Add(CharacterReferenceViewModel viewModel, int applicantID, int trigger)
         {
-            
+            _applicationForm.Responded(applicantID);
+            // problem is that registration no user and thing
+            var _applicant = _applicantRepository.GetApplicantById(applicantID);
+            var _hrEmail = _userService.FindById(_applicant.JobApplied.ToString()).Email;
             try
             {
                 _logger.Trace("flag 0 passed");
                 //var _numberAnswered = _applicationForm.CountResponded(viewModel.Id);
-                var _numberAnswered = 1; // temp variable because CountResponded is wrong apparently
+                var _numberAnswered = _applicationForm.CountResponded(applicantID); // temp variable because CountResponded is wrong apparently
                 _logger.Trace("flag 1 passed");
                 // sends an email to the HR
                 if ( _numberAnswered < 3 ) 
                 {
-                    _email.SendEmailOnCharacterReferenceResponse("kaherbieto@outlook.up.edu.ph", viewModel.CandidateLastName, viewModel.LastName, _numberAnswered, 3);
+                    _email.SendEmailOnCharacterReferenceResponse(_hrEmail, viewModel.CandidateLastName, viewModel.LastName, _numberAnswered, 3);
                 }
                 else
                 {
                     // needs communication on when to send the decision, after all are completed or after a certain period of time
-                    _email.SendEmailCharacterReferenceDecision("kaherbieto@outlook.up.edu.ph", viewModel.LastName, applicantID, viewModel.Position);
+                    _email.SendEmailCharacterReferenceDecision(_hrEmail, viewModel.LastName, applicantID, viewModel.Position);
                 }
                 // sends an email to the form
                 _logger.Trace("flag 2 passed");
-                var user = _applicationForm.GetById(applicantID);
+                var user = _applicationForm.GetByApplicationId(_applicantRepository.GetApplicantById(applicantID).FormId);
                 // email changes here but it needs to be connected :sob:
+                var _emailCharacter = "scape";
+
                 if(trigger == 1)
                 {
-                    _email.SendEmailCharacterReferenceGratitude("kaherbieto@outlook.up.edu.ph", viewModel.LastName, viewModel.Position, viewModel.CandidateLastName);
+                    _emailCharacter = user.ContactInfoOne;
                 }
+                else if (trigger == 2)
+                {
+                    _emailCharacter = user.ContactInfoTwo;
+                }
+                else if (trigger == 1)
+                {
+                    _emailCharacter = user.ContactInfoThree;
+                }
+                _email.SendEmailCharacterReferenceGratitude(_emailCharacter, viewModel.LastName, viewModel.Position, viewModel.CandidateLastName);
                 _logger.Trace("flag 3 passed");
 
 
