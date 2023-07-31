@@ -11,9 +11,8 @@ namespace Basecode.Data.ViewModels
     {
         public int? ScheduleId { get; set; }
         public  List<JobOpeningViewModel> JobOpenings { get; set; }
-        public List<InterviewerViewModel> Interviewers { get; set; }
-        public List<ApplicantListViewModel> Applicants { get; set; }
-
+        public List<InterviewerViewModel> Interviewers { get; set; }    
+       
         [Required(ErrorMessage = "Select an Interviewer")]
         public int InterviewerId { get; set; }
         [Required(ErrorMessage = "Select a Job Opening")]
@@ -31,6 +30,5 @@ namespace Basecode.Data.ViewModels
         [Display(Name = "Date")]
         public string Date { get; set; }
         public string Instruction { get; set; }
-        public string TypeOfExam { get; set; }
     }
 }

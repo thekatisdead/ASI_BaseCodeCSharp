@@ -12,7 +12,6 @@ namespace Basecode.Data.Models
         public int ScheduleId { get; set; } 
         public int InterviewerId { get; set; } 
         public int JobId { get; set; }
-        public int ApplicantId { get; set; }
         public string StartTime { get; set; }
         public string EndTime { get; set; }
         public string Date { get; set; }

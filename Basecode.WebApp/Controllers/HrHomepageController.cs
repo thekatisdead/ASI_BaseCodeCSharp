@@ -2,8 +2,6 @@
 using Basecode.Data.Repositories;
 using Basecode.Data.ViewModels;
 using Basecode.Services.Interfaces;
-using Basecode.Services.Services;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using NLog;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -15,15 +13,11 @@ namespace Basecode.WebApp.Controllers
         private static Logger _logger = LogManager.GetCurrentClassLogger();
         private readonly IJobOpeningService _jobOpeningService;
         private readonly IApplicantListService _service;
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly IUserService _userService;
 
-        public HrHomepageController(IJobOpeningService jobOpeningService, IApplicantListService applicantListService, UserManager<IdentityUser> userManager, IUserService userService)
+        public HrHomepageController(IJobOpeningService jobOpeningService, IApplicantListService applicantListService)
         {
             _jobOpeningService = jobOpeningService;
             _service = applicantListService;
-            _userManager = userManager;
-            _userService = userService;
         }
 
         public IActionResult Index(string Username)
@@ -57,22 +51,6 @@ namespace Basecode.WebApp.Controllers
                 ApplicantsData = applicantsData
             };
             ViewBag.Name = Username;
-
-            // Fetch the logged-in user's email
-            var userEmail = User.Identity.Name;
-
-            // Fetch the user's first name and last name based on the email
-            var user = _userService.FindByUsername(userEmail);
-
-            if (user != null)
-            {
-                ViewBag.Name = $"{user.FirstName} {user.LastName}";
-            }
-            else
-            {
-                ViewBag.Name = "Guest";
-            }
-
             return View(compositeViewModel);
         }
     }

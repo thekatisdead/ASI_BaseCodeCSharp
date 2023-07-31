@@ -258,12 +258,10 @@ namespace Basecode.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     InterviewerId = table.Column<int>(type: "int", nullable: false),
                     JobId = table.Column<int>(type: "int", nullable: false),
-                    ApplicantId = table.Column<int>(type: "int", nullable: false),
                     StartTime = table.Column<string>(type: "nvarchar(10)", nullable: false),
                     EndTime = table.Column<string>(type: "nvarchar(10)", nullable: false),
                     Date = table.Column<string>(type: "nvarchar(10)", nullable: false),
                     Instruction = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TypeOfExam = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -283,12 +281,6 @@ namespace Basecode.Data.Migrations
                         column: x => x.InterviewerId,
                         principalTable: "Interviewer",
                         principalColumn: "InterviewerId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "ForeignKey_Applicant",
-                        column: x => x.ApplicantId,
-                        principalTable: "Applicant",
-                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
