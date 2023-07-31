@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,11 @@ namespace Basecode.Data.Models
         public int Id { get; set; }
         public int ApplicantId { get; set; }
         public int Position { get; set; }
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
+        public string? EmailAddress { get; set; }
+        public string? PositionType { get; set; }
+        public string? EmploymentType { get; set; }
         public string? PhoneNumber { get; set; }
         public string? Address { get; set; }
         public string? Time { get; set; }
