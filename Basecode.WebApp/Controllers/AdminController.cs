@@ -14,16 +14,16 @@ namespace Basecode.WebApp.Controllers
     {
         private readonly IJobOpeningService _jobOpeningService;
         private readonly IUserService _userService;
-        private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly IAdminService _service;
+        //private readonly RoleManager<IdentityRole> _roleManager;
+        //private readonly IAdminService _service;
         private static Logger _logger = LogManager.GetCurrentClassLogger();
 
-        public AdminController(IJobOpeningService jobOpeningService, IUserService userService, RoleManager<IdentityRole> roleManager, IAdminService service)
+        public AdminController(IJobOpeningService jobOpeningService, IUserService userService)
         {
             _jobOpeningService = jobOpeningService;
             _userService = userService;
-            _roleManager = roleManager;
-            _service = service;
+            //_roleManager = roleManager;
+            //_service = service;
             //RoleManager<IdentityRole> roleManager, IAdminService service //enable this if you want to add new role
         }
         public IActionResult Index()
@@ -42,22 +42,22 @@ namespace Basecode.WebApp.Controllers
             return View("RoleManagement/CreateRole");
         }
 
-        [HttpPost]
-        public async Task<IActionResult> CreateRole(CreateRoleViewModel createRoleViewModel)
-        {
-            if (ModelState.IsValid)
-            {
+        //[HttpPost]
+        //public async Task<IActionResult> CreateRole(CreateRoleViewModel createRoleViewModel)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
 
-                IdentityResult result = await _service.CreateRole(createRoleViewModel.RoleName);
+        //        IdentityResult result = await _service.CreateRole(createRoleViewModel.RoleName);
 
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("Index", "Admin");
-                }
-            }
+        //        if (result.Succeeded)
+        //        {
+        //            return RedirectToAction("Index", "Admin");
+        //        }
+        //    }
 
-            return View();
-        }
+        //    return View();
+        //}
 
         public IActionResult AdminJobListing()
         {
