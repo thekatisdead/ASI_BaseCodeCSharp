@@ -11,6 +11,7 @@ using Exception = System.Exception;
 
 namespace Basecode.WebApp.Controllers
 {
+    //[Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private readonly IJobOpeningService _jobOpeningService;
@@ -105,39 +106,39 @@ namespace Basecode.WebApp.Controllers
             }
         }
 
-        [HttpPost]
-        [AcceptVerbs("POST", "PUT", "PATCH")]
-        public IActionResult Update(User user)
+        public IActionResult Update(string id)
         {
             _logger.Info("Update action called");
             try
             {
-                var existingUser = _userService.FindByUsername(user.Username);
-                if (existingUser != null)
-                {
-                    existingUser.Username = user.Username;
-                    existingUser.FirstName = user.FirstName;
-                    existingUser.LastName = user.LastName;
-                    existingUser.ContactNumber = user.ContactNumber;
-                    existingUser.Email = user.Email;
-                    existingUser.Address = user.Address;
-
-                    _userService.Update(existingUser);
-                    _logger.Info("User account updated successfully.");
-                }
-                else
-                {
-                    _logger.Error("User account not found for update.");
-                    return NotFound();
-                }
-
-                return RedirectToAction("UserManagement");
+                var data = _userService.FindByUsername(id);
+                _userService.Update(data);
+                _logger.Info("User updated successfully.");
+                return RedirectToAction("UserManagement", "Admin");
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
-                _logger.Error(ex, "Error occurred while updating user account.");
-                return RedirectToAction("Update", new { username = user.Username });
+                _logger.Error(ex, "Error occurred while updating user.");
+                return RedirectToAction("UserManagement", "Admin");
             }
-        }     
+        }
+
+        public IActionResult Delete(string id)
+        {
+            _logger.Info("Delete action called");
+            try
+            {
+                var data = _userService.FindByUsername(id);
+                _userService.Delete(data);
+                _logger.Info("User deleted successfully.");
+                return RedirectToAction("UserManagement", "Admin");
+            }
+            catch (System.Exception ex)
+            {
+                _logger.Error(ex, "Error occurred while deleting user.");
+                return RedirectToAction("UserManagement", "Admin");
+            }
+        }
+
     }
 }

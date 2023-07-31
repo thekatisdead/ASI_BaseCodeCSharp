@@ -1,8 +1,9 @@
 ﻿@{
     Layout = "~/Views/Shared/_NoLayout.cshtml";
 }
-@using Basecode.Data.Models
-@model List<User>
+
+@using Basecode.Data.ViewModels
+@model List<UserViewModel>
 
 <html>
 <head>
@@ -16,71 +17,49 @@
 </head>
 
 <body>
-    <div class="container-fluid" style="position: absolute; right: 0px; font-family: Helvetica;">
-        <div class="row flex-nowrap">
+    <main class="container-fluid" style="position: absolute; right: 0px; font-family: Helvetica;">
+        <div class="row">
             @await Html.PartialAsync("./_AdminSideBar")
             <div class="col-lg">
-                <div class="row flex-nowrap">
+                <div class="row">
                     @await Html.PartialAsync("./_UpperBarAdmin")
                 </div>
+
                 <div class="row flex-nowrap bg-light dashboard-section">
-                    <div class="col container table-responsive-sm">
-                        <div class="p-4">
-                        </div>
-                        <table id="myTable" class=" table table-striped table-hover rounded-table" style="">
-                            <thead>
-                                <tr> 
-                                    <th>
-                                        Firstname
-                                    </th>
-                                    <th>
-                                        Lastname
-                                    </th>
-                                    <th>
-                                        Contact Number
-                                    </th>
-                                    <th>
-                                        Email 
-                                    </th>
-                                    <th>
-                                        Address
-                                    </th>
-                                    <th>
-                                        Action
-                                    </th>
+                <section class="admin-table">
+                    <h2 class="section-title">User List</h2>
+                        <table id="myTable" class="table table-striped table-hover rounded-table">
+                        <thead class="header">
+                            <tr>
+                                <th class="text-center">Firstname</th>
+                                <th class="text-center">Lastname</th>
+                                <th class="text-center">Email</th>
+                                <th class="text-center">Contact Number</th>
+                                <th class="text-center">Address</th>
+                                <th class="text-center">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var user in Model)
+                            {
+                                <tr>
+                                    <td class="table-cell">@user.FirstName</td>
+                                    <td class="table-cell">@user.LastName</td>
+                                    <td class="table-cell">@user.Email</td>
+                                    <td class="table-cell">@user.ContactNumber</td>
+                                    <td class="table-cell">@user.Address</td>
+                                    <td class="table-cell">
+                                        <a asp-controller="Admin" asp-action="UpdateJob" asp-route-id="@user.Email">Edit</a>
+                                        <a asp-controller="Admin" asp-action="Delete" asp-route-id="@user.Email">Delete</a>
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tbody class="text-center">
-                                @foreach (var user in Model)
-                                {
-                                    <tr>
-                                        <td>
-                                            @user.FirstName
-                                        </td>
-                                        <td>
-                                            @user.LastName
-                                        </td>
-                                        <td>
-                                            @user.ContactNumber
-                                        </td>
-                                        <td>
-                                            @user.Email
-                                        </td>
-                                        <td>
-                                            @user.Address
-                                        </td>
-                                        <td class="text-center">
-                                            <a asp-controller="Admin" asp-action="Update" asp-route-id="@user.Username">Edit</a>
-                                            <a asp-controller="Admin" asp-action="DeleteUser" asp-route-id="@user.Username">Delete</a>
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
+                            }
+                        </tbody>
+                    </table>
+                </section>
                 </div>
             </div>
         </div>
-    </div>
+    </main>
 </body>
 </html>
