@@ -155,7 +155,6 @@ namespace Basecode.WebApp.Controllers
             
             ViewBag.Status = applicant.Tracker;
             ViewBag.ID = applicantId;
-            _logger.Trace($"{publicForm.LastName},{publicForm.ApplicationID}");
             return View(publicForm);
         }
         public IActionResult DownloadCV(byte[] cv)

@@ -99,9 +99,9 @@ namespace Basecode.Services.Services
         /// <returns>An object reference containg the Applicant's Public Application details</returns>
         public ApplicantDetails GetApplicationFormById(int applicantId, int jobId)
         {
-            var applicant = _applicantListRepository.GetById(applicantId);
+            var applicant = _applicantListRepository.GetByFormId(applicantId);
             var job = _jobOpeningRepository.GetById(jobId);
-            var form = _repository.GetById(applicantId);
+            var form = _repository.GetByApplicationId(applicant.FormID);
             //This new variable combines the three tables instances to view accurately the applicant's public application form.
             var data = new ApplicantDetails
             {
@@ -124,7 +124,8 @@ namespace Basecode.Services.Services
                 ContactInfoTwo = form.ContactInfoTwo,
                 ReferenceThreeFullName = form.ReferenceThreeFullName,
                 RelationshipThree = form.RelationshipThree,
-                ContactInfoThree = form.ContactInfoThree
+                ContactInfoThree = form.ContactInfoThree,
+                ApplicationID = applicant.FormID,
             };
 
             return data;

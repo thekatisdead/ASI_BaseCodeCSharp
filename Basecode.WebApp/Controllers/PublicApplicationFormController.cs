@@ -30,7 +30,7 @@ namespace Basecode.WebApp.Controllers
             ViewBag.JobId = jobId;
             _logger.Trace("PublicApplicationForm Controller Accessed");
             PublicApplicationFormViewModel form = new PublicApplicationFormViewModel();
-            form.Position= jobId;
+            ViewBag.JobId = jobId;
             return View(form);
         }
 

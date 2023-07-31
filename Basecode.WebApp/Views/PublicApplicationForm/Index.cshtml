@@ -18,9 +18,9 @@
         <div class="col-md-4">
             <form asp-controller="PublicApplicationForm" asp-route-jobId="@jobId" asp-action="AddForm" enctype="multipart/form-data">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="Id" value="@Model.ApplicantId" />
                 <input type="hidden" asp-for="ApplicantId" value="@applicantId"/>
-                <input type="hidden" asp-for="Position" />
+                <input type="hidden" asp-for="Position" value="@Model.Position"/>
                 
                     <label class="text-public">Public Job Application Form</label>
                         <h5 class="text-personal">Personal Information</h5>

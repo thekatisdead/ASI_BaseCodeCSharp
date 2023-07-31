@@ -31,7 +31,6 @@ namespace Basecode.Data.ViewModels
         public string? RelationshipThree { get; set; }
         public string? ContactInfoThree { get; set; }
         public byte[]? CurriculumVitae { get; set; }
-
         public int? ApplicationID { get; set; }
     }
 }

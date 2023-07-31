@@ -10,8 +10,11 @@ namespace Basecode.Data.Models
     public class PublicApplicationForm
     {
         public int Id { get; set; }
-        public int ApplicantId { get; set; }
-        public int Position { get; set; }
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
+        public string? EmailAddress { get; set; }
+        public int? ApplicationID { get; set; }
+        public string? Position { get; set; }
         public string? PhoneNumber { get; set; }
         public string? Address { get; set; }
         public string? Time { get; set; }
@@ -31,7 +34,6 @@ namespace Basecode.Data.Models
         public string? ContactInfoThree { get; set; }
         public int? AnsweredThree { get; set; }
         public byte[]? CurriculumVitae { get; set; }
-        public int? ApplicationID { get; set; }
         public DateTime? CreatedTime { get; set; } = DateTime.Now;
         public string? CreatedBy { get; set; } = System.Environment.UserName;
         public DateTime? UpdatedTime { get; set; }
