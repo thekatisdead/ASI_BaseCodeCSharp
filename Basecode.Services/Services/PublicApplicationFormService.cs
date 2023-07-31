@@ -73,16 +73,24 @@ namespace Basecode.Services.Services
             return _mapper.Map<PublicApplicationFormViewModel>(data);
         }
 
+        public void Responded(int id)
+        {
+            var Id = _applicantListRepository.GetById(id).FormID;
+            _repository.Responded((int)Id);
+        }
+
         public int CountResponded(int id)
         {
             try
             {
-                var count = _repository.CountResponded(id);
+                var Id = _applicantListRepository.GetById(id);
+                var form = _repository.GetByApplicationId(Id.FormID);
+                var count = form.AnsweredOne;
 
                 // Log successful count of responded forms
                 _logger.Info($"Count of responded forms with ID: {id} is {count}");
 
-                return count;
+                return (int)count;
             }
             catch (Exception ex)
             {

@@ -63,6 +63,20 @@ namespace Basecode.Data.Repositories
         {
             return _context.PublicApplicationForm.FirstOrDefault(form => form.ApplicationID == id);
         }
+
+        public void Responded(int id)
+        {
+            var form = _context.PublicApplicationForm.FirstOrDefault(form => form.ApplicationID ==  id);
+            if (form.AnsweredOne == null)
+            {
+                form.AnsweredOne = 1;
+            }
+            else
+            {
+                form.AnsweredOne += 1;
+            }
+            _context.SaveChanges();
+        }
         public int CountResponded(int id)
         {
             try

@@ -46,7 +46,8 @@ namespace Basecode.Services.Services
                     Firstname = s.Firstname,
                     Lastname = s.Lastname,
                     JobApplied = s.JobApplied,
-                    Tracker = s.Tracker
+                    Tracker = s.Tracker,
+                    Grading = s.Grading
                 });
 
                 var data = from app in applicants
@@ -59,7 +60,8 @@ namespace Basecode.Services.Services
                                Lastname = app.Lastname,
                                JobApplied = app.JobApplied,
                                JobPosition = job.Position,
-                               Tracker = app.Tracker
+                               Tracker = app.Tracker,
+                               Grading = app.Grading
                            };
                 // Log successful retrieval of the applicant list
                 _logger.Info("Successfully retrieved the list of applicants.");
@@ -159,7 +161,8 @@ namespace Basecode.Services.Services
                     Firstname = recentApplicant.Firstname,
                     Lastname = recentApplicant.Lastname,
                     JobApplied = recentApplicant.JobApplied,
-                    Tracker = recentApplicant.Tracker
+                    Tracker = recentApplicant.Tracker,
+                    Grading = recentApplicant.Grading
                 };
 
                 // Log successful retrieval of the most recent applicant
@@ -196,7 +199,8 @@ namespace Basecode.Services.Services
                     Id = recentApplicant.Id,
                     Firstname = recentApplicant.Firstname,
                     Lastname = recentApplicant.Lastname,
-                    JobApplied = recentApplicant.JobApplied
+                    JobApplied = recentApplicant.JobApplied,
+                    Grading = recentApplicant.Grading
                 };
 
                 // Log successful retrieval of the most recent applicant for requirements

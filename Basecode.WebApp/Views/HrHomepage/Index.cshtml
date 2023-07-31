@@ -60,7 +60,7 @@
                     <div class="applicant-info">
                         <span><strong>Applicant Name:</strong> @Model.ApplicantsData.Firstname @Model.ApplicantsData.Lastname</span>
                         <span><strong>Status:</strong> @Model.ApplicantsData.Tracker</span>
-                        <span><strong>Last Activity:</strong> N/A</span>
+                        <span><strong>Last Activity:</strong> @Model.ApplicantsData.Grading</span>
                     </div>
                     <div class="applicant-actions">
                         <a asp-controller="ApplicantList" asp-action="Index">

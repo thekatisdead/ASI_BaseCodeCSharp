@@ -124,6 +124,7 @@ namespace Basecode.Data.Repositories
                     Firstname = recentApplicant.Firstname,
                     Lastname = recentApplicant.Lastname,
                     Tracker = recentApplicant.Tracker,
+                    Grading = recentApplicant.Grading,
                     JobApplied = recentApplicant.JobApplied
                 };
 
@@ -162,6 +163,8 @@ namespace Basecode.Data.Repositories
                     Id = recentApplicant.Id,
                     Firstname = recentApplicant.Firstname,
                     Lastname = recentApplicant.Lastname,
+                    Tracker = recentApplicant.Tracker, 
+                    Grading = recentApplicant.Grading,
                     JobApplied = recentApplicant.JobApplied
                 };
 

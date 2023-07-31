@@ -10,7 +10,8 @@ namespace Basecode.WebApp.Controllers
     public class CharacterReferenceController : Controller
     {
         private readonly ICharacterReferenceService _service;
-        private readonly IPublicApplicationFormService _applicationForm;
+        private IPublicApplicationFormService _applicationForm;
+        private readonly IApplicantListService _applicantRepository;
         private readonly IEmailSenderService _email;
         private static Logger _logger = LogManager.GetCurrentClassLogger();
 
@@ -35,12 +36,12 @@ namespace Basecode.WebApp.Controllers
         /// <returns>A redirect to the index action.</returns>
         public IActionResult Add(CharacterReferenceViewModel viewModel, int applicantID, int trigger)
         {
-            
+            _applicationForm.Responded(applicantID);
             try
             {
                 _logger.Trace("flag 0 passed");
                 //var _numberAnswered = _applicationForm.CountResponded(viewModel.Id);
-                var _numberAnswered = 1; // temp variable because CountResponded is wrong apparently
+                var _numberAnswered = _applicationForm.CountResponded(applicantID); // temp variable because CountResponded is wrong apparently
                 _logger.Trace("flag 1 passed");
                 // sends an email to the HR
                 if ( _numberAnswered < 3 ) 
