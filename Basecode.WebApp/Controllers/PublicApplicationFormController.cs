@@ -14,19 +14,24 @@ namespace Basecode.WebApp.Controllers
         private readonly IApplicantListRepository _applicant;
         private readonly IEmailSenderService _email;
         private static Logger _logger = LogManager.GetCurrentClassLogger();
-        
-        public PublicApplicationFormController(IPublicApplicationFormService service, IEmailSenderService email, IApplicantListRepository applicant)
+        private readonly IApplicantListService _applicantListService;
+        private readonly IJobOpeningService _jobOpeningService;
+
+        public PublicApplicationFormController(IPublicApplicationFormService service, IEmailSenderService email, IApplicantListService applicantListService, IJobOpeningService jobOpeningService)
         {
             _service = service;
             _email = email;
-            _applicant = applicant;
+            _applicantListService = applicantListService;
+            _jobOpeningService = jobOpeningService;
         }
 
         public IActionResult Index(int jobId)
         {
             ViewBag.JobId = jobId;
             _logger.Trace("PublicApplicationForm Controller Accessed");
-            return View();
+            PublicApplicationFormViewModel form = new PublicApplicationFormViewModel();
+            form.Position= jobId;
+            return View(form);
         }
 
         [HttpPost]
@@ -55,7 +60,7 @@ namespace Basecode.WebApp.Controllers
                 var fullName = viewModel.LastName + ", " + viewModel.FirstName;
                 _applicant.Add(newApplicant);
                 _service.AddForm(viewModel);
-                _email.SendEmailApplicantGeneration(viewModel.EmailAddress,fullName,value,viewModel.PositionType);
+                _email.SendEmailApplicantGeneration(viewModel.EmailAddress,fullName,value,viewModel.Position.ToString());
 
                 // add email here
 
@@ -71,7 +76,7 @@ namespace Basecode.WebApp.Controllers
 
                 // You can customize the error handling based on your application's requirements
                 // For example, you can return a specific error view or redirect to an error page.
-                return BadRequest("An error occurred while adding the form.");
+                return BadRequest("An error occurred while adding the form."+ex.Message);
             }
         }
 

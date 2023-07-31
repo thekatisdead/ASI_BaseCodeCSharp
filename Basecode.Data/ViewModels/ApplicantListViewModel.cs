@@ -16,5 +16,7 @@ namespace Basecode.Data.ViewModels
         public string? Tracker { get; set; }
         public string? Grading { get; set; }
         public int JobApplied { get; set; }
+        public string JobPosition { get; set; }
+
     }
 }

@@ -25,6 +25,13 @@ namespace Basecode.Services.Interfaces
         /// Retrieves the most recent applicant's info from the database.
         /// </summary>
         /// <returns>The most recent applicant's info.</returns>
-        ApplicantListViewModel GetMostRecentApplicant();
+        ApplicantListViewModel GetMostRecentApplicant();    
+        ApplicantListViewModel GetMostRecentApplicantForRequirements();
+
+        /// <summary>
+        /// Retrieves a specific Applicant from the database using its ID.
+        /// </summary>
+        /// <returns>a specific Applicant</returns>
+        public Applicant GetApplicantById(int id);
     }
 }

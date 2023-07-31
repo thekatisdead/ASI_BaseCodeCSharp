@@ -17,11 +17,18 @@
 }
 else
 {
-    <li class="nav-item">
-        <a class="navbar-brand" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
-    </li>
-    <li class="nav-item">
-        <a class="navbar-brand" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
-    </li>
+        <li class="nav-item">
+            <a class="navbar-brand btn-hover" id="register" asp-area="Identity" asp-page="/Account/Register"
+               style="border-bottom: 1px solid transparent;"
+               onmouseover="this.style.borderBottom = '2px solid #C53211';"
+               onmouseout="this.style.borderBottom = '1px solid transparent';">Register</a>
+        </li>
+        <li class="nav-item">
+            <a class="navbar-brand btn-hover" id="login" asp-area="Identity" asp-page="/Account/Login"
+               style="border-bottom: 1px solid transparent;"
+               onmouseover="this.style.borderBottom = '2px solid #C53211';"
+               onmouseout="this.style.borderBottom = '1px solid transparent';">Login</a>
+        </li>
+
 }
 </ul>

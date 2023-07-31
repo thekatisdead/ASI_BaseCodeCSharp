@@ -125,21 +125,21 @@ namespace Basecode.WebApp.Controllers
                     _email.SendEmailCharacterReference(viewModel.ContactInfoOne, viewModel.LastName, applicantID, viewModel.ReferenceOneFullName);
 
                     // replace the _email function with a seperate function that checks if the thing has responded na
-                    BackgroundJob.Schedule(() => EmailCharacterReferenceHandler(viewModel,_fullName,viewModel.ReferenceOneFullName,viewModel.PositionType,1), dueTime);
+                    BackgroundJob.Schedule(() => EmailCharacterReferenceHandler(viewModel,_fullName,viewModel.ReferenceOneFullName,viewModel.Position.ToString(),1), dueTime);
                 }
                 if (viewModel.ContactInfoTwo != null)
                 {
                     _email.SendEmailCharacterReference(viewModel.ContactInfoTwo, viewModel.LastName, applicantID, viewModel.ReferenceTwoFullName);
                     // replace the _email function with a seperate function that checks if the thing has responded na
                     // also change the variable names, handled in a seperate function
-                    BackgroundJob.Schedule(() => EmailCharacterReferenceHandler(viewModel, _fullName, viewModel.ReferenceOneFullName, viewModel.PositionType, 2), dueTime);
+                    BackgroundJob.Schedule(() => EmailCharacterReferenceHandler(viewModel, _fullName, viewModel.ReferenceOneFullName, viewModel.Position.ToString(), 2), dueTime);
                 }
                 if (viewModel.ContactInfoThree != null)
                 {
                     _email.SendEmailCharacterReference(viewModel.ContactInfoThree, viewModel.LastName, applicantID, viewModel.ReferenceThreeFullName);
                     // replace the _email function with a seperate function that checks if the thing has responded na
                     // also change the variable names, handled in a seperate function
-                    BackgroundJob.Schedule(() => EmailCharacterReferenceHandler(viewModel, _fullName, viewModel.ReferenceOneFullName, viewModel.PositionType, 3), dueTime);
+                    BackgroundJob.Schedule(() => EmailCharacterReferenceHandler(viewModel, _fullName, viewModel.ReferenceOneFullName, viewModel.Position.ToString(), 3), dueTime);
                 }
             }
             Applicant applicant = new Applicant();
@@ -147,13 +147,14 @@ namespace Basecode.WebApp.Controllers
             return RedirectToAction("Index", "ApplicantList");
         }
 
-        public IActionResult ViewProfile(int id)
+        public IActionResult ViewProfile(int applicantId)
         {
-            var applicant = _applicantList.GetById(id);
+            var applicant = _applicantList.GetById(applicantId);
             var formId = applicant.FormID;
             var publicForm = _publicApplicationFormService.GetByApplicationId(formId);
+            
             ViewBag.Status = applicant.Tracker;
-            ViewBag.ID = id;
+            ViewBag.ID = applicantId;
             _logger.Trace($"{publicForm.LastName},{publicForm.ApplicationID}");
             return View(publicForm);
         }

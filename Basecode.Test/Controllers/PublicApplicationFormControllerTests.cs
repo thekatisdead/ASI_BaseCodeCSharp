@@ -11,19 +11,22 @@ namespace Basecode.Test.Controllers
         private readonly PublicApplicationFormController _controller;
         private readonly Mock<IPublicApplicationFormService> _mockPublicApplicationFormService;
         private readonly Mock<IEmailSenderService> _mockEmailSenderService;
-
+        private readonly Mock<IJobOpeningService> _mockJobOpeningService;
+        private readonly Mock<IApplicantListService> _mockApplicantListService;
         public PublicApplicationFormControllerTests()
         {
             _mockPublicApplicationFormService = new Mock<IPublicApplicationFormService>();
             _mockEmailSenderService = new Mock<IEmailSenderService>();
-            _controller = new PublicApplicationFormController(_mockPublicApplicationFormService.Object, _mockEmailSenderService.Object);
+            _mockApplicantListService= new Mock<IApplicantListService>();
+            _mockJobOpeningService= new Mock<IJobOpeningService>();
+            _controller = new PublicApplicationFormController(_mockPublicApplicationFormService.Object, _mockEmailSenderService.Object,_mockApplicantListService.Object,_mockJobOpeningService.Object);
         }
 
         [Fact]
         public void Index_ReturnsView()
         {
             // Act
-            var result = _controller.Index() as ViewResult;
+            var result = _controller.Index(1) as ViewResult;
 
             // Assert
             Assert.NotNull(result);
@@ -38,37 +41,29 @@ namespace Basecode.Test.Controllers
             var testData = new PublicApplicationFormViewModel
             {
                 Id = 1,
-                FirstName = "Test",
-                LastName = "Test",
-                PhoneNumber = "1234567890",
-                EmailAddress = "Test@gmail.com",
-                Address = "Test",
-                Time = "Test",
-                PositionType = "Test",
-                EmploymentType = "Test",
-                School = "Test",
-                SchoolDepartment = "Test",
-                Achievements = "Test",
-                ReferenceOneFullName = "Test",
-                RelationshipOne = "Test",
-                ContactInfoOne = "Test",
-                AnsweredOne = 1,
-                ReferenceTwoFullName = "Test1",
-                RelationshipTwo = "Test1",
-                ContactInfoTwo = "Test1",
-                AnsweredTwo = 2,
-                ReferenceThreeFullName = "Test2",
-                RelationshipThree = "Test2",
-                ContactInfoThree = "Test2",
-                AnsweredThree = 3,
-                CurriculumVitae = new byte[1]
+                PhoneNumber = "09123456789",               
+                Address = "Manila",
+                Time = "9:00 AM",
+                School = "University of the Philippines",
+                SchoolDepartment = "Computer Science",
+                Achievements = "Dean's Lister",
+                ReferenceOneFullName = "Jane Doe",
+                RelationshipOne = "Friend",
+                ContactInfoOne = "09123456789",
+                ReferenceTwoFullName = "Janee Doe",
+                RelationshipTwo = "Friend",
+                ContactInfoTwo = "09123456789",
+                ReferenceThreeFullName = "Janne Doe",
+                RelationshipThree = "Friend",
+                ContactInfoThree = "09123456789",
+                CurriculumVitae = new byte[0],
             };
 
             _mockPublicApplicationFormService.Setup(s => s.AddForm(testData))
                 .Throws(new Exception("Simulated exception")); // Simulate an exception
 
             // Act
-            var result = _controller.AddForm(testData, applicantId) as IActionResult;
+            var result = _controller.AddForm(testData) as IActionResult;
 
             // Assert
             // Check for the correct ActionResult types
@@ -89,7 +84,7 @@ namespace Basecode.Test.Controllers
             _mockPublicApplicationFormService.Setup(s => s.AddForm(testData));
 
             // Act
-            var result = _controller.AddForm(testData, applicantId);
+            var result = _controller.AddForm(testData);
 
             // Assert
             Assert.NotNull(result);

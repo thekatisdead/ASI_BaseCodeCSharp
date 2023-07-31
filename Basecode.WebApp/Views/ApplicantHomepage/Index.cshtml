@@ -1,5 +1,5 @@
 ﻿@using Basecode.Data.Models
-
+@model Applicant
 @{
     ViewData["Title"] = "Applicant Homepage";
     Layout = "~/Views/Shared/_LayoutApplicant.cshtml";
@@ -23,8 +23,8 @@
             <div class="my-profile-list">
                 <div class="my-profile">
                     <div class="profile-details">
-                        <span>Name:</span>
-                        <span>Email:</span>
+                        <span>Name:@Model.Firstname @Model.Lastname</span>
+                        <span>Email:@Model.EmailAddress</span>
                         <span>Phone:</span>
                         <span>Placeholder:</span>
                         <span>Placeholder:</span>

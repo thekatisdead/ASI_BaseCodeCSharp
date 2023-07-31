@@ -2,29 +2,25 @@
 using Basecode.Data.Models;
 using Basecode.Data.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using NLog;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Basecode.Data.Repositories
 {
-    public class ApplicantListRepository: BaseRepository, IApplicantListRepository
+    public class ApplicantListRepository : BaseRepository, IApplicantListRepository
     {
-        public readonly BasecodeContext _context;
+        private readonly BasecodeContext _context;
+        private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
 
-        public ApplicantListRepository(IUnitOfWork unitOfWork, BasecodeContext context): base(unitOfWork) 
+        public ApplicantListRepository(IUnitOfWork unitOfWork, BasecodeContext context) : base(unitOfWork)
         {
             _context = context;
         }
 
-        /// <summary>
-        /// Retrieves all applicants from the database.
-        /// </summary>
-        /// <returns>An IQueryable of Applicant containing all applicants.</returns>
         public IQueryable<Applicant> RetrieveAll()
         {
+            _logger.Info("Retrieving all applicants from the database.");
             return this.GetDbSet<Applicant>();
         }
 
@@ -36,8 +32,7 @@ namespace Basecode.Data.Repositories
 
         public Applicant GetById(int id)
         {
-            // warning here is that it is possible that the return below
-            // will return a null value
+            _logger.Info("Retrieving applicant by ID: {applicantId}", id);
             return _context.Applicant.FirstOrDefault(a => a.Id == id);
         }
 
@@ -49,61 +44,134 @@ namespace Basecode.Data.Repositories
         }
         public void Update(Applicant applicant)
         {
-            _context.Update(applicant);
-            _context.SaveChanges();
+            try
+            {
+                _context.Update(applicant);
+                _context.SaveChanges();
+                _logger.Info("Applicant with ID {applicantId} updated successfully.", applicant.Id);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "Error occurred while updating applicant with ID {applicantId}: {errorMessage}", applicant.Id, ex.Message);
+                throw;
+            }
         }
 
         public void UpdateStatus(int applicantId, string status)
         {
-            var applicant = _context.Applicant.Find(applicantId);
-            if (applicant != null)
+            try
             {
-                applicant.Grading = status;
-                _context.SaveChanges();
+                var applicant = _context.Applicant.Find(applicantId);
+                if (applicant != null)
+                {
+                    applicant.Grading = status;
+                    _context.SaveChanges();
+                    _logger.Info("Applicant with ID {applicantId} status updated to {status}.", applicantId, status);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "Error occurred while updating status for applicant with ID {applicantId}: {errorMessage}", applicantId, ex.Message);
+                throw;
             }
         }
 
         public void ProceedTo(int applicantId, string step)
         {
-            var applicant = _context.Applicant.Find(applicantId);
-            if (applicant != null)
+            try
             {
-                applicant.Tracker = step;
-                applicant.Grading = "On Going";
-                _context.SaveChanges();
+                var applicant = _context.Applicant.Find(applicantId);
+                if (applicant != null)
+                {
+                    applicant.Tracker = step;
+                    applicant.Grading = "On Going";
+                    _context.SaveChanges();
+                    _logger.Info("Applicant with ID {applicantId} proceeded to step {step}.", applicantId, step);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "Error occurred while proceeding applicant with ID {applicantId} to step {step}: {errorMessage}", applicantId, step, ex.Message);
+                throw;
             }
         }
 
         public ApplicantListViewModel GetMostRecentApplicant()
         {
-            // Fetch the most recent applicant's info from the database
-            var recentApplicant = _context.Applicant
-                .OrderByDescending(j => j.CreatedTime)
-                .FirstOrDefault();
-
-            if (recentApplicant == null)
+            try
             {
-                // If no job openings are available, return a specific ViewModel with a message
-                return new ApplicantListViewModel
+                _logger.Info("Fetching the most recent applicant from the database.");
+                var recentApplicant = _context.Applicant
+                    .OrderByDescending(j => j.CreatedTime)
+                    .FirstOrDefault();
+
+                if (recentApplicant == null)
                 {
-                    Firstname = "N/A",
-                    Lastname = "N/A",
-                    Tracker = "N/A",
-                    JobApplied = 0
+                    _logger.Warn("No recent applicant found. Returning a default ViewModel.");
+                    return new ApplicantListViewModel
+                    {
+                        Firstname = "N/A",
+                        Lastname = "N/A",
+                        Tracker = "N/A",
+                        JobApplied = 0
+                    };
+                }
+
+                _logger.Info("Mapping the Applicant model to ApplicantListViewModel for the most recent applicant.");
+                var recentApplicantViewModel = new ApplicantListViewModel
+                {
+                    Id = recentApplicant.Id,
+                    Firstname = recentApplicant.Firstname,
+                    Lastname = recentApplicant.Lastname,
+                    Tracker = recentApplicant.Tracker,
+                    JobApplied = recentApplicant.JobApplied
                 };
+
+                return recentApplicantViewModel;
             }
-
-            // Map the Applicant model to ApplicantListViewModel
-            var recentApplicantViewModel = new ApplicantListViewModel
+            catch (Exception ex)
             {
-                Id = recentApplicant.Id,
-                Firstname = recentApplicant.Firstname,
-                Lastname = recentApplicant.Lastname,
-                Tracker = recentApplicant.Tracker,
-                JobApplied = recentApplicant.JobApplied
-            };
+                _logger.Error(ex, "Error occurred while getting the most recent applicant: {errorMessage}", ex.Message);
+                throw;
+            }
+        }
 
-            return recentApplicantViewModel;
+        public ApplicantListViewModel GetMostRecentApplicantForRequirements()
+        {
+            try
+            {
+                _logger.Info("Fetching the most recent applicant from the database for requirements.");
+                var recentApplicant = _context.Applicant
+                    .OrderByDescending(j => j.CreatedTime)
+                    .FirstOrDefault();
+
+                if (recentApplicant == null)
+                {
+                    _logger.Warn("No recent applicant found for requirements. Returning a default ViewModel.");
+                    return new ApplicantListViewModel
+                    {
+                        Firstname = "N/A",
+                        Lastname = "N/A",
+                        JobApplied = 0
+                    };
+                }
+
+                _logger.Info("Mapping the Applicant model to ApplicantListViewModel for the most recent applicant.");
+                var recentApplicantViewModel = new ApplicantListViewModel
+                {
+                    Id = recentApplicant.Id,
+                    Firstname = recentApplicant.Firstname,
+                    Lastname = recentApplicant.Lastname,
+                    JobApplied = recentApplicant.JobApplied
+                };
+
+                return recentApplicantViewModel;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "Error occurred while getting the most recent applicant for requirements: {errorMessage}", ex.Message);
+                throw;
+            }
         }
     }
 }
