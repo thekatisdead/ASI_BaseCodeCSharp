@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Identity;
 using Basecode.Data.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using static Basecode.Data.Constants;
+using User = Basecode.Data.Models.User;
+using Exception = System.Exception;
 
 namespace Basecode.WebApp.Controllers
 {
