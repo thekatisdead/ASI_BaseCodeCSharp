@@ -2,10 +2,6 @@
 using Basecode.Services.Interfaces;
 using Basecode.Data.Models;
 using NLog;
-using Microsoft.AspNetCore.Identity;
-using Basecode.Data.ViewModels;
-using Microsoft.AspNetCore.Authorization;
-using static Basecode.Data.Constants;
 
 namespace Basecode.WebApp.Controllers
 {
@@ -104,13 +100,12 @@ namespace Basecode.WebApp.Controllers
             }
         }
 
-        public IActionResult Update(string id)
+        public IActionResult Update(User user)
         {
             _logger.Info("Update action called");
             try
             {
-                var data = _userService.FindByUsername(id);
-                _userService.Update(data);
+                _userService.Update(user);
                 _logger.Info("User updated successfully.");
                 return RedirectToAction("UserManagement", "Admin");
             }

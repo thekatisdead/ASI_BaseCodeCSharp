@@ -21,9 +21,16 @@
                 <a style="color:black;" class="navbar-brand" asp-area="" asp-controller="HrScheduler" asp-action="home" style="border-bottom: 1px solid transparent;"
                    onmouseover="this.style.borderBottom = '2px solid #C53211';"
                    onmouseout="this.style.borderBottom = '1px solid transparent';">Schedule Interview</a>
-                <a style="color:black;" class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index" style="border-bottom: 1px solid transparent;"
+                <a style="color:black;" class="navbar-brand" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" 
+                   style="border-bottom: 1px solid transparent;"
                    onmouseover="this.style.borderBottom = '2px solid #C53211';"
                    onmouseout="this.style.borderBottom = '1px solid transparent';">Log Out</a>
+
+@*                <li class="nav-item">
+                    <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                        <button id="logout" type="submit" class="nav-link btn btn-link text-dark border-0">Logout</button>
+                    </form>
+                </li>*@
             </div>
         </nav>
     </header>

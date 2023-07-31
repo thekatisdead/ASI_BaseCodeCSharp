@@ -72,6 +72,29 @@ namespace Basecode.WebApp.Controllers
             }
         }
 
+        public IActionResult UpdateJobAdminController(int id)
+        {
+            _logger.Trace("UpdateJobAdminController action called");
+            var data = _service.GetById(id);
+            return View(data);
+        }
+
+        public IActionResult UpdateAdminController(JobOpening jobOpening)
+        {
+            _logger.Info("UpdateAdminController action called");
+            try
+            {
+                _service.Update(jobOpening);
+                _logger.Info("Job opening updated successfully.");
+                return RedirectToAction("AdminJobListing", "Admin");
+            }
+            catch (System.Exception ex)
+            {
+                _logger.Error(ex, "Error occurred while updating job opening.");
+                return RedirectToAction("UpdateJobAdminController", new { id = jobOpening.Id });
+            }
+        }
+
         public IActionResult Delete(int id)
         {
             _logger.Info("Delete action called");
@@ -93,6 +116,29 @@ namespace Basecode.WebApp.Controllers
             _logger.Trace("DeleteJob action called");
             var data = _service.GetById(id);
             return View(data);
+        }
+
+        public IActionResult DeleteJobAdminController(int id)
+        {
+            _logger.Trace("DeleteJobAdminController action called");
+            var data = _service.GetById(id);
+            return View(data);
+        }
+
+        public IActionResult DeleteAdminController(int id)
+        {
+            _logger.Info("DeleteAdminController action called");
+            try
+            {
+                _service.Delete(id);
+                _logger.Info("Job opening deleted successfully.");
+                return RedirectToAction("AdminJobListing", "Admin");
+            }
+            catch (System.Exception ex)
+            {
+                _logger.Error(ex, "Error occurred while deleting job opening.");
+                return RedirectToAction("AdminJobListing", "Admin");
+            }
         }
     }
 }
