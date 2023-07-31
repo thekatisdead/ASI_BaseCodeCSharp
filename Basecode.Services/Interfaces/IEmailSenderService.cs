@@ -66,7 +66,7 @@ namespace Basecode.Services.Interfaces
         /// <param name="receiverEmail"></param>
         /// <param name="applicantName"></param>
         /// <param name="referenceName"></param>
-        public void SendEmailCharacterReference(string receiverEmail, string applicantName, int applicantID, string referenceName);
+        public void SendEmailCharacterReference(string receiverEmail, string applicantName, int applicantID, string referenceName, int trigger);
         /// <summary>
         /// Sends a Response to the HR when the Character Reference Form has been Answered
         /// </summary>
@@ -101,6 +101,9 @@ namespace Basecode.Services.Interfaces
         /// <param name="referenceName"></param>
         public void SendEmailCharacterReferenceGratitude(string receiverEmail, string applicantName, string jobPosition, string referenceName);
 
+        public void SendEmailApplicantGeneration(string receiverEmail, string applicantName, int applicantID, string jobPosition);
 
+        public void SendEmailInterviewGeneration(string receiverEmail, string interviewName, string applicantName, int applicantID, string jobPosition, DateOnly date, TimeOnly startTime, TimeOnly endTime);
+        public void SendEmailHireConfirmation(string receiverEmail, string applicantName, int applicantID, string jobPosition);
     }
 }
