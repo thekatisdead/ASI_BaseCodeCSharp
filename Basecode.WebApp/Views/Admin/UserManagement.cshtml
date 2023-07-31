@@ -54,7 +54,6 @@
                                 @foreach (var user in Model)
                                 {
                                     <tr>
-                                        
                                         <td>
                                             @user.FirstName
                                         </td>
@@ -71,8 +70,8 @@
                                             @user.Address
                                         </td>
                                         <td class="text-center">
-                                            <a asp-controller="Admin" asp-action="UpdateUser" asp-route-id="@user.Id">Edit</a>
-                                            <a asp-controller="Admin" asp-action="DeleteUser" asp-route-id="@user.Id">Delete</a>
+                                            <a asp-controller="Admin" asp-action="Update" asp-route-id="@user.Username">Edit</a>
+                                            <a asp-controller="Admin" asp-action="DeleteUser" asp-route-id="@user.Username">Delete</a>
                                         </td>
                                     </tr>
                                 }

@@ -105,50 +105,39 @@ namespace Basecode.WebApp.Controllers
             }
         }
 
-        public IActionResult UpdateUser(string id)
-        {
-            var data = _userService.FindById(id);
-            return View(data);
-        }
-
         [HttpPost]
+        [AcceptVerbs("POST", "PUT", "PATCH")]
         public IActionResult Update(User user)
         {
             _logger.Info("Update action called");
             try
             {
-                _userService.UpdateUser(user);
-                _logger.Info("User account updated successfully.");
+                var existingUser = _userService.FindByUsername(user.Username);
+                if (existingUser != null)
+                {
+                    existingUser.Username = user.Username;
+                    existingUser.FirstName = user.FirstName;
+                    existingUser.LastName = user.LastName;
+                    existingUser.ContactNumber = user.ContactNumber;
+                    existingUser.Email = user.Email;
+                    existingUser.Address = user.Address;
+
+                    _userService.Update(existingUser);
+                    _logger.Info("User account updated successfully.");
+                }
+                else
+                {
+                    _logger.Error("User account not found for update.");
+                    return NotFound();
+                }
+
                 return RedirectToAction("UserManagement");
             }
             catch (Exception ex)
             {
                 _logger.Error(ex, "Error occurred while updating user account.");
-                return RedirectToAction("UpdateUser", new { id = user.Id });
+                return RedirectToAction("Update", new { username = user.Username });
             }
-        }
-
-        public IActionResult DeleteUser(User user)
-        {
-            _userService.Delete(user);
-            return View();
-        }
-
-        public IActionResult Delete(string id)
-        {
-            _logger.Info("Delete action called");
-            try
-            {
-                _userService.DeleteUser(id);
-                _logger.Info("User account deleted successfully.");
-                return RedirectToAction("UserManagement");
-            }
-            catch (Exception ex)
-            {
-                _logger.Error(ex, "Error occurred while deleting user account.");
-                return RedirectToAction("UserManagement");
-            }
-        }
-
+        }     
     }
 }
