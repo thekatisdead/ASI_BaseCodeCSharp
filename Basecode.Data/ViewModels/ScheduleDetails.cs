@@ -11,6 +11,7 @@ namespace Basecode.Data.ViewModels
         public int ScheduleId;
         public int JobId;
         public int InterviewerId;
+        public int ApplicantId;
         public string Position;
         public string FirstName;
         public string LastName;
@@ -18,6 +19,7 @@ namespace Basecode.Data.ViewModels
         public string EndTime;
         public string Date;
         public string instruction;
+        public string TypeOfExam;
         public List<ApplicantListViewModel> Applicants { get; set; }
     }
 }

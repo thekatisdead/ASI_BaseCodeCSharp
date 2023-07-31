@@ -79,40 +79,54 @@ namespace Basecode.Services.Services
                 var interviewers = _interviewerRepository.GetAll().Select(s => new
                 {
                     InterviewerId = s.InterviewerId,
-                    Firstname = s.FirstName,
+                    FirstName = s.FirstName,
                     LastName = s.LastName
                 });
+
                 var jobOpenings = _jobOpeningRepository.RetrieveAll().Select(s => new
                 {
                     JobId = s.Id,
                     Position = s.Position
                 });
+
+                var applicants = _applicantListRepository.RetrieveAll().Select(s => new
+                {
+                    ApplicantId = s.Id,
+                    FirstName = s.Firstname,
+                    LastName = s.Lastname
+                });
+
                 var schedule = _scheduleRepository.GetAll().Select(s => new
                 {
                     ScheduleId = s.ScheduleId,
                     InterviewerId = s.InterviewerId,
                     JobId = s.JobId,
+                    ApplicantId = s.ApplicantId,
                     StartTime = s.StartTime,
                     EndTime = s.EndTime,
                     Date = s.Date,
                     Instruction = s.Instruction
                 });
+
                 var details = from sched in schedule
                               join inter in interviewers on sched.InterviewerId equals inter.InterviewerId
                               join job in jobOpenings on sched.JobId equals job.JobId
+                              join app in applicants on sched.ApplicantId equals app.ApplicantId // Joining the applicant details
                               select new ScheduleDetails
                               {
                                   ScheduleId = sched.ScheduleId,
                                   JobId = job.JobId,
                                   InterviewerId = inter.InterviewerId,
                                   Position = job.Position,
-                                  FirstName = inter.Firstname,
-                                  LastName = inter.LastName,
+                                  ApplicantId = app.ApplicantId, // Adding the ApplicantId to the ScheduleDetails
+                                  FirstName = app.FirstName,     // Adding the FirstName to the ScheduleDetails
+                                  LastName = app.LastName,       // Adding the LastName to the ScheduleDetails
                                   StartTime = sched.StartTime,
                                   EndTime = sched.EndTime,
                                   Date = sched.Date,
                                   instruction = sched.Instruction
                               };
+
                 return details.ToList();
             }
             catch (Exception ex)
