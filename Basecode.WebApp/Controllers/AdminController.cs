@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Basecode.Services.Interfaces;
+using Basecode.Data.Models;
 using NLog;
 using Microsoft.AspNetCore.Identity;
 using Basecode.Data.ViewModels;
@@ -101,7 +102,7 @@ namespace Basecode.WebApp.Controllers
             }
         }
 
-        public IActionResult Update(User user)
+        public IActionResult Update(string id)
         {
             try
             {
