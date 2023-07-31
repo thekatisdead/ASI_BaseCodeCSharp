@@ -103,17 +103,38 @@ namespace Basecode.WebApp.Controllers
 
         public IActionResult Update(User user)
         {
+            try
+            {
+                var user = _userService.FindByUsername(id);
+                if (user == null)
+                {
+                    _logger.Error("User not found.");
+                    return RedirectToAction("UserManagement", "Admin");
+                }
+
+                return View(user);
+            }
+            catch (System.Exception ex)
+            {
+                _logger.Error(ex, "Error occurred while retrieving user for update: {errorMessage}", ex.Message);
+                return RedirectToAction("UserManagement", "Admin");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Update(User user)
+        {
             _logger.Info("Update action called");
             try
             {
                 _userService.Update(user);
-                _logger.Info("User updated successfully.");
+                _logger.Info("User account updated successfully.");
                 return RedirectToAction("UserManagement", "Admin");
             }
             catch (System.Exception ex)
             {
-                _logger.Error(ex, "Error occurred while updating user.");
-                return RedirectToAction("UserManagement", "Admin");
+                _logger.Error(ex, "Error occurred while updating user account.");
+                return RedirectToAction("Update", new { id = user.Id });
             }
         }
 
