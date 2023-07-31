@@ -19,7 +19,8 @@ namespace Basecode.Test.Services
         {
             _fakePublicApplicationFormRepository = new Mock<IPublicApplicationFormRepository>();
             _fakeMapper = new Mock<IMapper>();
-            _fakeApplicantsListRepository= new Mock<IApplicantListRepository>();        
+            _fakeApplicantsListRepository= new Mock<IApplicantListRepository>();     
+            _fakeJobOpeningRepository= new Mock<IJobOpeningRepository>();
             _service = new PublicApplicationFormService(_fakePublicApplicationFormRepository.Object, _fakeMapper.Object,_fakeApplicantsListRepository.Object,_fakeJobOpeningRepository.Object);
         }
 
