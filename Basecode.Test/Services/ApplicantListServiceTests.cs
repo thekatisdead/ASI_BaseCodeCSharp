@@ -24,42 +24,43 @@ namespace Basecode.Tests.Services
 
             _service = new ApplicantListService(_fakeApplicantListRepository.Object,_fakeJobOpeningRepository.Object);
         }
-
         [Fact]
         public void RetrieveAll_HasApplicants_ReturnsAllApplicants()
         {
             // Arrange
-            var applicants = new List<Applicant>()
+            var jobOpenings = new List<JobOpening>
             {
-                new Applicant { Id = 1, Firstname = "John", Lastname = "Doe", JobApplied = 1 },
-                new Applicant { Id = 2, Firstname = "Jane", Lastname = "Smith", JobApplied = 2 }
+                new JobOpening { Id = 1, Position = "Software Engineer" },
+                new JobOpening { Id = 2, Position = "Data Analyst" }
             };
 
-            var applicantList = new List<ApplicantListViewModel>()
+            var applicants = new List<Applicant>
             {
-                new ApplicantListViewModel { Id = 1, Firstname = "John", Lastname = "Doe", EmailAddress = "sminth@gmail.com", Tracker = "Pending", Grading = "a", JobApplied = 2, JobPosition = "jksd" },
-                new ApplicantListViewModel { Id = 2, Firstname = "Jane", Lastname = "Smith", EmailAddress = "sminthsss@gmail.com", Tracker = "Pending", Grading = "b", JobApplied = 2, JobPosition = "jksd" },
+                new Applicant { Id = 1, Firstname = "John", Lastname = "Doe", JobApplied = 1, Tracker = "Pending" },
+                new Applicant { Id = 2, Firstname = "Jane", Lastname = "Smith", JobApplied = 2, Tracker = "In Progress" }
             };
 
+            _fakeJobOpeningRepository.Setup(repo => repo.RetrieveAll()).Returns(jobOpenings.AsQueryable());
             _fakeApplicantListRepository.Setup(repo => repo.RetrieveAll()).Returns(applicants.AsQueryable());
-            _fakeMapper.Setup(mapper => mapper.Map<List<ApplicantListViewModel>>(applicants)).Returns(applicantList);
 
             // Act
-            var result = _service.RetrieveAll(); // Use the actual service to invoke the method
+            var result = _service.RetrieveAll();
 
             // Assert
-            Assert.Equal(applicantList.Count, result.Count);
+            Assert.NotNull(result);
+            Assert.Equal(applicants.Count, result.Count);
 
-            for (int i = 0; i < applicantList.Count; i++)
+            for (int i = 0; i < applicants.Count; i++)
             {
-                Assert.Equal(applicantList[i].Id, result[i].Id);
-                Assert.Equal(applicantList[i].Firstname, result[i].Firstname);
-                Assert.Equal(applicantList[i].Lastname, result[i].Lastname);
-                Assert.Equal(applicantList[i].JobApplied, result[i].JobApplied);
-                // Add more Assert statements if needed for other properties
+                Assert.Equal(applicants[i].Id, result[i].Id);
+                Assert.Equal(applicants[i].Firstname, result[i].Firstname);
+                Assert.Equal(applicants[i].Lastname, result[i].Lastname);
+                Assert.Equal(applicants[i].JobApplied, result[i].JobApplied);
+                Assert.Equal(jobOpenings.SingleOrDefault(j => j.Id == applicants[i].JobApplied)?.Position, result[i].JobPosition);
+                Assert.Equal(applicants[i].Tracker, result[i].Tracker);
             }
         }
-        
+
         [Fact]
         public void RetrieveAll_HasNoApplicants_ReturnsEmptyList()
         {
