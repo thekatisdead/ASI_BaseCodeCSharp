@@ -95,7 +95,9 @@ namespace Basecode.Services.Services
                     StartTime = s.StartTime,
                     EndTime = s.EndTime,
                     Date = s.Date,
-                    Instruction = s.Instruction
+                    Instruction = s.Instruction,
+                    ExamType = s.ExamType,
+                    TeamsLink= s.TeamsLink,
                 });
                 var details = from sched in schedule
                               join inter in interviewers on sched.InterviewerId equals inter.InterviewerId
@@ -111,7 +113,9 @@ namespace Basecode.Services.Services
                                   StartTime = sched.StartTime,
                                   EndTime = sched.EndTime,
                                   Date = sched.Date,
-                                  instruction = sched.Instruction
+                                  Instruction = sched.Instruction,
+                                  ExamType=sched.ExamType,
+                                  TeamsLink=sched.TeamsLink
                               };
                 return details.ToList();
             }
@@ -192,6 +196,26 @@ namespace Basecode.Services.Services
                 _logger.Error(ex, "Error occurred while retrieving applicant list according to job applied for job ID {jobId}: {errorMessage}", jobId, ex.Message);
                 throw;
             }
+        }
+        public List<object> GetJobs()
+        {
+            var jobs = _jobOpeningRepository.RetrieveAll().Select(s => new
+            {
+                JobId=s.Id,
+                Position = s.Position
+            });
+            List<object> resultList = jobs.Cast<object>().ToList();
+            return resultList;
+        }
+        public List<object> GetInterviewers()
+        {
+            var interviewers = _interviewerRepository.GetAll().Select(s => new
+            {
+                InterviewerId = s.InterviewerId,
+                Name = s.FirstName + " " + s.LastName
+            });
+            List<object> resultList = interviewers.Cast<object>().ToList();
+            return resultList;
         }
     }
 }

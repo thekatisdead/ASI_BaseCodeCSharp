@@ -15,7 +15,7 @@
     <body>
     <div class="mt-2 mb-2 p-3">
         <a asp-action="InterviewerList"><button class="btn btn-danger" style="margin-right:15px">Manage Interviewer</button></a>
-        <a asp-action="ViewAddSchedule"><button class="btn btn-danger">Assign Schedule</button></a>
+        <a asp-action="ViewAddSchedule" id="addButton"><button class="btn btn-danger">Assign Schedule</button></a>
     </div>
         
         <table class="table py-lg-4 rounded-table table-light text-center">
@@ -26,6 +26,8 @@
                     <th scope="col">Start Time</th>
                     <th scope="col">End Time</th>
                     <th scope="col">Date</th>
+                    <th scope="col">Type of Exam</th>
+                    <th scope="col">Team's link</th>
                     <th scope="col">Instruction</th>
                     <th scope="col">Action</th>
                 </tr>
@@ -39,7 +41,9 @@
                         <td>@schedule.StartTime</td>
                         <td>@schedule.EndTime</td>
                         <td>@schedule.Date</td>
-                        <td>@schedule.instruction</td>
+                        <td>@schedule.ExamType</td>
+                        <td>@schedule.TeamsLink</td>
+                        <td>@schedule.Instruction</td>
                     <td><a asp-action="EditSchedule" asp-route-id="@schedule.ScheduleId">Edit</a> <a asp-action="DeleteSchedule" asp-route-id="@schedule.ScheduleId">Delete</a> <a href="#" onclick="DisplayApplicants(@schedule.JobId)">Applicants</a></td>
                     </tr>
 
@@ -63,6 +67,69 @@
                      </ul>
                 </div>
                 <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Modal for Adding schedule-->
+    <div class="modal" tabindex="-1" role="dialog" id="add">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" id="ex">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="Interviewer-name" class="col-form-label">Interviewer:</label>
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>Open this select menu</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="Jobs" class="col-form-label">Job</label>
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>Open this select menu</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Start Time:</label>
+                            <input type="time" class="form-control" id="recipient-name">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">End Time:</label>
+                            <input type="text" class="form-control" id="recipient-name">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Date:</label>
+                            <input type="text" class="form-control" id="recipient-name">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Exam Type:</label>
+                            <input type="text" class="form-control" id="recipient-name">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Team Link:</label>
+                            <input type="text" class="form-control" id="recipient-name">
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">Intruction:</label>
+                            <textarea class="form-control" id="message-text"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">Save changes</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close">Close</button>
                 </div>
             </div>
@@ -110,6 +177,10 @@
                               $("#modal").fadeOut(300);
                         });
                    });
+
+                    $("#addButton").click(function() {
+                        $("#add").fadeIn(300);
+                    });
                 });
             </script>
         }

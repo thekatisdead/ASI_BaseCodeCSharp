@@ -151,5 +151,17 @@ namespace Basecode.WebApp.Controllers
             var applicants =_scheduleService.GetApplicantListAccordingToJobApplied(job);
             return Json(applicants);
         }
+        [HttpPost]
+        public IActionResult GetInterviewers()
+        {
+            var interviewers = _scheduleService.GetInterviewers();
+            return Json(interviewers);
+        }
+        [HttpPost]
+        public IActionResult GetJobs()
+        {
+            var jobs = _scheduleService.GetInterviewers();
+            return Json(jobs);
+        }
     }
 }
