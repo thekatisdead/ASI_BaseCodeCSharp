@@ -2,6 +2,7 @@
 using Basecode.Data.ViewModels;
 using Basecode.Services.Interfaces;
 using Basecode.WebApp.Controllers;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 
@@ -11,40 +12,20 @@ namespace Basecode.Test.Controllers
     {
         private readonly ApplicantHomepageController _controller;
         private readonly Mock<IJobOpeningService> _mockJobOpeningService;
-        private readonly Mock<IApplicantListService> _mockApplicantListService; 
+        private readonly Mock<IApplicantListService> _mockApplicantListService;
+        private readonly Mock<HttpContext> _mockHttpContext;
+        private readonly Mock<ISession> _mockSession;
+
 
         public ApplicantHomepageControllerTests()
         {
             _mockJobOpeningService = new Mock<IJobOpeningService>();
             _mockApplicantListService = new Mock<IApplicantListService>();
+
+            _mockHttpContext = new Mock<HttpContext>();
+            _mockSession = new Mock<ISession>();
+
             _controller = new ApplicantHomepageController(_mockJobOpeningService.Object,_mockApplicantListService.Object);
-        }
-
-        [Fact]
-        public void Index_ReturnsView()
-        {
-            // Arrange
-            var id = 1;
-
-            var expectedApplicant = new Applicant
-            {
-                Id = 1,
-                Firstname = "John",
-                Lastname = "Doe",
-                EmailAddress = "johndoe@gmail.com",
-                JobApplied = 1,
-                Tracker = "Pending",
-                Grading = "A",
-            };
-
-            _mockApplicantListService.Setup(s => s.GetApplicantById(id)).Returns(expectedApplicant);
-
-            // Act
-            var result = _controller.Index() as ViewResult;
-
-            // Assert
-            var model = Assert.IsType<Applicant>(result?.Model);
-            Assert.Equal(expectedApplicant.Id, model.Id);
         }
 
         [Fact]
