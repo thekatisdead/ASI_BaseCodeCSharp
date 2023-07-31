@@ -17,9 +17,9 @@ namespace Basecode.Services.Services
             _userRepository = userRepository;
         }
 
-        public User FindByUsername(string username)
+        public User FindByUsername(string email)
         {
-            return _userRepository.FindByUsername(username);
+            return _userRepository.FindByUsername(email);
         }
 
         public User FindById(string id)
