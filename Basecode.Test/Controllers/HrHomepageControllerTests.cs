@@ -1,8 +1,13 @@
-﻿using Basecode.Data.ViewModels;
+﻿using Basecode.Data.Models;
+using Basecode.Data.ViewModels;
 using Basecode.Services.Interfaces;
 using Basecode.WebApp.Controllers;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
+using System.Security.Claims;
+using Xunit;
 
 namespace Basecode.Test.Controllers
 {
@@ -11,16 +16,19 @@ namespace Basecode.Test.Controllers
         private readonly HrHomepageController _controller;
         private readonly Mock<IJobOpeningService> _jobOpeningService;
         private readonly Mock<IApplicantListService> _applicantListService;
+        private readonly Mock<IUserService> _userService;
+        private readonly UserManager<IdentityUser> _userManager;
 
         public HrHomepageControllerTests()
         {
             _jobOpeningService = new Mock<IJobOpeningService>();
             _applicantListService = new Mock<IApplicantListService>();
-            _controller = new HrHomepageController(_jobOpeningService.Object, _applicantListService.Object);
+            _userService = new Mock<IUserService>();
+            _controller = new HrHomepageController(_jobOpeningService.Object, _applicantListService.Object, _userManager, _userService.Object);
         }
 
         [Fact]
-        public void Index_HasExistingUsername_ReturnsView()
+        public async Task Index_HasExistingUsername_ReturnsView()
         {
             // Arrange
             var recentJobOpening = new JobOpeningViewModel
@@ -46,61 +54,66 @@ namespace Basecode.Test.Controllers
             _jobOpeningService.Setup(s => s.GetMostRecentJobOpening()).Returns(recentJobOpening);
             _applicantListService.Setup(s => s.GetMostRecentApplicant()).Returns(applicantsData);
 
-            //Add composite model
-            var compositeModel = new CompositeViewModel
+            // Act
+            _controller.ControllerContext = new ControllerContext
             {
-                JobOpeningData = recentJobOpening,
-                ApplicantsData = applicantsData
+                HttpContext = new DefaultHttpContext
+                {
+                    User = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
+                    {
+                        new Claim(ClaimTypes.Name, "NonExistingUser")
+                    }))
+                }
             };
 
             // Act
-            var result = _controller.Index("TestUsername");
+            var result = _controller.Index("NonExistingUser");
 
             // Assert
-            Assert.NotNull(result);
             var viewResult = Assert.IsType<ViewResult>(result);
+            var compositeViewModel = Assert.IsType<CompositeViewModel>(viewResult.Model);
+            Assert.Equal(recentJobOpening, compositeViewModel.JobOpeningData);
+            Assert.Equal(applicantsData, compositeViewModel.ApplicantsData);
 
-            // Check that the view model passed to the view is of type CompositeViewModel
-            var viewModel = Assert.IsType<CompositeViewModel>(viewResult.Model);
-            Assert.Equal(recentJobOpening, viewModel.JobOpeningData);
-            Assert.Equal(applicantsData, viewModel.ApplicantsData);
-
-            // Check that the ViewBag.Name is set correctly
-            Assert.Equal("TestUsername", _controller.ViewBag.Name);
+            // Check that the ViewBag.Name is set correctly to "Guest" since the user is not found
+            Assert.Equal("Guest", _controller.ViewBag.Name);
         }
 
         [Fact]
-        public void Index_NoExistingUsername_ReturnsView()
+        public async Task Index_ReturnsViewWithGuestUsername_WhenUserNotFound()
         {
             // Arrange
-            var jobOpening = new JobOpeningViewModel();
-            var applicantlist = new ApplicantListViewModel();
+            var recentJobOpening = new JobOpeningViewModel();
+            var applicantsData = new ApplicantListViewModel();
 
-            // Set up the behavior for IJobOpeningService with null recentJobOpening
-            _jobOpeningService.Setup(s => s.GetMostRecentJobOpening()).Returns(jobOpening);
+            _jobOpeningService.Setup(s => s.GetMostRecentJobOpening()).Returns(recentJobOpening);
+            _applicantListService.Setup(s => s.GetMostRecentApplicant()).Returns(applicantsData);
 
-            // Set up the behavior for IApplicantListService with null applicantsData
-            _applicantListService.Setup(s => s.GetMostRecentApplicant()).Returns(applicantlist);
-
-            //Add composite model
-            var compositeModel = new CompositeViewModel
+            // Set a dummy user name for testing
+            _controller.ControllerContext = new ControllerContext
             {
-                JobOpeningData = jobOpening,
-                ApplicantsData = applicantlist
+                HttpContext = new DefaultHttpContext
+                {
+                    User = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
+                    {
+                        new Claim(ClaimTypes.Name, "NonExistingUser")
+                    }))
+                }
             };
 
             // Act
-            var result = _controller.Index("");
+            var result = _controller.Index("NonExistingUser");
 
             // Assert
-            Assert.NotNull(result);
             var viewResult = Assert.IsType<ViewResult>(result);
+            var compositeViewModel = Assert.IsType<CompositeViewModel>(viewResult.Model);
+            Assert.Equal(recentJobOpening, compositeViewModel.JobOpeningData);
+            Assert.Equal(applicantsData, compositeViewModel.ApplicantsData);
 
-            // Check that the view model passed to the view is of type CompositeViewModel
-            var viewModel = Assert.IsType<CompositeViewModel>(viewResult.Model);
-
-            // Check that the ViewBag.Name is set correctly
-            Assert.Equal("", _controller.ViewBag.Name);
+            // Check that the ViewBag.Name is set correctly to "Guest" since the user is not found
+            Assert.Equal("Guest", _controller.ViewBag.Name);
         }
+
+
     }
 }
