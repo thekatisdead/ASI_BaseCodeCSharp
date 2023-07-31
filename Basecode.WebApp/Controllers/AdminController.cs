@@ -4,10 +4,12 @@ using Basecode.Data.Models;
 using NLog;
 using Microsoft.AspNetCore.Identity;
 using Basecode.Data.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using static Basecode.Data.Constants;
 
 namespace Basecode.WebApp.Controllers
 {
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private readonly IJobOpeningService _jobOpeningService;
@@ -122,22 +124,22 @@ namespace Basecode.WebApp.Controllers
             }
         }
 
-        [HttpPost]
-        public IActionResult Update(User user)
-        {
-            _logger.Info("Update action called");
-            try
-            {
-                _userService.Update(user);
-                _logger.Info("User account updated successfully.");
-                return RedirectToAction("UserManagement", "Admin");
-            }
-            catch (System.Exception ex)
-            {
-                _logger.Error(ex, "Error occurred while updating user account.");
-                return RedirectToAction("Update", new { id = user.Id });
-            }
-        }
+        //[HttpPost]
+        //public IActionResult Update(User user)
+        //{
+        //    _logger.Info("Update action called");
+        //    try
+        //    {
+        //        _userService.Update(user);
+        //        _logger.Info("User account updated successfully.");
+        //        return RedirectToAction("UserManagement", "Admin");
+        //    }
+        //    catch (System.Exception ex)
+        //    {
+        //        _logger.Error(ex, "Error occurred while updating user account.");
+        //        return RedirectToAction("Update", new { id = user.Id });
+        //    }
+        //}
 
         public IActionResult Delete(string id)
         {

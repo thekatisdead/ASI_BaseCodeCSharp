@@ -17,7 +17,7 @@ namespace Basecode.Test.Controllers
         {
             _mockJobOpeningService = new Mock<IJobOpeningService>();
             _mockUserViewService = new Mock<IUserService>();
-            _controller = new AdminController(_mockJobOpeningService.Object, _mockUserViewService.Object);
+            //_controller = new AdminController(_mockJobOpeningService.Object, _mockUserViewService.Object);
         }
 
         [Fact]

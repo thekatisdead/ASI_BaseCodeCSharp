@@ -53,7 +53,7 @@ namespace Basecode.Data.Repositories
                 return form;
             }
             catch (Exception ex)
-            {
+            { 
                 // Log the exception if any occurs during the form retrieval process
                 _logger.Error(ex, $"Error occurred while retrieving form for ID: {id}");
                 throw;

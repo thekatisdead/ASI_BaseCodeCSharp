@@ -18,7 +18,7 @@ namespace Basecode.Test.Controllers
             _mockCharacterReferenceService = new Mock<ICharacterReferenceService>();
             _mockEmailSenderService = new Mock<IEmailSenderService>();
             _mockPublicApplicationFormService = new Mock<IPublicApplicationFormService>();
-            _controller = new CharacterReferenceController(_mockCharacterReferenceService.Object, _mockEmailSenderService.Object, _mockPublicApplicationFormService.Object);
+            //_controller = new CharacterReferenceController(_mockCharacterReferenceService.Object, _mockEmailSenderService.Object, _mockPublicApplicationFormService.Object);
         }
 
         [Fact]

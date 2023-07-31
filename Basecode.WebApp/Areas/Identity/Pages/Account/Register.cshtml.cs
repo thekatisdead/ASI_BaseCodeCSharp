@@ -166,7 +166,7 @@ namespace Basecode.WebApp.Areas.Identity.Pages.Account
                 {
                     _logger.LogInformation("User created a new account with password.");
 
-                    var userRole = _roleManager.FindByNameAsync("Admin").Result;
+                    var userRole = _roleManager.FindByNameAsync("HR").Result;
 
                     if(userRole != null)
                     {

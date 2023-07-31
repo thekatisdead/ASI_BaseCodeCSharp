@@ -36,6 +36,7 @@ namespace Basecode.Data.Models
         public string? RelationshipThree { get; set; }
         public string? ContactInfoThree { get; set; }
         public int? AnsweredThree { get; set; }
+        public int? ApplicationID { get; set; }
         public byte[]? CurriculumVitae { get; set; }
         public DateTime? CreatedTime { get; set; } = DateTime.Now;
         public string? CreatedBy { get; set; } = System.Environment.UserName;

@@ -21,26 +21,16 @@ namespace Basecode.Data.ViewModels
         public string Position { get; set; }
 
         [Required(ErrorMessage = "This field is required.")]
-        public string? FirstName { get; set; }
+        public string PositionType { get; set; }
 
         [Required(ErrorMessage = "This field is required.")]
-        public string? LastName { get; set; }
-
-        [Required]
-        [RegularExpression(@"^[^@\s]+@[^@\s]+\.[^@\s]+$", ErrorMessage = "Invalid email format.")]
-        public string? EmailAddress { get; set; }
-
-        [Required(ErrorMessage = "This field is required.")]
-        public string? PositionType { get; set; }
-
-        [Required(ErrorMessage = "This field is required.")]
-        public string? EmploymentType { get; set; }
+        public string EmploymentType { get; set; }
 
         [Required]
         [StringLength(11, MinimumLength = 11, ErrorMessage = "Contact number must be 11 digits.")]
         public string? PhoneNumber { get; set; }
 
-        public string? EmailAddress { get; set;}
+        public string? EmailAddress { get; set; }
 
         [Required(ErrorMessage = "This field is required.")]
         public string? Address { get; set; }
