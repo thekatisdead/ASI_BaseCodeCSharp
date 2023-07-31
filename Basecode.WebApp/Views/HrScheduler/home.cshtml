@@ -9,7 +9,8 @@
     <title>Hr Scheduler</title>
     <link rel="stylesheet" href="~/css/hrscheduler.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/applicantlist.css" asp-append-version="true" />
-    <script type="text/javascript" src='https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.3.min.js'></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
     </head>
     <body>
     <div class="mt-2 mb-2 p-3">
@@ -39,12 +40,79 @@
                         <td>@schedule.EndTime</td>
                         <td>@schedule.Date</td>
                         <td>@schedule.instruction</td>
-                    <td><a asp-action="EditSchedule" asp-route-id="@schedule.ScheduleId">Edit</a> <a asp-action="DeleteSchedule" asp-route-id="@schedule.ScheduleId">Delete</a> <a href="#">Applicants</a></td>
+                    <td><a asp-action="EditSchedule" asp-route-id="@schedule.ScheduleId">Edit</a> <a asp-action="DeleteSchedule" asp-route-id="@schedule.ScheduleId">Delete</a> <a href="#" onclick="DisplayApplicants(@schedule.JobId)">Applicants</a></td>
                     </tr>
 
                 }
             </tbody>
         </table>
+        <!--Modal for applicants-->
+    <div class="modal" tabindex="-1" role="dialog" id="modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Applicants</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span id="ex" ria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <ul id="applicantsList" class="list-group list-group-flush">
+                      <!-- Applicants will be displayed here -->
+                      <p id="error"></p>
+                     </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @section Scripts{
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+            <script>
+                function DisplayApplicants(JobId)
+                {
+                    event.preventDefault();
+                    $.ajax(
+                    {
+                        url: "/HrScheduler/ViewApplicantsAccordingToJobApplied",
+                        type:"POST",
+                        data:{job:JobId},
+                        dataType:"json",
+                        success: function(applicants){
+                            $('#applicantsList').empty();
+                            for (var applicant of applicants) 
+                            {
+                               console.log(applicant.name);
+                               var listItem = $("<li class='list-group-item'>").text(applicant.name);
+                               $('#applicantsList').append(listItem);
+                            }
+                            $("#modal").fadeIn(300);
+                        },
+                        error: function () {
+                                $("#error").text("Error");
+                            $("#modal").fadeIn(300);
+                           
+                        }
+                    });
+                }
+                $(document).ready(function () {
+                   $("#close").click(function () {
+                       $("#modal").fadeOut(300, function () {
+                             $("#modal").fadeOut(300);
+                       });
+                   });
 
+                   $("#ex").click(function () {
+                        $("#modal").fadeOut(300, function () {
+                              $("#modal").fadeOut(300);
+                        });
+                   });
+                });
+            </script>
+        }
+    }
     </body>
 </html>

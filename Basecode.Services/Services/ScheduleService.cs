@@ -175,20 +175,17 @@ namespace Basecode.Services.Services
             }
         }
 
-        public List<ApplicantListViewModel> GetApplicantListAccordingToJobApplied(int jobId)
+        public List<object> GetApplicantListAccordingToJobApplied(int jobId)
         {
             try
             {
-                var data = _applicantListRepository.RetrieveAll().Where(s => s.JobApplied == jobId).Select(s => new ApplicantListViewModel
+                var data = _applicantListRepository.RetrieveAll().Where(s => s.JobApplied == jobId).Select(s => new
                 {
-                    Id = s.Id,
-                    JobApplied = s.JobApplied,
-                    Firstname = s.Firstname,
-                    Lastname = s.Lastname,
-                    Tracker = s.Tracker,
-                    EmailAddress = s.EmailAddress
+                    name = s.Firstname + " "+s.Lastname,
+                    email = s.EmailAddress
                 });
-                return data.ToList();
+                List<object> resultList = data.Cast<object>().ToList();
+                return resultList;
             }
             catch (Exception ex)
             {

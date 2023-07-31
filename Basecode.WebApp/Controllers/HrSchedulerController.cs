@@ -16,7 +16,7 @@ namespace Basecode.WebApp.Controllers
         IInterviewerServices _interviewerServices;
         IJobOpeningService _jobOpeningService;
         IScheduleService _scheduleService;
-        
+       
         public HrSchedulerController(IInterviewerServices services,IJobOpeningService jobOpeningService,IScheduleService scheduleService,IEmailSenderService emailSender) 
         { 
             _interviewerServices= services;
@@ -144,6 +144,12 @@ namespace Basecode.WebApp.Controllers
         public IActionResult ApplicantList()
         {
             return View();
+        }
+        [HttpPost]
+        public IActionResult ViewApplicantsAccordingToJobApplied(int job)
+        {
+            var applicants =_scheduleService.GetApplicantListAccordingToJobApplied(job);
+            return Json(applicants);
         }
     }
 }
