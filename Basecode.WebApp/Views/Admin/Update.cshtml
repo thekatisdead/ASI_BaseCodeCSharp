@@ -1,0 +1,71 @@
+﻿@using Basecode.Data.Models
+@model User
+
+@{
+    ViewData["Title"] = "User - Update";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User - Update</title>
+    <link rel="stylesheet" href="~/css/userupdate.css" asp-append-version="true" />
+</head>
+<body>
+    <form asp-action="Update" asp-controller="Admin" method="post">
+
+        <h2>User Information</h2>
+        <hr>
+
+        <div class="half-width user-posting">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+
+            <div class="form-group">
+                <label for="FirstName" class="label-bold">First Name:</label>
+                <br>
+                <input asp-for="FirstName" class="input-large">
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="LastName" class="label-bold">Last Name:</label>
+                <br>
+                <input asp-for="LastName" class="input-large" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="ContactNumber" class="label-bold">Contact Number: </label>
+                <br>
+                <input asp-for="ContactNumber" class="input-large" />
+                <span asp-validation-for="ContactNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="Email" class="label-bold">Email: </label>
+                <br>
+                <input asp-for="Email" class="input-large" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="half-width user-posting">
+            <div class="form-group">
+                <label for="address" class="label-bold-address">Address:</label>
+                <br>
+                <textarea asp-for="Address" id="address" class="input-address"></textarea>
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <div class="button-container">
+                <button type="submit" class="btn">Update User</button>
+            </div>
+        </div>
+
+        @section Scripts {
+            @{
+                await Html.RenderPartialAsync("_ValidationScriptsPartial");
+            }
+        }
+    </form>
+    <div class="triangle"></div>
+    <div class="triangle1"></div>
+</body>
+</html>
+

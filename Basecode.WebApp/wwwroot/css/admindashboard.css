@@ -1,0 +1,140 @@
+﻿/* General Styles */
+body {
+    font-family: Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Container and general layout */
+.container-fluid {
+    position: absolute;
+    z-index: -1;
+    right: 0;
+    font-family: Helvetica, sans-serif;
+    background-color: #e6dbc9;
+    height: 100%; /* Set the container to fill the height */
+}
+
+.row {
+    overflow-x: auto;
+}
+
+.p-5 {
+    padding: 20px;
+}
+
+
+/* Main Content */
+.col-lg {
+    padding: 0;
+    display: flex; /* Use flexbox for the main content area */
+    flex-direction: column; /* Arrange the content vertically */
+    overflow-x: hidden; /* Hide horizontal overflow */
+}
+
+/* HR Information Section */
+#hr-info {
+    margin-top: 20px;
+}
+
+    #hr-info h2 {
+        color: #c53211; /* Cotton Red */
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+.hr-info-list {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.hr-entry {
+    margin-bottom: 10px;
+}
+
+    .hr-entry span {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+/* Add New HR Button */
+.hr-actions {
+    margin-top: 20px;
+}
+
+.add-button {
+    background-color: #c53211; /* Cotton Red */
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+/* Custom Styles */
+.dashboard-section {
+    background-color: white;
+    flex-grow: 1; /* Let the dashboard section fill the available space */
+    display: flex; /* Use flexbox for the dashboard section */
+    flex-direction: column; /* Arrange the content vertically */
+    overflow-y: auto; /* Add a scrollbar for the dashboard section if needed */
+}
+
+.header {
+    background-color: #C53211;
+}
+
+.section-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.admin-table {
+    /* Set the maximum width for the section */
+    max-width: 100%; /* Adjust this value to your preference */
+    border-collapse: collapse;
+    background-color: #FFFFFF;
+    padding: 20px;
+}
+
+.text-center {
+    color: white;
+    font-weight: bold;
+    padding: 10px;
+}
+
+.table-cell {
+    border: 1px solid #CCCCCC;
+    padding: 10px;
+    text-align: center;
+}
+
+.triangle {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-bottom: 150px solid #c53211;
+    border-left: 150px solid transparent;
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 10));
+}
+
+.triangle1 {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    z-index: -1;
+    border-bottom: 250px solid #2E3830;
+    border-left: 250px solid transparent;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 10);
+}

@@ -2,6 +2,7 @@
 @model CharacterReferenceViewModel
 
 @{
+    var applicantID = (int)ViewData["ApplicantID"];
     ViewData["Title"] = "Character Reference Form";
     Layout = "~/Views/Shared/_LayoutApplicant.cshtml";
 }
@@ -12,10 +13,12 @@
 <head>
     <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="~/css/characterreference.css" asp-append-version="true" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
 </head>
 
-<body>   
-    <form id="character-reference-form" method="post" asp-action="Add" asp-controller="CharacterReference">
+<body>  
+    <form id="character-reference-form" method="post" asp-action="Add" asp-route-applicantID="@applicantID" asp-route-trigger="1" asp-controller="CharacterReference">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-header">
             <h1>Character Reference Form</h1>
@@ -110,3 +113,78 @@
 </body>
 
 </html>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+<script>
+    $(document).ready(function () 
+    {
+        $('form').submit(function (event) 
+        {
+            var formValid = true;
+            // Check each input field for empty value
+            $(this).find('input, select, textarea').each(function () 
+            {
+                if ($(this).is(':radio')) 
+                {
+                    var radioGroupName = $(this).attr('name');
+                    if ($('input[name="' + radioGroupName + '"]:checked').length === 0) 
+                    {
+                        formValid = false;
+                        $(this).addClass('error');
+                        $(this).siblings('.field-error').text('This field is required.').show();
+                    } 
+                    else 
+                    {
+                        $(this).removeClass('error');
+                        $(this).siblings('.field-error').hide();
+                    }
+                } else {
+                    if (!$(this).val()) 
+                    {
+                        formValid = false;
+                        $(this).addClass('error');
+                        $(this).siblings('.field-error').text('This field is required.').show();
+                    } 
+                    else 
+                    {
+                        $(this).removeClass('error');
+                        $(this).siblings('.field-error').hide();
+                    }
+                }
+            });
+            if (!formValid) 
+            {
+            event.preventDefault(); // Prevent form submission
+            Swal.fire(
+             {
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Please fill out all the required fields.',
+            });
+            } 
+            else 
+            {
+            // Show success message
+            Swal.fire(
+            {
+                icon: 'success',
+                title: 'Success!',
+                text: 'Character reference added successfully!',
+            });
+        }
+        });
+    });
+</script>
+
+
+
+
+
+
+
+

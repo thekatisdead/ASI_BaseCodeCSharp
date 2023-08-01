@@ -2,32 +2,91 @@
 using Basecode.Data.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Basecode.Data.Models;
+using NLog;
+using Hangfire;
+using Basecode.Data.Interfaces;
 
 namespace Basecode.WebApp.Controllers
 {
     public class PublicApplicationFormController : Controller
     {
         private readonly IPublicApplicationFormService _service;
-        
-        public PublicApplicationFormController(IPublicApplicationFormService service)
+        private readonly IApplicantListRepository _applicant;
+        private readonly IEmailSenderService _email;
+        private static Logger _logger = LogManager.GetCurrentClassLogger();
+        private readonly IApplicantListService _applicantListService;
+        private readonly IJobOpeningService _jobOpeningService;
+
+        public PublicApplicationFormController(IPublicApplicationFormService service, IEmailSenderService email, IApplicantListService applicantListService, IJobOpeningService jobOpeningService)
         {
             _service = service;
+            _email = email;
+            _applicantListService = applicantListService;
+            _jobOpeningService = jobOpeningService;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int jobId)
         {
-            return View();
+            ViewBag.JobId = jobId;
+            _logger.Trace("PublicApplicationForm Controller Accessed");
+            PublicApplicationFormViewModel form = new PublicApplicationFormViewModel();
+            ViewBag.JobId = jobId;
+            return View(form);
         }
 
         [HttpPost]
-        public IActionResult AddForm(PublicApplicationFormViewModel viewModel)
+        public IActionResult AddForm(PublicApplicationFormViewModel viewModel, int jobId)
         {
-            // Call the service method to create the form
-            _service.AddForm(viewModel);
+            try
+            {
+                int value = 0;
+                // Call the service method to create the form
+                while(true){
+                    Random randNum = new Random();
+                    value = randNum.Next(10000, 99999);
+                    if ( _applicant.GetByFormId(value) == null)
+                    {
+                        break;
+                    }
+                }
+                
+                var newApplicant = new Applicant
+                {
+                    FormId = value,
+                    Firstname = viewModel.FirstName,
+                    Lastname = viewModel.LastName,
+                    EmailAddress = viewModel.EmailAddress,
+                    JobApplied = jobId,
+                    Tracker = "Application",
+                    Grading = "On Going",
+                    CreatedTime = DateTime.Now,
+                    UpdatedTime = DateTime.Now,
+                };
+                viewModel.ApplicationID = value;
 
-            // Redirect or show a success message to the user
-            return RedirectToAction("Index", "ApplicantHomepage");
+                var fullName = viewModel.LastName + ", " + viewModel.FirstName;
+                _applicant.Add(newApplicant);
+                _service.AddForm(viewModel);
+                _email.SendEmailApplicantGeneration(viewModel.EmailAddress,fullName,value,viewModel.Position.ToString());
+
+                // add email here
+
+                _logger.Info("Form added successfully.");
+
+                // Redirect or show a success message to the user
+                return RedirectToAction("Index", "Home");
+            }
+            catch (Exception ex)
+            {
+                // Log the error using a logger
+                _logger.Error(ex, "Error occurred while adding character reference: {errorMessage}", ex.Message);
+
+                // You can customize the error handling based on your application's requirements
+                // For example, you can return a specific error view or redirect to an error page.
+                return BadRequest("An error occurred while adding the form."+ex.Message);
+            }
         }
+
 
     }
 }

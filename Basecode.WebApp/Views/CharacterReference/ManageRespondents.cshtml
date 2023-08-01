@@ -1,0 +1,77 @@
+﻿@using Basecode.Data.ViewModels
+@model List<CharacterReferenceViewModel>
+
+@{
+    ViewData["Title"] = "ManageRespondents";
+    Layout = "~/Views/Shared/_LayoutHR.cshtml";
+}
+
+<
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manage Character Reference Respondents</title>
+    <link rel="stylesheet" href="~/css/managerespondents.css" asp-append-version="true" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-oCykCPta3mP6U8s5XMhDx6H6uKZBJATMiGnURqk+4X0=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <main>
+        <div class="add-reference-container">
+            <a asp-controller="CharacterReference" asp-action="ManageRespondents">
+            </a>
+        </div>
+
+        <section class="reference-listing">
+            <h1 class="section-title">Character Reference Respondents</h1>
+            <hr>
+            <div class="search-bar">
+                <label for="search-reference" class="search-label">Search:</label>
+                <input type="text" id="search-reference" placeholder="Search here.....">
+            </div>
+            <table class="reference-table">
+                <thead>
+                    <tr>
+                        <th class="table-header">Respondents ID</th>
+                        <th class="table-header">Name</th>
+                        <th class="table-header">Current Job Title</th>
+                        <th class="table-header">Candidate's Name Being Evaluated</th>
+                        <th class="table-header">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var reference in Model)
+                    {
+                        <tr>
+                            <td class="table-cell">@reference.Id</td>
+                            <td class="table-cell">@reference.FirstName @reference.LastName</td>
+                            <td class="table-cell">@reference.JobTitle</td>
+                            <td class="table-cell">@reference.CandidateFirstName @reference.CandidateLastName</td>
+                            <td class="table-cell">
+                                <!-- Add a link/button to generate the report for this respondent -->
+                                <a asp-controller="CharacterReference" asp-action="GenerateCharacterReferenceReport" asp-route-respondentId="@reference.Id">Generate Report</a>
+                                <!-- <button class="generate-btn">Generate Report</button> -->
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </section>
+        <div class="triangle"></div>
+        <div class="triangle1"></div>
+    </main>
+
+    <script>
+        $(document).ready(function () {
+            $("#search-reference").on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $(".reference-table tbody tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+

@@ -1,8 +1,9 @@
-﻿@using Basecode.Data.Models
-@model List<JobOpening>
+﻿@using Basecode.Data.ViewModels
+@model CompositeViewModel
 
 @{
     ViewData["Title"] = "HR Dashboard";
+    var Name = ViewBag.Name;
     Layout = "~/Views/Shared/_LayoutHR.cshtml";
 }
 
@@ -15,24 +16,16 @@
 <body>
     <main>
         <section id="dashboard-overview">
-            <h1>Welcome, @ViewBag.Name</h1>
+            <h1>Welcome, @ViewBag.Name!</h1>
             <h2>Dashboard Overview</h2>
             <div class="overview-items">
                 <div class="overview-item">
                     <span>Total Job Openings:</span>
-                    <span>X</span>
+                    <span>@ViewBag.TotalJobOpenings</span>
                 </div>
                 <div class="overview-item">
                     <span>Total Applications:</span>
-                    <span>X</span>
-                </div>
-                <div class="overview-item">
-                    <span>Candidates in Process:</span>
-                    <span>X</span>
-                </div>
-                <div class="overview-item">
-                    <span>Pending Tasks:</span>
-                    <span>X</span>
+                    <span>@ViewBag.TotalApplications</span>
                 </div>
             </div>
         </section>
@@ -42,14 +35,14 @@
             <div class="job-openings-list">
                 <div class="job-opening">
                     <div class="job-details">
-                        <span>Position:</span>
-                        <span>Job Type:</span>
-                        <span>Salary:</span>
-                        <span>Schedule:</span>
-                        <span>Description:</span>
+                        <span><strong>Position:</strong> @Model.JobOpeningData?.Position</span>
+                        <span><strong>Job Type:</strong> @Model.JobOpeningData?.JobType</span>
+                        <span><strong>Salary:</strong> @Model.JobOpeningData?.Salary</span>
+                        <span><strong>Schedule:</strong> @Model.JobOpeningData?.Hours Hours, @Model.JobOpeningData?.Shift Shift</span>
+                        <span><strong>Description:</strong> @Model.JobOpeningData?.Description</span>
                     </div>
                     <div class="job-actions">
-                        <a asp-controller="JobOpening" asp-action="JobPosting">
+                        <a asp-controller="JobOpening" asp-route-HR="@Model." asp-action="JobPosting">
                             <button class="add-button">Add New Job Opening</button>
                         </a>
                         <a asp-controller="JobOpening" asp-action="JobList">
@@ -63,16 +56,23 @@
         <section id="applicant-tracking">
             <h2>Applicant Tracking</h2>
             <div class="applicant-summary">
-                <div class="applicant-info">
-                    <span>Applicant Name:</span>
-                    <span>Stage:</span>
-                    <span>Last Activity:</span>
-                </div>
-                <div class="applicant-actions">
-                    <a asp-controller="ApplicantList" asp-action="Index">
-                        <button class="view-profile-button">View Applicant List</button>
-                    </a>
-                </div>
+                @if (Model.ApplicantsData != null)
+                {
+                    <div class="applicant-info">
+                        <span><strong>Applicant Name:</strong> @Model.ApplicantsData.Firstname @Model.ApplicantsData.Lastname</span>
+                        <span><strong>Status:</strong> @Model.ApplicantsData.Tracker</span>
+                        <span><strong>Last Activity:</strong> @Model.ApplicantsData.Grading</span>
+                    </div>
+                    <div class="applicant-actions">
+                        <a asp-controller="ApplicantList" asp-action="Index">
+                            <button class="view-profile-button">View Applicant List</button>
+                        </a>
+                    </div>
+                }
+                else
+                {
+                    <p>No applicants found.</p>
+                }
             </div>
         </section>
         <div class="triangle"></div>
@@ -80,4 +80,3 @@
     </main>
 </body>
 </html>
-

@@ -1,98 +1,181 @@
 ﻿@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
-.text-center {
+:root {
+    --rose-taupe: #7F5A5Bff;
+    --eggplant: #4B3544ff;
+    --caput-mortuum: #583134ff;
+    --cinereous: #9D7473ff;
+    --rosy-brown: #C8A499ff;
+}
+
+body {
+    background-image: linear-gradient(to bottom right, var(--rose-taupe), var(--cinereous), var(--rosy-brown));
     display: flex;
-    align-items: center;
     justify-content: center;
-    text-align: center;
-    margin-top: 80px;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Poppins;
 }
 
-.logInContainer {
+.box-form {
+    width: 90%; /* Set a fixed width for the box form */
+    border-radius: 10px;
+    overflow: hidden;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 25px;
-    border: 3px solid #C53211;
-    font-family: Poppins;
-    width: 528px;
-    height: 503px;
+    box-shadow: 0 0 50px 6px #C8A499ff;
+    margin: auto;
+    background: #4B3544ff;
 }
 
-.username, .password {
-    outline: 0;
-    border-width: 0 0 2px;
-    border-color: #C53211;
-    width: 433px;
-    height: 64px;
-    flex-shrink: 0;
-    margin-bottom: 5px;
-    font-family: Poppins;
-    font-size: 20px;
+/* Add the responsive styles */
+@media (max-width: 768px) {
+    .box-form {
+        width: 95%; /* Adjust the width for smaller screens */
+    }
+
+    .right .logInContainer {
+        width: 100%; /* Adjust the width of the login container */
+    }
 }
 
-.forNoAccount {
-    margin-top: 30px;
-    padding: 15px;
-    font-family: Poppins;
+@media (max-width: 480px) {
+    .box-form {
+        width: 100%; /* Adjust the width for even smaller screens */
+    }
 }
 
-button {
-    margin-top: 50px;
-    margin-bottom: 10px;
-    width: 433px;
-    height: 64px;
-    flex-shrink: 0;
-    padding: 15px;
-    font-size: 20px;
-    font-weight: 700;
-    cursor: pointer;
-    border: none;
-    font-family: Poppins;
+.box-form div {
+    height: auto;
 }
 
-.button-box-special {
-    background: #383b3a;
+.box-form .left {
+    background-image: url("/img/bldng.jpeg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
-button:focus {
-    outline: none;
+.left {
+    flex: 1;
+    color: #FFFFFF;
+    overflow: hidden;
+    position: relative;
 }
 
-.forSubmit {
+.left .overlay {
+    padding: 30px;
+    width: 90%;
+    height: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.left .overlay h1 {
+    font-size: 4rem; /* Adjust the font size */
+    font-weight: 900;
+    margin-top: 120px;
+}
+
+.left .forSubmit {
     background: #C53211;
     color: white;
     border-radius: 5px;
     transition: all 300ms;
 }
 
-.forSubmit:hover {
+.left button {
+    width: 40%; /* Make the button full width */
+    margin-top: 250px; /* Adjust margin */
+    padding: 15px; /* Adjust padding */
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    font-family: Poppins;
+}
+
+.right {
+    flex: 1;
+    padding: 40px;
+    overflow: hidden;
+}
+
+.right .text-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.right .logInContainer {
+    display: flex;
+    flex-direction: column; /* Change flex-direction to column */
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    border: 3px solid #C53211;
+    font-family: Poppins;
+    width: 528px;
+    height: 550px;
+}
+
+.right .logInContainer h2 {
+    font-size: 3rem; /* Adjust the font size */
+    margin-top: -40px;
+}
+
+.right .inputs {
+    width: 100%; /* Make the input fields full width */
+    margin-top: 25px;
+}
+
+.right input {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.2rem;
+    border: none;
+    outline: none;
+    border-bottom: 2px solid #B0B3B9;
+    background-color: transparent;
+    color: white; /* Set text color to white */
+}
+
+/* Apply a transparent background when the input field is focused */
+.right input:focus {
+    background-color: transparent;
+}
+
+.right input:-webkit-autofill,
+.right input:-webkit-autofill:hover,
+.right input:-webkit-autofill:focus,
+.right input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px #4B3544ff inset !important;
+    -webkit-text-fill-color: white !important;
+    background-color: transparent !important;
+}
+
+.right button {
+    width: 100%; /* Make the button full width */
+    margin-top: 30px; /* Adjust margin */
+    padding: 15px; /* Adjust padding */
+    font-size: 1.2rem; /* Adjust the font size */
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    font-family: Poppins;
+}
+
+.right .forSubmit {
+    background: #C53211;
+    color: white;
+    border-radius: 5px;
+    transition: all 300ms;
+}
+
+.right .forSubmit:hover {
     transform: scale(1);
     letter-spacing: 2px;
     background: white;
     color: #C53211;
     box-shadow: 2px 2px 3px gray;
-}
-
-.triangle {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 0;
-    height: 0;
-    border-bottom: 150px solid #c53211;
-    border-left: 150px solid transparent;
-    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 10));
-}
-
-.triangle1 {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 0;
-    height: 0;
-    z-index: -1;
-    border-bottom: 250px solid #2E3830;
-    border-left: 250px solid transparent;
-    box-shadow: inset 0 0 20px rgba(0, 0, 0, 10);
 }

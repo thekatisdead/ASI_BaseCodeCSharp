@@ -9,6 +9,14 @@ namespace Basecode.Data.Interfaces
 {
     public interface IPublicApplicationFormRepository
     {
+        /// <summary>
+        /// Add a new public application form into the public application system using the provided data.
+        /// </summary>
+        /// <param name="applicationForm">An instance of the PublicApplicationFormViewModel class that holds the required data.</param>
         void AddForm(PublicApplicationForm applicationForm);
+        public PublicApplicationForm GetById(int id);
+        public PublicApplicationForm GetByApplicationId(int id);
+        public void Responded(int id);
+        public int CountResponded(int id);
     }
 }

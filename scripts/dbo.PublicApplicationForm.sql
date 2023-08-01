@@ -20,7 +20,7 @@
     [ReferenceThreeFullName] NVARCHAR (MAX) NOT NULL,
     [RelationshipThree]      NVARCHAR (MAX) NOT NULL,
     [ContactInfoThree]       NVARCHAR (MAX) NOT NULL,
-    [CurriculumVitae]        NVARCHAR (MAX) NOT NULL,
+    [CurriculumVitae]        VARBINARY (MAX) NULL,
     [CreatedTime]            DATETIME2 (7)  NULL,
     [CreatedBy]              NVARCHAR (50)  NULL,
     [UpdatedTime]            DATETIME2 (7)  NULL,

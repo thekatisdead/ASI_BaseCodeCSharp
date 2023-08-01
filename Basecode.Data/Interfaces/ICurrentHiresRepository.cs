@@ -13,6 +13,6 @@ namespace Basecode.Data.Interfaces
         /// Retrieves all applicants from the database.
         /// </summary>
         /// <returns>An IQueryable of Applicant containing all applicants.</returns>
-        void AddHires(CurrentHires currentHires);
+        void AddHire(int applicantId, int jobId);
     }
 }

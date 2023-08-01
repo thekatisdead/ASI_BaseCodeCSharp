@@ -7,7 +7,7 @@ body {
 }
 
 header {
-    background-color: #C53211;
+    background-color: #fff;
     display: flex;
 }
 
@@ -60,7 +60,7 @@ main {
     margin-top: 10px;
 }
 
-.table-header {
+.text-center {
     background-color: #C53211;
     color: #FFFFFF;
     font-weight: bold;
@@ -70,6 +70,7 @@ main {
 .table-cell {
     border: 1px solid #CCCCCC;
     padding: 10px;
+    text-align: center;
 }
 
 .edit-btn,

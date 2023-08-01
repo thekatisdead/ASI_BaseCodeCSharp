@@ -1,16 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Basecode.Data.Repositories;
 using Basecode.Data.Models;
+using Basecode.Services.Interfaces;
 
 namespace Basecode.WebApp.Controllers
 {
     public class CurrentHiresController : Controller
     {
-        private readonly CurrentHiresRepository _repository;
+        private readonly ICurrentHiresService _currentHiresService;
 
-        public CurrentHiresController(CurrentHiresRepository repository)
+
+        public CurrentHiresController(ICurrentHiresService currentHiresService)
         {
-            _repository = repository;
+            _currentHiresService = currentHiresService;
         }
 
         public IActionResult Index()
@@ -20,7 +22,7 @@ namespace Basecode.WebApp.Controllers
 
         public IActionResult CreateInfo(int applicantID, int jobID)
         {
-            _repository.AddHire(applicantID, jobID);
+            _currentHiresService.AddHire(applicantID, jobID);
  
             return View();
         }
