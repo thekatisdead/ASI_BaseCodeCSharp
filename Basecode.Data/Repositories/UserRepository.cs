@@ -26,24 +26,9 @@ namespace Basecode.Data.Repositories
             return base.GetDbSet<User>();
         }
 
-        public User FindByUsername(string email)
+        public User FindByUsername(string username)
         {
-            // Fetch all users from the database
-            var users = GetDbSet<User>().AsEnumerable();
-
-            // Perform case-insensitive search for the user by email
-            var user = users.FirstOrDefault(u => u.Username.Equals(email, StringComparison.OrdinalIgnoreCase));
-
-            if (user != null)
-            {
-                return new User
-                {
-                    FirstName = user.FirstName,
-                    LastName = user.LastName
-                };
-            }
-
-            return null;
+            return GetDbSet<User>().Where(x => x.Username.ToLower().Equals(username.ToLower())).AsNoTracking().FirstOrDefault();
         }
 
         public User FindByEmail(string email)
