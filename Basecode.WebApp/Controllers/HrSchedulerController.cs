@@ -126,6 +126,8 @@ namespace Basecode.WebApp.Controllers
 
         //Adding schedule to the Scheduletable for the Modal.
         //pasensya sa taas kaayu nga parameters, kay gi manual man nakoug bind hehehe
+        //do the email thing here. Use the _scheduleService.GetApplicantListAccordingToSchedule(int sched)
+        //to access applicants email and name.
         public IActionResult AddScheduleModal(List<int> applicants,string InterviewerId,string JobId, string StartTime, string EndTime, string Date, string ExamType, string Instruction, string TeamsLink)
         {
             Schedule schedule = new Schedule();
