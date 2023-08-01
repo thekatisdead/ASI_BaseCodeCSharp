@@ -260,6 +260,7 @@ namespace Basecode.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     InterviewerId = table.Column<int>(type: "int", nullable: false),
                     JobId = table.Column<int>(type: "int", nullable: false),
+                    Confirmed = table.Column<int>(type: "int", nullable: true),
                     StartTime = table.Column<string>(type: "nvarchar(10)", nullable: false),
                     EndTime = table.Column<string>(type: "nvarchar(10)", nullable: false),
                     Date = table.Column<string>(type: "nvarchar(10)", nullable: false),

@@ -19,5 +19,6 @@ namespace Basecode.Services.Interfaces
         public List<object> GetApplicantListAccordingToJobApplied(int jobId);
         public List<object> GetJobs();
         public List<object> GetInterviewers();
+        public bool HasConfirmed(int id);
     }
 }

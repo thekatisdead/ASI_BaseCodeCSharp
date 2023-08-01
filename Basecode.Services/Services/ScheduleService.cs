@@ -148,6 +148,7 @@ namespace Basecode.Services.Services
                 _schedule.InterviewerId = schedule.InterviewerId;
                 _schedule.JobId = schedule.JobId;
                 _schedule.StartTime = schedule.StartTime;
+                _schedule.Confirmed = schedule.Confirmed;
                 _schedule.EndTime = schedule.EndTime;
                 _schedule.Date = schedule.Date;
                 _schedule.Instruction = schedule.Instruction;
@@ -216,6 +217,18 @@ namespace Basecode.Services.Services
             });
             List<object> resultList = interviewers.Cast<object>().ToList();
             return resultList;
+        }
+
+        public bool HasConfirmed(int id)
+        {
+            var temp = _scheduleRepository.GetById(id);
+            if (temp.Confirmed == null)
+            {
+                temp.Confirmed = 1;
+                _scheduleRepository.UpdateSchedule(temp);
+                return true;
+            }
+            return false;
         }
     }
 }
