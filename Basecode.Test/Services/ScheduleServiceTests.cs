@@ -282,7 +282,7 @@ namespace Basecode.Test.Services
                 s.Date == schedule.Date &&
                 s.Instruction == schedule.Instruction &&
                 s.UpdatedBy == System.Environment.UserName &&
-                s.UpdatedTime.Date == DateTime.Now.Date
+                s.UpdatedTime == DateTime.Now.Date
             )), Times.Once);
         }
 
@@ -328,7 +328,7 @@ namespace Basecode.Test.Services
                 s.Date == schedule.Date &&
                 s.Instruction == schedule.Instruction &&
                 s.UpdatedBy == System.Environment.UserName &&
-                s.UpdatedTime.Date == DateTime.Now.Date
+                s.UpdatedTime == DateTime.Now.Date
             )), Times.Once);
         }
 

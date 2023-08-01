@@ -16,6 +16,8 @@ namespace Basecode.Services.Interfaces
         public ScheduleViewModel GetById(int id);
         public void UpdateSchedule(Schedule schedule);
         public void DeleteSchedule(int id);
-        public List<ApplicantListViewModel> GetApplicantListAccordingToJobApplied(int jobId);
+        public List<object> GetApplicantListAccordingToJobApplied(int jobId);
+        public List<object> GetJobs();
+        public List<object> GetInterviewers();
     }
 }

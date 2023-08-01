@@ -21,7 +21,7 @@ namespace Basecode.WebApp.Controllers
         {
             //the id variable is used to get an applicant from the Applicant table
             //you may delete this variable once routing is complete.
-            int id = 1;
+            int id = 2;
             var applicant = _applicantListService.GetApplicantById(id);
 
             //This line saves the applicant ID althroughout the pages.
