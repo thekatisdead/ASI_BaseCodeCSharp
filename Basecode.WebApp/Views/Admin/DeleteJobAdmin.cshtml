@@ -1,0 +1,32 @@
+﻿@using Basecode.Data.ViewModels
+@model JobOpeningViewModel
+
+@{
+    ViewData["Title"] = "Job Posting Update";
+    Layout = "~/Views/Shared/_LayoutHR.cshtml";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/css/style.css" />
+    <title>Job Posting - Confirm Delete</title>
+</head>
+<body>
+    <header>
+  
+    </header>
+    <main>
+        <section class="job-form">
+            <p>Are you sure you want to delete the job: @Model.Position?</p>
+
+            <form asp-controller="Admin" asp-action="DeleteAdminJob" asp-route-id="@Model.Id" method="post">
+                <button type="submit" class="btn btn-danger">Delete</button>
+                <a asp-controller="Admin" asp-action="AdminJobListing" class="btn btn-secondary">Cancel</a>
+            </form>
+        </section>
+    </main>
+    <div class="triangle"></div>
+    <div class="triangle1"></div>
+</body>
+</html>

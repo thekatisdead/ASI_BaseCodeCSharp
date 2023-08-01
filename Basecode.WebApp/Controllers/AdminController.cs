@@ -1,13 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Basecode.Services.Interfaces;
-using Basecode.Data.Models;
 using NLog;
 using Microsoft.AspNetCore.Identity;
 using Basecode.Data.ViewModels;
-using Microsoft.AspNetCore.Authorization;
-using static Basecode.Data.Constants;
-using User = Basecode.Data.Models.User;
-using Exception = System.Exception;
+using Basecode.Data.Models;
+using Microsoft.Graph.Beta.Models;
 
 namespace Basecode.WebApp.Controllers
 {
@@ -83,6 +80,51 @@ namespace Basecode.WebApp.Controllers
             }
         }
 
+        public IActionResult UpdateJobAdmin(int id)
+        {
+            _logger.Trace("UpdateJobAdmin action called");
+            var data = _jobOpeningService.GetById(id);
+            return View(data);
+        }
+
+        public IActionResult UpdateAdminJob(JobOpening jobOpening)
+        {
+            _logger.Info("UpdateAdminJob action called");
+            try
+            {
+                _jobOpeningService.Update(jobOpening);
+                _logger.Info("Job opening updated successfully.");
+                return RedirectToAction("AdminJobListing", "Admin");
+            }
+            catch (System.Exception ex)
+            {
+                _logger.Error(ex, "Error occurred while updating job opening.");
+                return RedirectToAction("AdminJobListing", new { id = jobOpening.Id });
+            }
+        }
+
+        public IActionResult DeleteJobAdmin(int id)
+        {
+            _logger.Trace("DeleteJobAdmin action called");
+            var data = _jobOpeningService.GetById(id);
+            return View(data);
+        }
+
+        public IActionResult DeleteAdminJob(int id)
+        {
+            _logger.Info("DeleteAdminJob action called");
+            try
+            {
+                _jobOpeningService.Delete(id);
+                _logger.Info("Job opening deleted successfully.");
+                return RedirectToAction("AdminJobListing", "Admin");
+            }
+            catch (System.Exception ex)
+            {
+                _logger.Error(ex, "Error occurred while deleting job opening.");
+                return RedirectToAction("AdminJobListing", "Admin");
+            }
+        }
 
         public IActionResult UserManagement()
         {
