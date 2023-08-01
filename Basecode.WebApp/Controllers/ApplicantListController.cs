@@ -229,7 +229,6 @@ namespace Basecode.WebApp.Controllers
         public IActionResult AcceptInterview(int applicantID)
         {
             _service.UpdateGrade(applicantID, "Passed");
-            // _service.ProceedTo(applicantID, "For HR Interview");
             return RedirectToAction("Index");
         }
         public IActionResult Confirm(int applicantID)

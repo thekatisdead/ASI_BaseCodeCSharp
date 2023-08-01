@@ -461,7 +461,7 @@ namespace Basecode.Services.Services
             }
         }
 
-        public void SendEmailInterviewGeneration(string receiverEmail, string interviewName, string applicantName, int applicantID, string jobPosition, DateOnly date, TimeOnly startTime, TimeOnly endTime)
+        public void SendEmailInterviewGeneration(string receiverEmail, string interviewName, string applicantName, int applicantID, string jobPosition, string typeExam, DateOnly date, TimeOnly startTime, TimeOnly endTime)
         {
             var email = new MimeMessage();
 
@@ -483,6 +483,7 @@ namespace Basecode.Services.Services
             htmlContent = htmlContent.Replace("{applicantName}", applicantName);
             htmlContent = htmlContent.Replace("{applicantID}", applicantID.ToString());
             htmlContent = htmlContent.Replace("{jobPosition}", jobPosition);
+            htmlContent = htmlContent.Replace("{typeExam}", typeExam);
             htmlContent = htmlContent.Replace("{date}", date.ToString("yyyy-MM-dd"));
             htmlContent = htmlContent.Replace("{startTime}", startTime.ToString("HH:mm"));
             htmlContent = htmlContent.Replace("{endTime}", endTime.ToString("HH:mm"));

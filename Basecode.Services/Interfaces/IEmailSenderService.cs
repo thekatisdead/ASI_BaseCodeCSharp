@@ -103,7 +103,7 @@ namespace Basecode.Services.Interfaces
 
         public void SendEmailApplicantGeneration(string receiverEmail, string applicantName, int applicantID, string jobPosition);
 
-        public void SendEmailInterviewGeneration(string receiverEmail, string interviewName, string applicantName, int applicantID, string jobPosition, DateOnly date, TimeOnly startTime, TimeOnly endTime);
+        public void SendEmailInterviewGeneration(string receiverEmail, string interviewName, string applicantName, int applicantID, string jobPosition, string typeExam, DateOnly date, TimeOnly startTime, TimeOnly endTime);
         public void SendEmailHireConfirmation(string receiverEmail, string applicantName, int applicantID, string jobPosition);
     }
 }

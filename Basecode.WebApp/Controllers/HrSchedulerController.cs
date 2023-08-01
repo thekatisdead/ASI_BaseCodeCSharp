@@ -108,9 +108,10 @@ namespace Basecode.WebApp.Controllers
             // sends an email for the interviewer after the discussion
             // if you want to cancel an email, we have to like create another table
             // this will be in the suggestions
-
+            
+            _emailSender.SendEmailInterviewGeneration(interviewer.Email,interviewerName,"Applicant",1,schedule.JobId.ToString(),DateOnly.Parse(schedule.Date),TimeOnly.Parse(schedule.StartTime),TimeOnly.Parse(schedule.EndTime));
+            // sends an email to the applicant about the thing too :sob:
             BackgroundJob.Schedule(() => _emailSender.SendEmailInterviewDecision(interviewer.Email, interviewerName, "Alliance Software Inc.", schedule.JobId.ToString()),delay);
-            //_emailSender.SendEmailInterviewDecision(interviewer.Email,interviewerName,"Alliance Software Inc.",schedule.JobId.ToString());
             
             // requires the name of the applicant too
             //_emailSender.SendEmailInterviewGeneration(interviewer.Email,interviewer.LastName,"Molly",1,"Bottom",schedule.Date,schedule.);
