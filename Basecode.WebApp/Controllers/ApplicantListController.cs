@@ -9,6 +9,7 @@ using NLog;
 using Hangfire;
 using NLog.Fluent;
 using Basecode.Data.Interfaces;
+using Hangfire.Common;
 
 namespace Basecode.WebApp.Controllers
 {
@@ -102,6 +103,7 @@ namespace Basecode.WebApp.Controllers
             // needs to check if the currentHires exist
             if (status == "Hired")
             {
+                
                 _repository.AddHire(applicantID,data.JobApplied);
             }
             else if(status == "shortlisted")
@@ -233,7 +235,15 @@ namespace Basecode.WebApp.Controllers
         }
         public IActionResult Confirm(int applicantID)
         {
-            
+            var data = _service.RetrieveAll().FirstOrDefault(a => a.Id == applicantID);
+            if (data == null)
+            {
+                return NotFound(); // or handle the case when applicant is not found
+            }
+            var _fullName = data.Lastname + ", " + data.Firstname;
+            var job = _job.GetById(data.JobApplied);
+
+            _email.SendEmailDTReminder(_fullName, (int)data.FormId, data.EmailAddress, job.Position);
             _service.UpdateGrade(applicantID,"Confirmed");
             return RedirectToAction("Index");
         }
@@ -242,11 +252,13 @@ namespace Basecode.WebApp.Controllers
             // not yet finished
             // sends an email to the HR saying He Needs to confirm if applicant has signed
             var temporary = _applicantList.GetByFormId(FormID);
+            var _fullName = temporary.Lastname + ", " + temporary.Firstname;
             var _applicantId = temporary.Id;
+            var job = _job.GetById(temporary.JobApplied);
 
             // grade becomes hired not status
             _service.UpdateGrade(_applicantId, "Not Confirmed");
-            _email.SendEmailHireConfirmation("kaherbieto@outlook.up.edu.ph", "Name",_applicantId,temporary.JobApplied.ToString());
+            _email.SendEmailHireConfirmation("kaherbieto@outlook.up.edu.ph", _fullName,_applicantId,job.Position,temporary.EmailAddress);
             return this.UpdateStatus(_applicantId, "Hired");
 
         }
