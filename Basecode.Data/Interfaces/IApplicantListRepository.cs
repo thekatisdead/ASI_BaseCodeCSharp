@@ -37,5 +37,7 @@ namespace Basecode.Data.Interfaces
         /// <returns>The most recent applicant's info.</returns>
         ApplicantListViewModel GetMostRecentApplicant();
         ApplicantListViewModel GetMostRecentApplicantForRequirements();
+
+        public void UpdateConfirmed(int applicantId, string status);
     }
 }

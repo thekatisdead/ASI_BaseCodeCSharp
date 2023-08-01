@@ -160,6 +160,7 @@ namespace Basecode.WebApp.Controllers
             var publicForm = _publicApplicationFormService.GetByApplicationId(formId);
             
             ViewBag.Status = applicant.Tracker;
+            ViewBag.Grading = applicant.Grading;
             ViewBag.ID = applicantId;
             return View(publicForm);
         }
@@ -243,7 +244,7 @@ namespace Basecode.WebApp.Controllers
             var _fullName = data.Lastname + ", " + data.Firstname;
             var job = _job.GetById(data.JobApplied);
 
-            _email.SendEmailDTReminder(_fullName, (int)data.FormId, data.EmailAddress, job.Position);
+            _email.SendEmailDTNotification(_fullName, (int)data.FormId, data.EmailAddress, job.Position);
             _service.UpdateGrade(applicantID,"Confirmed");
             return RedirectToAction("Index");
         }
@@ -262,6 +263,27 @@ namespace Basecode.WebApp.Controllers
             return this.UpdateStatus(_applicantId, "Hired");
 
         }
+
+        public IActionResult ConfirmOnboard(int FormID)
+        {
+            var applicant = _applicantList.GetByFormId(FormID).Id;
+            this.UpdateStatus(applicant, "Onboarding");
+            _service.UpdateConfirmed(applicant,"Confirmed");
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Onboard(int FormID)
+        {
+            var applicant = _applicantList.GetByFormId(FormID);
+            var _fullName = applicant.Lastname + ", " + applicant.Firstname;
+            var job = _job.GetById(applicant.JobApplied);
+            this.UpdateStatus(applicant.Id,"Onboarding");
+            _service.UpdateConfirmed(applicant.Id, "Not Confirmed");
+            _email.SendEmailDTDecision(_fullName,applicant.FormId,applicant.EmailAddress,job.Position);
+
+            return RedirectToAction("Index");
+        }
+        
 
 
     }

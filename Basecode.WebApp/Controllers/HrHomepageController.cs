@@ -56,13 +56,13 @@ namespace Basecode.WebApp.Controllers
                 JobOpeningData = recentJobOpening,
                 ApplicantsData = applicantsData
             };
-            ViewBag.Name = Username;
 
             // Fetch the logged-in user's email
             var userEmail = User.Identity.Name;
 
             // Fetch the user's first name and last name based on the email
             var user = _userService.FindByUsername(userEmail);
+            ViewBag.HREmail = userEmail; // use this to connect the thing
 
             if (user != null)
             {

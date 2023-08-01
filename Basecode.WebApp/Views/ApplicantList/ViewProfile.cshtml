@@ -5,6 +5,7 @@
 @{
     ViewData["Title"] = "[Title] Application Tracking";
     var Tracker = ViewBag.Status;
+    var Grading = ViewBag.Grading;
     var ID = ViewBag.ID;
     Layout = "~/Views/Shared/_LayoutHR.cshtml";
 }
@@ -27,9 +28,16 @@
                         <div class="d-flex justify-content-center mb-2">
 
                             <!--The Button to schedule should only appear if the applicant's status is for HR Interview-->
-                            @if (Tracker != "Application")
+                            @if (Tracker == "Hired")
                             {
-                                <a asp-controller="HrScheduler" asp-action="home"><button type="button" class="btn btn-primary ms-1">Schedule</button></a>
+                                if (Grading== "Confirmed")
+                                {
+                                    <a asp-controller="ApplicantList" asp-route-FormID="@Model.ApplicationID" asp-action="OnBoard"><button type="button" class="btn btn-primary ms-1">Onboard</button></a>
+                                }
+                            }
+                            else if (Tracker != "Application")
+                            {
+                                //<a asp-controller="HrScheduler" asp-action="home"><button type="button" class="btn btn-primary ms-1">Schedule</button></a>
                                 <a asp-controller="ApplicantList" asp-route-FormID="@Model.ApplicationID" asp-action="Hired"><button type="button" class="btn btn-primary ms-1">Hire</button></a>
                                 // need a conditio nto add the thing when its interview time
                                 <a asp-controller="ApplicantList" asp-route-applicantId="@ID" asp-route-status="Undergoing Background Checks" asp-action="UpdateStatus"><button type="button" class="btn btn-primary ms-1">Background Check</button></a>
