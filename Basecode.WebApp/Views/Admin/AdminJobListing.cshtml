@@ -50,8 +50,8 @@
                                         <td class="table-cell">@job.Shift</td>
                                         <td class="table-cell">@job.Description</td>
                                         <td class="table-cell">
-                                            <a asp-controller="JobOpening" asp-action="UpdateJob" asp-route-id="@job.Id">Edit</a>
-                                            <a asp-controller="JobOpening" asp-action="DeleteJob" asp-route-id="@job.Id">Delete</a>
+                                            <a asp-controller="Admin" asp-action="UpdateJobAdmin" asp-route-id="@job.Id">Edit</a>
+                                            <a asp-controller="Admin" asp-action="DeleteJobAdmin" asp-route-id="@job.Id">Delete</a>
                                         </td>
                                     </tr>
                                 }

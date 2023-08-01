@@ -1,13 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Basecode.Services.Interfaces;
-using Basecode.Data.Models;
 using NLog;
 using Microsoft.AspNetCore.Identity;
 using Basecode.Data.ViewModels;
-using Microsoft.AspNetCore.Authorization;
-using static Basecode.Data.Constants;
-using User = Basecode.Data.Models.User;
-using Exception = System.Exception;
+using Basecode.Data.Models;
+using Microsoft.Graph.Beta.Models;
 
 namespace Basecode.WebApp.Controllers
 {
@@ -16,16 +13,16 @@ namespace Basecode.WebApp.Controllers
     {
         private readonly IJobOpeningService _jobOpeningService;
         private readonly IUserService _userService;
-        //private readonly RoleManager<IdentityRole> _roleManager;
-        //private readonly IAdminService _service;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IAdminService _service;
         private static Logger _logger = LogManager.GetCurrentClassLogger();
 
-        public AdminController(IJobOpeningService jobOpeningService, IUserService userService)
+        public AdminController(IJobOpeningService jobOpeningService, IUserService userService, RoleManager<IdentityRole> roleManager, IAdminService service)
         {
             _jobOpeningService = jobOpeningService;
             _userService = userService;
-            //_roleManager = roleManager;
-            //_service = service;
+            _roleManager = roleManager;
+            _service = service;
             //RoleManager<IdentityRole> roleManager, IAdminService service //enable this if you want to add new role
         }
         public IActionResult Index()
@@ -44,22 +41,22 @@ namespace Basecode.WebApp.Controllers
             return View("RoleManagement/CreateRole");
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> CreateRole(CreateRoleViewModel createRoleViewModel)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
+        [HttpPost]
+        public async Task<IActionResult> CreateRole(CreateRoleViewModel createRoleViewModel)
+        {
+            if (ModelState.IsValid)
+            {
 
-        //        IdentityResult result = await _service.CreateRole(createRoleViewModel.RoleName);
+                IdentityResult result = await _service.CreateRole(createRoleViewModel.RoleName);
 
-        //        if (result.Succeeded)
-        //        {
-        //            return RedirectToAction("Index", "Admin");
-        //        }
-        //    }
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index", "Admin");
+                }
+            }
 
-        //    return View();
-        //}
+            return View();
+        }
 
         public IActionResult AdminJobListing()
         {
@@ -83,6 +80,51 @@ namespace Basecode.WebApp.Controllers
             }
         }
 
+        public IActionResult UpdateJobAdmin(int id)
+        {
+            _logger.Trace("UpdateJobAdmin action called");
+            var data = _jobOpeningService.GetById(id);
+            return View(data);
+        }
+
+        public IActionResult UpdateAdminJob(JobOpening jobOpening)
+        {
+            _logger.Info("UpdateAdminJob action called");
+            try
+            {
+                _jobOpeningService.Update(jobOpening);
+                _logger.Info("Job opening updated successfully.");
+                return RedirectToAction("AdminJobListing", "Admin");
+            }
+            catch (System.Exception ex)
+            {
+                _logger.Error(ex, "Error occurred while updating job opening.");
+                return RedirectToAction("AdminJobListing", new { id = jobOpening.Id });
+            }
+        }
+
+        public IActionResult DeleteJobAdmin(int id)
+        {
+            _logger.Trace("DeleteJobAdmin action called");
+            var data = _jobOpeningService.GetById(id);
+            return View(data);
+        }
+
+        public IActionResult DeleteAdminJob(int id)
+        {
+            _logger.Info("DeleteAdminJob action called");
+            try
+            {
+                _jobOpeningService.Delete(id);
+                _logger.Info("Job opening deleted successfully.");
+                return RedirectToAction("AdminJobListing", "Admin");
+            }
+            catch (System.Exception ex)
+            {
+                _logger.Error(ex, "Error occurred while deleting job opening.");
+                return RedirectToAction("AdminJobListing", "Admin");
+            }
+        }
 
         public IActionResult UserManagement()
         {
@@ -108,18 +150,38 @@ namespace Basecode.WebApp.Controllers
 
         public IActionResult Update(string id)
         {
+            try
+            {
+                var user = _userService.FindByUsername(id);
+                if (user == null)
+                {
+                    _logger.Error("User not found.");
+                    return RedirectToAction("UserManagement", "Admin");
+                }
+
+                return View(user);
+            }
+            catch (System.Exception ex)
+            {
+                _logger.Error(ex, "Error occurred while retrieving user for update: {errorMessage}", ex.Message);
+                return RedirectToAction("UserManagement", "Admin");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Update(User user)
+        {
             _logger.Info("Update action called");
             try
             {
-                var data = _userService.FindByUsername(id);
-                _userService.Update(data);
-                _logger.Info("User updated successfully.");
+                _userService.Update(user);
+                _logger.Info("User account updated successfully.");
                 return RedirectToAction("UserManagement", "Admin");
             }
             catch (System.Exception ex)
             {
-                _logger.Error(ex, "Error occurred while updating user.");
-                return RedirectToAction("UserManagement", "Admin");
+                _logger.Error(ex, "Error occurred while updating user account.");
+                return RedirectToAction("Update", new { id = user.Id });
             }
         }
 

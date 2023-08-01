@@ -15,10 +15,12 @@ namespace Basecode.Data.Models
         public string StartTime { get; set; }
         public string EndTime { get; set; }
         public string Date { get; set; }
-        public string Instruction { get; set; }
-        public DateTime CreatedTime { get; set; } = DateTime.Now;
-        public string CreatedBy { get; set; } = System.Environment.UserName;
-        public DateTime UpdatedTime { get; set; }
-        public string UpdatedBy { get; set; } = System.Environment.UserName;
+        public string? ExamType { get; set; }  
+        public string? Instruction { get; set; }
+        public string? TeamsLink { get; set; }
+        public DateTime? CreatedTime { get; set; } = DateTime.Now;
+        public string? CreatedBy { get; set; } = System.Environment.UserName;
+        public DateTime? UpdatedTime { get; set; }
+        public string? UpdatedBy { get; set; } = System.Environment.UserName;
     }
 }

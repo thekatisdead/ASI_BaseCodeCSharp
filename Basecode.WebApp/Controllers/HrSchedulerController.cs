@@ -16,7 +16,7 @@ namespace Basecode.WebApp.Controllers
         private static Logger _logger = LogManager.GetCurrentClassLogger();
         IInterviewerServices _interviewerServices;
         IJobOpeningService _jobOpeningService;
-        IScheduleService _scheduleService;
+        IScheduleService _scheduleService;    
         IUserService _userService;
         
         public HrSchedulerController(IInterviewerServices services,IJobOpeningService jobOpeningService,IScheduleService scheduleService,IEmailSenderService emailSender, IUserService userService) 
@@ -166,6 +166,24 @@ namespace Basecode.WebApp.Controllers
         public IActionResult ApplicantList()
         {
             return View();
+        }
+        [HttpPost]
+        public IActionResult ViewApplicantsAccordingToJobApplied(int job)
+        {
+            var applicants =_scheduleService.GetApplicantListAccordingToJobApplied(job);
+            return Json(applicants);
+        }
+        [HttpPost]
+        public IActionResult GetInterviewers()
+        {
+            var interviewers = _scheduleService.GetInterviewers();
+            return Json(interviewers);
+        }
+        [HttpPost]
+        public IActionResult GetJobs()
+        {
+            var jobs = _scheduleService.GetInterviewers();
+            return Json(jobs);
         }
     }
 }
