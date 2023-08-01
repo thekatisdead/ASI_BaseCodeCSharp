@@ -41,14 +41,10 @@ namespace Basecode.WebApp.Controllers
             {
                 int value = 0;
                 // Call the service method to create the form
-                while(true){
-                    Random randNum = new Random();
-                    value = randNum.Next(10000, 99999);
-                    if ( _applicant.GetByFormId(value) == null)
-                    {
-                        break;
-                    }
-                }
+                
+                Random randNum = new Random();
+                value = randNum.Next(10000, 99999);
+                
                 
                 var newApplicant = new Applicant
                 {
