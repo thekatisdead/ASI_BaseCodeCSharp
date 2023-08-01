@@ -9,12 +9,13 @@
     <title>Hr Scheduler</title>
     <link rel="stylesheet" href="~/css/hrscheduler.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/applicantlist.css" asp-append-version="true" />
-    <script type="text/javascript" src='https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.3.min.js'></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
     </head>
     <body>
     <div class="mt-2 mb-2 p-3">
         <a asp-action="InterviewerList"><button class="btn btn-danger" style="margin-right:15px">Manage Interviewer</button></a>
-        <a asp-action="ViewAddSchedule"><button class="btn btn-danger">Assign Schedule</button></a>
+        <a asp-action="ViewAddSchedule" id="addButton"><button class="btn btn-danger">Assign Schedule</button></a>
     </div>
         
         <table class="table py-lg-4 rounded-table table-light text-center">
@@ -25,6 +26,8 @@
                     <th scope="col">Start Time</th>
                     <th scope="col">End Time</th>
                     <th scope="col">Date</th>
+                    <th scope="col">Type of Exam</th>
+                    <th scope="col">Team's link</th>
                     <th scope="col">Instruction</th>
                     <th scope="col">Action</th>
                 </tr>
@@ -38,13 +41,164 @@
                         <td>@schedule.StartTime</td>
                         <td>@schedule.EndTime</td>
                         <td>@schedule.Date</td>
-                        <td>@schedule.instruction</td>
-                    <td><a asp-action="EditSchedule" asp-route-id="@schedule.ScheduleId">Edit</a> <a asp-action="DeleteSchedule" asp-route-id="@schedule.ScheduleId">Delete</a> <a href="#">Applicants</a></td>
+                        <td>@schedule.ExamType</td>
+                        <td>@schedule.TeamsLink</td>
+                        <td>@schedule.Instruction</td>
+                    <td>
+                        <a asp-action="EditSchedule" asp-route-id="@schedule.ScheduleId" class="p-2" style="text-decoration:none">                          
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
+                                <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z" />
+                            </svg>
+                        </a> <a asp-action="DeleteSchedule" asp-route-id="@schedule.ScheduleId"  class="p-2" style="text-decoration:none">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
+                                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
+                            </svg>
+                        </a> <a href="#" onclick="DisplayApplicants(@schedule.JobId)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+                            </svg>
+                        </a>
+                    </td>
                     </tr>
 
                 }
             </tbody>
         </table>
+        <!--Modal for applicants-->
+    <div class="modal" tabindex="-1" role="dialog" id="modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Applicants</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span id="ex" ria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <ul id="applicantsList" class="list-group list-group-flush">
+                      <!-- Applicants will be displayed here -->
+                      <p id="error"></p>
+                     </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Modal for Adding schedule-->
+    <div class="modal" tabindex="-1" role="dialog" id="add">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" id="ex">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="Interviewer-name" class="col-form-label">Interviewer:</label>
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>Open this select menu</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="Jobs" class="col-form-label">Job</label>
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>Open this select menu</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Start Time:</label>
+                            <input type="time" class="form-control" id="recipient-name">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">End Time:</label>
+                            <input type="text" class="form-control" id="recipient-name">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Date:</label>
+                            <input type="text" class="form-control" id="recipient-name">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Exam Type:</label>
+                            <input type="text" class="form-control" id="recipient-name">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Team Link:</label>
+                            <input type="text" class="form-control" id="recipient-name">
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">Intruction:</label>
+                            <textarea class="form-control" id="message-text"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @section Scripts{
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+            <script>
+                function DisplayApplicants(JobId)
+                {
+                    event.preventDefault();
+                    $.ajax(
+                    {
+                        url: "/HrScheduler/ViewApplicantsAccordingToJobApplied",
+                        type:"POST",
+                        data:{job:JobId},
+                        dataType:"json",
+                        success: function(applicants){
+                            $('#applicantsList').empty();
+                            for (var applicant of applicants) 
+                            {
+                               console.log(applicant.name);
+                               var listItem = $("<li class='list-group-item'>").text(applicant.name);
+                               $('#applicantsList').append(listItem);
+                            }
+                            $("#modal").fadeIn(300);
+                        },
+                        error: function () {
+                                $("#error").text("Error");
+                            $("#modal").fadeIn(300);
+                           
+                        }
+                    });
+                }
+                $(document).ready(function () {
+                   $("#close").click(function () {
+                       $("#modal").fadeOut(300, function () {
+                             $("#modal").fadeOut(300);
+                       });
+                   });
 
+                   $("#ex").click(function () {
+                        $("#modal").fadeOut(300, function () {
+                              $("#modal").fadeOut(300);
+                        });
+                   });
+
+                    $("#addButton").click(function() {
+                        $("#add").fadeIn(300);
+                    });
+                });
+            </script>
+        }
+    }
     </body>
 </html>

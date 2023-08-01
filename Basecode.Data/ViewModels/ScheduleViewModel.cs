@@ -29,6 +29,8 @@ namespace Basecode.Data.ViewModels
         [DataType(DataType.Date, ErrorMessage = "Invalid Date")]
         [Display(Name = "Date")]
         public string Date { get; set; }
-        public string Instruction { get; set; }
+        public string? ExamType { get; set; }
+        public string? Instruction { get; set; }
+        public string? TeamsLink { get; set; }
     }
 }

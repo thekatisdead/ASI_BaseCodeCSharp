@@ -85,16 +85,23 @@
             </div>
 
             <div class="input-group">
-                <select class="text-input" aria-label="Select Type of Exam" asp-for="JobId">
+                <select class="text-input" aria-label="Select Type of Exam" asp-for="ExamType">
                     <option value=" " selected>Select Type of Exam</option>
                     <option value="HR Interview">HR Interview</option>
                     <option value="Technical Exam">Technical Exam</option>
                     <option value="Technical Interview">Technical Interview</option>
                     <option value="Final Interview">Final Interview</option>
                 </select>
-                <span class-type="text-danger" asp-validation-for="JobId"></span>
+                <span class-type="text-danger" asp-validation-for="ExamType"></span>
                 <br>
                 <label for="last-name">Type of Exam</label>
+            </div>
+          
+            <div class="input-email">
+                <input type="text" id="email" class="text-input" asp-for="TeamsLink">
+                <span class-type="text-danger" asp-validation-for="TeamsLink"></span>
+                <br />
+                <label for="last-name">Link for Teams</label>
             </div>
 
             <div class="form-outline">

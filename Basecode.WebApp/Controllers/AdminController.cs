@@ -3,7 +3,8 @@ using Basecode.Services.Interfaces;
 using NLog;
 using Microsoft.AspNetCore.Identity;
 using Basecode.Data.ViewModels;
-
+using Basecode.Data.Models;
+using Microsoft.Graph.Beta.Models;
 
 namespace Basecode.WebApp.Controllers
 {
@@ -79,6 +80,51 @@ namespace Basecode.WebApp.Controllers
             }
         }
 
+        public IActionResult UpdateJobAdmin(int id)
+        {
+            _logger.Trace("UpdateJobAdmin action called");
+            var data = _jobOpeningService.GetById(id);
+            return View(data);
+        }
+
+        public IActionResult UpdateAdminJob(JobOpening jobOpening)
+        {
+            _logger.Info("UpdateAdminJob action called");
+            try
+            {
+                _jobOpeningService.Update(jobOpening);
+                _logger.Info("Job opening updated successfully.");
+                return RedirectToAction("AdminJobListing", "Admin");
+            }
+            catch (System.Exception ex)
+            {
+                _logger.Error(ex, "Error occurred while updating job opening.");
+                return RedirectToAction("AdminJobListing", new { id = jobOpening.Id });
+            }
+        }
+
+        public IActionResult DeleteJobAdmin(int id)
+        {
+            _logger.Trace("DeleteJobAdmin action called");
+            var data = _jobOpeningService.GetById(id);
+            return View(data);
+        }
+
+        public IActionResult DeleteAdminJob(int id)
+        {
+            _logger.Info("DeleteAdminJob action called");
+            try
+            {
+                _jobOpeningService.Delete(id);
+                _logger.Info("Job opening deleted successfully.");
+                return RedirectToAction("AdminJobListing", "Admin");
+            }
+            catch (System.Exception ex)
+            {
+                _logger.Error(ex, "Error occurred while deleting job opening.");
+                return RedirectToAction("AdminJobListing", "Admin");
+            }
+        }
 
         public IActionResult UserManagement()
         {
@@ -104,18 +150,38 @@ namespace Basecode.WebApp.Controllers
 
         public IActionResult Update(string id)
         {
+            try
+            {
+                var user = _userService.FindByUsername(id);
+                if (user == null)
+                {
+                    _logger.Error("User not found.");
+                    return RedirectToAction("UserManagement", "Admin");
+                }
+
+                return View(user);
+            }
+            catch (System.Exception ex)
+            {
+                _logger.Error(ex, "Error occurred while retrieving user for update: {errorMessage}", ex.Message);
+                return RedirectToAction("UserManagement", "Admin");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Update(User user)
+        {
             _logger.Info("Update action called");
             try
             {
-                var data = _userService.FindByUsername(id);
-                _userService.Update(data);
-                _logger.Info("User updated successfully.");
+                _userService.Update(user);
+                _logger.Info("User account updated successfully.");
                 return RedirectToAction("UserManagement", "Admin");
             }
             catch (System.Exception ex)
             {
-                _logger.Error(ex, "Error occurred while updating user.");
-                return RedirectToAction("UserManagement", "Admin");
+                _logger.Error(ex, "Error occurred while updating user account.");
+                return RedirectToAction("Update", new { id = user.Id });
             }
         }
 

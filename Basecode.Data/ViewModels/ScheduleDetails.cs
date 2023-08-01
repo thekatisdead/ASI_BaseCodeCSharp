@@ -17,7 +17,8 @@ namespace Basecode.Data.ViewModels
         public string StartTime;
         public string EndTime;
         public string Date;
-        public string instruction;
-        public List<ApplicantListViewModel> Applicants { get; set; }
+        public string? ExamType;
+        public string Instruction;
+        public string TeamsLink;
     }
 }
