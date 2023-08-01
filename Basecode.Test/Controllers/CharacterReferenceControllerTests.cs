@@ -1,5 +1,6 @@
 ﻿using Basecode.Data.ViewModels;
 using Basecode.Services.Interfaces;
+using Basecode.Services.Services;
 using Basecode.WebApp.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
@@ -12,13 +13,16 @@ namespace Basecode.Test.Controllers
         private readonly Mock<ICharacterReferenceService> _mockCharacterReferenceService;
         private readonly Mock<IEmailSenderService> _mockEmailSenderService;
         private readonly Mock<IPublicApplicationFormService> _mockPublicApplicationFormService;
-
+        private readonly Mock<IUserService> _userService;
+        private readonly Mock<IJobOpeningService> _jobOpeningService;
         public CharacterReferenceControllerTests()
         {
             _mockCharacterReferenceService = new Mock<ICharacterReferenceService>();
             _mockEmailSenderService = new Mock<IEmailSenderService>();
             _mockPublicApplicationFormService = new Mock<IPublicApplicationFormService>();
-            _controller = new CharacterReferenceController(_mockCharacterReferenceService.Object, _mockEmailSenderService.Object, _mockPublicApplicationFormService.Object);
+            _userService = new Mock<IUserService>();
+            _jobOpeningService= new Mock<IJobOpeningService>();
+            _controller = new CharacterReferenceController(_mockCharacterReferenceService.Object, _mockEmailSenderService.Object, _mockPublicApplicationFormService.Object, _jobOpeningService.Object, _userService.Object);
         }
 
         [Fact]

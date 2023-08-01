@@ -14,6 +14,7 @@ namespace Basecode.Test.Controllers
         private readonly Mock<IInterviewerServices> _interviewerService;
         private readonly Mock<IScheduleService> _scheduleService;
         private readonly Mock<IEmailSenderService> _emailSenderService;
+        private readonly Mock<IUserService> _userService;
 
         public HrSchedulerControllerTests()
         {
@@ -21,7 +22,8 @@ namespace Basecode.Test.Controllers
             _interviewerService = new Mock<IInterviewerServices>();
             _scheduleService = new Mock<IScheduleService>();
             _emailSenderService = new Mock<IEmailSenderService>();
-            _controller = new HrSchedulerController(_interviewerService.Object, _jobOpeningService.Object, _scheduleService.Object, _emailSenderService.Object);
+            _userService = new Mock<IUserService>();
+            _controller = new HrSchedulerController(_interviewerService.Object, _jobOpeningService.Object, _scheduleService.Object, _emailSenderService.Object, _userService.Object);
         }
 
         [Fact]
