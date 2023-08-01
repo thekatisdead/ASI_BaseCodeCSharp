@@ -121,7 +121,39 @@ namespace Basecode.WebApp.Controllers
             schedule.StartTime = startTime.ToString("hh:mm tt", System.Globalization.CultureInfo.InvariantCulture);
             schedule.EndTime = endTime.ToString("hh:mm tt", System.Globalization.CultureInfo.InvariantCulture);
             _scheduleService.Add(schedule);
-            return RedirectToAction("home", "HrScheduler");
+            return Json(new { success = true, message = "Form data received successfully." });
+        }
+
+        //Adding schedule to the Scheduletable for the Modal.
+        //pasensya sa taas kaayu nga parameters, kay gi manual man nakoug bind hehehe
+        public IActionResult AddScheduleModal(List<int> applicants,string InterviewerId,string JobId, string StartTime, string EndTime, string Date, string ExamType, string Instruction, string TeamsLink)
+        {
+            Schedule schedule = new Schedule();
+           
+            schedule.InterviewerId = int.Parse(InterviewerId);
+            schedule.JobId = int.Parse(JobId);
+
+            DateTime.TryParseExact(schedule.StartTime, "HH:mm", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out DateTime startTime);
+            DateTime.TryParseExact(schedule.EndTime, "HH:mm", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out DateTime endTime);
+            schedule.StartTime = startTime.ToString("hh:mm tt", System.Globalization.CultureInfo.InvariantCulture);
+            schedule.EndTime = endTime.ToString("hh:mm tt", System.Globalization.CultureInfo.InvariantCulture);
+
+            schedule.Date = Date;
+            schedule.ExamType = ExamType;
+            schedule.Instruction = Instruction;
+            schedule.TeamsLink = TeamsLink;
+            _scheduleService.Add(schedule);
+
+            int id = _scheduleService.GetMostRecentSchedId();
+
+            foreach(var app in applicants)
+            {
+                var appsched = new ApplicantsSchedule();
+                appsched.ApplicantId = app;
+                appsched.ScheduleId = id;
+                _scheduleService.AddApplicantSchedule(appsched);
+            }
+            return Json(new { success = true, message = "Form data received successfully." });
         }
         public IActionResult EditSchedule(int id)
         {
@@ -174,15 +206,21 @@ namespace Basecode.WebApp.Controllers
             return Json(applicants);
         }
         [HttpPost]
+        public IActionResult GetApplicantListAccordingToSchedule(int schedule)
+        {
+            var applicants = _scheduleService.GetApplicantListAccordingToSchedule(schedule);
+            return Json(applicants);
+        }
+        [HttpPost]
         public IActionResult GetInterviewers()
         {
-            var interviewers = _scheduleService.GetInterviewers();
+            var interviewers = _scheduleService.GetInterviewersServ();
             return Json(interviewers);
         }
         [HttpPost]
         public IActionResult GetJobs()
         {
-            var jobs = _scheduleService.GetInterviewers();
+            var jobs = _scheduleService.GetJobs();
             return Json(jobs);
         }
     }
