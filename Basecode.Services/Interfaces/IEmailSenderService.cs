@@ -108,5 +108,6 @@ namespace Basecode.Services.Interfaces
         public void SendEmailInterviewInstructions(string receiverEmail, string interviewName, string applicantName, string jobPosition, string examType,string teamsLink, string instructions, DateOnly date, TimeOnly startTime, TimeOnly endTime);
         public void SendEmailDTNotification(string applicantName, int formID, string email, string jobPosition);
         public void SendEmailDTDecision(string applicantName, int formID, string applicantEmail, string jobPosition);
+        public void SendEmailApplicantGenerationHR(string receiverEmail, string applicantName, int applicantID, string jobPosition);
     }
 }

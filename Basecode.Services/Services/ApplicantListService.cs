@@ -53,6 +53,7 @@ namespace Basecode.Services.Services
 
                 var data = from app in applicants
                            join job in jobs on app.JobApplied equals job.Id
+                           where app.Tracker != "Rejected"
                            select new ApplicantListViewModel
                            {
                                Id = app.Id,
