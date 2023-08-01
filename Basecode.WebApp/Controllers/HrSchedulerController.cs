@@ -103,7 +103,6 @@ namespace Basecode.WebApp.Controllers
             var time = TimeSpan.Parse(schedule.EndTime);
             var combinedDateTime = date.Add(time);
             var delay = combinedDateTime - DateTime.Now;
-            var schedID = schedule.ScheduleId;
             var interviewerName = interviewer.LastName + " " + interviewer.FirstName;
 
             // sends an email for the interviewer after the discussion
@@ -118,9 +117,9 @@ namespace Basecode.WebApp.Controllers
             DateTime.TryParseExact(schedule.EndTime, "HH:mm", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out DateTime endTime);
             schedule.StartTime = startTime.ToString("hh:mm tt", System.Globalization.CultureInfo.InvariantCulture);
             schedule.EndTime = endTime.ToString("hh:mm tt", System.Globalization.CultureInfo.InvariantCulture);
-            _scheduleService.Add(schedule);
+            int schedId= _scheduleService.Add(schedule);
 
-            _emailSender.SendEmailInterviewGeneration(interviewer.Email, interviewerName, "Applicant", 1, schedule.JobId.ToString(), schedule.ExamType, schedule.ScheduleId, DateOnly.Parse(schedule.Date), TimeOnly.Parse(schedule.StartTime), TimeOnly.Parse(schedule.EndTime));
+            _emailSender.SendEmailInterviewGeneration(interviewer.Email, interviewerName, "Applicant", 1, schedule.JobId.ToString(), schedule.ExamType, schedId, DateOnly.Parse(schedule.Date), TimeOnly.Parse(schedule.StartTime), TimeOnly.Parse(schedule.EndTime));
             // sends an email to the applicant about the thing too :sob:
             BackgroundJob.Schedule(() => _emailSender.SendEmailInterviewDecision(interviewer.Email, interviewerName, "Alliance Software Inc.", schedule.JobId.ToString()), delay);
 

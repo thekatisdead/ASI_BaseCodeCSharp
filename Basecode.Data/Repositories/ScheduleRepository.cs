@@ -19,18 +19,19 @@ namespace Basecode.Data.Repositories
             _context = context;
         }
 
-        public void Add(Schedule schedule)
+        public int Add(Schedule schedule)
         {
             try
             {
                 _context.Schedule.Add(schedule);
                 _context.SaveChanges();
                 _logger.Info("Schedule with ID {scheduleId} added successfully.", schedule.ScheduleId);
+                return schedule.ScheduleId;
             }
             catch (Exception ex)
             {
                 _logger.Error(ex, "Error occurred while adding a new schedule: {errorMessage}", ex.Message);
-                throw;
+                return -1;
             }
         }
 

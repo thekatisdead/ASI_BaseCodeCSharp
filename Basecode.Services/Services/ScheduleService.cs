@@ -31,7 +31,7 @@ namespace Basecode.Services.Services
             _mapper = mapper;
         }
 
-        public void Add(Schedule schedule)
+        public int Add(Schedule schedule)
         {
             try
             {
@@ -39,13 +39,15 @@ namespace Basecode.Services.Services
                 schedule.CreatedTime = DateTime.Now;
                 schedule.UpdatedBy = System.Environment.UserName;
                 schedule.UpdatedTime = DateTime.Now;
-                _scheduleRepository.Add(schedule);
+                int id = _scheduleRepository.Add(schedule);
                 _logger.Info("Schedule with ID {scheduleId} added successfully.", schedule.ScheduleId);
+                return id;
             }
             catch (Exception ex)
             {
                 _logger.Error(ex, "Error occurred while adding a new schedule: {errorMessage}", ex.Message);
-                throw;
+                return -1;
+                //throw;
             }
         }
 

@@ -9,7 +9,7 @@ namespace Basecode.Data.Interfaces
 {
     public interface IScheduleRepository
     {
-        public void Add(Schedule schedule);
+        public int Add(Schedule schedule);
         public IQueryable<Schedule> GetAll();
         public Schedule GetById(int id);
         public void UpdateSchedule(Schedule schedule);

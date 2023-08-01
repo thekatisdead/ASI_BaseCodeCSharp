@@ -10,7 +10,7 @@ namespace Basecode.Services.Interfaces
 {
     public interface IScheduleService
     {
-        public void Add(Schedule schedule);
+        public int Add(Schedule schedule);
         public List<ScheduleViewModel> GetAll();
         public List<ScheduleDetails> GetDetails();
         public ScheduleViewModel GetById(int id);
