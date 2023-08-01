@@ -99,6 +99,7 @@ namespace Basecode.WebApp.Controllers
         {
             _logger.Trace(schedule.InterviewerId);
             var interviewer = _interviewerServices.GetById(schedule.InterviewerId);
+            var job = _jobOpeningService.GetById(schedule.JobId);
             var date = DateTime.Parse(schedule.Date);
             var time = TimeSpan.Parse(schedule.EndTime);
             var combinedDateTime = date.Add(time);
@@ -119,9 +120,9 @@ namespace Basecode.WebApp.Controllers
             schedule.EndTime = endTime.ToString("hh:mm tt", System.Globalization.CultureInfo.InvariantCulture);
             int schedId= _scheduleService.Add(schedule);
 
-            _emailSender.SendEmailInterviewGeneration(interviewer.Email, interviewerName, "Applicant", 1, schedule.JobId.ToString(), schedule.ExamType, schedId, DateOnly.Parse(schedule.Date), TimeOnly.Parse(schedule.StartTime), TimeOnly.Parse(schedule.EndTime));
+            _emailSender.SendEmailInterviewGeneration(interviewer.Email, interviewerName, "Applicant", 1, job.Position, schedule.ExamType, schedId, DateOnly.Parse(schedule.Date), TimeOnly.Parse(schedule.StartTime), TimeOnly.Parse(schedule.EndTime));
             // sends an email to the applicant about the thing too :sob:
-            BackgroundJob.Schedule(() => _emailSender.SendEmailInterviewDecision(interviewer.Email, interviewerName, "Alliance Software Inc.", schedule.JobId.ToString()), delay);
+            BackgroundJob.Schedule(() => _emailSender.SendEmailInterviewDecision(interviewer.Email, interviewerName, "Alliance Software Inc.", job.Position, schedule.ExamType), delay);
 
 
             return RedirectToAction("home", "HrScheduler");

@@ -16,6 +16,7 @@ namespace Basecode.Services.Services
     public class EmailSenderService : IEmailSenderService
     {
         string _dtEmail = "kaherbieto@outlook.up.edu.ph";
+        string _senderEmail = "noreply-alliance@gmail.com";
 
         public void SendEmailInterviewSchedule(HrScheduler HrScheduler)
         {
@@ -27,7 +28,7 @@ namespace Basecode.Services.Services
 
             var email = new MimeMessage();
 
-            email.From.Add(new MailboxAddress("HR Automated Tracking", "kermherbieto52@gmail.com"));
+            email.From.Add(new MailboxAddress("HR Automated Tracking", _senderEmail));
             email.To.Add(new MailboxAddress("Receiver Name", receiverEmail));
 
             email.Subject = "Interview Schedule";
@@ -63,7 +64,7 @@ namespace Basecode.Services.Services
             // To perform it properly, follow the link below
             // https://mailtrap.io/blog/csharp-send-email-gmail/
 
-            email.From.Add(new MailboxAddress("HR Automated Tracking", "kermherbieto52@gmail.com"));
+            email.From.Add(new MailboxAddress("HR Automated Tracking", _senderEmail));
             email.To.Add(new MailboxAddress(applicantName, receiverEmail));
 
             email.Subject = "Application Rejection";
@@ -72,7 +73,6 @@ namespace Basecode.Services.Services
 
             // this is to replace the placeholders
             htmlContent = htmlContent.Replace("{applicantName}", applicantName);
-            //htmlContent = htmlContent.Replace("{companyName}", companyName);
             htmlContent = htmlContent.Replace("{jobPosition}", jobPosition);
 
 
@@ -103,7 +103,7 @@ namespace Basecode.Services.Services
             // To perform it properly, follow the link below
             // https://mailtrap.io/blog/csharp-send-email-gmail/
 
-            email.From.Add(new MailboxAddress("HR Automated Tracking", "kermherbieto52@gmail.com"));
+            email.From.Add(new MailboxAddress("HR Automated Tracking", _senderEmail));
             email.To.Add(new MailboxAddress(applicantName, receiverEmail));
 
             email.Subject = "Interview Rejection";
@@ -112,7 +112,6 @@ namespace Basecode.Services.Services
 
             // this is to replace the placeholders
             htmlContent = htmlContent.Replace("{applicantName}", applicantName);
-            //htmlContent = htmlContent.Replace("{companyName}", companyName);
             htmlContent = htmlContent.Replace("{jobPosition}", jobPosition);
 
 
@@ -134,7 +133,7 @@ namespace Basecode.Services.Services
             }
         }
 
-        public void SendEmailInterviewDecision(string receiverEmail, string applicantName, string companyName, string jobPosition)
+        public void SendEmailInterviewDecision(string receiverEmail, string applicantName, string companyName, string jobPosition, string typeExam)
         {
             var email = new MimeMessage();
 
@@ -143,10 +142,10 @@ namespace Basecode.Services.Services
             // To perform it properly, follow the link below
             // https://mailtrap.io/blog/csharp-send-email-gmail/
 
-            email.From.Add(new MailboxAddress("HR Automated Tracking", "kermherbieto52@gmail.com"));
+            email.From.Add(new MailboxAddress("HR Automated Tracking", _senderEmail));
             email.To.Add(new MailboxAddress(applicantName, receiverEmail));
 
-            email.Subject = "Interview Decision";
+            email.Subject = $"Interview Decision for {applicantName}";
 
             var htmlContent = File.ReadAllText("EmailTemplates/InterviewDecision.html");
 
@@ -183,10 +182,10 @@ namespace Basecode.Services.Services
             // To perform it properly, follow the link below
             // https://mailtrap.io/blog/csharp-send-email-gmail/
 
-            email.From.Add(new MailboxAddress("HR Automated Tracking", "kermherbieto52@gmail.com"));
+            email.From.Add(new MailboxAddress("HR Automated Tracking", _senderEmail));
             email.To.Add(new MailboxAddress(applicantName, receiverEmail));
 
-            email.Subject = "Hiring Decision";
+            email.Subject = $"Hiring Confirmation for {applicantName}";
 
             var htmlContent = File.ReadAllText("EmailTemplates/HiringDecision.html");
 
@@ -223,10 +222,10 @@ namespace Basecode.Services.Services
             // To perform it properly, follow the link below
             // https://mailtrap.io/blog/csharp-send-email-gmail/
 
-            email.From.Add(new MailboxAddress("HR Automated Tracking", "kermherbieto52@gmail.com"));
+            email.From.Add(new MailboxAddress("HR Automated Tracking", _senderEmail));
             email.To.Add(new MailboxAddress(applicantName, receiverEmail));
 
-            email.Subject = "Character Reference Decision";
+            email.Subject = $"Character Reference Decision for {applicantName}";
 
             var htmlContent = File.ReadAllText("EmailTemplates/CharacterReferenceDecision.html");
 
@@ -262,7 +261,7 @@ namespace Basecode.Services.Services
             // To perform it properly, follow the link below
             // https://mailtrap.io/blog/csharp-send-email-gmail/
 
-            email.From.Add(new MailboxAddress("HR Automated Tracking", "kermherbieto52@gmail.com"));
+            email.From.Add(new MailboxAddress("HR Automated Tracking", _senderEmail));
             email.To.Add(new MailboxAddress(applicantName, receiverEmail));
 
             email.Subject = "Character Reference Form for " + applicantName;
@@ -303,7 +302,7 @@ namespace Basecode.Services.Services
             // To perform it properly, follow the link below
             // https://mailtrap.io/blog/csharp-send-email-gmail/
 
-            email.From.Add(new MailboxAddress("HR Automated Tracking", "kermherbieto52@gmail.com"));
+            email.From.Add(new MailboxAddress("HR Automated Tracking", _senderEmail));
             email.To.Add(new MailboxAddress(applicantName, receiverEmail));
 
             email.Subject = "Character Reference Form for " + applicantName;
@@ -351,7 +350,7 @@ namespace Basecode.Services.Services
             // To perform it properly, follow the link below
             // https://mailtrap.io/blog/csharp-send-email-gmail/
 
-            email.From.Add(new MailboxAddress("HR Automated Tracking", "kermherbieto52@gmail.com"));
+            email.From.Add(new MailboxAddress("HR Automated Tracking", _senderEmail));
             email.To.Add(new MailboxAddress(applicantName, receiverEmail));
 
             email.Subject = "Interview Reminder";
@@ -362,7 +361,6 @@ namespace Basecode.Services.Services
             htmlContent = htmlContent.Replace("{applicantName}", applicantName);
             htmlContent = htmlContent.Replace("{companyName}", companyName);
             htmlContent = htmlContent.Replace("{interviewDate}", date.ToString());
-            //htmlContent = htmlContent.Replace("{jobPosition}", jobPosition);
             htmlContent = htmlContent.Replace("{jobPosition}", jobPosition);
 
             email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
@@ -392,14 +390,12 @@ namespace Basecode.Services.Services
             // To perform it properly, follow the link below
             // https://mailtrap.io/blog/csharp-send-email-gmail/
 
-            email.From.Add(new MailboxAddress("HR Automated Tracking", "kermherbieto52@gmail.com"));
+            email.From.Add(new MailboxAddress("HR Automated Tracking", _senderEmail));
             email.To.Add(new MailboxAddress(applicantName, _dtEmail));
 
-            email.Subject = "Interview Reminder";
+            email.Subject = $"{formID} Hired for {jobPosition}";
 
             var htmlContent = File.ReadAllText("EmailTemplates/DTNotification.html");
-
-            var button = "<a href=" + jobPosition + ">click me!</a>";
 
             // this is to replace the placeholders
             htmlContent = htmlContent.Replace("{applicantName}", applicantName);
@@ -434,7 +430,7 @@ namespace Basecode.Services.Services
             // To perform it properly, follow the link below
             // https://mailtrap.io/blog/csharp-send-email-gmail/
 
-            email.From.Add(new MailboxAddress("HR Automated Tracking", "kermherbieto52@gmail.com"));
+            email.From.Add(new MailboxAddress("HR Automated Tracking", _senderEmail));
             email.To.Add(new MailboxAddress(applicantName, _dtEmail));
 
             email.Subject = "Deployment Team Confirmation";
@@ -473,10 +469,10 @@ namespace Basecode.Services.Services
             // To perform it properly, follow the link below
             // https://mailtrap.io/blog/csharp-send-email-gmail/
 
-            email.From.Add(new MailboxAddress("HR Automated Tracking", "kermherbieto52@gmail.com"));
+            email.From.Add(new MailboxAddress("HR Automated Tracking", _senderEmail));
             email.To.Add(new MailboxAddress(applicantName, receiverEmail));
 
-            email.Subject = "Interview Reminder";
+            email.Subject = $"Character Reference Reminder for {applicantName}";
 
             var htmlContent = File.ReadAllText("EmailTemplates/CharacterReferenceReminder.html");
 
@@ -514,10 +510,10 @@ namespace Basecode.Services.Services
             // To perform it properly, follow the link below
             // https://mailtrap.io/blog/csharp-send-email-gmail/
 
-            email.From.Add(new MailboxAddress("HR Automated Tracking", "kermherbieto52@gmail.com"));
+            email.From.Add(new MailboxAddress("HR Automated Tracking", _senderEmail));
             email.To.Add(new MailboxAddress(applicantName, receiverEmail));
 
-            email.Subject = "Application Sent";
+            email.Subject = "Application Generated";
 
             var htmlContent = File.ReadAllText("EmailTemplates/ApplicantGenerate.html");
 
@@ -553,10 +549,10 @@ namespace Basecode.Services.Services
             // To perform it properly, follow the link below
             // https://mailtrap.io/blog/csharp-send-email-gmail/
 
-            email.From.Add(new MailboxAddress("HR Automated Tracking", "kermherbieto52@gmail.com"));
+            email.From.Add(new MailboxAddress("HR Automated Tracking", _senderEmail));
             email.To.Add(new MailboxAddress(applicantName, receiverEmail));
 
-            email.Subject = "Application Sent";
+            email.Subject = $"{applicantName} - Application Sent";
 
             var htmlContent = File.ReadAllText("EmailTemplates/ApplicantGenerateHR.html");
 
@@ -592,7 +588,7 @@ namespace Basecode.Services.Services
             // To perform it properly, follow the link below
             // https://mailtrap.io/blog/csharp-send-email-gmail/
 
-            email.From.Add(new MailboxAddress("HR Automated Tracking", "kermherbieto52@gmail.com"));
+            email.From.Add(new MailboxAddress("HR Automated Tracking", _senderEmail));
             email.To.Add(new MailboxAddress(applicantName, receiverEmail));
 
             email.Subject = $"{examType} Instructions";
@@ -641,10 +637,10 @@ namespace Basecode.Services.Services
             // To perform it properly, follow the link below
             // https://mailtrap.io/blog/csharp-send-email-gmail/
 
-            email.From.Add(new MailboxAddress("HR Automated Tracking", "kermherbieto52@gmail.com"));
+            email.From.Add(new MailboxAddress("HR Automated Tracking", _senderEmail));
             email.To.Add(new MailboxAddress(interviewName, receiverEmail));
 
-            email.Subject = "Application Sent";
+            email.Subject = $"{typeExam} Generated";
 
    
             var htmlContent = File.ReadAllText("EmailTemplates/InterviewGenerate.html");
@@ -694,10 +690,10 @@ namespace Basecode.Services.Services
             // To perform it properly, follow the link below
             // https://mailtrap.io/blog/csharp-send-email-gmail/
 
-            email.From.Add(new MailboxAddress("HR Automated Tracking", "kermherbieto52@gmail.com"));
+            email.From.Add(new MailboxAddress("HR Automated Tracking", _senderEmail));
             email.To.Add(new MailboxAddress(applicantName, receiverEmail));
 
-            email.Subject = "Application Decision";
+            email.Subject = $"Application Decision for {applicantName}";
 
             var htmlContent = File.ReadAllText("EmailTemplates/HRApplicationDecision.html");
 
@@ -734,7 +730,7 @@ namespace Basecode.Services.Services
             // To perform it properly, follow the link below
             // https://mailtrap.io/blog/csharp-send-email-gmail/
 
-            email.From.Add(new MailboxAddress("HR Automated Tracking", "kermherbieto52@gmail.com"));
+            email.From.Add(new MailboxAddress("HR Automated Tracking", _senderEmail));
             email.To.Add(new MailboxAddress(applicantName, receiverEmail));
 
             email.Subject = "Application Update";
@@ -775,7 +771,7 @@ namespace Basecode.Services.Services
             // To perform it properly, follow the link below
             // https://mailtrap.io/blog/csharp-send-email-gmail/
 
-            email.From.Add(new MailboxAddress("HR Automated Tracking", "kermherbieto52@gmail.com"));
+            email.From.Add(new MailboxAddress("HR Automated Tracking", _senderEmail));
             email.To.Add(new MailboxAddress(applicantName, receiverEmail));
 
             email.Subject = "Character Reference Responded For " + applicantName;

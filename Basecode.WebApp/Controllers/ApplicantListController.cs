@@ -108,11 +108,7 @@ namespace Basecode.WebApp.Controllers
             }
             else if(status == "shortlisted")
             {
-
-                //_email.SendEmailHRApplicationDecision(_receiver.Address,applicantID,_fullName,job.Position);
-                _email.SendEmailHRApplicationDecision("kaherbieto@outlook.up.edu.ph", applicantID, _fullName, job.Position);
-                //_email.SendEmailOnUpdateApplicantStatus(_receiver.Address,_fullName,data.Tracker,status);
-                _email.SendEmailOnUpdateApplicantStatus("kaherbieto@outlook.up.edu.ph", _fullName, data.Tracker, status);
+                _email.SendEmailHRApplicationDecision(job.HREmail, applicantID, _fullName, job.Position);
                 _service.ProceedTo(applicantID, status);
             }
             else if(status =="Undergoing Background Checks")
@@ -259,7 +255,7 @@ namespace Basecode.WebApp.Controllers
 
             // grade becomes hired not status
             _service.UpdateGrade(_applicantId, "Not Confirmed");
-            _email.SendEmailHireConfirmation("kaherbieto@outlook.up.edu.ph", _fullName,_applicantId,job.Position,temporary.EmailAddress);
+            _email.SendEmailHireConfirmation(job.HREmail, _fullName,_applicantId,job.Position,temporary.EmailAddress);
             return this.UpdateStatus(_applicantId, "Hired");
 
         }
