@@ -4,12 +4,13 @@ using NLog;
 using Microsoft.AspNetCore.Identity;
 using Basecode.Data.ViewModels;
 using Basecode.Data.Models;
+using Microsoft.AspNetCore.Authorization;
 //using Microsoft.Graph.Beta.Models;
 
 
 namespace Basecode.WebApp.Controllers
 {
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private readonly IJobOpeningService _jobOpeningService;

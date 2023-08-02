@@ -1,9 +1,8 @@
-﻿body {
+﻿﻿body {
     margin: 0;
     padding: 0;
     background-color: #e6dbc9;
 }
-
 form {
     top: 75px;
     left: 50%;
@@ -11,7 +10,7 @@ form {
     border-radius: 15px;
     transform: translateX(-50%);
     width: 931px;
-    height: 1950px;
+    height: 2350px;
     display: flex;
     position: absolute;
     align-items: flex-start;
@@ -51,7 +50,7 @@ header {
 }
 
 .text-personal {
-    top: 95px;
+    top: 90px;
     left: 90px;
     color: rgba(0, 0, 0, 1);
     width: 1000px;
@@ -93,7 +92,7 @@ header {
 }
 
 .linetwo {
-    top: 150px;
+    top: 725px;
     left: 49%;
     transform: translateX(-50%);
     width: 770px;
@@ -186,7 +185,7 @@ header {
 }
 
 .form-group-number {
-    top: 215px;
+    top: 390px;
     left: 93px;
     width: 314px;
     height: 97px;
@@ -254,7 +253,7 @@ header {
 }
 
 .form-group-address {
-    top: 340px;
+    top: 500px;
     left: 93px;
     width: 314px;
     height: 97px;
@@ -288,7 +287,7 @@ header {
 }
 
 .form-group-time {
-    top: 475px;
+    top: 610px;
     left: 93px;
     width: 314px;
     height: 97px;
@@ -390,7 +389,7 @@ header {
 }
 
 .text-education {
-    top: 555px;
+    top: 750px;
     left: 90px;
     color: rgba(0, 0, 0, 1);
     width: 1000px;
@@ -405,7 +404,7 @@ header {
 }
 
 .straightline {
-    top: 615px;
+    top: 830px;
     left: 49%;
     transform: translateX(-50%);
     width: 770px;
@@ -417,7 +416,7 @@ header {
 }
 
 .form-group-school {
-    top: 690px;
+    top: 970px;
     left: 95px;
     width: 314px;
     height: 97px;
@@ -451,7 +450,7 @@ header {
 }
 
 .form-group-department {
-    top: 690px;
+    top: 971px;
     right: 100px;
     width: 314px;
     height: 97px;
@@ -485,7 +484,7 @@ header {
 }
 
 .form-group-achievements {
-    top: 815px;
+    top: 1100px;
     left: 95px;
     width: 314px;
     height: 97px;
@@ -519,7 +518,7 @@ header {
 }
 
 .form-group-nameone {
-    top: 1200px;
+    top: 1475px;
     left: 95px;
     width: 314px;
     height: 97px;
@@ -553,7 +552,7 @@ header {
 }
 
 .text-references {
-    top: 1050px;
+    top: 1340px;
     left: 95px;
     color: rgba(0, 0, 0, 1);
     width: 1000px;
@@ -568,7 +567,7 @@ header {
 }
 
 .straightlinetwo {
-    top: 1115px;
+    top: 1400px;
     left: 49%;
     transform: translateX(-50%);
     width: 770px;
@@ -580,7 +579,7 @@ header {
 }
 
 .form-group-relationone {
-    top: 1200px;
+    top: 1475px;
     left: 347px;
     width: 314px;
     height: 97px;
@@ -614,7 +613,7 @@ header {
 }
 
 .form-group-contactone {
-    top: 1200px;
+    top: 1475px;
     left: 600px;
     width: 314px;
     height: 97px;
@@ -648,7 +647,7 @@ header {
 }
 
 .form-group-nametwo {
-    top: 1330px;
+    top: 1590px;
     left: 95px;
     width: 314px;
     height: 97px;
@@ -682,7 +681,7 @@ header {
 }
 
 .form-group-relationtwo {
-    top: 1330px;
+    top: 1590px;
     left: 347px;
     width: 314px;
     height: 97px;
@@ -716,7 +715,7 @@ header {
 }
 
 .form-group-contacttwo {
-    top: 1330px;
+    top: 1590px;
     left: 600px;
     width: 314px;
     height: 97px;
@@ -750,7 +749,7 @@ header {
 }
 
 .form-group-namethree {
-    top: 1460px;
+    top: 1705px;
     left: 95px;
     width: 314px;
     height: 97px;
@@ -784,7 +783,7 @@ header {
 }
 
 .form-group-relationthree {
-    top: 1460px;
+    top: 1705px;
     left: 347px;
     width: 314px;
     height: 97px;
@@ -818,7 +817,7 @@ header {
 }
 
 .form-group-contactthree {
-    top: 1460px;
+    top: 1705px;
     left: 600px;
     width: 314px;
     height: 97px;
@@ -852,7 +851,7 @@ header {
 }
 
 .text-cv {
-    top: 1540px;
+    top: 1785px;
     left: 95px;
     color: rgba(0, 0, 0, 1);
     width: 1000px;
@@ -867,7 +866,7 @@ header {
 }
 
 .straightlinethree {
-    top: 1605px;
+    top: 1845px;
     left: 49%;
     transform: translateX(-50%);
     width: 770px;
@@ -879,7 +878,7 @@ header {
 }
 
 .form-group-cv {
-    top: 1690px;
+    top: 1925px;
     left: 95px;
     width: 314px;
     height: 97px;
@@ -900,8 +899,20 @@ header {
     font-size: 18px;
 }
 
+.form-control-cv {
+    top: 0px;
+    left: 0px;
+    width: 735px;
+    height: 300px;
+    position: absolute;
+    border-color: rgba(125, 131, 152, 0.30000001192092896);
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 5px;
+}
+
 .btn-primary {
-    top: 1860px;
+    top: 2275px;
     left: 610px;
     width: 200px;
     height: 40px;
@@ -931,7 +942,6 @@ header {
     align-items: flex-start;
     text-align: center;
 }
-
 .triangle1 {
     position: fixed;
     bottom: 0;
@@ -943,14 +953,13 @@ header {
     border-left: 250px solid transparent;
     box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.1);
 }
-
 .triangle {
     position: fixed;
     bottom: 0;
     right: 0;
     width: 0;
     height: 0;
-    border-bottom: 150px solid #C53211;
-    border-left: 150px solid transparent;
-    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.1));
+    border-bottom: 200px solid #c53211;
+    border-left: 200px solid transparent;
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 10));
 }
