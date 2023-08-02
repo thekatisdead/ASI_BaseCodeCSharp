@@ -18,6 +18,9 @@ namespace Basecode.Services.Interfaces
         public void DeleteSchedule(int id);
         public List<object> GetApplicantListAccordingToJobApplied(int jobId);
         public List<object> GetJobs();
-        public List<object> GetInterviewers();
+        public List<object> GetInterviewersServ();
+        public void AddApplicantSchedule(ApplicantsSchedule schedule);
+        public int GetMostRecentSchedId();
+        public List<object> GetApplicantListAccordingToSchedule(int sched);
     }
 }

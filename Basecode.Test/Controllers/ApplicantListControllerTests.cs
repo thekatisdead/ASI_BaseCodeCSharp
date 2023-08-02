@@ -17,7 +17,7 @@ namespace Basecode.Test.Controllers
         private readonly JobOpeningRepository _fakeJobOpeningRepository;
         private readonly UserRepository _fakeUserRepository;
         private readonly Mock<IPublicApplicationFormService> _fakePublicApplicationFormService;
-
+        private readonly ApplicantListRepository _fakeApplicantListReopositry;
         public ApplicantListControllerTests()
         {
             _fakeApplicantListService = new Mock<IApplicantListService>();
@@ -31,7 +31,7 @@ namespace Basecode.Test.Controllers
                                 _fakeEmailSenderService.Object,
                                 _fakeJobOpeningRepository,
                                 _fakeUserRepository,
-                                _fakeCurrentHiresRepository);
+                                _fakeCurrentHiresRepository,_fakeApplicantListReopositry);
         }
 
         [Fact]

@@ -7,15 +7,26 @@
 <html>
     <head>
     <title>Hr Scheduler</title>
-    <link rel="stylesheet" href="~/css/hrscheduler.css" asp-append-version="true" />
+    
     <link rel="stylesheet" href="~/css/applicantlist.css" asp-append-version="true" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
+    <style>
+        
+        /* Important part */
+        #add-dialog{
+            overflow-y: initial !important
+        }
+        #add-body{
+            height: 80vh;
+            overflow-y: auto;
+        }
+    </style>
     </head>
     <body>
     <div class="mt-2 mb-2 p-3">
         <a asp-action="InterviewerList"><button class="btn btn-danger" style="margin-right:15px">Manage Interviewer</button></a>
-        <a asp-action="ViewAddSchedule" id="addButton"><button class="btn btn-danger">Assign Schedule</button></a>
+        <a id="addButton"><button class="btn btn-danger">Assign Schedule</button></a>
     </div>
         
         <table class="table py-lg-4 rounded-table table-light text-center">
@@ -45,16 +56,19 @@
                         <td>@schedule.TeamsLink</td>
                         <td>@schedule.Instruction</td>
                     <td>
-                        <a asp-action="EditSchedule" asp-route-id="@schedule.ScheduleId" class="p-2" style="text-decoration:none">                          
+                        <!--I have decided to remove the edit function because of the complexity in updating the applicants in a schedule-->
+                        @*<a asp-action="EditSchedule" asp-route-id="@schedule.ScheduleId" class="p-2" style="text-decoration:none">                          
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
                                 <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z" />
                             </svg>
-                        </a> <a asp-action="DeleteSchedule" asp-route-id="@schedule.ScheduleId"  class="p-2" style="text-decoration:none">
+                        </a> *@
+                        <a asp-action="DeleteSchedule" asp-route-id="@schedule.ScheduleId"  class="p-2" style="text-decoration:none">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                                 <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
                                 <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
                             </svg>
-                        </a> <a href="#" onclick="DisplayApplicants(@schedule.JobId)">
+                        </a> 
+                        <a href="#" onclick="DisplayApplicants(@schedule.ScheduleId)">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
                             </svg>
@@ -71,8 +85,8 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Applicants</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span id="ex" ria-hidden="true">&times;</span>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="ex">
+                        <span  ria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
@@ -87,81 +101,109 @@
             </div>
         </div>
     </div>
-    <!--Modal for Adding schedule-->
-    <div class="modal" tabindex="-1" role="dialog" id="add">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true" id="ex">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <label for="Interviewer-name" class="col-form-label">Interviewer:</label>
-                            <select class="form-select" aria-label="Default select example">
+
+  <!--Modal for Adding schedule-->
+ <div class="modal" tabindex="-1" role="dialog" id="add">
+  <div class="modal-dialog" role="document" id="add-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title">Add Schedule</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="clossAdd">
+                  <span aria-hidden="true" id="ex">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body" id="add-body">
+              <form>
+                        <input type="hidden" for="scheduleId" id="scheduleId" />
+                  <div class="form-group">
+                      <label for="Interviewer-name" class="col-form-label">Interviewer:</label>
+                      <select for="InterviewerId" class="form-select" aria-label="Default select example" id="interviewer">
                                 <option selected>Open this select menu</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
+                      </select>
+                            <p id="error1"></p>
+                  </div>
+                  <div class="form-group">
+                      <label for="Jobs" class="col-form-label">Job</label>
+                      <select class="form-select" aria-label="Default select example" id="job" >
+                          <option selected>Open this select menu</option>
+                      </select>
+                  </div>
+                  <div class="form-group">
+                      <label for="Applicants" class="col-form-label">Applicants</label>
+                            <select class="form-select" id="applicants" multiple>
+                                
                             </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="Jobs" class="col-form-label">Job</label>
-                            <select class="form-select" aria-label="Default select example">
-                                <option selected>Open this select menu</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Start Time:</label>
-                            <input type="time" class="form-control" id="recipient-name">
-                        </div>
-                        <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">End Time:</label>
-                            <input type="text" class="form-control" id="recipient-name">
-                        </div>
-                        <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Date:</label>
-                            <input type="text" class="form-control" id="recipient-name">
-                        </div>
-                        <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Exam Type:</label>
-                            <input type="text" class="form-control" id="recipient-name">
-                        </div>
-                        <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Team Link:</label>
-                            <input type="text" class="form-control" id="recipient-name">
-                        </div>
-                        <div class="form-group">
-                            <label for="message-text" class="col-form-label">Intruction:</label>
-                            <textarea class="form-control" id="message-text"></textarea>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
+                  </div>
+                  <div class="form-group">
+                      <label for="recipient-name" class="col-form-label">Start Time:</label>
+                      <input type="time" class="form-control" id="start">
+                  </div>
+                  <div class="form-group">
+                      <label for="recipient-name" class="col-form-label">End Time:</label>
+                      <input type="time" class="form-control" id="end">
+                  </div>
+                  <div class="form-group">
+                      <label for="recipient-name" class="col-form-label">Date:</label>
+                      <input type="date" class="form-control" id="date">
+                  </div>
+                  <div class="form-group">
+                      <label for="recipient-name" class="col-form-label">Exam Type:</label>
+                      <input type="text" class="form-control" id="exam">
+                  </div>
+                  <div class="form-group">
+                      <label for="recipient-name" class="col-form-label">Team Link:</label>
+                      <input type="text" class="form-control" id="team">
+                  </div>
+                  <div class="form-group">
+                      <label for="message-text" class="col-form-label">Intruction:</label>
+                      <textarea class="form-control" id="instruction"></textarea>
+                  </div>
+              </form>
+
+                    <div class="modal-footer">
+                        <button type="buton" class="btn btn-primary" id="save">Save</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeAddButton">Close</button>
+                    </div>
+          </div>
+         
+      </div>
+  </div>
+</div>
     @section Scripts{
         @{
             await Html.RenderPartialAsync("_ValidationScriptsPartial");
             <script>
-                function DisplayApplicants(JobId)
+                function PopulateJobSelect(JobId)
                 {
-                    event.preventDefault();
-                    $.ajax(
+                     $.ajax(
                     {
                         url: "/HrScheduler/ViewApplicantsAccordingToJobApplied",
                         type:"POST",
                         data:{job:JobId},
+                        dataType:"json",
+                        success: function(applicants){
+                                $('#applicants').empty();
+                            for (var applicant of applicants) 
+                            {
+                               console.log(applicant.name);
+                               var listItem = $("<option>").text(applicant.name).val(applicant.id);
+                                    $('#applicants').append(listItem);
+                            }
+                           
+                        },
+                        error: function () {
+                                console.log("error");
+                           
+                        }
+                    });
+                }
+                function DisplayApplicants(scheduleid) {
+                    event.preventDefault();
+                    $.ajax(
+                    {
+                        url: "/HrScheduler/GetApplicantListAccordingToSchedule",
+                        type:"POST",
+                        data: { schedule: scheduleid },
                         dataType:"json",
                         success: function(applicants){
                             $('#applicantsList').empty();
@@ -180,6 +222,8 @@
                         }
                     });
                 }
+
+                //events
                 $(document).ready(function () {
                    $("#close").click(function () {
                        $("#modal").fadeOut(300, function () {
@@ -193,8 +237,94 @@
                         });
                    });
 
-                    $("#addButton").click(function() {
+                    $("#clossAdd").click(function () {
+                        $("#add").fadeOut(300, function () {
+                            $("#add").hide();
+                            $("body").removeClass("modal-open-body");
+                        });
+                    });
+
+                    $("#closeAddButton").click(function () {
+                        $("#add").fadeOut(300, function () {
+                            $("#add").hide();
+                            $("body").removeClass("modal-open-body");
+                        });
+                    });
+                    //event to show the add schedule form
+                    $("#addButton").click(function () {
+                        $.ajax({
+                            url: "/HrScheduler/GetInterviewers",
+                            type: "POST",
+                            dataType: "json",
+                            success: function(interviewers){
+    
+                                $("#interviewer option").not(":first-child").remove();
+                                interviewers.forEach(function (interviewer) {
+                                    console.log(interviewer.name);
+                                    var selItem = $("<option>").text(interviewer.name).val(interviewer.id);
+                                    $("#interviewer").append(selItem);
+                                });                               
+                            },
+                            error: function () {
+                                console.log("error");
+                                
+                            }
+                        });
+
+                        $.ajax({
+                            url: "/HrScheduler/GetJobs",
+                            type: "POST",
+                            dataType: "json",
+                            success: function(jobs) {
+                                $("#job option").not(":first-child").remove();
+                                jobs.forEach(function(job){
+                                    console.log(job.id);
+                                    var item = $("<option>").text(job.position).val(job.id);
+                                    $("#job").append(item);
+                                });
+                            },
+                            error: function () {
+                                console.log("error");
+                            }
+                        });
                         $("#add").fadeIn(300);
+                    });
+                    //save button event
+                    $("#save").click(function(){
+                        
+                            _ScheduleId = $("#scheduleId").val();
+                            _InterviewerId = $("#interviewer").val();
+                            _JobId = $("#job").val();
+                            _StartTime = $("#start").val();
+                            _EndTime = $("#end").val();
+                            _Date = $("#date").val();
+                            _ExamType = $("#exam").val();
+                            _Instruction = $("#instruction").val();
+                            _TeamsLink = $("#team").val();
+                        var selectedValues = $('#applicants').val();
+                        var selectedIntegers = selectedValues.map(Number);
+
+                        console.log(selectedIntegers);
+                        $.ajax({
+                            url: "/HrScheduler/AddScheduleModal",
+                            type: "POST",
+                            data: { applicants: selectedIntegers, InterviewerId: _InterviewerId, JobId: _JobId, StartTime: _StartTime, EndTime: _EndTime, Date: _Date, ExamType: _ExamType, Instruction: _Instruction, TeamsLink: _TeamsLink },
+                            dataType: "json",
+                            success: function (response) {
+                                window.location.href = "/HrScheduler/home";
+                                console.log(response);
+                            },
+                            error: function () {
+                                // Handle error response, if needed
+                                console.log("Error sending data.");
+                            }
+                        });
+
+
+                    });
+                    $("#job").change(function() {
+                        var selectedValue = $(this).val();
+                        PopulateJobSelect(selectedValue);
                     });
                 });
             </script>

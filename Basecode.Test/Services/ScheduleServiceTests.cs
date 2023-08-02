@@ -15,6 +15,7 @@ namespace Basecode.Test.Services
         private readonly Mock<IJobOpeningRepository> _jobOpeningRepository;
         private readonly Mock<IInterviewerRepository> _interviewerRepository;
         private readonly Mock<IApplicantListRepository> _applicantListRepository;
+        private readonly Mock<IApplicantsScheduleRepo> _applicantsScheduleRepo;
         private readonly Mock<IMapper> _mapper;
 
         public ScheduleServiceTests()
@@ -23,8 +24,9 @@ namespace Basecode.Test.Services
             _jobOpeningRepository = new Mock<IJobOpeningRepository>();
             _interviewerRepository = new Mock<IInterviewerRepository>();
             _applicantListRepository = new Mock<IApplicantListRepository>();
+            _applicantsScheduleRepo = new Mock<IApplicantsScheduleRepo>();
             _mapper = new Mock<IMapper>();
-            _scheduleService = new ScheduleService(_scheduleRepository.Object, _jobOpeningRepository.Object, _interviewerRepository.Object, _applicantListRepository.Object, _mapper.Object);
+            _scheduleService = new ScheduleService(_scheduleRepository.Object, _jobOpeningRepository.Object, _interviewerRepository.Object, _applicantListRepository.Object, _mapper.Object,_applicantsScheduleRepo.Object);
         }
 
         [Fact]

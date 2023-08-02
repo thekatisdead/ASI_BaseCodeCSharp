@@ -4,6 +4,7 @@ using Basecode.Services.Interfaces;
 using Basecode.WebApp.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
+using Microsoft.AspNetCore.Identity;
 
 namespace Basecode.Test.Controllers
 {
@@ -12,12 +13,15 @@ namespace Basecode.Test.Controllers
         private readonly AdminController _controller;
         private readonly Mock<IJobOpeningService> _mockJobOpeningService;
         private readonly Mock<IUserService> _mockUserViewService;
-
+        private readonly Mock<IAdminService> _mockAdminService;
+        private readonly Mock<RoleManager<IdentityRole>> _mockRoleManager;
         public AdminControllerTests()
         {
             _mockJobOpeningService = new Mock<IJobOpeningService>();
             _mockUserViewService = new Mock<IUserService>();
-            _controller = new AdminController(_mockJobOpeningService.Object, _mockUserViewService.Object);
+            _mockAdminService= new Mock<IAdminService>();
+            _mockRoleManager =new Mock<RoleManager<IdentityRole>>();
+            _controller = new AdminController(_mockJobOpeningService.Object, _mockUserViewService.Object, _mockRoleManager.Object, _mockAdminService.Object);
         }
 
         [Fact]
