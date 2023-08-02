@@ -207,7 +207,7 @@ namespace Basecode.Services.Services
                 throw;
             }
         }
-        public List<object> GetApplicantListAccordingToSchedule(int sched)
+        public List<ApplicantInfo> GetApplicantListAccordingToSchedule(int sched)
         {
             var appsched = _applicantsScheduleRepo.GetAll().Where(s => s.ScheduleId == sched);
             var applicants = _applicantListRepository.RetrieveAll().Select(s => new
@@ -218,13 +218,13 @@ namespace Basecode.Services.Services
             });
             var appdetails = from appsc in appsched
                              join app in applicants on appsc.ApplicantId equals app.id
-                             select new 
+                             select new ApplicantInfo
                              {
                                  name = app.name,
                                  email = app.email
                              };
-            List<object> resultList = appdetails.Cast<object>().ToList();
-            return resultList;
+            
+            return appdetails.ToList();
         }
         public List<object> GetJobs()
         {

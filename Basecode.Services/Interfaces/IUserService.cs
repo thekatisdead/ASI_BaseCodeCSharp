@@ -11,7 +11,7 @@ namespace Basecode.Services.Interfaces
         IdentityUser FindUser(string userName);
         IEnumerable<User> FindAll();
         bool Create(User user);
-        bool Update(User user);
+        void Update(User user);
         void Delete(User user);
         Task<IdentityResult> RegisterUser(string username, string password, string firstName, string lastName, string email, string role);
         Task<IdentityResult> CreateRole(string roleName);

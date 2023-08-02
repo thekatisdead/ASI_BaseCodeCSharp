@@ -23,6 +23,6 @@ namespace Basecode.Services.Interfaces
         public List<object> GetInterviewersServ();
         public void AddApplicantSchedule(ApplicantsSchedule schedule);
         public int GetMostRecentSchedId();
-        public List<object> GetApplicantListAccordingToSchedule(int sched);
+        public List<ApplicantInfo> GetApplicantListAccordingToSchedule(int sched);
     }
 }

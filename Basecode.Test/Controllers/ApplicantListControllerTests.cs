@@ -1,4 +1,5 @@
-﻿using Basecode.Data.Repositories;
+﻿using Basecode.Data.Interfaces;
+using Basecode.Data.Repositories;
 using Basecode.Data.ViewModels;
 using Basecode.Services.Interfaces;
 using Basecode.WebApp.Controllers;
@@ -17,7 +18,7 @@ namespace Basecode.Test.Controllers
         private readonly JobOpeningRepository _fakeJobOpeningRepository;
         private readonly UserRepository _fakeUserRepository;
         private readonly Mock<IPublicApplicationFormService> _fakePublicApplicationFormService;
-        private readonly ApplicantListRepository _fakeApplicantListReopositry;
+        private readonly IApplicantListRepository _applicantList;
         public ApplicantListControllerTests()
         {
             _fakeApplicantListService = new Mock<IApplicantListService>();
@@ -31,7 +32,8 @@ namespace Basecode.Test.Controllers
                                 _fakeEmailSenderService.Object,
                                 _fakeJobOpeningRepository,
                                 _fakeUserRepository,
-                                _fakeCurrentHiresRepository,_fakeApplicantListReopositry);
+                                _fakeCurrentHiresRepository,
+                                _applicantList);
         }
 
         [Fact]
