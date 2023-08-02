@@ -14,8 +14,6 @@ namespace Basecode.Data.ViewModels
     {
         public int Id { get; set; }
 
-        public int HR { get; set; }
-
         [Required(ErrorMessage = "Position is required.")]
         [StringLength(20, ErrorMessage = "Position must not exceed 20 characters.")]
         [Display(Name = "Position")]
