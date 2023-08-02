@@ -21,6 +21,7 @@ namespace Basecode.Data.Migrations
                     Lastname = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FormID = table.Column<int>(type: "int", nullable: false),
                     EmailAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Confirmed = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Requirements = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     JobApplied = table.Column<int>(type: "int", nullable: false),
                     Tracker = table.Column<string>(type: "nvarchar(max)", nullable: true),
