@@ -20,5 +20,9 @@ namespace Basecode.Services.Interfaces
         public List<object> GetJobs();
         public List<object> GetInterviewers();
         public bool HasConfirmed(int id);
+        public List<object> GetInterviewersServ();
+        public void AddApplicantSchedule(ApplicantsSchedule schedule);
+        public int GetMostRecentSchedId();
+        public List<object> GetApplicantListAccordingToSchedule(int sched);
     }
 }

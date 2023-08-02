@@ -14,5 +14,6 @@ namespace Basecode.Data.Interfaces
         public Schedule GetById(int id);
         public void UpdateSchedule(Schedule schedule);
         public void DeleteSchedule(Schedule schedule);
+        public int GetMostRecentSchedId();
     }
 }

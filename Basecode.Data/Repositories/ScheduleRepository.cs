@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NLog;
+using Basecode.Data.ViewModels;
 
 namespace Basecode.Data.Repositories
 {
@@ -89,6 +90,26 @@ namespace Basecode.Data.Repositories
             catch (Exception ex)
             {
                 _logger.Error(ex, "Error occurred while deleting schedule with ID {scheduleId}: {errorMessage}", schedule.ScheduleId, ex.Message);
+                throw;
+            }
+        }
+        public int GetMostRecentSchedId()
+        {
+            try
+            {
+                // Fetch the most recent job opening from the database
+                _logger.Info("Fetching the most recent job opening from the database.");
+                var recentJobOpening = _context.Schedule
+                    .OrderByDescending(j => j.CreatedTime)
+                    .FirstOrDefault();
+
+                var id = recentJobOpening.ScheduleId;
+
+                return id;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "Error occurred while getting the most recent Job Opening: {errorMessage}", ex.Message);
                 throw;
             }
         }

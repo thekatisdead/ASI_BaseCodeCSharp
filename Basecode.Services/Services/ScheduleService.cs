@@ -10,6 +10,8 @@ using Basecode.Data.ViewModels;
 using System.Data;
 using AutoMapper;
 using NLog;
+using Basecode.Data.Repositories;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Basecode.Services.Services
 {
@@ -19,16 +21,18 @@ namespace Basecode.Services.Services
         private readonly IJobOpeningRepository _jobOpeningRepository;
         private readonly IInterviewerRepository _interviewerRepository;
         private readonly IApplicantListRepository _applicantListRepository;
+        private readonly IApplicantsScheduleRepo _applicantsScheduleRepo;
         private readonly IMapper _mapper;
         private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
 
-        public ScheduleService(IScheduleRepository scheduleRepository, IJobOpeningRepository jobOpeningRepository, IInterviewerRepository interviewerRepository, IApplicantListRepository applicantListRepository, IMapper mapper)
+        public ScheduleService(IScheduleRepository scheduleRepository, IJobOpeningRepository jobOpeningRepository, IInterviewerRepository interviewerRepository, IApplicantListRepository applicantListRepository, IMapper mapper, IApplicantsScheduleRepo applicantsScheduleRepo)
         {
             _scheduleRepository = scheduleRepository;
             _jobOpeningRepository = jobOpeningRepository;
             _interviewerRepository = interviewerRepository;
             _applicantListRepository = applicantListRepository;
             _mapper = mapper;
+            _applicantsScheduleRepo = applicantsScheduleRepo;
         }
 
         public int Add(Schedule schedule)
@@ -186,12 +190,15 @@ namespace Basecode.Services.Services
         {
             try
             {
-                var data = _applicantListRepository.RetrieveAll().Where(s => s.JobApplied == jobId).Select(s => new
+                var applicants = _applicantsScheduleRepo.GetAll().Select(s => s.ApplicantId).ToList();
+                var data = _applicantListRepository.RetrieveAll().Where(s => (s.JobApplied == jobId )).Select(s => new
                 {
                     name = s.Firstname + " "+s.Lastname,
-                    email = s.EmailAddress
+                    email = s.EmailAddress,
+                    id = s.Id
                 });
-                List<object> resultList = data.Cast<object>().ToList();
+                var newdata = data.Where(s=> !applicants.Contains(s.id)).ToList();
+                List<object> resultList = newdata.Cast<object>().ToList();
                 return resultList;
             }
             catch (Exception ex)
@@ -200,22 +207,42 @@ namespace Basecode.Services.Services
                 throw;
             }
         }
+        public List<object> GetApplicantListAccordingToSchedule(int sched)
+        {
+            var appsched = _applicantsScheduleRepo.GetAll().Where(s => s.ScheduleId == sched);
+            var applicants = _applicantListRepository.RetrieveAll().Select(s => new
+            {
+                id = s.Id,
+                name = s.Firstname+ " "+s.Lastname,
+                email = s.EmailAddress
+            });
+            var appdetails = from appsc in appsched
+                             join app in applicants on appsc.ApplicantId equals app.id
+                             select new 
+                             {
+                                 name = app.name,
+                                 email = app.email
+                             };
+            List<object> resultList = appdetails.Cast<object>().ToList();
+            return resultList;
+        }
         public List<object> GetJobs()
         {
-            var jobs = _jobOpeningRepository.RetrieveAll().Select(s => new
-            {
-                JobId=s.Id,
-                Position = s.Position
+            var jobs = _jobOpeningRepository.RetrieveAll().Select(s => new 
+            {                
+                position = s.Position,
+                id=s.Id
             });
+
             List<object> resultList = jobs.Cast<object>().ToList();
             return resultList;
         }
-        public List<object> GetInterviewers()
+        public List<object> GetInterviewersServ()
         {
             var interviewers = _interviewerRepository.GetAll().Select(s => new
             {
-                InterviewerId = s.InterviewerId,
-                Name = s.FirstName + " " + s.LastName
+                name = s.FirstName + " " + s.LastName,
+                id = s.InterviewerId
             });
             List<object> resultList = interviewers.Cast<object>().ToList();
             return resultList;
@@ -231,6 +258,13 @@ namespace Basecode.Services.Services
                 return true;
             }
             return false;
+        public void AddApplicantSchedule(ApplicantsSchedule schedule)
+        {
+            _applicantsScheduleRepo.Add(schedule);
+        }
+        public int GetMostRecentSchedId()
+        {
+            return _scheduleRepository.GetMostRecentSchedId();
         }
     }
 }

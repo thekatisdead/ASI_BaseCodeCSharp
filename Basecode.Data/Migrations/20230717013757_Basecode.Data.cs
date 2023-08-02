@@ -292,6 +292,32 @@ namespace Basecode.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+               name: "ApplicantsSchedule",
+               columns: table => new
+               {
+                   Id = table.Column<int>(type: "int", nullable: false)
+                       .Annotation("SqlServer:Identity", "1, 1"),
+                   ScheduleId = table.Column<int>(type: "int", nullable: false),
+                   ApplicantId = table.Column<int>(type: "int", nullable: false)
+               },
+               constraints: table =>
+               {
+                   table.PrimaryKey("PK_AppSchedule", x => x.Id);
+                   table.ForeignKey(
+                       name: "FK_schedid",
+                       column: x => x.ScheduleId,
+                       principalTable: "Schedule",
+                       principalColumn: "ScheduleId",
+                       onDelete: ReferentialAction.Cascade);
+                   table.ForeignKey(
+                       name: "FK_applicants",
+                       column: x => x.ApplicantId,
+                       principalTable: "Applicant",
+                       principalColumn: "Id",
+                       onDelete: ReferentialAction.Cascade);
+               });
+
+            migrationBuilder.CreateTable(
                 name: "User",
                 columns: table => new
                 {
@@ -520,6 +546,8 @@ namespace Basecode.Data.Migrations
                 name: "Interviewer");
             migrationBuilder.DropTable(
                 name: "Schedule");
+            migrationBuilder.DropTable(
+                name: "ApplicantsSchedule");
 
             migrationBuilder.DropTable(
                 name: "PublicApplicationForm");

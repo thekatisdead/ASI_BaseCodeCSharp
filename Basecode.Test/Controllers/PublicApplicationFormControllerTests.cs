@@ -63,7 +63,7 @@ namespace Basecode.Test.Controllers
                 .Throws(new Exception("Simulated exception")); // Simulate an exception
 
             // Act
-            var result = _controller.AddForm(testData) as IActionResult;
+            var result = _controller.AddForm(testData,1) as IActionResult;
 
             // Assert
             // Check for the correct ActionResult types
@@ -84,7 +84,7 @@ namespace Basecode.Test.Controllers
             _mockPublicApplicationFormService.Setup(s => s.AddForm(testData));
 
             // Act
-            var result = _controller.AddForm(testData);
+            var result = _controller.AddForm(testData,1);
 
             // Assert
             Assert.NotNull(result);
