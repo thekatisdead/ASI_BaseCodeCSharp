@@ -12,6 +12,11 @@ namespace Basecode.Data.Interfaces
         /// <returns>The User object if found, otherwise null.</returns>
         User FindByUsername(string username);
 
+        /// <summary>
+        /// Finds a user in the database by their email.
+        /// </summary>
+        /// <param name="email">The email of the user to find.</param>
+        /// <returns>The User entity with the specified email if found; otherwise, returns null.</returns>
         User FindByEmail(string email);
 
         /// <summary>
@@ -88,6 +93,11 @@ namespace Basecode.Data.Interfaces
         /// <param name="password">The password of the user to find.</param>
         /// <returns>A Task representing the asynchronous operation that returns a User object if found, otherwise null.</returns>
         Task<IdentityUser> FindUserAsync(string userName, string password);
+
+        /// <summary>
+        /// Retrieves all users from the database.
+        /// </summary>
+        /// <returns>An IQueryable collection of User entities representing all users in the database.</returns>
         public IQueryable<User> RetrieveAll();
     }
 }

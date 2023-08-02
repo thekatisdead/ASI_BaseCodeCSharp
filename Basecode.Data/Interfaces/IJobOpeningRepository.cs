@@ -26,14 +26,19 @@ namespace Basecode.Data.Interfaces
         /// <summary>
         /// Create/Add a new Job Opening
         /// </summary>
-        /// <param name="jobOpening"></param>
+        /// <param name="jobOpening">The JobOpening object representing the job opening to be added.</param>
         void Add(JobOpening jobOpening);
 
         /// <summary>
-        /// Updates a selected Job Opening
+        /// Updates an existing Job Opening in the database.
         /// </summary>
-        /// <param name="jobOpening"></param>
+        /// <param name="jobOpening">The updated JobOpening object.</param>
         void Update(JobOpening jobOpening);
+
+        /// <summary>
+        /// Deletes an existing Job Opening from the database.
+        /// </summary>
+        /// <param name="job">The JobOpening object to be deleted.</param>
         public void Delete(JobOpening job);
 
         /// <summary>
