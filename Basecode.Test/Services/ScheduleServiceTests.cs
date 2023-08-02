@@ -293,25 +293,8 @@ namespace Basecode.Test.Services
         {
             // Arrange
             var scheduleId = 0;
-            var schedule = new Schedule
-            {
-                ScheduleId = scheduleId,
-                InterviewerId = 2,
-                JobId = 3,
-                StartTime = "09:00 AM",
-                EndTime = "05:00 PM",
-                Instruction = "Test instruction"
-            };
-
-            var existingSchedule = new Schedule
-            {
-                ScheduleId = scheduleId,
-                InterviewerId = 4,
-                JobId = 5,
-                StartTime = "08:00 AM",
-                EndTime = "04:00 PM",
-                Instruction = "Existing instruction"
-            };
+            var schedule = new Schedule();
+            var existingSchedule = new Schedule();
 
             // Mock the GetById method of the repository to return the existing schedule
             _scheduleRepository.Setup(r => r.GetById(scheduleId)).Returns(existingSchedule);
@@ -392,7 +375,7 @@ namespace Basecode.Test.Services
 
             // Assert
             Assert.NotNull(result);
-            Assert.IsType<List<ApplicantListViewModel>>(result);
+            Assert.NotEmpty(result);
         }
 
         [Fact]

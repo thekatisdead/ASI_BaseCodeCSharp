@@ -4,7 +4,6 @@ using NLog;
 using Microsoft.AspNetCore.Identity;
 using Basecode.Data.ViewModels;
 using Basecode.Data.Models;
-using Microsoft.Graph.Beta.Models;
 using User = Basecode.Data.Models.User;
 
 namespace Basecode.WebApp.Controllers
