@@ -20,6 +20,7 @@ namespace Basecode.Data.Models
         public int JobApplied { get; set; }
         public string? Tracker { get; set; }
         public string Grading { get; set; }
+        public string? Confirmed { get; set; }
         public DateTime? CreatedTime { get; set; }
         public string? CreatedBy { get; set; }
         public DateTime? UpdatedTime { get; set;}

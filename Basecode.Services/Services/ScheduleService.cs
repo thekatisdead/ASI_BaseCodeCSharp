@@ -35,7 +35,7 @@ namespace Basecode.Services.Services
             _applicantsScheduleRepo = applicantsScheduleRepo;
         }
 
-        public void Add(Schedule schedule)
+        public int Add(Schedule schedule)
         {
             try
             {
@@ -43,13 +43,15 @@ namespace Basecode.Services.Services
                 schedule.CreatedTime = DateTime.Now;
                 schedule.UpdatedBy = System.Environment.UserName;
                 schedule.UpdatedTime = DateTime.Now;
-                _scheduleRepository.Add(schedule);
+                int id = _scheduleRepository.Add(schedule);
                 _logger.Info("Schedule with ID {scheduleId} added successfully.", schedule.ScheduleId);
+                return id;
             }
             catch (Exception ex)
             {
                 _logger.Error(ex, "Error occurred while adding a new schedule: {errorMessage}", ex.Message);
-                throw;
+                return -1;
+                //throw;
             }
         }
 
@@ -152,6 +154,7 @@ namespace Basecode.Services.Services
                 _schedule.InterviewerId = schedule.InterviewerId;
                 _schedule.JobId = schedule.JobId;
                 _schedule.StartTime = schedule.StartTime;
+                _schedule.Confirmed = schedule.Confirmed;
                 _schedule.EndTime = schedule.EndTime;
                 _schedule.Date = schedule.Date;
                 _schedule.Instruction = schedule.Instruction;
@@ -244,10 +247,23 @@ namespace Basecode.Services.Services
             List<object> resultList = interviewers.Cast<object>().ToList();
             return resultList;
         }
+
+        public bool HasConfirmed(int id)
+        {
+            var temp = _scheduleRepository.GetById(id);
+            if (temp.Confirmed == null)
+            {
+                temp.Confirmed = 1;
+                _scheduleRepository.UpdateSchedule(temp);
+                return true;
+            }
+            return false;
+        }
         public void AddApplicantSchedule(ApplicantsSchedule schedule)
         {
             _applicantsScheduleRepo.Add(schedule);
         }
+
         public int GetMostRecentSchedId()
         {
             return _scheduleRepository.GetMostRecentSchedId();

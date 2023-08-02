@@ -25,8 +25,9 @@ namespace Basecode.WebApp.Controllers
             return View(data);
         }
 
-        public IActionResult JobPosting()
+        public IActionResult JobPosting(string HREmail)
         {
+            ViewBag.HREmail = HREmail;
             _logger.Trace("JobPosting action called");
             return View();
         }

@@ -96,6 +96,25 @@ namespace Basecode.Data.Repositories
             }
         }
 
+        public void UpdateConfirmed(int applicantId, string status)
+        {
+            try
+            {
+                var applicant = _context.Applicant.Find(applicantId);
+                if (applicant != null)
+                {
+                    applicant.Confirmed = status;
+                    _context.SaveChanges();
+                    _logger.Info("Applicant with ID {applicantId} has updated their requirements to {status}.", applicantId, status);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "Error occurred while proceeding applicant with ID {applicantId} to step {step}: {errorMessage}", applicantId, status, ex.Message);
+                throw;
+            }
+        }
+
         public ApplicantListViewModel GetMostRecentApplicant()
         {
             try

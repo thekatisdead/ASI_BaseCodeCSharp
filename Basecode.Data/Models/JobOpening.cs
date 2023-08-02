@@ -14,6 +14,7 @@ namespace Basecode.Data.Models
     {
         public int Id { get; set; }
         public int HR { get; set; }
+        public string? HREmail { get; set; }
         public string Position { get; set; }
         public string JobType { get; set; }
         public decimal Salary { get; set; }
