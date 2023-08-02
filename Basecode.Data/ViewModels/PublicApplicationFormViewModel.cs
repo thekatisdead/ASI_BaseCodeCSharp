@@ -79,7 +79,7 @@ namespace Basecode.Data.ViewModels
         [Required(ErrorMessage = "This field is required.")]
         public int? AnsweredThree { get; set; }
 
-        [Required(ErrorMessage = "This field is required.")]
+        //[Required(ErrorMessage = "This field is required.")]
         public byte[]? CurriculumVitae { get; set; }
 
         public DateTime? CreatedTime { get; set; } = DateTime.Now;

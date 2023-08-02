@@ -17,6 +17,7 @@ namespace Basecode.Data.Models
         public string? Firstname { get; set; }
         public string? Lastname { get; set; }
         public string? EmailAddress { get; set; }
+        public string? Requirements { get; set; }
         public int JobApplied { get; set; }
         public string? Tracker { get; set; }
         public string Grading { get; set; }

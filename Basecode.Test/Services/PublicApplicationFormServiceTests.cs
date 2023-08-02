@@ -34,7 +34,7 @@ namespace Basecode.Test.Services
                 Id = 1,
                 PhoneNumber = "1234567890",
                 ApplicantId= 1,
-                Position= "Programmer",
+                Position= 1,
                 Address = "Test",
                 Time = "Test",
                 School = "Test",
@@ -59,7 +59,7 @@ namespace Basecode.Test.Services
             _fakeMapper.Setup(mapper => mapper.Map<PublicApplicationForm>(applicationFormViewModel)).Returns(new PublicApplicationForm());
 
             // Act
-            _service.AddForm(applicationFormViewModel);
+            _service.AddFormS(applicationFormViewModel);
 
             // Assert
             _fakePublicApplicationFormRepository.Verify(repo => repo.AddForm(It.IsAny<PublicApplicationForm>()), Times.Once);
