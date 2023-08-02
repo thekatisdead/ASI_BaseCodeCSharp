@@ -680,6 +680,56 @@ namespace Basecode.Services.Services
             }
         }
 
+        public void SendEmailInterviewGenerationApplicant(string receiverEmail, string applicantName,  string jobPosition, string typeExam, int interviewId, DateOnly date, TimeOnly startTime, TimeOnly endTime)
+        {
+            var email = new MimeMessage();
+
+            // If you wanna test for email functionalities, change the Sender Name to your email
+            // and the receiver name to your other email.
+            // To perform it properly, follow the link below
+            // https://mailtrap.io/blog/csharp-send-email-gmail/
+
+            email.From.Add(new MailboxAddress("HR Automated Tracking", _senderEmail));
+            email.To.Add(new MailboxAddress(applicantName, receiverEmail));
+
+            email.Subject = $"{typeExam} Generated";
+
+
+            var htmlContent = File.ReadAllText("EmailTemplates/InterviewGenerate.html");
+
+            // this is to replace the placeholders
+            htmlContent = htmlContent.Replace("{applicantName}", applicantName);
+            htmlContent = htmlContent.Replace("{jobPosition}", jobPosition);
+            htmlContent = htmlContent.Replace("{typeExam}", typeExam);
+            htmlContent = htmlContent.Replace("{interviewId}", interviewId.ToString());
+            htmlContent = htmlContent.Replace("{date}", date.ToString("yyyy-MM-dd"));
+            htmlContent = htmlContent.Replace("{startTime}", startTime.ToString("HH:mm"));
+            htmlContent = htmlContent.Replace("{endTime}", endTime.ToString("HH:mm"));
+
+            //var button = $" <input type = 'datetime-local' min = '{startTime.ToString(""yyyy-MM-dd"")}' max = '{endTime.ToString(""yyyy-MM-dd"")}'>";
+            //htmlContent = htmlContent.Replace("{button}",button);
+            //htmlContent = htmlContent.Replace("{startTime}","2023-07-28");
+            //htmlContent = htmlContent.Replace("{endTime}", "2023-07-29");
+
+
+            email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
+            {
+                Text = htmlContent
+            };
+
+            using (var smtp = new SmtpClient())
+            {
+                smtp.Connect("smtp.gmail.com", 587, false);
+
+                // Note: only needed if the SMTP server requires authentication
+                // Also: This is PM's email kek, rip bozo ig.
+                smtp.Authenticate("kermherbieto52@gmail.com", "sfltmfkdvdiuhabi");
+
+                smtp.Send(email);
+                smtp.Disconnect(true);
+            }
+        }
+
         // Approval Email in Application and Screening
         public void SendEmailHRApplicationDecision(string receiverEmail, int applicantId ,string applicantName, string jobPosition)
         {

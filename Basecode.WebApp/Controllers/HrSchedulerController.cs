@@ -18,14 +18,15 @@ namespace Basecode.WebApp.Controllers
         IJobOpeningService _jobOpeningService;
         IScheduleService _scheduleService;    
         IUserService _userService;
-        
-        public HrSchedulerController(IInterviewerServices services,IJobOpeningService jobOpeningService,IScheduleService scheduleService,IEmailSenderService emailSender, IUserService userService) 
+        IApplicantListService _applicantListService;
+        public HrSchedulerController(IInterviewerServices services,IJobOpeningService jobOpeningService,IScheduleService scheduleService,IEmailSenderService emailSender, IUserService userService, IApplicantListService applicantListService) 
         { 
             _interviewerServices= services;
             _jobOpeningService= jobOpeningService;
             _scheduleService =  scheduleService;
             _emailSender = emailSender;
             _userService = userService;
+            _applicantListService = applicantListService;
         }
         public IActionResult AddInterviewer()
         {
@@ -149,12 +150,27 @@ namespace Basecode.WebApp.Controllers
             schedule.ExamType = ExamType;
             schedule.Instruction = Instruction;
             schedule.TeamsLink = TeamsLink;
-            _scheduleService.Add(schedule);
+            
+            int schedId = _scheduleService.Add(schedule);
 
-            int id = _scheduleService.GetMostRecentSchedId();
+            int id = schedId;
+            var interviewer = _interviewerServices.GetById(Int32.Parse(InterviewerId));
+            var job = _jobOpeningService.GetById(Int32.Parse(JobId));
+            var date = DateTime.Parse(Date);
+            var time = TimeSpan.Parse(EndTime);
+            var combinedDateTime = date.Add(time);
+            var delay = combinedDateTime - DateTime.Now;
+            var interviewerName = interviewer.LastName + " " + interviewer.FirstName;
 
-            foreach(var app in applicants)
+            _emailSender.SendEmailInterviewGeneration(interviewer.Email, interviewerName, "Applicant", 1, job.Position, schedule.ExamType, id, DateOnly.Parse(schedule.Date), TimeOnly.Parse(schedule.StartTime), TimeOnly.Parse(schedule.EndTime));
+            // sends an email after the end date and the end time
+            BackgroundJob.Schedule(() => _emailSender.SendEmailInterviewDecision(interviewer.Email, interviewerName, "Alliance Software Inc.", job.Position, schedule.ExamType), delay);
+            
+            foreach (var app in applicants)
             {
+                var applicant = _applicantListService.GetApplicantById(app);
+                var applicantName = applicant.Lastname + ", " + applicant.Firstname;
+                _emailSender.SendEmailInterviewGenerationApplicant(applicant.EmailAddress,applicantName,job.Position,ExamType,Int32.Parse(InterviewerId),DateOnly.Parse(Date),TimeOnly.Parse(StartTime),TimeOnly.Parse(EndTime));
                 var appsched = new ApplicantsSchedule();
                 appsched.ApplicantId = app;
                 appsched.ScheduleId = id;

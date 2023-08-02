@@ -172,5 +172,17 @@ namespace Basecode.Services.Interfaces
         /// <param name="applicantID"></param>
         /// <param name="jobPosition"></param>
         public void SendEmailApplicantGenerationHR(string receiverEmail, string applicantName, int applicantID, string jobPosition);
+        /// <summary>
+        /// Sends an Email to the Applicant informing about their interview
+        /// </summary>
+        /// <param name="receiverEmail"></param>
+        /// <param name="applicantName"></param>
+        /// <param name="jobPosition"></param>
+        /// <param name="typeExam"></param>
+        /// <param name="interviewId"></param>
+        /// <param name="date"></param>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        public void SendEmailInterviewGenerationApplicant(string receiverEmail, string applicantName, string jobPosition, string typeExam, int interviewId, DateOnly date, TimeOnly startTime, TimeOnly endTime);
     }
 }

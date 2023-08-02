@@ -258,10 +258,12 @@ namespace Basecode.Services.Services
                 return true;
             }
             return false;
+        }
         public void AddApplicantSchedule(ApplicantsSchedule schedule)
         {
             _applicantsScheduleRepo.Add(schedule);
         }
+
         public int GetMostRecentSchedId()
         {
             return _scheduleRepository.GetMostRecentSchedId();
