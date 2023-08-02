@@ -46,7 +46,7 @@ namespace Basecode.Data.Interfaces
         /// </summary>
         /// <param name="user">The User object to update.</param>
         /// <returns>True if the user is updated successfully, otherwise false.</returns>
-        bool Update(User user);
+        void Update(User user);
 
         /// <summary>
         /// Deletes a user.
