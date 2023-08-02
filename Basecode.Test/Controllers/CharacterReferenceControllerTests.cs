@@ -39,7 +39,7 @@ namespace Basecode.Test.Controllers
         {
             // Act
             var applicantId = 1;
-            var result = _controller.Index(applicantId);
+            var result = _controller.Index(applicantId, 1);
 
             // Assert
             Assert.NotNull(result);

@@ -21,7 +21,7 @@ namespace Basecode.Test.Controllers
         public void JobPosting_ReturnsView()
         {
             // Act
-            var result = _controller.JobPosting() as ViewResult;
+            var result = _controller.JobPosting("jimwillcapino@gmail.com") as ViewResult;
 
             // Assert
             Assert.NotNull(result);
