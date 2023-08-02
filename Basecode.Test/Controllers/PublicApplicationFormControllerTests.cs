@@ -38,6 +38,7 @@ namespace Basecode.Test.Controllers
         {
             // Arrange
             var applicantId = 1;
+            var jobId = 1;
             var testData = new PublicApplicationFormViewModel
             {
                 Id = 1,
@@ -63,7 +64,7 @@ namespace Basecode.Test.Controllers
                 .Throws(new Exception("Simulated exception")); // Simulate an exception
 
             // Act
-            var result = _controller.AddForm(testData,1) as IActionResult;
+            var result = _controller.AddForm(testData, jobId) as IActionResult;
 
             // Assert
             // Check for the correct ActionResult types
@@ -79,12 +80,13 @@ namespace Basecode.Test.Controllers
         {
             // Arrange
             var applicantId = 1;
+            var jobId = 1;
             var testData = new PublicApplicationFormViewModel();
 
             _mockPublicApplicationFormService.Setup(s => s.AddForm(testData));
 
             // Act
-            var result = _controller.AddForm(testData,1);
+            var result = _controller.AddForm(testData, jobId);
 
             // Assert
             Assert.NotNull(result);

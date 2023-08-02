@@ -4,7 +4,6 @@ using NLog;
 using Microsoft.AspNetCore.Identity;
 using Basecode.Data.ViewModels;
 using Basecode.Data.Models;
-using Microsoft.Graph.Beta.Models;
 
 namespace Basecode.WebApp.Controllers
 {
