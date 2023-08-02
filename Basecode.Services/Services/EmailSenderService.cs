@@ -17,6 +17,7 @@ namespace Basecode.Services.Services
     {
         string _dtEmail = "kaherbieto@outlook.up.edu.ph";
         string _senderEmail = "noreply-alliance@gmail.com";
+        string _webURL = "localhost:5001";
 
         public void SendEmailInterviewSchedule(HrScheduler HrScheduler)
         {

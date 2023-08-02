@@ -64,16 +64,20 @@ namespace Basecode.Data.Repositories
             return _context.PublicApplicationForm.FirstOrDefault(form => form.ApplicationID == id);
         }
 
-        public void Responded(int id)
+        public void Responded(int id, int trigger)
         {
-            var form = _context.PublicApplicationForm.FirstOrDefault(form => form.ApplicationID ==  id);
-            if (form.AnsweredOne == null)
+            var form = _context.PublicApplicationForm.FirstOrDefault(form => form.Id ==  id);
+            if (trigger == 1)
             {
                 form.AnsweredOne = 1;
             }
-            else
+            else if (trigger == 2)
             {
-                form.AnsweredOne += 1;
+                form.AnsweredTwo = 1;
+            }
+            else if (trigger == 3)
+            {
+                form.AnsweredThree = 1;
             }
             _context.SaveChanges();
         }
