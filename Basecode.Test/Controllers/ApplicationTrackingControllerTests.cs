@@ -15,17 +15,17 @@ namespace Basecode.Test.Controllers
         private readonly ApplicationTrackingRepository _applicationTrackingRepository;
         private readonly JobOpeningRepository _jobOpeningRepository;
         private readonly BasecodeContext _context;
-        private readonly IUnitOfWork _mockUnitOfWork;
+        private readonly Mock<IUnitOfWork> _mockUnitOfWork;
 
         public ApplicationTrackingControllerTests()
         {
             var options = new DbContextOptionsBuilder<BasecodeContext>()
                 .UseInMemoryDatabase(databaseName: "HRAutomationSystem")
                 .Options;
-            _mockUnitOfWork = new Mock<IUnitOfWork>().Object;
+            _mockUnitOfWork = new Mock<IUnitOfWork>();
             _context = new BasecodeContext(options);
             _applicationTrackingRepository = new ApplicationTrackingRepository(_context);
-            _jobOpeningRepository = new JobOpeningRepository(_mockUnitOfWork, _context);
+            _jobOpeningRepository = new JobOpeningRepository(_mockUnitOfWork.Object, _context);
             _controller = new ApplicationTrackingController(_applicationTrackingRepository, _jobOpeningRepository);
         }
 
@@ -61,10 +61,9 @@ namespace Basecode.Test.Controllers
             _context.SaveChanges();
 
             // Act
-            var result = _controller.Index(applicantId);
+            var result = _controller.Index(applicantId) as ViewResult;
 
             // Assert
-            Assert.NotNull(result);
             var viewResult = Assert.IsType<ViewResult>(result);
             Assert.Null(viewResult.ViewName);
             Assert.Equal(applicationTrackingData, viewResult.Model);
