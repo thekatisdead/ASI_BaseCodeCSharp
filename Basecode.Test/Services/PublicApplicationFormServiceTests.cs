@@ -34,7 +34,7 @@ namespace Basecode.Test.Services
                 Id = 1,
                 PhoneNumber = "1234567890",
                 ApplicantId= 1,
-                Position= 1,
+                Position= "Hello",
                 Address = "Test",
                 Time = "Test",
                 School = "Test",
