@@ -10,9 +10,11 @@ namespace Basecode.Data.Models
     public class PublicApplicationForm
     {
         public int Id { get; set; }
-        public int? ApplicantId { get; set; }
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
+        public string? EmailAddress { get; set; }
         public int? ApplicationID { get; set; }
-        public int? Position { get; set; }
+        public string? Position { get; set; }
         public string? PhoneNumber { get; set; }
         public string? Address { get; set; }
         public string? Time { get; set; }

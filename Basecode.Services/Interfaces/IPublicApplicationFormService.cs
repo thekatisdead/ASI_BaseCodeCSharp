@@ -10,7 +10,7 @@ namespace Basecode.Services.Interfaces
 {
     public interface IPublicApplicationFormService
     {
-        void AddFormS(PublicApplicationFormViewModel applicationForm);
+        void AddForm(PublicApplicationFormViewModel applicationForm);
         public PublicApplicationFormViewModel GetById(int id);
         public PublicApplicationFormViewModel GetByApplicationId(int id);
         /// <summary>

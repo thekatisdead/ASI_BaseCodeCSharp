@@ -29,41 +29,14 @@ namespace Basecode.Services.Services
             _jobOpeningRepository = jobOpeningRepository;
         }
 
-        public void AddFormS(PublicApplicationFormViewModel applicationForm)
+        public void AddForm(PublicApplicationFormViewModel applicationForm)
         {
             try
             {
                 applicationForm.CreatedTime = DateTime.Now;
                 applicationForm.CreatedBy = System.Environment.UserName;
 
-                PublicApplicationForm form = new PublicApplicationForm();
-                form.ApplicantId = applicationForm.ApplicantId;
-                form.Position = applicationForm.Position;
-                form.PhoneNumber = applicationForm.PhoneNumber;
-                form.Address = applicationForm.Address;
-                form.ApplicationID = applicationForm.ApplicationID;
-                form.Achievements = applicationForm.Achievements;
-                form.Time = applicationForm.Time;
-                form.School = applicationForm.School;
-                form.SchoolDepartment = applicationForm.SchoolDepartment;
-                form.AnsweredOne =applicationForm.AnsweredOne;
-                form.AnsweredTwo =applicationForm.AnsweredTwo;
-                form.AnsweredThree = applicationForm.AnsweredThree;
-                form.ContactInfoOne = applicationForm.ContactInfoOne;
-                form.ContactInfoTwo = applicationForm.ContactInfoTwo;
-                form.ContactInfoThree = applicationForm.ContactInfoThree;
-                form.ReferenceOneFullName = applicationForm.ReferenceOneFullName;
-                form.ReferenceTwoFullName = applicationForm.ReferenceTwoFullName;
-                form.ReferenceThreeFullName = applicationForm.ReferenceThreeFullName;
-                form.AnsweredOne = applicationForm.AnsweredOne;
-                form.AnsweredTwo = applicationForm.AnsweredTwo;
-                form.AnsweredThree = applicationForm.AnsweredThree;
-                form.RelationshipOne = applicationForm.RelationshipOne;
-                form.RelationshipTwo = applicationForm.RelationshipTwo;
-                form.RelationshipThree = applicationForm.RelationshipThree;
-                form.CreatedBy = applicationForm.CreatedBy;
-                form.CreatedTime = applicationForm.CreatedTime;
-                _repository.AddForm(form);
+                _repository.AddForm(_mapper.Map<PublicApplicationForm>(applicationForm));
 
                 // Log successful addition of the form
                 _logger.Info("Public application form added successfully.");

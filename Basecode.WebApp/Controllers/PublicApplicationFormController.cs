@@ -38,7 +38,8 @@ namespace Basecode.WebApp.Controllers
         [HttpPost]
         public IActionResult AddForm(PublicApplicationFormViewModel viewModel, int jobId)
         {
-           
+            try
+            {
                 int value = 0;
                 // Call the service method to create the form
                 
@@ -64,9 +65,7 @@ namespace Basecode.WebApp.Controllers
                 var job = _jobOpeningService.GetById(jobId);
 
                 _applicant.Add(newApplicant);
-                var AppId = _applicant.GetMostRecentApplicant();
-                viewModel.ApplicantId = AppId.Id;
-                _service.AddFormS(viewModel);
+                _service.AddForm(viewModel);
                 // for applicant
                 _email.SendEmailApplicantGeneration(viewModel.EmailAddress,fullName,value,job.Position);
                 
@@ -77,7 +76,16 @@ namespace Basecode.WebApp.Controllers
 
                 // Redirect or show a success message to the user
                 return RedirectToAction("Index", "Home");
-           
+            }
+            catch (Exception ex)
+            {
+                // Log the error using a logger
+                _logger.Error(ex, "Error occurred while adding character reference: {errorMessage}", ex.Message);
+
+                // You can customize the error handling based on your application's requirements
+                // For example, you can return a specific error view or redirect to an error page.
+                return BadRequest("An error occurred while adding the form."+ex.Message);
+            }
         }
 
 

@@ -63,7 +63,7 @@ namespace Basecode.Test.Controllers
                 CurriculumVitae = new byte[0],
             };
 
-            _mockPublicApplicationFormService.Setup(s => s.AddFormS(testData))
+            _mockPublicApplicationFormService.Setup(s => s.AddForm(testData))
                 .Throws(new Exception("Simulated exception")); // Simulate an exception
 
             // Act
@@ -86,7 +86,7 @@ namespace Basecode.Test.Controllers
             var jobId = 1;
             var testData = new PublicApplicationFormViewModel();
 
-            _mockPublicApplicationFormService.Setup(s => s.AddFormS(testData));
+            _mockPublicApplicationFormService.Setup(s => s.AddForm(testData));
 
             // Act
             var result = _controller.AddForm(testData, jobId);
