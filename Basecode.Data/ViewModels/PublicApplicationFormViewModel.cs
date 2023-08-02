@@ -18,7 +18,7 @@ namespace Basecode.Data.ViewModels
         public int ApplicantId { get; set; }
 
         [Required(ErrorMessage = "This field is required.")]
-        public string Position { get; set; }
+        public int Position { get; set; }
 
         [Required]
         [StringLength(11, MinimumLength = 11, ErrorMessage = "Contact number must be 11 digits.")]
