@@ -14,14 +14,13 @@ namespace Basecode.Test.Controllers
         private readonly Mock<IJobOpeningService> _mockJobOpeningService;
         private readonly Mock<IUserService> _mockUserViewService;
         private readonly Mock<IAdminService> _mockAdminService;
-        private readonly Mock<RoleManager<IdentityRole>> _mockRoleManager;
+        private readonly RoleManager<IdentityRole> _mockRoleManager;
         public AdminControllerTests()
         {
             _mockJobOpeningService = new Mock<IJobOpeningService>();
             _mockUserViewService = new Mock<IUserService>();
             _mockAdminService= new Mock<IAdminService>();
-            _mockRoleManager =new Mock<RoleManager<IdentityRole>>();
-            _controller = new AdminController(_mockJobOpeningService.Object, _mockUserViewService.Object, _mockRoleManager.Object, _mockAdminService.Object);
+            _controller = new AdminController(_mockJobOpeningService.Object, _mockUserViewService.Object, _mockRoleManager, _mockAdminService.Object);
         }
 
         [Fact]
