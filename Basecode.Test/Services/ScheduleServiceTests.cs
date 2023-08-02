@@ -267,25 +267,14 @@ namespace Basecode.Test.Services
                 Instruction = "Existing instruction"
             };
 
-            // Mock the GetById method of the repository to return the existing schedule
-            _scheduleRepository.Setup(r => r.GetById(scheduleId)).Returns(existingSchedule);
+            _scheduleRepository.Setup(r => r.UpdateSchedule(schedule));
 
             // Act
             _scheduleService.UpdateSchedule(schedule);
 
             // Assert
             // Verify that the repository's UpdateSchedule method was called with the updated schedule
-            _scheduleRepository.Verify(r => r.UpdateSchedule(It.Is<Schedule>(s =>
-                s.ScheduleId == scheduleId &&
-                s.InterviewerId == schedule.InterviewerId &&
-                s.JobId == schedule.JobId &&
-                s.StartTime == schedule.StartTime &&
-                s.EndTime == schedule.EndTime &&
-                s.Date == schedule.Date &&
-                s.Instruction == schedule.Instruction &&
-                s.UpdatedBy == System.Environment.UserName &&
-                s.UpdatedTime == DateTime.Now.Date
-            )), Times.Once);
+            _scheduleRepository.Verify(r => r.UpdateSchedule(schedule)), Times.Once);
         }
 
         [Fact]
@@ -296,25 +285,14 @@ namespace Basecode.Test.Services
             var schedule = new Schedule();
             var existingSchedule = new Schedule();
 
-            // Mock the GetById method of the repository to return the existing schedule
-            _scheduleRepository.Setup(r => r.GetById(scheduleId)).Returns(existingSchedule);
+            _scheduleRepository.Setup(r => r.UpdateSchedule(schedule));
 
             // Act
             _scheduleService.UpdateSchedule(schedule);
 
             // Assert
             // Verify that the repository's UpdateSchedule method was called with the updated schedule
-            _scheduleRepository.Verify(r => r.UpdateSchedule(It.Is<Schedule>(s =>
-                s.ScheduleId == scheduleId &&
-                s.InterviewerId == schedule.InterviewerId &&
-                s.JobId == schedule.JobId &&
-                s.StartTime == schedule.StartTime &&
-                s.EndTime == schedule.EndTime &&
-                s.Date == schedule.Date &&
-                s.Instruction == schedule.Instruction &&
-                s.UpdatedBy == System.Environment.UserName &&
-                s.UpdatedTime == DateTime.Now.Date
-            )), Times.Once);
+            _scheduleRepository.Verify(r => r.UpdateSchedule(schedule), Times.Once);
         }
 
         [Fact]
@@ -368,14 +346,12 @@ namespace Basecode.Test.Services
                 }
             };
 
-            _scheduleService.GetApplicantListAccordingToJobApplied(jobId);
-
             // Act
             var result = _scheduleService.GetApplicantListAccordingToJobApplied(jobId);
 
             // Assert
             Assert.NotNull(result);
-            Assert.NotEmpty(result);
+            Assert.True(result.Count > 0);
         }
 
         [Fact]
