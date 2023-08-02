@@ -34,6 +34,7 @@ namespace Basecode.WebApp
             services.AddScoped<IInterviewerRepository, InterviewerRepository>();
             services.AddScoped<IScheduleRepository, ScheduleRepository>();
             services.AddScoped<IAdminRepository, AdminRepository>();
+            services.AddScoped<IApplicantsScheduleRepo, ApplicantsScheduleRepo>();
         }
     }
 }
