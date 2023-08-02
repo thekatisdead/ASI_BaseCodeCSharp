@@ -210,7 +210,7 @@ namespace Basecode.WebApp.Controllers
         [HttpPost]
         public IActionResult GetApplicantListAccordingToSchedule(int schedule)
         {
-            var applicants = _scheduleService.GetApplicantListAccordingToSchedule(schedule);
+            var applicants = _scheduleService.GetApplicantListAccordingToSchedule(schedule);           
             return Json(applicants);
         }
         [HttpPost]
@@ -224,6 +224,31 @@ namespace Basecode.WebApp.Controllers
         {
             var jobs = _scheduleService.GetJobs();
             return Json(jobs);
+        }
+        public void InterviewConfirm(int id)
+        {
+            //if (_scheduleService.HasConfirmed(id) == false)
+            //{
+            //    List<object> applicantList = _scheduleService.GetApplicantListAccordingToSchedule(id);
+            //    var schedule = _scheduleService.GetById(id);
+            //    var interviewer = _interviewerServices.GetById(schedule.InterviewerId);
+            //    var interviewerName = interviewer.LastName + ", " + interviewer.FirstName;
+            //    var job = _jobOpeningService.GetById((int)schedule.JobId).Position;
+            //    foreach (var app in applicantList)
+            //    {
+            //        dynamic applicant = app;
+            //        //var applicantName = applicant.Lastname + ", " + applicant.Firstname;
+            //        var applicantName = applicant.name;
+            //        _logger.Trace($"{app},{applicantName}");
+            //        _emailSender.SendEmailInterviewInstructionsApplicant(applicant.email, applicantName, job, schedule.ExamType, schedule.TeamsLink, schedule.Instruction, DateOnly.Parse(schedule.Date), TimeOnly.Parse(schedule.StartTime), TimeOnly.Parse(schedule.EndTime));
+            //    }
+            //    _emailSender.SendEmailInterviewInstructions(interviewer.Email, interviewerName, job, schedule.ExamType, schedule.TeamsLink, schedule.Instruction, DateOnly.Parse(schedule.Date), TimeOnly.Parse(schedule.StartTime), TimeOnly.Parse(schedule.EndTime));
+            //    // send email to both applicant and interview about the schedule
+            //}
+            //// send email to applicant to confirm
+            var applicantList = _scheduleService.GetApplicantListAccordingToSchedule(id);
+
+           
         }
     }
 }
