@@ -1,9 +1,6 @@
 ﻿@using Basecode.Data.Models
 @model User
 
-@{
-    ViewData["Title"] = "User - Update";
-}
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,14 +9,14 @@
     <link rel="stylesheet" href="~/css/userupdate.css" asp-append-version="true" />
 </head>
 <body>
-    <form asp-action="Update" asp-controller="Admin" method="post">
+    <form asp-action="Update" asp-controller="Admin">
 
         <h2>User Information</h2>
         <hr>
 
         <div class="half-width user-posting">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="Username" />
 
             <div class="form-group">
                 <label for="FirstName" class="label-bold">First Name:</label>
@@ -68,4 +65,5 @@
     <div class="triangle1"></div>
 </body>
 </html>
+
 

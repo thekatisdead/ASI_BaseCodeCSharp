@@ -13,19 +13,28 @@ namespace Basecode.Test.Controllers
         private readonly Mock<ICharacterReferenceService> _mockCharacterReferenceService;
         private readonly Mock<IEmailSenderService> _mockEmailSenderService;
         private readonly Mock<IPublicApplicationFormService> _mockPublicApplicationFormService;
-        private readonly Mock<IUserService> _userService;
         private readonly Mock<IJobOpeningService> _jobOpeningService;
+        private readonly Mock<IUserService> _userService;
+
         public CharacterReferenceControllerTests()
         {
             _mockCharacterReferenceService = new Mock<ICharacterReferenceService>();
             _mockEmailSenderService = new Mock<IEmailSenderService>();
             _mockPublicApplicationFormService = new Mock<IPublicApplicationFormService>();
+            _jobOpeningService = new Mock<IJobOpeningService>();
             _userService = new Mock<IUserService>();
-            _jobOpeningService= new Mock<IJobOpeningService>();
-            _controller = new CharacterReferenceController(_mockCharacterReferenceService.Object, _mockEmailSenderService.Object, _mockPublicApplicationFormService.Object, _jobOpeningService.Object, _userService.Object);
+
+            // Pass the mock objects for all dependencies to the controller constructor
+            _controller = new CharacterReferenceController(
+                _mockCharacterReferenceService.Object,
+                _mockEmailSenderService.Object,
+                _mockPublicApplicationFormService.Object,
+                _jobOpeningService.Object,
+                _userService.Object
+            );
         }
 
-        [Fact]
+            [Fact]
         public void Index_ReturnsView()
         {
             // Act
@@ -79,6 +88,7 @@ namespace Basecode.Test.Controllers
             int trigger = It.IsAny<int>();
             var testData = new CharacterReferenceViewModel();
 
+            // Mock the AddCharacterReference method of the service
             _mockCharacterReferenceService.Setup(s => s.AddCharacterReference(testData));
 
             // Act
@@ -86,7 +96,7 @@ namespace Basecode.Test.Controllers
 
             // Assert
             Assert.NotNull(result);
-            var redirectToActionResult = (RedirectToActionResult)result;
+            var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
             Assert.Equal("Index", redirectToActionResult.ActionName);
         }
 

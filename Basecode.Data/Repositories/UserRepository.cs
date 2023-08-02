@@ -63,19 +63,10 @@ namespace Basecode.Data.Repositories
             return true;
         }
 
-        public bool Update(User user)
+        public void Update(User user)
         {
-            try
-            {
-                SetEntityState(user, EntityState.Modified);
-                UnitOfWork.SaveChanges();
-            }
-            catch
-            {
-                return false;
-            }
-
-            return true;
+            base.GetDbSet<User>().Update(user);
+            UnitOfWork.SaveChanges();
         }
 
         public void Delete(User user)
@@ -154,12 +145,6 @@ namespace Basecode.Data.Repositories
         public IQueryable<User> RetrieveAll()
         {
             return this.GetDbSet<User>();
-        }
-
-        public void UpdateUser(User user)
-        {
-            GetDbSet<User>().Update(user);
-            UnitOfWork.SaveChanges();
         }
     }
 }

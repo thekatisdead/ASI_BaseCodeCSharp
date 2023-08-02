@@ -47,9 +47,23 @@ namespace Basecode.Services.Services
             return _userRepository.Create(user);
         }
 
-        public bool Update(User user)
+        public void Update(User user)
         {
-            return _userRepository.Update(user);
+            var s = _userRepository.FindByUsername(user.Username);
+            if (s != null)
+            {
+                // Update the properties of the retrieved user object with the new values
+                s.FirstName = user.FirstName;
+                s.LastName = user.LastName;
+                s.ContactNumber = user.ContactNumber;
+                s.Email = user.Email;
+                s.Address = user.Address;
+                s.ModifiedBy = System.Environment.UserName;
+                s.ModifiedDate = DateTime.Now;
+
+                // Save the changes to the database
+                _userRepository.Update(s);
+            }
         }
 
         public void Delete(User user)
