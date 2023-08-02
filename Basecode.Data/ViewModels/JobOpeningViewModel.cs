@@ -24,6 +24,8 @@ namespace Basecode.Data.ViewModels
         [Display(Name = "Job Type")]
         public string JobType { get; set; } = string.Empty;
 
+        public string? HREmail { get; set; }
+
         [Required(ErrorMessage = "Salary is required.")]
         [Range(0, 999999.99, ErrorMessage = "Salary must not exceed 999,999.99.")]
         [Display(Name = "Salary")]

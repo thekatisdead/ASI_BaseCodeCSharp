@@ -18,14 +18,15 @@ namespace Basecode.WebApp.Controllers
         IJobOpeningService _jobOpeningService;
         IScheduleService _scheduleService;    
         IUserService _userService;
-        
-        public HrSchedulerController(IInterviewerServices services,IJobOpeningService jobOpeningService,IScheduleService scheduleService,IEmailSenderService emailSender, IUserService userService) 
+        IApplicantListService _applicantListService;
+        public HrSchedulerController(IInterviewerServices services,IJobOpeningService jobOpeningService,IScheduleService scheduleService,IEmailSenderService emailSender, IUserService userService, IApplicantListService applicantListService) 
         { 
             _interviewerServices= services;
             _jobOpeningService= jobOpeningService;
             _scheduleService =  scheduleService;
             _emailSender = emailSender;
             _userService = userService;
+            _applicantListService = applicantListService;
         }
         public IActionResult AddInterviewer()
         {
@@ -99,6 +100,7 @@ namespace Basecode.WebApp.Controllers
         {
             _logger.Trace(schedule.InterviewerId);
             var interviewer = _interviewerServices.GetById(schedule.InterviewerId);
+            var job = _jobOpeningService.GetById(schedule.JobId);
             var date = DateTime.Parse(schedule.Date);
             var time = TimeSpan.Parse(schedule.EndTime);
             var combinedDateTime = date.Add(time);
@@ -108,9 +110,6 @@ namespace Basecode.WebApp.Controllers
             // sends an email for the interviewer after the discussion
             // if you want to cancel an email, we have to like create another table
             // this will be in the suggestions
-
-            BackgroundJob.Schedule(() => _emailSender.SendEmailInterviewDecision(interviewer.Email, interviewerName, "Alliance Software Inc.", schedule.JobId.ToString()),delay);
-            //_emailSender.SendEmailInterviewDecision(interviewer.Email,interviewerName,"Alliance Software Inc.",schedule.JobId.ToString());
             
             // requires the name of the applicant too
             //_emailSender.SendEmailInterviewGeneration(interviewer.Email,interviewer.LastName,"Molly",1,"Bottom",schedule.Date,schedule.);
@@ -120,8 +119,15 @@ namespace Basecode.WebApp.Controllers
             DateTime.TryParseExact(schedule.EndTime, "HH:mm", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out DateTime endTime);
             schedule.StartTime = startTime.ToString("hh:mm tt", System.Globalization.CultureInfo.InvariantCulture);
             schedule.EndTime = endTime.ToString("hh:mm tt", System.Globalization.CultureInfo.InvariantCulture);
-            _scheduleService.Add(schedule);
-            return Json(new { success = true, message = "Form data received successfully." });
+            int schedId= _scheduleService.Add(schedule);
+
+            _emailSender.SendEmailInterviewGeneration(interviewer.Email, interviewerName, "Applicant", 1, job.Position, schedule.ExamType, schedId, DateOnly.Parse(schedule.Date), TimeOnly.Parse(schedule.StartTime), TimeOnly.Parse(schedule.EndTime));
+            // sends an email to the applicant about the thing too :sob:
+            BackgroundJob.Schedule(() => _emailSender.SendEmailInterviewDecision(interviewer.Email, interviewerName, "Alliance Software Inc.", job.Position, schedule.ExamType), delay);
+
+
+            return RedirectToAction("home", "HrScheduler");
+            //return Json(new { success = true, message = "Form data received successfully." });
         }
 
         //Adding schedule to the Scheduletable for the Modal.
@@ -144,12 +150,27 @@ namespace Basecode.WebApp.Controllers
             schedule.ExamType = ExamType;
             schedule.Instruction = Instruction;
             schedule.TeamsLink = TeamsLink;
-            _scheduleService.Add(schedule);
+            
+            int schedId = _scheduleService.Add(schedule);
 
-            int id = _scheduleService.GetMostRecentSchedId();
+            int id = schedId;
+            var interviewer = _interviewerServices.GetById(Int32.Parse(InterviewerId));
+            var job = _jobOpeningService.GetById(Int32.Parse(JobId));
+            var date = DateTime.Parse(Date);
+            var time = TimeSpan.Parse(EndTime);
+            var combinedDateTime = date.Add(time);
+            var delay = combinedDateTime - DateTime.Now;
+            var interviewerName = interviewer.LastName + " " + interviewer.FirstName;
 
-            foreach(var app in applicants)
+            _emailSender.SendEmailInterviewGeneration(interviewer.Email, interviewerName, "Applicant", 1, job.Position, schedule.ExamType, id, DateOnly.Parse(schedule.Date), TimeOnly.Parse(schedule.StartTime), TimeOnly.Parse(schedule.EndTime));
+            // sends an email after the end date and the end time
+            BackgroundJob.Schedule(() => _emailSender.SendEmailInterviewDecision(interviewer.Email, interviewerName, "Alliance Software Inc.", job.Position, schedule.ExamType), delay);
+            
+            foreach (var app in applicants)
             {
+                var applicant = _applicantListService.GetApplicantById(app);
+                var applicantName = applicant.Lastname + ", " + applicant.Firstname;
+                _emailSender.SendEmailInterviewGenerationApplicant(applicant.EmailAddress,applicantName,job.Position,ExamType,id,DateOnly.Parse(Date),TimeOnly.Parse(StartTime),TimeOnly.Parse(EndTime));
                 var appsched = new ApplicantsSchedule();
                 appsched.ApplicantId = app;
                 appsched.ScheduleId = id;
@@ -210,7 +231,7 @@ namespace Basecode.WebApp.Controllers
         [HttpPost]
         public IActionResult GetApplicantListAccordingToSchedule(int schedule)
         {
-            var applicants = _scheduleService.GetApplicantListAccordingToSchedule(schedule);
+            var applicants = _scheduleService.GetApplicantListAccordingToSchedule(schedule);           
             return Json(applicants);
         }
         [HttpPost]
@@ -224,6 +245,28 @@ namespace Basecode.WebApp.Controllers
         {
             var jobs = _scheduleService.GetJobs();
             return Json(jobs);
+        }
+
+        public void InterviewConfirm(int id)
+        {
+            if (_scheduleService.HasConfirmed(id) == false)
+            {
+                var applicantList = _scheduleService.GetApplicantListAccordingToSchedule(id);
+                var schedule = _scheduleService.GetById(id);
+                var interviewer = _interviewerServices.GetById(schedule.InterviewerId);
+                var interviewerName = interviewer.LastName + ", " + interviewer.FirstName;
+                var job = _jobOpeningService.GetById((int)schedule.JobId).Position;
+                foreach (var app in applicantList)
+                {
+                    //var applicantName = applicant.Lastname + ", " + applicant.Firstname;
+                    var applicantName = app.name;
+                    _emailSender.SendEmailInterviewInstructionsApplicant(app.email, applicantName, job, schedule.ExamType, schedule.TeamsLink, schedule.Instruction, DateOnly.Parse(schedule.Date), TimeOnly.Parse(schedule.StartTime), TimeOnly.Parse(schedule.EndTime));
+                }
+                _emailSender.SendEmailInterviewInstructions(interviewer.Email, interviewerName, job, schedule.ExamType, schedule.TeamsLink, schedule.Instruction, DateOnly.Parse(schedule.Date), TimeOnly.Parse(schedule.StartTime), TimeOnly.Parse(schedule.EndTime));
+                // send email to both applicant and interview about the schedule
+            }
+
+
         }
     }
 }

@@ -33,7 +33,7 @@ namespace Basecode.Services.Interfaces
         /// <param name="applicantName"></param>
         /// <param name="companyName"></param>
         /// <param name="jobPosition"></param>
-        void SendEmailInterviewDecision(string receiverEmail, string applicantName, string companyName, string jobPosition);
+        void SendEmailInterviewDecision(string receiverEmail, string applicantName, string companyName, string jobPosition, string typeExam);
         /// <summary>
         /// Sends an Email to remind the Users about an upcoming Interview
         /// </summary>
@@ -101,9 +101,89 @@ namespace Basecode.Services.Interfaces
         /// <param name="referenceName"></param>
         public void SendEmailCharacterReferenceGratitude(string receiverEmail, string applicantName, string jobPosition, string referenceName);
 
+        /// <summary>
+        /// Sends an email whenever an application is generated
+        /// </summary>
+        /// <param name="receiverEmail"></param>
+        /// <param name="applicantName"></param>
+        /// <param name="applicantID"></param>
+        /// <param name="jobPosition"></param>
         public void SendEmailApplicantGeneration(string receiverEmail, string applicantName, int applicantID, string jobPosition);
 
-        public void SendEmailInterviewGeneration(string receiverEmail, string interviewName, string applicantName, int applicantID, string jobPosition, DateOnly date, TimeOnly startTime, TimeOnly endTime);
-        public void SendEmailHireConfirmation(string receiverEmail, string applicantName, int applicantID, string jobPosition);
+        /// <summary>
+        /// Sends an email whenever an interview is generated
+        /// </summary>
+        /// <param name="receiverEmail"></param>
+        /// <param name="interviewName"></param>
+        /// <param name="applicantName"></param>
+        /// <param name="applicantID"></param>
+        /// <param name="jobPosition"></param>
+        /// <param name="typeExam"></param>
+        /// <param name="interviewId"></param>
+        /// <param name="date"></param>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        public void SendEmailInterviewGeneration(string receiverEmail, string interviewName, string applicantName, int applicantID, string jobPosition, string typeExam, int interviewId,DateOnly date, TimeOnly startTime, TimeOnly endTime);
+        /// <summary>
+        /// Sends an email to confirm if the applicant is hired by the HR
+        /// </summary>
+        /// <param name="receiverEmail"></param>
+        /// <param name="applicantName"></param>
+        /// <param name="applicantID"></param>
+        /// <param name="jobPosition"></param>
+        /// <param name="applicantEmail"></param>
+        public void SendEmailHireConfirmation(string receiverEmail, string applicantName, int applicantID, string jobPosition, string applicantEmail);
+        /// <summary>
+        /// Sends an Email when both parties confirm the schedule. This releases the link and instructions.
+        /// </summary>
+        /// <param name="receiverEmail"></param>
+        /// <param name="interviewName"></param>
+        /// <param name="applicantName"></param>
+        /// <param name="jobPosition"></param>
+        /// <param name="examType"></param>
+        /// <param name="teamsLink"></param>
+        /// <param name="instructions"></param>
+        /// <param name="date"></param>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        public void SendEmailInterviewInstructions(string receiverEmail, string interviewName, string jobPosition, string examType,string teamsLink, string instructions, DateOnly date, TimeOnly startTime, TimeOnly endTime);
+        /// <summary>
+        /// Sends an email to the Deployment Team about a new hire
+        /// </summary>
+        /// <param name="applicantName"></param>
+        /// <param name="formID"></param>
+        /// <param name="email"></param>
+        /// <param name="jobPosition"></param>
+        public void SendEmailDTNotification(string applicantName, int formID, string email, string jobPosition);
+        /// <summary>
+        /// Sends an email to the Deployment Team about confirming the applicant before onboarding
+        /// </summary>
+        /// <param name="applicantName"></param>
+        /// <param name="formID"></param>
+        /// <param name="applicantEmail"></param>
+        /// <param name="jobPosition"></param>
+        public void SendEmailDTDecision(string applicantName, int formID, string applicantEmail, string jobPosition);
+        
+        /// <summary>
+        /// Sends an email to the HR about the newly generated Applicant
+        /// </summary>
+        /// <param name="receiverEmail"></param>
+        /// <param name="applicantName"></param>
+        /// <param name="applicantID"></param>
+        /// <param name="jobPosition"></param>
+        public void SendEmailApplicantGenerationHR(string receiverEmail, string applicantName, int applicantID, string jobPosition);
+        /// <summary>
+        /// Sends an Email to the Applicant informing about their interview
+        /// </summary>
+        /// <param name="receiverEmail"></param>
+        /// <param name="applicantName"></param>
+        /// <param name="jobPosition"></param>
+        /// <param name="typeExam"></param>
+        /// <param name="interviewId"></param>
+        /// <param name="date"></param>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        public void SendEmailInterviewGenerationApplicant(string receiverEmail, string applicantName, string jobPosition, string typeExam, int interviewId, DateOnly date, TimeOnly startTime, TimeOnly endTime);
+        public void SendEmailInterviewInstructionsApplicant(string receiverEmail, string applicantName, string jobPosition, string examType, string teamsLink, string instructions, DateOnly date, TimeOnly startTime, TimeOnly endTime);
     }
 }

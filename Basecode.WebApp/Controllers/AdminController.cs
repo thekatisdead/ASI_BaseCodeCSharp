@@ -4,6 +4,8 @@ using NLog;
 using Microsoft.AspNetCore.Identity;
 using Basecode.Data.ViewModels;
 using Basecode.Data.Models;
+//using Microsoft.Graph.Beta.Models;
+
 
 namespace Basecode.WebApp.Controllers
 {
@@ -147,7 +149,7 @@ namespace Basecode.WebApp.Controllers
             }
         }
 
-        public IActionResult Update(string id)
+        public IActionResult UpdateUser(string id)
         {
             try
             {
@@ -180,7 +182,7 @@ namespace Basecode.WebApp.Controllers
             catch (System.Exception ex)
             {
                 _logger.Error(ex, "Error occurred while updating user account.");
-                return RedirectToAction("Update", new { id = user.Id });
+                return RedirectToAction("UpdateUser", new { username = user.Username });
             }
         }
 

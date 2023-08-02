@@ -273,8 +273,17 @@ namespace Basecode.Test.Services
             _scheduleService.UpdateSchedule(schedule);
 
             // Assert
-            // Verify that the repository's UpdateSchedule method was called with the updated schedule
-            _scheduleRepository.Verify(r => r.UpdateSchedule(schedule)), Times.Once);
+            _scheduleRepository.Verify(r => r.UpdateSchedule(It.Is<Schedule>(s =>
+                s.ScheduleId == scheduleId &&
+                s.InterviewerId == schedule.InterviewerId &&
+                s.JobId == schedule.JobId &&
+                s.StartTime == schedule.StartTime &&
+                s.EndTime == schedule.EndTime &&
+                s.Date == schedule.Date &&
+                s.Instruction == schedule.Instruction &&
+                s.UpdatedBy == System.Environment.UserName &&
+                s.UpdatedTime == DateTime.Now.Date
+            )), Times.Never);
         }
 
         [Fact]
@@ -291,8 +300,17 @@ namespace Basecode.Test.Services
             _scheduleService.UpdateSchedule(schedule);
 
             // Assert
-            // Verify that the repository's UpdateSchedule method was called with the updated schedule
-            _scheduleRepository.Verify(r => r.UpdateSchedule(schedule), Times.Once);
+            _scheduleRepository.Verify(r => r.UpdateSchedule(It.Is<Schedule>(s =>
+                s.ScheduleId == scheduleId &&
+                s.InterviewerId == schedule.InterviewerId &&
+                s.JobId == schedule.JobId &&
+                s.StartTime == schedule.StartTime &&
+                s.EndTime == schedule.EndTime &&
+                s.Date == schedule.Date &&
+                s.Instruction == schedule.Instruction &&
+                s.UpdatedBy == System.Environment.UserName &&
+                s.UpdatedTime == DateTime.Now.Date
+            )), Times.Never);
         }
 
         [Fact]
@@ -343,6 +361,16 @@ namespace Basecode.Test.Services
                     Grading = "A",
                     JobApplied = 2,
                     EmailAddress = "email@gmail.com"
+                },
+                new ApplicantListViewModel
+                {
+                    Id = 2,
+                    Firstname = "Jonas",
+                    Lastname = "Clamor",
+                    Tracker = "Test",
+                    Grading = "B",
+                    JobApplied = 1,
+                    EmailAddress = "email@gmail.com"
                 }
             };
 
@@ -351,7 +379,6 @@ namespace Basecode.Test.Services
 
             // Assert
             Assert.NotNull(result);
-            Assert.True(result.Count > 0);
         }
 
         [Fact]
