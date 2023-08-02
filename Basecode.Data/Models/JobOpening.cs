@@ -13,7 +13,7 @@ namespace Basecode.Data.Models
     public class JobOpening
     {
         public int Id { get; set; }
-        public int HR { get; set; }
+        public string? HR { get; set; }
         public string? HREmail { get; set; }
         public string Position { get; set; }
         public string JobType { get; set; }

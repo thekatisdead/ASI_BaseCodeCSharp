@@ -16,15 +16,16 @@ namespace Basecode.Test.Controllers
         private readonly Mock<IScheduleService> _scheduleService;
         private readonly Mock<IEmailSenderService> _emailSenderService;
         private readonly Mock<IUserService> _userService;
-
+        private readonly Mock<IApplicantListService> _applicantListService;
         public HrSchedulerControllerTests()
         {
             _jobOpeningService = new Mock<IJobOpeningService>();
             _interviewerService = new Mock<IInterviewerServices>();
             _scheduleService = new Mock<IScheduleService>();
             _emailSenderService = new Mock<IEmailSenderService>();
+            _applicantListService = new Mock<IApplicantListService>();
             _userService = new Mock<IUserService>();
-            _controller = new HrSchedulerController(_interviewerService.Object, _jobOpeningService.Object, _scheduleService.Object, _emailSenderService.Object, _userService.Object);
+            _controller = new HrSchedulerController(_interviewerService.Object, _jobOpeningService.Object, _scheduleService.Object, _emailSenderService.Object, _userService.Object,_applicantListService.Object);
         }
 
         [Fact]
