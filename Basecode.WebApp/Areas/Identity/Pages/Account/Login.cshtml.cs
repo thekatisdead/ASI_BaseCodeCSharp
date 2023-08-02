@@ -21,11 +21,15 @@ namespace Basecode.WebApp.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public LoginModel(SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger, RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> userManager)
         {
             _signInManager = signInManager;
             _logger = logger;
+            _roleManager = roleManager;
+            _userManager = userManager;
         }
 
         /// <summary>
@@ -102,6 +106,8 @@ namespace Basecode.WebApp.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
             ReturnUrl = returnUrl;
+
+            await CreateAdminIfNotExists();
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
@@ -118,7 +124,23 @@ namespace Basecode.WebApp.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    return LocalRedirect("~/HrHomepage/Index");
+
+                    // Check the logged-in user's role
+                    var user = await _signInManager.UserManager.FindByNameAsync(Input.Username);
+                    var userRoles = await _signInManager.UserManager.GetRolesAsync(user);
+
+                    if (userRoles.Contains("Admin"))
+                    {
+                        return LocalRedirect("~/Admin/Index"); // Redirect to Admin homepage
+                    }
+                    else if (userRoles.Contains("HR"))
+                    {
+                        return LocalRedirect("~/HrHomepage/Index"); // Redirect to HR homepage
+                    }
+                    else
+                    {
+                        return LocalRedirect("~/"); // Redirect to a default page if the user has no specific role
+                    }
                 }
                 if (result.RequiresTwoFactor)
                 {
@@ -138,6 +160,39 @@ namespace Basecode.WebApp.Areas.Identity.Pages.Account
 
             // If we got this far, something failed, redisplay form
             return Page();
+        }
+
+        private async Task CreateAdminIfNotExists()
+        {
+            // Check if the "Admin" and "HR" roles exist, if not, create them
+            if (!await _roleManager.RoleExistsAsync("Admin"))
+            {
+                await _roleManager.CreateAsync(new IdentityRole("Admin"));
+            }
+
+            if (!await _roleManager.RoleExistsAsync("HR"))
+            {
+                await _roleManager.CreateAsync(new IdentityRole("HR"));
+            }
+
+            // Check if there are any users in the AspNetUsers table
+            if (!_userManager.Users.Any())
+            {
+                // Create the Admin user if there are no users
+                var adminUser = new IdentityUser
+                {
+                    UserName = "admin@alliance.com",
+                    Email = "admin@alliance.com"
+                };
+
+                var result = await _userManager.CreateAsync(adminUser, "Admin.123");
+
+                // Assign the Admin user to the "Admin" role if it was successfully created
+                if (result.Succeeded)
+                {
+                    await _userManager.AddToRoleAsync(adminUser, "Admin");
+                }
+            }
         }
     }
 }
