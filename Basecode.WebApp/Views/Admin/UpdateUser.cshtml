@@ -1,6 +1,8 @@
 ﻿@using Basecode.Data.Models
 @model User
-
+@{
+    Layout = "~/Views/Shared/_NoLayout.cshtml";
+}
 <!DOCTYPE html>
 <html>
 <head>
@@ -52,6 +54,7 @@
             </div>
             <div class="button-container">
                 <button type="submit" class="btn">Update User</button>
+                <a asp-action="UserManagement" asp-controller="Admin" class="btn">Cancel</a>
             </div>
         </div>
 
