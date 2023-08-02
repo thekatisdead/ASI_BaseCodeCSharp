@@ -1,8 +1,6 @@
 ﻿using Basecode.Services.Interfaces;
 using Microsoft.Graph;
 using Microsoft.Graph.Auth;
-using Microsoft.Graph.Beta.Models;
-using Microsoft.Graph.Beta.Models.Security;
 using Microsoft.Identity.Client;
 using System;
 using System.Threading.Tasks;

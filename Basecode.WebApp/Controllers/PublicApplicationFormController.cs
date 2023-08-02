@@ -28,7 +28,6 @@ namespace Basecode.WebApp.Controllers
 
         public IActionResult Index(int jobId)
         {
-            ViewBag.JobId = jobId;
             _logger.Trace("PublicApplicationForm Controller Accessed");
             PublicApplicationFormViewModel form = new PublicApplicationFormViewModel();
             ViewBag.JobId = jobId;
