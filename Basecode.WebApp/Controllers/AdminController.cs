@@ -32,16 +32,29 @@ namespace Basecode.WebApp.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Displays the RoleManagement view for managing user roles.
+        /// </summary>
+        /// <returns>The RoleManagement view.</returns>
         public IActionResult RoleManagement()
         {
             return View();
         }
 
+        /// <summary>
+        /// Displays the CreateRole view for creating new roles.
+        /// </summary>
+        /// <returns>The CreateRole view.</returns>
         public IActionResult CreateRole()
         {
             return View("RoleManagement/CreateRole");
         }
 
+        /// <summary>
+        /// Handles the POST request to create a new role in the application.
+        /// </summary>
+        /// <param name="createRoleViewModel">The view model containing information for creating a new role.</param>
+        /// <returns>A redirect to the Admin's index page if the role is created successfully; otherwise, returns the CreateRole view.</returns>
         [HttpPost]
         public async Task<IActionResult> CreateRole(CreateRoleViewModel createRoleViewModel)
         {
@@ -59,6 +72,10 @@ namespace Basecode.WebApp.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Displays the AdminJobListing view to list all job openings managed by the admin.
+        /// </summary>
+        /// <returns>The AdminJobListing view with the list of job openings.</returns>
         public IActionResult AdminJobListing()
         {
             try
@@ -81,6 +98,11 @@ namespace Basecode.WebApp.Controllers
             }
         }
 
+        /// <summary>
+        /// Displays the UpdateJobAdmin view for updating a specific job opening managed by the admin.
+        /// </summary>
+        /// <param name="id">The ID of the job opening to be updated.</param>
+        /// <returns>The UpdateJobAdmin view with the details of the job opening.</returns>
         public IActionResult UpdateJobAdmin(int id)
         {
             _logger.Trace("UpdateJobAdmin action called");
@@ -88,6 +110,11 @@ namespace Basecode.WebApp.Controllers
             return View(data);
         }
 
+        /// <summary>
+        /// Handles the POST request to update a job opening managed by the admin.
+        /// </summary>
+        /// <param name="jobOpening">The updated job opening object.</param>
+        /// <returns>A redirect to the AdminJobListing page if the job opening is updated successfully; otherwise, returns the UpdateJobAdmin view.</returns>
         public IActionResult UpdateAdminJob(JobOpening jobOpening)
         {
             _logger.Info("UpdateAdminJob action called");
@@ -104,6 +131,11 @@ namespace Basecode.WebApp.Controllers
             }
         }
 
+        /// <summary>
+        /// Displays the DeleteJobAdmin view for confirming the deletion of a job opening managed by the admin.
+        /// </summary>
+        /// <param name="id">The ID of the job opening to be deleted.</param>
+        /// <returns>The DeleteJobAdmin view with the details of the job opening.</returns>
         public IActionResult DeleteJobAdmin(int id)
         {
             _logger.Trace("DeleteJobAdmin action called");
@@ -111,6 +143,11 @@ namespace Basecode.WebApp.Controllers
             return View(data);
         }
 
+        /// <summary>
+        /// Handles the POST request to delete a job opening managed by the admin.
+        /// </summary>
+        /// <param name="id">The ID of the job opening to be deleted.</param>
+        /// <returns>A redirect to the AdminJobListing page after successful deletion; otherwise, returns the AdminJobListing view.</returns>
         public IActionResult DeleteAdminJob(int id)
         {
             _logger.Info("DeleteAdminJob action called");
@@ -127,6 +164,10 @@ namespace Basecode.WebApp.Controllers
             }
         }
 
+        /// <summary>
+        /// Displays the UserManagement view to list all users managed by the admin.
+        /// </summary>
+        /// <returns>The UserManagement view with the list of users.</returns>
         public IActionResult UserManagement()
         {
             try
@@ -149,6 +190,11 @@ namespace Basecode.WebApp.Controllers
             }
         }
 
+        /// <summary>
+        /// Displays the UpdateUser view for updating a specific user managed by the admin.
+        /// </summary>
+        /// <param name="id">The ID of the user to be updated.</param>
+        /// <returns>The UpdateUser view with the details of the user.</returns>
         public IActionResult UpdateUser(string id)
         {
             try
@@ -169,6 +215,11 @@ namespace Basecode.WebApp.Controllers
             }
         }
 
+        /// <summary>
+        /// Handles the POST request to update a user managed by the admin.
+        /// </summary>
+        /// <param name="user">The updated user object.</param>
+        /// <returns>A redirect to the UserManagement page if the user account is updated successfully; otherwise, returns the UpdateUser view.</returns>
         [HttpPost]
         public IActionResult Update(User user)
         {
@@ -186,6 +237,11 @@ namespace Basecode.WebApp.Controllers
             }
         }
 
+        // <summary>
+        /// Handles the request to delete a user managed by the admin.
+        /// </summary>
+        /// <param name="id">The ID of the user to be deleted.</param>
+        /// <returns>A redirect to the UserManagement page after successful deletion; otherwise, returns the UserManagement view.</returns>
         public IActionResult Delete(string id)
         {
             _logger.Info("Delete action called");

@@ -49,6 +49,7 @@ namespace Basecode.WebApp.Controllers
             _logger.Trace("ApplicantList Controller Accessed");
             return View(data);
         }
+        
         public void EmailCharacterReferenceHandler(PublicApplicationFormViewModel publicForm, string candidateName, string referenceName, string position,int referenceTrigger)
         {
 
@@ -151,6 +152,11 @@ namespace Basecode.WebApp.Controllers
             return RedirectToAction("Index", "ApplicantList");
         }
 
+        /// <summary>
+        /// Displays the profile view for the selected applicant.
+        /// </summary>
+        /// <param name="applicantId">The ID of the applicant.</param>
+        /// <returns>The ViewProfile view with the applicant's details.</returns>
         public IActionResult ViewProfile(int applicantId)
         {
             var applicant = _applicantList.GetById(applicantId);
@@ -161,6 +167,12 @@ namespace Basecode.WebApp.Controllers
             ViewBag.ID = applicantId;
             return View(publicForm);
         }
+
+        /// <summary>
+        /// Downloads the CV (Curriculum Vitae) of the applicant as a PDF file.
+        /// </summary>
+        /// <param name="cv">The byte array representing the CV data.</param>
+        /// <returns>The downloaded PDF file.</returns>
         public IActionResult DownloadCV(byte[] cv)
         {
             byte[] cvBytes = cv;
@@ -220,24 +232,47 @@ namespace Basecode.WebApp.Controllers
 
             return RedirectToAction("Index");
         }
+
+        /// <summary>
+        /// Accepts an applicant by updating their status to "For HR Interview".
+        /// </summary>
+        /// <param name="applicantID">The ID of the applicant to accept.</param>
+        /// <returns>An IActionResult representing the updated status.</returns>
         public IActionResult Accept(int applicantID)
         {
             return this.UpdateStatus(applicantID, "For HR Interview");
            // _service.ProceedTo(applicantID, "For HR Interview");
         }
 
+        /// <summary>
+        /// Accepts an applicant after they have passed the HR interview by updating their grade to "Passed".
+        /// </summary>
+        /// <param name="applicantID">The ID of the applicant who passed the HR interview.</param>
+        /// <returns>An IActionResult representing the updated grade.</returns>
         public IActionResult AcceptInterview(int applicantID)
         {
             _service.UpdateGrade(applicantID, "Passed");
             // _service.ProceedTo(applicantID, "For HR Interview");
             return RedirectToAction("Index");
         }
+
+        /// <summary>
+        /// Confirms the acceptance of an applicant after they have been selected by updating their grade to "Confirmed".
+        /// </summary>
+        /// <param name="applicantID">The ID of the applicant to be confirmed.</param>
+        /// <returns>An IActionResult representing the updated grade.</returns>
         public IActionResult Confirm(int applicantID)
         {
             
             _service.UpdateGrade(applicantID,"Confirmed");
             return RedirectToAction("Index");
         }
+
+        /// <summary>
+        /// Updates the status of an applicant to "Hired" and sends a confirmation email to HR for further processing.
+        /// </summary>
+        /// <param name="FormID">The ID of the form associated with the applicant.</param>
+        /// <returns>An IActionResult representing the updated status.</returns>
         public IActionResult Hired(int FormID)
         {
             // not yet finished
@@ -251,7 +286,5 @@ namespace Basecode.WebApp.Controllers
             return this.UpdateStatus(_applicantId, "Hired");
 
         }
-
-
     }
 }

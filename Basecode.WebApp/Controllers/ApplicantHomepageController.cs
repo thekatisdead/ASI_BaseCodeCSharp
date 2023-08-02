@@ -17,6 +17,11 @@ namespace Basecode.WebApp.Controllers
             _jobOpeningService = jobOpeningService;
             _applicantListService = applicantListService;
         }
+
+        /// <summary>
+        /// Displays the applicant's homepage.
+        /// </summary>
+        /// <returns>The Index view with the applicant's details.</returns>
         public IActionResult Index()
         {
             //the id variable is used to get an applicant from the Applicant table
@@ -30,6 +35,11 @@ namespace Basecode.WebApp.Controllers
             _logger.Trace(" ApplicantHomepage Controller Accessed");
             return View(applicant);
         }
+
+        /// <summary>
+        /// Displays the list of job openings available.
+        /// </summary>
+        /// <returns>The JobListing view with the list of job openings.</returns>
         public IActionResult JobListing()
         {
             try
