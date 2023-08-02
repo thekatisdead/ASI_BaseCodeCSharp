@@ -73,10 +73,10 @@ namespace Basecode.Services.Services
             return _mapper.Map<PublicApplicationFormViewModel>(data);
         }
 
-        public void Responded(int id)
+        public void Responded(int id, int trigger)
         {
             var Id = _applicantListRepository.GetById(id).FormId;
-            _repository.Responded((int)Id);
+            _repository.Responded((int)Id, trigger);
         }
 
         public int CountResponded(int id)

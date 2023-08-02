@@ -16,7 +16,7 @@ namespace Basecode.Data.Interfaces
         void AddForm(PublicApplicationForm applicationForm);
         public PublicApplicationForm GetById(int id);
         public PublicApplicationForm GetByApplicationId(int id);
-        public void Responded(int id);
+        public void Responded(int id, int trigger);
         public int CountResponded(int id);
     }
 }

@@ -53,6 +53,7 @@ namespace Basecode.Services.Services
 
                 var data = from app in applicants
                            join job in jobs on app.JobApplied equals job.Id
+                           where app.Grading != "Rejected"
                            select new ApplicantListViewModel
                            {
                                Id = app.Id,
@@ -132,6 +133,23 @@ namespace Basecode.Services.Services
 
                 // Log successful grade update
                 _logger.Info($"Grade updated successfully for applicantID: {applicantID}, new grade: {grade}");
+            }
+            catch (Exception ex)
+            {
+                // Log the exception if any occurs during the grade update process
+                _logger.Error(ex, $"Error occurred while updating grade for applicantID: {applicantID}, new grade: {grade}");
+                throw;
+            }
+        }
+
+        public void UpdateConfirmed(int applicantID, string grade)
+        {
+            try
+            {
+                _repository.UpdateConfirmed(applicantID,grade);
+
+                // Log successful grade update
+                _logger.Info($"Grade updated successfully for applicantID: {applicantID}, new confirmation: {grade}");
             }
             catch (Exception ex)
             {

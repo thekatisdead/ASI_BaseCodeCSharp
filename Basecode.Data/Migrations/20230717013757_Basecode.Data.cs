@@ -21,6 +21,7 @@ namespace Basecode.Data.Migrations
                     Lastname = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FormID = table.Column<int>(type: "int", nullable: false),
                     EmailAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Requirements = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     JobApplied = table.Column<int>(type: "int", nullable: false),
                     Tracker = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Grading = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -149,7 +150,8 @@ namespace Basecode.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    HR = table.Column<int>(type: "int", nullable: false),
+                    HR = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HREmail = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Position = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     JobType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Salary = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
@@ -260,6 +262,7 @@ namespace Basecode.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     InterviewerId = table.Column<int>(type: "int", nullable: false),
                     JobId = table.Column<int>(type: "int", nullable: false),
+                    Confirmed = table.Column<int>(type: "int", nullable: true),
                     StartTime = table.Column<string>(type: "nvarchar(10)", nullable: false),
                     EndTime = table.Column<string>(type: "nvarchar(10)", nullable: false),
                     Date = table.Column<string>(type: "nvarchar(10)", nullable: false),

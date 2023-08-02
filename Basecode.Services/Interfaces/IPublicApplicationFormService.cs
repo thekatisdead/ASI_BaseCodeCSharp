@@ -20,7 +20,7 @@ namespace Basecode.Services.Interfaces
         /// <param name="jobId"></param>
         /// <returns>An object reference containg the Applicant's Public Application details</returns>
         public ApplicantDetails GetApplicationFormById(int applicantId, int jobId);
-        public void Responded(int id);
+        public void Responded(int id, int trigger);
         public int CountResponded(int id);
     }
 }

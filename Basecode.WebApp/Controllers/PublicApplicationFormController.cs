@@ -17,10 +17,11 @@ namespace Basecode.WebApp.Controllers
         private readonly IApplicantListService _applicantListService;
         private readonly IJobOpeningService _jobOpeningService;
 
-        public PublicApplicationFormController(IPublicApplicationFormService service, IEmailSenderService email, IApplicantListService applicantListService, IJobOpeningService jobOpeningService)
+        public PublicApplicationFormController(IPublicApplicationFormService service, IEmailSenderService email, IApplicantListService applicantListService, IJobOpeningService jobOpeningService, IApplicantListRepository applicant)
         {
             _service = service;
             _email = email;
+            _applicant = applicant;
             _applicantListService = applicantListService;
             _jobOpeningService = jobOpeningService;
         }
@@ -41,14 +42,10 @@ namespace Basecode.WebApp.Controllers
             {
                 int value = 0;
                 // Call the service method to create the form
-                while(true){
-                    Random randNum = new Random();
-                    value = randNum.Next(10000, 99999);
-                    if ( _applicant.GetByFormId(value) == null)
-                    {
-                        break;
-                    }
-                }
+                
+                Random randNum = new Random();
+                value = randNum.Next(10000, 99999);
+                
                 
                 var newApplicant = new Applicant
                 {
@@ -65,11 +62,15 @@ namespace Basecode.WebApp.Controllers
                 viewModel.ApplicationID = value;
 
                 var fullName = viewModel.LastName + ", " + viewModel.FirstName;
+                var job = _jobOpeningService.GetById(jobId);
+
                 _applicant.Add(newApplicant);
                 _service.AddForm(viewModel);
-                _email.SendEmailApplicantGeneration(viewModel.EmailAddress,fullName,value,viewModel.Position.ToString());
-
-                // add email here
+                // for applicant
+                _email.SendEmailApplicantGeneration(viewModel.EmailAddress,fullName,value,job.Position);
+                
+                // for HR
+                _email.SendEmailApplicantGenerationHR(job.HREmail, fullName, value, job.Position);
 
                 _logger.Info("Form added successfully.");
 

@@ -26,10 +26,11 @@ namespace Basecode.WebApp.Controllers
             _userService = userService;
         }
 
-        public IActionResult Index(int applicantID)
+        public IActionResult Index(int applicantID, int trigger)
         {
             _logger.Trace("CharacterReference Controller Accessed");
             ViewData["ApplicantID"] = applicantID;
+            ViewData["Trigger"] = trigger;
             return View();
         }
 
@@ -40,16 +41,13 @@ namespace Basecode.WebApp.Controllers
         /// <returns>A redirect to the index action.</returns>
         public IActionResult Add(CharacterReferenceViewModel viewModel, int applicantID, int trigger)
         {
-            _applicationForm.Responded(applicantID);
+            _applicationForm.Responded(applicantID, trigger);
             // problem is that registration no user and thing
             var _applicant = _applicantRepository.GetApplicantById(applicantID);
             var _hrEmail = _userService.FindById(_applicant.JobApplied.ToString()).Email;
             try
             {
-                _logger.Trace("flag 0 passed");
-                //var _numberAnswered = _applicationForm.CountResponded(viewModel.Id);
                 var _numberAnswered = _applicationForm.CountResponded(applicantID); // temp variable because CountResponded is wrong apparently
-                _logger.Trace("flag 1 passed");
                 // sends an email to the HR
                 if ( _numberAnswered < 3 ) 
                 {
