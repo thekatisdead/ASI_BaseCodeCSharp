@@ -25,6 +25,7 @@ namespace Basecode.Data.Migrations
                     JobApplied = table.Column<int>(type: "int", nullable: false),
                     Tracker = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Grading = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Confirmed = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
