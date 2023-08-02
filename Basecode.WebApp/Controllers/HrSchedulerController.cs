@@ -249,7 +249,7 @@ namespace Basecode.WebApp.Controllers
 
         public void InterviewConfirm(int id)
         {
-            if(_scheduleService.HasConfirmed(id) == false)
+            if (_scheduleService.HasConfirmed(id) == false)
             {
                 var applicantList = _scheduleService.GetApplicantListAccordingToSchedule(id);
                 var schedule = _scheduleService.GetById(id);
@@ -258,17 +258,15 @@ namespace Basecode.WebApp.Controllers
                 var job = _jobOpeningService.GetById((int)schedule.JobId).Position;
                 foreach (var app in applicantList)
                 {
-                    dynamic applicant = app;
                     //var applicantName = applicant.Lastname + ", " + applicant.Firstname;
-                    var applicantName = applicant.name;
-                    _logger.Trace($"{app},{applicantName}");
-                    _emailSender.SendEmailInterviewInstructionsApplicant(applicant.email, applicantName, job, schedule.ExamType, schedule.TeamsLink, schedule.Instruction, DateOnly.Parse(schedule.Date), TimeOnly.Parse(schedule.StartTime), TimeOnly.Parse(schedule.EndTime));
+                    var applicantName = app.name;
+                    _emailSender.SendEmailInterviewInstructionsApplicant(app.email, applicantName, job, schedule.ExamType, schedule.TeamsLink, schedule.Instruction, DateOnly.Parse(schedule.Date), TimeOnly.Parse(schedule.StartTime), TimeOnly.Parse(schedule.EndTime));
                 }
-                _emailSender.SendEmailInterviewInstructions(interviewer.Email,interviewerName, job,schedule.ExamType,schedule.TeamsLink,schedule.Instruction,DateOnly.Parse(schedule.Date),TimeOnly.Parse(schedule.StartTime),TimeOnly.Parse(schedule.EndTime));
+                _emailSender.SendEmailInterviewInstructions(interviewer.Email, interviewerName, job, schedule.ExamType, schedule.TeamsLink, schedule.Instruction, DateOnly.Parse(schedule.Date), TimeOnly.Parse(schedule.StartTime), TimeOnly.Parse(schedule.EndTime));
                 // send email to both applicant and interview about the schedule
             }
 
-            
 
+        }
     }
 }

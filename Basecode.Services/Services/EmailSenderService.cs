@@ -603,6 +603,7 @@ namespace Basecode.Services.Services
             htmlContent = htmlContent.Replace("{teamsLink}", teamsLink);
 
             htmlContent = htmlContent.Replace("{jobPosition}", jobPosition);
+            htmlContent = htmlContent.Replace("{jobPosition}", jobPosition);
 
             htmlContent = htmlContent.Replace("{date}", date.ToString("yyyy-MM-dd"));
             htmlContent = htmlContent.Replace("{startTime}", startTime.ToString("HH:mm"));
@@ -639,12 +640,12 @@ namespace Basecode.Services.Services
 
             email.Subject = $"{examType} Instructions";
 
-            var htmlContent = File.ReadAllText("EmailTemplates/InterviewInstructions.html");
+            var htmlContent = File.ReadAllText("EmailTemplates/InterviewInstructionsApplicant.html");
 
             // this is to replace the placeholders
             htmlContent = htmlContent.Replace("{applicantName}", applicantName);
 
-            htmlContent = htmlContent.Replace("{examType}", examType);
+            htmlContent = htmlContent.Replace("{typeExam}", examType);
             htmlContent = htmlContent.Replace("{instructions}", instructions);
             htmlContent = htmlContent.Replace("{teamsLink}", teamsLink);
 
