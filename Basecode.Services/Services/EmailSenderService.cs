@@ -39,6 +39,7 @@ namespace Basecode.Services.Services
             htmlContent = htmlContent.Replace("{applicantName}", applicantName);
             htmlContent = htmlContent.Replace("{companyName}", companyName);
             htmlContent = htmlContent.Replace("{jobPosition}", jobPosition);
+            htmlContent = htmlContent.Replace("{webURL}", _webURL);
 
             email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
             {
@@ -75,6 +76,7 @@ namespace Basecode.Services.Services
             // this is to replace the placeholders
             htmlContent = htmlContent.Replace("{applicantName}", applicantName);
             htmlContent = htmlContent.Replace("{jobPosition}", jobPosition);
+            htmlContent = htmlContent.Replace("{webURL}", _webURL);
 
 
             email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
@@ -114,6 +116,7 @@ namespace Basecode.Services.Services
             // this is to replace the placeholders
             htmlContent = htmlContent.Replace("{applicantName}", applicantName);
             htmlContent = htmlContent.Replace("{jobPosition}", jobPosition);
+            htmlContent = htmlContent.Replace("{webURL}", _webURL);
 
 
             email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
@@ -154,6 +157,7 @@ namespace Basecode.Services.Services
             htmlContent = htmlContent.Replace("{applicantName}", applicantName);
             htmlContent = htmlContent.Replace("{companyName}", companyName);
             htmlContent = htmlContent.Replace("{jobPosition}", jobPosition);
+            htmlContent = htmlContent.Replace("{webURL}", _webURL);
 
 
             email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
@@ -195,6 +199,7 @@ namespace Basecode.Services.Services
             htmlContent = htmlContent.Replace("{applicantID}", applicantID.ToString());
             htmlContent = htmlContent.Replace("{jobPosition}", jobPosition);
             htmlContent = htmlContent.Replace("{applicantEmail}", applicantEmail);
+            htmlContent = htmlContent.Replace("{webURL}", _webURL);
 
 
             email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
@@ -234,6 +239,7 @@ namespace Basecode.Services.Services
             htmlContent = htmlContent.Replace("{applicantName}", applicantName);
             htmlContent = htmlContent.Replace("{applicantID}", applicantID.ToString());
             htmlContent = htmlContent.Replace("{jobPosition}", jobPosition);
+            htmlContent = htmlContent.Replace("{webURL}", _webURL);
 
 
             email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
@@ -274,6 +280,7 @@ namespace Basecode.Services.Services
             htmlContent = htmlContent.Replace("{referenceName}", referenceName);
             htmlContent = htmlContent.Replace("{applicantID}", applicantID.ToString());
             htmlContent = htmlContent.Replace("{trigger}", trigger.ToString());
+            htmlContent = htmlContent.Replace("{webURL}", _webURL);
 
 
             email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
@@ -314,6 +321,7 @@ namespace Basecode.Services.Services
             htmlContent = htmlContent.Replace("{applicantName}", applicantName);
             htmlContent = htmlContent.Replace("{referenceName}", referenceName);
             htmlContent = htmlContent.Replace("{jobPosition}", jobPosition);
+            htmlContent = htmlContent.Replace("{webURL}", _webURL);
 
 
             email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
@@ -363,6 +371,7 @@ namespace Basecode.Services.Services
             htmlContent = htmlContent.Replace("{companyName}", companyName);
             htmlContent = htmlContent.Replace("{interviewDate}", date.ToString());
             htmlContent = htmlContent.Replace("{jobPosition}", jobPosition);
+            htmlContent = htmlContent.Replace("{webURL}", _webURL);
 
             email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
             {
@@ -403,6 +412,7 @@ namespace Basecode.Services.Services
             htmlContent = htmlContent.Replace("{formID}", formID.ToString());
             htmlContent = htmlContent.Replace("{applicantEmail}", applicantEmail);
             htmlContent = htmlContent.Replace("{jobPosition}", jobPosition);
+            htmlContent = htmlContent.Replace("{webURL}", _webURL);
 
             email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
             {
@@ -443,6 +453,7 @@ namespace Basecode.Services.Services
             htmlContent = htmlContent.Replace("{formID}", formID.ToString());
             htmlContent = htmlContent.Replace("{applicantEmail}", applicantEmail);
             htmlContent = htmlContent.Replace("{jobPosition}", jobPosition);
+            htmlContent = htmlContent.Replace("{webURL}", _webURL);
 
             email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
             {
@@ -483,6 +494,7 @@ namespace Basecode.Services.Services
             htmlContent = htmlContent.Replace("{applicantName}", applicantName);
             htmlContent = htmlContent.Replace("{referenceName}", referenceName);
             htmlContent = htmlContent.Replace("{jobPosition}", button);
+            htmlContent = htmlContent.Replace("{webURL}", _webURL);
 
             email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
             {
@@ -522,6 +534,7 @@ namespace Basecode.Services.Services
             htmlContent = htmlContent.Replace("{applicantName}", applicantName);
             htmlContent = htmlContent.Replace("{applicantID}", applicantID.ToString());
             htmlContent = htmlContent.Replace("{jobPosition}", jobPosition);
+            htmlContent = htmlContent.Replace("{webURL}", _webURL);
 
             email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
             {
@@ -561,6 +574,7 @@ namespace Basecode.Services.Services
             htmlContent = htmlContent.Replace("{applicantName}", applicantName);
             htmlContent = htmlContent.Replace("{applicantID}", applicantID.ToString());
             htmlContent = htmlContent.Replace("{jobPosition}", jobPosition);
+            htmlContent = htmlContent.Replace("{webURL}", _webURL);
 
             email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
             {
@@ -610,6 +624,8 @@ namespace Basecode.Services.Services
             htmlContent = htmlContent.Replace("{startTime}", startTime.ToString("HH:mm"));
             htmlContent = htmlContent.Replace("{endTime}", endTime.ToString("HH:mm"));
 
+            htmlContent = htmlContent.Replace("{webURL}", _webURL);
+
             email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
             {
                 Text = htmlContent
@@ -657,6 +673,8 @@ namespace Basecode.Services.Services
             htmlContent = htmlContent.Replace("{startTime}", startTime.ToString("HH:mm"));
             htmlContent = htmlContent.Replace("{endTime}", endTime.ToString("HH:mm"));
 
+            htmlContent = htmlContent.Replace("{webURL}", _webURL);
+
             email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
             {
                 Text = htmlContent
@@ -702,11 +720,7 @@ namespace Basecode.Services.Services
             htmlContent = htmlContent.Replace("{date}", date.ToString("yyyy-MM-dd"));
             htmlContent = htmlContent.Replace("{startTime}", startTime.ToString("HH:mm"));
             htmlContent = htmlContent.Replace("{endTime}", endTime.ToString("HH:mm"));
-
-            //var button = $" <input type = 'datetime-local' min = '{startTime.ToString(""yyyy-MM-dd"")}' max = '{endTime.ToString(""yyyy-MM-dd"")}'>";
-            //htmlContent = htmlContent.Replace("{button}",button);
-            //htmlContent = htmlContent.Replace("{startTime}","2023-07-28");
-            //htmlContent = htmlContent.Replace("{endTime}", "2023-07-29");
+            htmlContent = htmlContent.Replace("{webURL}", _webURL);
 
 
             email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
@@ -753,6 +767,8 @@ namespace Basecode.Services.Services
             htmlContent = htmlContent.Replace("{startTime}", startTime.ToString("HH:mm"));
             htmlContent = htmlContent.Replace("{endTime}", endTime.ToString("HH:mm"));
 
+            htmlContent = htmlContent.Replace("{webURL}", _webURL);
+
             //var button = $" <input type = 'datetime-local' min = '{startTime.ToString(""yyyy-MM-dd"")}' max = '{endTime.ToString(""yyyy-MM-dd"")}'>";
             //htmlContent = htmlContent.Replace("{button}",button);
             //htmlContent = htmlContent.Replace("{startTime}","2023-07-28");
@@ -796,9 +812,10 @@ namespace Basecode.Services.Services
 
             // this is to replace the placeholders
             htmlContent = htmlContent.Replace("{applicantName}", applicantName);
-            //htmlContent = htmlContent.Replace("{companyName}", companyName);
             htmlContent = htmlContent.Replace("{jobPosition}", jobPosition);
             htmlContent = htmlContent.Replace("{applicantId}", applicantId.ToString());
+
+            htmlContent = htmlContent.Replace("{webURL}", _webURL);
 
 
             email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
@@ -837,7 +854,9 @@ namespace Basecode.Services.Services
             // this is to replace the placeholders
             htmlContent = htmlContent.Replace("{applicantName}", applicantName);
             htmlContent = htmlContent.Replace("{previousStatus}", previousStatus);
-            htmlContent = htmlContent.Replace("{newStatus}", newStatus); 
+            htmlContent = htmlContent.Replace("{newStatus}", newStatus);
+
+            htmlContent = htmlContent.Replace("{webURL}", _webURL);
 
 
             email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
@@ -880,6 +899,8 @@ namespace Basecode.Services.Services
             htmlContent = htmlContent.Replace("{referenceName}", referenceName);
             htmlContent = htmlContent.Replace("{answeredNumerator}", answeredNumerator.ToString());
             htmlContent = htmlContent.Replace("{answeredDenominator}", answeredDenominator.ToString());
+
+            htmlContent = htmlContent.Replace("{webURL}", _webURL);
 
 
             email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
