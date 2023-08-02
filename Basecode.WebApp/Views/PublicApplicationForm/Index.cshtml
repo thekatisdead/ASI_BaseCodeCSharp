@@ -21,10 +21,15 @@
                 <input type="hidden" asp-for="Id" value="@Model.ApplicantId" />
                 <input type="hidden" asp-for="ApplicantId" value="@applicantId"/>
                 <input type="hidden" asp-for="Position" value="@Model.Position"/>
+
+                <input type="hidden" asp-for="FirstName" value="temporary"/>
+                <input type="hidden" asp-for="LastName" value="temporary"/>
+                <input type="hidden" asp-for="EmailAddress" value="kermherbieto52@gmail.com" />
                 
                     <label class="text-public">Public Job Application Form</label>
                         <h5 class="text-personal">Personal Information</h5>
                     <div class="line"></div>
+
                     <div class="form-group-number">
                         <label asp-for="PhoneNumber" class="control-label-number">Phone Number</label>
                         <input asp-for="PhoneNumber" class="form-control-number" placeholder="(000) 000-0000" />
@@ -129,14 +134,14 @@
                 </div>
                 <h5 class="text-cv">Curriculum Vitae</h5>
                 <div class="straightlinethree"></div>
-                <div class="form-group-cv">
+                @*<div class="form-group-cv">
                     <label asp-for="CurriculumVitae" class="control-label-cv">Please upload your CV here.</label>
                     <div class="cv-drop-zone">
                         <input asp-for="CurriculumVitae" type="file" class="form-control-cv" />
                         <span asp-validation-for="CurriculumVitae" class="text-danger-cv"></span>
                     </div>
                     <span class="field-error"></span>
-                </div>
+                </div>*@
                 <div class="form-group-next">
                     <button type="submit" class="btn-primary">Submit</button>
                 </div>

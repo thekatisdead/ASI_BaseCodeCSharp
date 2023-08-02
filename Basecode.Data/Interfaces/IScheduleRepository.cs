@@ -9,16 +9,7 @@ namespace Basecode.Data.Interfaces
 {
     public interface IScheduleRepository
     {
-        /// <summary>
-        /// Adds a new Schedule to the database.
-        /// </summary>
-        /// <param name="schedule">The Schedule object representing the schedule to be added.</param>
-        public void Add(Schedule schedule);
-
-        /// <summary>
-        /// Retrieves all Schedules from the database.
-        /// </summary>
-        /// <returns>An IQueryable collection of Schedule entities representing all schedules in the database.</returns>
+        public int Add(Schedule schedule);
         public IQueryable<Schedule> GetAll();
 
         /// <summary>

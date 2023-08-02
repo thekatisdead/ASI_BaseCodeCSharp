@@ -33,5 +33,6 @@ namespace Basecode.Services.Interfaces
         /// </summary>
         /// <returns>a specific Applicant</returns>
         public Applicant GetApplicantById(int id);
+        public void UpdateConfirmed(int applicantID, string grade);
     }
 }

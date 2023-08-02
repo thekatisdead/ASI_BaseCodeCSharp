@@ -18,8 +18,11 @@ namespace Basecode.Data.ViewModels
         [Required(ErrorMessage = "Select a Job Opening")]
         public int? JobId { get; set; }
         [Required(ErrorMessage = "Start time is required.")]
-        [DataType(DataType.Time,ErrorMessage ="Invalid Time")]
+        [DataType(DataType.Time, ErrorMessage = "Invalid Time")]
         [Display(Name = "Time")]
+
+        public int? Confirmed { get; set; }
+
         public string StartTime { get; set; }
         [Required(ErrorMessage = "End time is required.")]
         [DataType(DataType.Time, ErrorMessage = "Invalid Time")]

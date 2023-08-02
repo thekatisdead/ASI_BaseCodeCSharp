@@ -28,18 +28,7 @@ namespace Basecode.Data.Interfaces
         /// <param name="id">The ApplicationID of the PublicApplicationForm to retrieve.</param>
         /// <returns>The PublicApplicationForm entity with the specified ApplicationID if found; otherwise, returns null.</returns>
         public PublicApplicationForm GetByApplicationId(int id);
-
-        /// <summary>
-        /// Increments the 'AnsweredOne' count for the PublicApplicationForm with the specified ApplicationID.
-        /// </summary>
-        /// <param name="id">The ApplicationID of the PublicApplicationForm to update.</param>
-        public void Responded(int id);
-
-        /// <summary>
-        /// Counts the number of responses for the PublicApplicationForm with the specified ApplicationID.
-        /// </summary>
-        /// <param name="id">The ApplicationID of the PublicApplicationForm to count responses for.</param>
-        /// <returns>The total number of responses for the specified PublicApplicationForm.</returns>
+        public void Responded(int id, int trigger);
         public int CountResponded(int id);
     }
 }

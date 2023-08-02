@@ -65,5 +65,7 @@ namespace Basecode.Data.Interfaces
         /// otherwise, returns a default ApplicantListViewModel with N/A values.
         /// </returns>
         ApplicantListViewModel GetMostRecentApplicantForRequirements();
+
+        public void UpdateConfirmed(int applicantId, string status);
     }
 }
