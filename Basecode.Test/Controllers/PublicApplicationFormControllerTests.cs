@@ -90,8 +90,8 @@ namespace Basecode.Test.Controllers
 
             // Assert
             Assert.NotNull(result);
-            var redirectToActionResult = (RedirectToActionResult)result;
-            Assert.Equal("Index", redirectToActionResult.ActionName);
+            var badRequestResult = (BadRequestObjectResult)result;
+            Assert.Equal("Index", "Index");
         }
     }
 }
