@@ -1,4 +1,5 @@
-﻿using Basecode.Data.ViewModels;
+﻿using Basecode.Data.Interfaces;
+using Basecode.Data.ViewModels;
 using Basecode.Services.Interfaces;
 using Basecode.WebApp.Controllers;
 using Microsoft.AspNetCore.Mvc;
@@ -13,13 +14,15 @@ namespace Basecode.Test.Controllers
         private readonly Mock<IEmailSenderService> _mockEmailSenderService;
         private readonly Mock<IJobOpeningService> _mockJobOpeningService;
         private readonly Mock<IApplicantListService> _mockApplicantListService;
+        private readonly IApplicantListRepository _applicant;
+
         public PublicApplicationFormControllerTests()
         {
             _mockPublicApplicationFormService = new Mock<IPublicApplicationFormService>();
             _mockEmailSenderService = new Mock<IEmailSenderService>();
             _mockApplicantListService= new Mock<IApplicantListService>();
             _mockJobOpeningService= new Mock<IJobOpeningService>();
-            _controller = new PublicApplicationFormController(_mockPublicApplicationFormService.Object, _mockEmailSenderService.Object,_mockApplicantListService.Object,_mockJobOpeningService.Object);
+            _controller = new PublicApplicationFormController(_mockPublicApplicationFormService.Object, _mockEmailSenderService.Object,_mockApplicantListService.Object,_mockJobOpeningService.Object, _applicant);
         }
 
         [Fact]
