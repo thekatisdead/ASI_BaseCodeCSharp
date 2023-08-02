@@ -579,7 +579,53 @@ namespace Basecode.Services.Services
             }
         }
 
-        public void SendEmailInterviewInstructions(string receiverEmail, string interviewName, string applicantName, string jobPosition, string examType,string teamsLink, string instructions, DateOnly date, TimeOnly startTime, TimeOnly endTime)
+        public void SendEmailInterviewInstructions(string receiverEmail, string interviewName, string jobPosition, string examType,string teamsLink, string instructions, DateOnly date, TimeOnly startTime, TimeOnly endTime)
+        {
+            var email = new MimeMessage();
+
+            // If you wanna test for email functionalities, change the Sender Name to your email
+            // and the receiver name to your other email.
+            // To perform it properly, follow the link below
+            // https://mailtrap.io/blog/csharp-send-email-gmail/
+
+            email.From.Add(new MailboxAddress("HR Automated Tracking", _senderEmail));
+            email.To.Add(new MailboxAddress(interviewName, receiverEmail));
+
+            email.Subject = $"{examType} Instructions";
+
+            var htmlContent = File.ReadAllText("EmailTemplates/InterviewInstructions.html");
+
+            // this is to replace the placeholders
+            htmlContent = htmlContent.Replace("{interviewName}", interviewName);
+
+            htmlContent = htmlContent.Replace("{typeExam}", examType);
+            htmlContent = htmlContent.Replace("{instructions}", instructions);
+            htmlContent = htmlContent.Replace("{teamsLink}", teamsLink);
+
+            htmlContent = htmlContent.Replace("{jobPosition}", jobPosition);
+
+            htmlContent = htmlContent.Replace("{date}", date.ToString("yyyy-MM-dd"));
+            htmlContent = htmlContent.Replace("{startTime}", startTime.ToString("HH:mm"));
+            htmlContent = htmlContent.Replace("{endTime}", endTime.ToString("HH:mm"));
+
+            email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
+            {
+                Text = htmlContent
+            };
+
+            using (var smtp = new SmtpClient())
+            {
+                smtp.Connect("smtp.gmail.com", 587, false);
+
+                // Note: only needed if the SMTP server requires authentication
+                // Also: This is PM's email kek, rip bozo ig.
+                smtp.Authenticate("kermherbieto52@gmail.com", "sfltmfkdvdiuhabi");
+
+                smtp.Send(email);
+                smtp.Disconnect(true);
+            }
+        }
+        public void SendEmailInterviewInstructionsApplicant(string receiverEmail,  string applicantName, string jobPosition, string examType, string teamsLink, string instructions, DateOnly date, TimeOnly startTime, TimeOnly endTime)
         {
             var email = new MimeMessage();
 
@@ -596,7 +642,6 @@ namespace Basecode.Services.Services
             var htmlContent = File.ReadAllText("EmailTemplates/InterviewInstructions.html");
 
             // this is to replace the placeholders
-            htmlContent = htmlContent.Replace("{interviewName}", interviewName);
             htmlContent = htmlContent.Replace("{applicantName}", applicantName);
 
             htmlContent = htmlContent.Replace("{examType}", examType);

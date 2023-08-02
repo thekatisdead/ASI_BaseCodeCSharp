@@ -146,7 +146,7 @@ namespace Basecode.Services.Interfaces
         /// <param name="date"></param>
         /// <param name="startTime"></param>
         /// <param name="endTime"></param>
-        public void SendEmailInterviewInstructions(string receiverEmail, string interviewName, string applicantName, string jobPosition, string examType,string teamsLink, string instructions, DateOnly date, TimeOnly startTime, TimeOnly endTime);
+        public void SendEmailInterviewInstructions(string receiverEmail, string interviewName, string jobPosition, string examType,string teamsLink, string instructions, DateOnly date, TimeOnly startTime, TimeOnly endTime);
         /// <summary>
         /// Sends an email to the Deployment Team about a new hire
         /// </summary>
@@ -184,5 +184,6 @@ namespace Basecode.Services.Interfaces
         /// <param name="startTime"></param>
         /// <param name="endTime"></param>
         public void SendEmailInterviewGenerationApplicant(string receiverEmail, string applicantName, string jobPosition, string typeExam, int interviewId, DateOnly date, TimeOnly startTime, TimeOnly endTime);
+        public void SendEmailInterviewInstructionsApplicant(string receiverEmail, string applicantName, string jobPosition, string examType, string teamsLink, string instructions, DateOnly date, TimeOnly startTime, TimeOnly endTime);
     }
 }
