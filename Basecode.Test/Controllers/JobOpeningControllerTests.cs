@@ -20,8 +20,10 @@ namespace Basecode.Test.Controllers
         [Fact]
         public void JobPosting_ReturnsView()
         {
+            //Arrange 
+            string HREmail = It.IsAny<string>();
             // Act
-            var result = _controller.JobPosting("jimwillcapino@gmail.com") as ViewResult;
+            var result = _controller.JobPosting(HREmail) as ViewResult;
 
             // Assert
             Assert.NotNull(result);

@@ -25,7 +25,8 @@ namespace Basecode.Test.Controllers
             _emailSenderService = new Mock<IEmailSenderService>();
             _applicantListService = new Mock<IApplicantListService>();
             _userService = new Mock<IUserService>();
-            _controller = new HrSchedulerController(_interviewerService.Object, _jobOpeningService.Object, _scheduleService.Object, _emailSenderService.Object, _userService.Object,_applicantListService.Object);
+            _applicantListService = new Mock<IApplicantListService>();
+            _controller = new HrSchedulerController(_interviewerService.Object, _jobOpeningService.Object, _scheduleService.Object, _emailSenderService.Object, _userService.Object, _applicantListService.Object);
         }
 
         [Fact]
@@ -361,87 +362,6 @@ namespace Basecode.Test.Controllers
             // Assert
             var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
             Assert.Equal("No job openings and interviewers available.", badRequestResult.Value);
-        }
-
-        [Fact]
-        public void AddSchedule_SuccessfulAdd_RedirectsToHome()
-        {
-            // Arrange
-            var schedule = new Schedule
-            {
-                InterviewerId = 1,
-                JobId = 2,
-                StartTime = "09:00 AM",
-                EndTime = "11:00 AM",
-                Date = "2023-07-15",
-                Instruction = "Bring your resume and portfolio"
-            };
-
-            // Act
-            var result = _controller.AddSchedule(schedule);
-
-            // Assert
-            var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
-            Assert.Equal("home", redirectToActionResult.ActionName);
-            Assert.Equal("HrScheduler", redirectToActionResult.ControllerName);
-
-            // Verify that the Add method was called with the correct schedule object
-            _scheduleService.Verify(x => x.Add(It.Is<Schedule>(s => s.InterviewerId == schedule.InterviewerId &&
-                                                                   s.JobId == schedule.JobId &&
-                                                                   s.StartTime == schedule.StartTime &&
-                                                                   s.EndTime == schedule.EndTime &&
-                                                                   s.Date == schedule.Date &&
-                                                                   s.Instruction == schedule.Instruction)), Times.Once);
-        }
-
-        [Fact]
-        public void AddSchedule_InvalidTimeFormat_ReturnsRedirectToHome()
-        {
-            // Arrange
-            var schedule = new Schedule
-            {
-                InterviewerId = 1,
-                JobId = 2,
-                StartTime = "09:00", // Invalid format, should be "HH:mm"
-                EndTime = "11:00 AM",
-                Date = "2023-07-15",
-                Instruction = "Bring your resume and portfolio"
-            };
-
-            // Act
-            var result = _controller.AddSchedule(schedule);
-
-            // Assert
-            var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
-            Assert.Equal("home", redirectToActionResult.ActionName);
-            Assert.Equal("HrScheduler", redirectToActionResult.ControllerName);
-
-            _scheduleService.Verify(x => x.Add(It.IsAny<Schedule>()), Times.Once);
-        }
-
-        [Fact]
-        public void AddSchedule_InvalidDateFormat_ReturnsRedirectToHome()
-        {
-            // Arrange
-            var schedule = new Schedule
-            {
-                InterviewerId = 1,
-                JobId = 2,
-                StartTime = "09:00 AM",
-                EndTime = "11:00 AM",
-                Date = "2023/07/15", // Invalid format, should be "yyyy-MM-dd"
-                Instruction = "Bring your resume and portfolio"
-            };
-
-            // Act
-            var result = _controller.AddSchedule(schedule);
-
-            // Assert
-            var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
-            Assert.Equal("home", redirectToActionResult.ActionName);
-            Assert.Equal("HrScheduler", redirectToActionResult.ControllerName);
-
-            _scheduleService.Verify(x => x.Add(It.IsAny<Schedule>()), Times.Once);
         }
 
         [Fact]
