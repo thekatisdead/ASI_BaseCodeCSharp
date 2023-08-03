@@ -11,7 +11,7 @@ namespace Basecode.WebApp
             services.AddDbContext<BasecodeContext>(
             options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found."),
+                    Configuration.GetConnectionString("AzureConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found."),
                     optionsAction => { }
                 )
             );

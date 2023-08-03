@@ -61,7 +61,7 @@ namespace Basecode.WebApp
             services.AddScoped<ITeamsService, TeamsService>();
 
             // Hangfire for delayed functions
-            services.AddHangfire(x => x.UseSqlServerStorage(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddHangfire(x => x.UseSqlServerStorage(Configuration.GetConnectionString("AzureConnection")));
             services.AddHangfireServer();
 
             // Azure AD for generating teams link
