@@ -26,7 +26,7 @@ namespace Basecode.Test.Services
             _applicantListRepository = new Mock<IApplicantListRepository>();
             _applicantsScheduleRepo = new Mock<IApplicantsScheduleRepo>();
             _mapper = new Mock<IMapper>();
-            _scheduleService = new ScheduleService(_scheduleRepository.Object, _jobOpeningRepository.Object, _interviewerRepository.Object, _applicantListRepository.Object, _mapper.Object,_applicantsScheduleRepo.Object);
+            _scheduleService = new ScheduleService(_scheduleRepository.Object, _jobOpeningRepository.Object, _interviewerRepository.Object, _applicantListRepository.Object, _mapper.Object, _applicantsScheduleRepo.Object);
         }
 
         [Fact]
@@ -267,7 +267,8 @@ namespace Basecode.Test.Services
                 Instruction = "Existing instruction"
             };
 
-            _scheduleRepository.Setup(r => r.UpdateSchedule(schedule));
+            // Mock the GetById method of the repository to return the existing schedule
+            _scheduleRepository.Setup(r => r.GetById(scheduleId)).Returns(existingSchedule);
 
             // Act
             _scheduleService.UpdateSchedule(schedule);
@@ -294,7 +295,8 @@ namespace Basecode.Test.Services
             var schedule = new Schedule();
             var existingSchedule = new Schedule();
 
-            _scheduleRepository.Setup(r => r.UpdateSchedule(schedule));
+            // Mock the GetById method of the repository to return the existing schedule
+            _scheduleRepository.Setup(r => r.GetById(scheduleId)).Returns(existingSchedule);
 
             // Act
             _scheduleService.UpdateSchedule(schedule);
@@ -373,6 +375,8 @@ namespace Basecode.Test.Services
                     EmailAddress = "email@gmail.com"
                 }
             };
+
+            _scheduleService.GetApplicantListAccordingToJobApplied(jobId);
 
             // Act
             var result = _scheduleService.GetApplicantListAccordingToJobApplied(jobId);
