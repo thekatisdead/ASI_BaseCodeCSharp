@@ -10,7 +10,7 @@ form {
     border-radius: 15px;
     transform: translateX(-50%);
     width: 931px;
-    height: 2350px;
+    height: 2200px;
     display: flex;
     position: absolute;
     align-items: flex-start;
@@ -389,7 +389,7 @@ header {
 }
 
 .text-education {
-    top: 750px;
+    top: 700px;
     left: 90px;
     color: rgba(0, 0, 0, 1);
     width: 1000px;
@@ -404,7 +404,7 @@ header {
 }
 
 .straightline {
-    top: 830px;
+    top: 760px;
     left: 49%;
     transform: translateX(-50%);
     width: 770px;
@@ -416,7 +416,7 @@ header {
 }
 
 .form-group-school {
-    top: 970px;
+    top: 850px;
     left: 95px;
     width: 314px;
     height: 97px;
@@ -450,7 +450,7 @@ header {
 }
 
 .form-group-department {
-    top: 971px;
+    top: 850px;
     right: 100px;
     width: 314px;
     height: 97px;
@@ -484,7 +484,7 @@ header {
 }
 
 .form-group-achievements {
-    top: 1100px;
+    top: 1000px;
     left: 95px;
     width: 314px;
     height: 97px;
@@ -518,7 +518,7 @@ header {
 }
 
 .form-group-nameone {
-    top: 1475px;
+    top: 1405px;
     left: 95px;
     width: 314px;
     height: 97px;
@@ -552,7 +552,7 @@ header {
 }
 
 .text-references {
-    top: 1340px;
+    top: 1245px;
     left: 95px;
     color: rgba(0, 0, 0, 1);
     width: 1000px;
@@ -567,7 +567,7 @@ header {
 }
 
 .straightlinetwo {
-    top: 1400px;
+    top: 1310px;
     left: 49%;
     transform: translateX(-50%);
     width: 770px;
@@ -579,7 +579,7 @@ header {
 }
 
 .form-group-relationone {
-    top: 1475px;
+    top: 1405px;
     left: 347px;
     width: 314px;
     height: 97px;
@@ -613,7 +613,7 @@ header {
 }
 
 .form-group-contactone {
-    top: 1475px;
+    top: 1405px;
     left: 600px;
     width: 314px;
     height: 97px;
@@ -647,7 +647,7 @@ header {
 }
 
 .form-group-nametwo {
-    top: 1590px;
+    top: 1535px;
     left: 95px;
     width: 314px;
     height: 97px;
@@ -681,7 +681,7 @@ header {
 }
 
 .form-group-relationtwo {
-    top: 1590px;
+    top: 1535px;
     left: 347px;
     width: 314px;
     height: 97px;
@@ -715,7 +715,7 @@ header {
 }
 
 .form-group-contacttwo {
-    top: 1590px;
+    top: 1535px;
     left: 600px;
     width: 314px;
     height: 97px;
@@ -749,7 +749,7 @@ header {
 }
 
 .form-group-namethree {
-    top: 1705px;
+    top: 1665px;
     left: 95px;
     width: 314px;
     height: 97px;
@@ -783,7 +783,7 @@ header {
 }
 
 .form-group-relationthree {
-    top: 1705px;
+    top: 1665px;
     left: 347px;
     width: 314px;
     height: 97px;
@@ -817,7 +817,7 @@ header {
 }
 
 .form-group-contactthree {
-    top: 1705px;
+    top: 1665px;
     left: 600px;
     width: 314px;
     height: 97px;
@@ -851,7 +851,7 @@ header {
 }
 
 .text-cv {
-    top: 1785px;
+    top: 1750px;
     left: 95px;
     color: rgba(0, 0, 0, 1);
     width: 1000px;
@@ -866,7 +866,7 @@ header {
 }
 
 .straightlinethree {
-    top: 1845px;
+    top: 1815px;
     left: 49%;
     transform: translateX(-50%);
     width: 770px;
@@ -878,7 +878,7 @@ header {
 }
 
 .form-group-cv {
-    top: 1925px;
+    top: 1910px;
     left: 95px;
     width: 314px;
     height: 97px;
@@ -912,7 +912,7 @@ header {
 }
 
 .btn-primary {
-    top: 2275px;
+    top: 2100px;
     left: 610px;
     width: 200px;
     height: 40px;
