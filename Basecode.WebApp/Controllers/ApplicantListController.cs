@@ -151,7 +151,7 @@ namespace Basecode.WebApp.Controllers
             var applicant = _applicantList.GetById(applicantId);
             var formId = applicant.FormId;
             var publicForm = _publicApplicationFormService.GetByApplicationId(formId);
-            
+
             ViewBag.Status = applicant.Tracker;
             ViewBag.Grading = applicant.Grading;
             ViewBag.ID = applicantId;

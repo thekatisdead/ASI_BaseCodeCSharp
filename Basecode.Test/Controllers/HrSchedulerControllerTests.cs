@@ -23,6 +23,7 @@ namespace Basecode.Test.Controllers
             _interviewerService = new Mock<IInterviewerServices>();
             _scheduleService = new Mock<IScheduleService>();
             _emailSenderService = new Mock<IEmailSenderService>();
+            _applicantListService = new Mock<IApplicantListService>();
             _userService = new Mock<IUserService>();
             _applicantListService = new Mock<IApplicantListService>();
             _controller = new HrSchedulerController(_interviewerService.Object, _jobOpeningService.Object, _scheduleService.Object, _emailSenderService.Object, _userService.Object, _applicantListService.Object);

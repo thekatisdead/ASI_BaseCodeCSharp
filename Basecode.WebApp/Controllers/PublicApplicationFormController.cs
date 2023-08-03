@@ -63,7 +63,7 @@ namespace Basecode.WebApp.Controllers
 
                 var fullName = viewModel.LastName + ", " + viewModel.FirstName;
                 var job = _jobOpeningService.GetById(jobId);
-
+                viewModel.Position = job.Position;
                 _applicant.Add(newApplicant);
                 _service.AddForm(viewModel);
                 // for applicant
