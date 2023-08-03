@@ -17,7 +17,7 @@ namespace Basecode.Services.Services
     {
         string _dtEmail = "kaherbieto@outlook.up.edu.ph";
         string _senderEmail = "noreply-alliance@gmail.com";
-        string _webURL = "localhost:5001";
+        string _webURL = "alliancehr.azurewebsites.net";
 
         public void SendEmailInterviewSchedule(HrScheduler HrScheduler)
         {
@@ -71,6 +71,7 @@ namespace Basecode.Services.Services
 
             email.Subject = "Application Rejection";
 
+            //var path = Path.Combine("EmailTemplates", "RejectApplication.html");
             var htmlContent = File.ReadAllText("EmailTemplates/RejectApplication.html");
 
             // this is to replace the placeholders

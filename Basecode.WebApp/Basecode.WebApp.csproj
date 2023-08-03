@@ -8,6 +8,59 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\EmailTemplates\ApplicantGenerate.html" />
+    <Content Remove="wwwroot\EmailTemplates\ApplicantGenerateHR.html" />
+    <Content Remove="wwwroot\EmailTemplates\ApplicantSelectDate.html" />
+    <Content Remove="wwwroot\EmailTemplates\CharacterReference.html" />
+    <Content Remove="wwwroot\EmailTemplates\CharacterReferenceDecision.html" />
+    <Content Remove="wwwroot\EmailTemplates\CharacterReferenceGratitude.html" />
+    <Content Remove="wwwroot\EmailTemplates\CharacterReferenceReminder.html" />
+    <Content Remove="wwwroot\EmailTemplates\CharacterReferenceResponded.html" />
+    <Content Remove="wwwroot\EmailTemplates\DTDecision.html" />
+    <Content Remove="wwwroot\EmailTemplates\DTNotification.html" />
+    <Content Remove="wwwroot\EmailTemplates\HiringDecision.html" />
+    <Content Remove="wwwroot\EmailTemplates\HRApplicationDecision.html" />
+    <Content Remove="wwwroot\EmailTemplates\images\image-1.png" />
+    <Content Remove="wwwroot\EmailTemplates\images\image-2.png" />
+    <Content Remove="wwwroot\EmailTemplates\InterviewDecision.html" />
+    <Content Remove="wwwroot\EmailTemplates\InterviewGenerate.html" />
+    <Content Remove="wwwroot\EmailTemplates\InterviewGenerateApplicant.html" />
+    <Content Remove="wwwroot\EmailTemplates\InterviewInstructions.html" />
+    <Content Remove="wwwroot\EmailTemplates\InterviewInstructionsApplicant.html" />
+    <Content Remove="wwwroot\EmailTemplates\InterviewReminder.html" />
+    <Content Remove="wwwroot\EmailTemplates\OnUpdate.html" />
+    <Content Remove="wwwroot\EmailTemplates\RejectApplication.html" />
+    <Content Remove="wwwroot\EmailTemplates\RejectInterview.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+	<Content Include="EmailTemplates\**" CopyToOutputDirectory="PreserveNewest" />	  
+	<None Include="wwwroot\EmailTemplates\ApplicantGenerate.html" />
+    <None Include="wwwroot\EmailTemplates\ApplicantGenerateHR.html" />
+    <None Include="wwwroot\EmailTemplates\ApplicantSelectDate.html" />
+    <None Include="wwwroot\EmailTemplates\CharacterReference.html" />
+    <None Include="wwwroot\EmailTemplates\CharacterReferenceDecision.html" />
+    <None Include="wwwroot\EmailTemplates\CharacterReferenceGratitude.html" />
+    <None Include="wwwroot\EmailTemplates\CharacterReferenceReminder.html" />
+    <None Include="wwwroot\EmailTemplates\CharacterReferenceResponded.html" />
+    <None Include="wwwroot\EmailTemplates\DTDecision.html" />
+    <None Include="wwwroot\EmailTemplates\DTNotification.html" />
+    <None Include="wwwroot\EmailTemplates\HiringDecision.html" />
+    <None Include="wwwroot\EmailTemplates\HRApplicationDecision.html" />
+    <None Include="wwwroot\EmailTemplates\images\image-1.png" />
+    <None Include="wwwroot\EmailTemplates\images\image-2.png" />
+    <None Include="wwwroot\EmailTemplates\InterviewDecision.html" />
+    <None Include="wwwroot\EmailTemplates\InterviewGenerate.html" />
+    <None Include="wwwroot\EmailTemplates\InterviewGenerateApplicant.html" />
+    <None Include="wwwroot\EmailTemplates\InterviewInstructions.html" />
+    <None Include="wwwroot\EmailTemplates\InterviewInstructionsApplicant.html" />
+    <None Include="wwwroot\EmailTemplates\InterviewReminder.html" />
+    <None Include="wwwroot\EmailTemplates\OnUpdate.html" />
+    <None Include="wwwroot\EmailTemplates\RejectApplication.html" />
+    <None Include="wwwroot\EmailTemplates\RejectInterview.html" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Hangfire" Version="1.8.3" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.7" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.7" />

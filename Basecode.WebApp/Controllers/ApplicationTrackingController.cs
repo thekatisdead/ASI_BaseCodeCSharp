@@ -24,7 +24,7 @@ namespace Basecode.WebApp.Controllers
         }
         public IActionResult Index(int ApplicantId)
         {
-
+            _logger.Trace(ApplicantId);
             var applicationTracking = _repository.GetApplicationTracking(ApplicantId);
             if (applicationTracking == null)
             {

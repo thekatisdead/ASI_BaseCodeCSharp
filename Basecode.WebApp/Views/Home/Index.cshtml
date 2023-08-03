@@ -122,6 +122,7 @@
             var formData = $(this).serialize();
 
             // Send the form data to the server using Ajax
+            
             $.ajax({
                 url: '/ApplicationTracking/Index',
                 type: 'POST',
@@ -137,6 +138,7 @@
                 },
                 error: function () {
                     // Handle the error case
+                    console.log(formData);
                     alert('Error submitting the form');
                 }
             });
