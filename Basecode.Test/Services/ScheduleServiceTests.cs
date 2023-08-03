@@ -26,7 +26,7 @@ namespace Basecode.Test.Services
             _applicantListRepository = new Mock<IApplicantListRepository>();
             _applicantsScheduleRepo = new Mock<IApplicantsScheduleRepo>();
             _mapper = new Mock<IMapper>();
-            _scheduleService = new ScheduleService(_scheduleRepository.Object, _jobOpeningRepository.Object, _interviewerRepository.Object, _applicantListRepository.Object, _mapper.Object,_applicantsScheduleRepo.Object);
+            _scheduleService = new ScheduleService(_scheduleRepository.Object, _jobOpeningRepository.Object, _interviewerRepository.Object, _applicantListRepository.Object, _mapper.Object, _applicantsScheduleRepo.Object);
         }
 
         [Fact]
