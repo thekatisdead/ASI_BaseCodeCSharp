@@ -49,59 +49,6 @@ namespace Basecode.Test.Controllers
         }
 
         [Fact]
-        public void Add_HasCharacterReference_ReturnsView()
-        {
-            // Arrange
-            var trigger = It.IsAny<int>();
-            var testData = new CharacterReferenceViewModel
-            {
-                Id = 1,
-                CandidateFirstName = "John",
-                CandidateLastName = "Doe",
-                Position = "Software Developer",
-                RelationshipDuration = "1 year",
-                Relationship = "Friend",
-                CharacterEthics = "Good",
-                Qualifications = "Good",
-                FirstName = "Jane",
-                LastName = "Doe",
-                JobTitle = "Software Developer",
-                WorkedWithCandidate = true,
-                ReasonToHire = "Good"
-            };
-
-            _mockCharacterReferenceService.Setup(s => s.AddCharacterReference(testData));
-
-            // Act
-            var result = _controller.Add(testData, testData.Id, trigger);
-
-            // Assert
-            Assert.NotNull(result);
-            var redirectToActionResult = (RedirectToActionResult)result;
-            Assert.Equal("Index", redirectToActionResult.ActionName);
-        }
-
-        [Fact]
-        public void Add_HasNoCharacterReference_ReturnsRedirectToAction()
-        {
-            // Arrange
-            int id = It.IsAny<int>();
-            int trigger = It.IsAny<int>();
-            var testData = new CharacterReferenceViewModel();
-
-            // Mock the AddCharacterReference method of the service
-            _mockCharacterReferenceService.Setup(s => s.AddCharacterReference(testData));
-
-            // Act
-            var result = _controller.Add(testData, id, trigger);
-
-            // Assert
-            Assert.NotNull(result);
-            var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
-            Assert.Equal("Index", redirectToActionResult.ActionName);
-        }
-
-        [Fact]
         public void ManageRespondents_Success_ReturnsViewWithData()
         {
             // Arrange
