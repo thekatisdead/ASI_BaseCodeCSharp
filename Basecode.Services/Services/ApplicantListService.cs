@@ -22,7 +22,7 @@ namespace Basecode.Services.Services
 
         public ApplicantListService(IApplicantListRepository repository,IJobOpeningRepository jobOpeningRepository)
         {
-            _repository = repository;
+            _repository = repository; 
             _jobOpeningRepository = jobOpeningRepository;
         }
 
