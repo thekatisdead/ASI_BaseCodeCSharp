@@ -7,85 +7,60 @@
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap5.min.css" />
+    <link rel="stylesheet" href="~/css/admindashboard.css" asp-append-version="true" />
     <script defer src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script defer src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
     <script defer src="https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap5.min.js"></script>
 
     <script defer src="~/js/AdminTable.js"></script>
 </head>
+
 <body>
-    <div class="container-fluid" style="position:absolute;right:0px;font-family: Helvetica">
-        <div class="row flex-nowrap">
+    <main class="container-fluid" style="position:absolute;right:0px;font-family: Helvetica">
+        <div class="row">
             @await Html.PartialAsync("./_AdminSideBar")
             <div class="col-lg ">
-                <div class="row flex-nowrap">
+                <div class="row">
                     @await Html.PartialAsync("./_UpperBarAdmin")
-                </div>            
-                <div class="row flex-nowrap bg-light" style="height:87%">                    
-                    <div class="col container table-responsive-sm">
-                        <div class="p-4">
-                            <a asp-controller="JobOpening" asp-action="JobPosting"> <button class="btn btn-success px-4">Add</button></a>
-                        </div>    
-                        <table id="myTable" class=" table table-striped table-hover rounded-table" style="@(Model.Count() == 0 ? "display: none" : "")">
-                            <thead>
+                </div>
+
+                <div class="row flex-nowrap bg-light dashboard-section">
+                    <section class="admin-table">
+                        <h2 class="section-title">Job List</h2>
+                        <table id="myTable" class="table table-striped table-hover rounded-table" style="@(Model.Count() == 0 ? "display: none" : "")">
+                            <thead class="header">
                                 <tr>
-                                    <th>
-                                        Position
-                                    </th>
-                                    <th>
-                                        Job Type
-                                    </th>
-                                    <th>
-                                        Salary
-                                    </th>
-                                    <th>
-                                        Hours
-                                    </th>
-                                    <th>
-                                        Shift
-                                    </th>
-                                    <th>
-                                        Description
-                                    </th>
-                                    <th>
-                                        Actions
-                                    </th>
+                                    <th class="text-center">Position</th>
+                                    <th class="text-center">Job Type</th>
+                                    <th class="text-center">Salary</th>
+                                    <th class="text-center">Hours</th>
+                                    <th class="text-center">Shift</th>
+                                    <th class="text-center">Description</th>
+                                    <th class="text-center">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach(var job in Model)
+                                @foreach (var job in Model)
                                 {
                                     <tr>
-                                        <td>
-                                            @job.Position
-                                        </td>
-                                        <td>
-                                            @job.JobType
-                                        </td>
-                                        <td>
-                                            @job.Salary
-                                        </td>
-                                        <td>
-                                            @job.Hours
-                                        </td>
-                                        <td>
-                                            @job.Shift
-                                        </td>
-                                        <td>
-                                            @job.Description
-                                        </td>
-                                        <td>
-                                            <a asp-controller="JobOpening" asp-action="UpdateJob" asp-route-id="@job.Id">Edit</a>
-                                            <a asp-controller="JobOpening" asp-action="DeleteJob" asp-route-id="@job.Id">Delete</a>
+                                        <td class="table-cell">@job.Position</td>
+                                        <td class="table-cell">@job.JobType</td>
+                                        <td class="table-cell">@job.Salary</td>
+                                        <td class="table-cell">@job.Hours</td>
+                                        <td class="table-cell">@job.Shift</td>
+                                        <td class="table-cell">@job.Description</td>
+                                        <td class="table-cell">
+                                            <a asp-controller="Admin" asp-action="UpdateJobAdmin" asp-route-id="@job.Id">Edit</a>
+                                            <a asp-controller="Admin" asp-action="DeleteJobAdmin" asp-route-id="@job.Id">Delete</a>
                                         </td>
                                     </tr>
                                 }
                             </tbody>
                         </table>
-                    </div>      
+                    </section>
                 </div>
             </div>
         </div>
-    </div>
+    </main>
 </body>
 </html>

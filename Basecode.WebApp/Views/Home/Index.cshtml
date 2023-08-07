@@ -3,101 +3,105 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<header>
-    <link rel="stylesheet" href="~/css/modal.css" />
-    <link rel="stylesheet" href="~/css/homepage.css" />
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-</header>
-
-<div class="container">
-    <div>
-        <div class="half-width home-applicant" style="background-image: url('../img/home-applicant.png');">
-            <div class="text-home-center home-heading">@Html.Raw("LOOKING FOR A JOB")</div>
-            <div class="text-home-container">
-                @Html.Raw("Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.")
+<html>
+    <head>
+        <link rel="stylesheet" href="~/css/modal.css" />
+        <link rel="stylesheet" href="~/css/homepage.css" />
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    </head>
+<body> 
+    <div class="container">
+        <div>
+            <div class="half-width home-applicant" style="background-image: url('../img/home-applicant.png');">
+                <div class="text-home-center home-heading">@Html.Raw("LOOKING FOR A JOB")</div>
+                <div class="text-home-container home-description">
+                    @Html.Raw("Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.")
+                </div>
+                <br />
+                <center>
+                    <button class="apply"><a id="apply-link" class="nav-link text-light" asp-controller="ApplicantHomepage" asp-action="JobListing">Apply</a></button>
+                </center>
             </div>
-            <br />
-            <center>
-                <button><a class="nav-link text-light" asp-controller="SignUp" asp-action="Index">Apply</a></button>
-            </center>
+        </div>
+
+
+        <div>
+            <div class="half-width home-HR" style="background-image: url('../img/home-hr.png');">
+                <div class="text-home-center home-heading">@Html.Raw("MANAGE YOUR JOBS")</div>
+                <div class="text-home-container home-description">
+                    @Html.Raw("Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.")
+                </div>
+                <br />
+                <center>
+                    <button class="apply"><a id="apply-link" class="nav-link text-light" asp-controller="ApplicantHomepage" asp-action="JobListing">Apply</a></button>
+                </center>
+            </div>
         </div>
     </div>
 
-
-    <div>
-        <div class="half-width home-HR" style="background-image: url('../img/home-hr.png');">
-            <div class="text-home-center home-heading">@Html.Raw("MANAGE YOUR JOBS")</div>
-            <div class="text-home-container">
-                @Html.Raw("Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.")
-            </div>
-            <br />
-            <center>
-                <button><a class="nav-link text-light" asp-controller="SignUp" asp-action="Index">Apply</a></button>
-            </center>
+    <hr />
+    <div class="container1">
+        <div class="text-home-center1">Life is not all about work and no play.</div>
+        <br />
+        <div class="text-home-container1">
+            Alliance Software, Inc. is a global IT services and solutions company. Alliance was established in 2000 and has since grown to
+            become one of the Philippines' largest and most respected independent software development outsourcing company.
         </div>
+        <br />
+                <span class = "image-container">
+            <img id="home-icon" src="~/img/asi.png" class="img-fluid rounded" style="width:157px;130px" />
+        </span>
     </div>
-</div>
-
-<hr />
-<div class="container">
-    <div class="text-home-center1 home-heading">Life is not all about work and no play.</div>
-    <br />
-    <div class="text-home-container1">
-        Alliance Software, Inc. is a global IT services and solutions company. Alliance was established in 2000 and has since grown to
-        become one of the Philippines' largest and most respected independent software development outsourcing company.
-    </div>
-    <br />
     <div class="photo-container">
         <img src="~/img/building.png" alt="Photo" class="building-img">
     </div>
-</div>
-<div style="padding:20px;">
-    <br />
-</div>
-<hr />
+    <div style="padding:20px;">
+        <br />
+    </div>
+    <hr />
 
-<!--
-    Copy Everything about the modal if you want to use the modal on another functionality.
-    This is just a placeholder window that houses the view from the route.
--->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <!-- Modal content goes here -->
+    <!--
+        Copy Everything about the modal if you want to use the modal on another functionality.
+        This is just a placeholder window that houses the view from the route.
+    -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <!-- Modal content goes here -->
+            </div>
         </div>
     </div>
-</div>
 
-<div class="modal-overlay"></div> 
-<!-- 
-    Copying Ends Here
--->
-
-<div>
-    <div class="home-heading-bold">APPLICATION TRACKING</div>
-    <div class="home-heading1">WANT TO KNOW THE STATUS OF YOUR APPLICATION?</div>
-    <br>
+    <div class="modal-overlay"></div>
     <!--
-        This  contains the form that allows you to open
-        the modal from the webpage.
-
-        If you want to use the function in another feature, all you have to change is
-         - <form asp-controller="name_of_controller" asp-action="Index" id="name_of_form_id">
-         - add 
-                data-toggle="modal" data-target="#myModal"
-            in the submit button
-        This is connected with the script above
-
+        Copying Ends Here
     -->
-    <form asp-controller="ApplicationTracking" asp-action="Index" id="ApplicationTrackingForm">
-        <div style="display: flex; align-items: center;">
-            <input type="number" name="ApplicantId" style="width: 70%; text-align: center; padding: 10px;" placeholder="ENTER YOUR ID" />
-            <button type="submit" data-toggle="modal" data-target="#myModal" style="width: 30%; background-color: #C53211; color: #FFFFFF; padding: 10px;">
-                Track Application
-            </button>
-        </div>
-    </form>
-</div>
+
+    <div>
+        <div class="home-heading-bold">APPLICATION TRACKING</div>
+        <div class="home-heading1">WANT TO KNOW THE STATUS OF YOUR APPLICATION?</div>
+        <br>
+        <!--
+            This  contains the form that allows you to open
+            the modal from the webpage.
+
+            If you want to use the function in another feature, all you have to change is
+             - <form asp-controller="name_of_controller" asp-action="Index" id="name_of_form_id">
+             - add
+                    data-toggle="modal" data-target="#myModal"
+                in the submit button
+            This is connected with the script above
+
+        -->
+        <form asp-controller="ApplicationTracking" asp-action="Index" id="ApplicationTrackingForm" class="custom-form">
+            <div class="form-container">
+                <input type="number" name="ApplicantId" class="form-input" placeholder="ENTER YOUR ID" />
+                <button type="submit" data-toggle="modal" data-target="#myModal" class="form-button">
+                    Track Application
+                </button>
+            </div>
+        </form>
+    </div>
 
 <script>
     /* 
@@ -118,6 +122,7 @@
             var formData = $(this).serialize();
 
             // Send the form data to the server using Ajax
+            
             $.ajax({
                 url: '/ApplicationTracking/Index',
                 type: 'POST',
@@ -133,14 +138,15 @@
                 },
                 error: function () {
                     // Handle the error case
+                    console.log(formData);
                     alert('Error submitting the form');
                 }
             });
         });
     });
 </script>
-
-
+</body>
+</html>
 
 
 

@@ -1,0 +1,63 @@
+﻿
+@{
+    ViewData["Title"] = "HR Scheduler";
+    Layout = "~/Views/Shared/_LayoutHR.cshtml";
+}
+@using Basecode.Data.ViewModels
+@model InterviewerViewModel
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hr Scheduler</title>
+    <link rel="stylesheet" href="~/css/hrscheduler.css" asp-append-version="true" />
+</head>
+<body>
+    <form asp-action="Add">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <h2>Interviewer Details Input Form</h2>
+        <hr>
+
+        <div>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="InterviewerId" />
+            <h3 class="section-title">Interviewer Details</h3>
+            <hr class="divider">
+            <h4 class="section-title">Interviewer's Name</h4>
+            <div class="input-group">
+                <input asp-for="FirstName" type="text" id="first-name" class="text-input">
+                <span asp-validation-for="FirstName" class-type="text-danger"></span>
+                <br>
+                <label for="first-name">First Name</label>
+            </div>
+            <div class="input-group">
+                <input asp-for="LastName" type="text" id="last-name" class="text-input">
+                <span asp-validation-for="LastName" class-type="text-danger"></span>
+                <br>
+                <label for="last-name">Last Name</label>
+            </div>
+            <h4 class="section-title">Email Address</h4>
+            <div class="input-email">
+                <input asp-for="Email" type="email" id="email" class="text-input" placeholder="email@email.com">
+                <span asp-validation-for="Email" class-type="text-danger"></span>
+               
+            </div>
+            <h4 class="section-title">Contact Information</h4>
+            <div class="input-email">
+                <input asp-for="ContactNo" type="text" id="last-name" class="text-input">
+                <span asp-validation-for="ContactNo" class-type="text-danger"></span>
+                <br>
+                <label for="last-name">Contact Number</label>
+            </div>
+        </div>
+        <button type="submit" class="save-button">Save</button>
+
+        @section Scripts {
+            @{
+                await Html.RenderPartialAsync("_ValidationScriptsPartial");
+            }
+        }
+    </form>
+    <div class="triangle"></div>
+    <div class="triangle1"></div>
+</body>
+</html>

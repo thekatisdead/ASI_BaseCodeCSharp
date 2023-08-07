@@ -10,6 +10,10 @@ namespace Basecode.Data.Repositories
         private UserManager<IdentityUser> _userManager;
         private RoleManager<IdentityRole> _roleManager;
 
+        /// <summary>
+        /// Creates an instance of Basecode context
+        /// </summary>
+
         public UserRepository(IUnitOfWork unitOfWork, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager) 
             : base(unitOfWork)
         {
@@ -19,7 +23,7 @@ namespace Basecode.Data.Repositories
 
         public IEnumerable<User> FindAll()
         {
-            return GetDbSet<User>();
+            return base.GetDbSet<User>();
         }
 
         public User FindByUsername(string username)
@@ -27,14 +31,19 @@ namespace Basecode.Data.Repositories
             return GetDbSet<User>().Where(x => x.Username.ToLower().Equals(username.ToLower())).AsNoTracking().FirstOrDefault();
         }
 
+        public User FindByEmail(string email)
+        {
+            return GetDbSet<User>().Where(x => x.Email.ToLower().Equals(email.ToLower())).AsNoTracking().FirstOrDefault();
+        }
+
         public User FindById(string id)
         {
             return GetDbSet<User>().FirstOrDefault(x => x.Id.Equals(id));
         }
 
-        public User FindUser(string userName)
+        public IdentityUser FindUser(string userName)
         {
-            var userDB = GetDbSet<User>().Where(x => x.Username.ToLower().Equals(userName.ToLower())).AsNoTracking().FirstOrDefault();
+            var userDB = GetDbSet<IdentityUser>().Where(x => x.UserName.ToLower().Equals(userName.ToLower())).AsNoTracking().FirstOrDefault();
             return userDB;
         }
 
@@ -42,35 +51,27 @@ namespace Basecode.Data.Repositories
         {
             try
             {
-                GetDbSet<User>().Add(user);
+                base.GetDbSet<User>().Add(user);
                 UnitOfWork.SaveChanges();
             }
             catch (Exception)
             {
+
                 return false;
             }
 
             return true;
         }
 
-        public bool Update(User user)
+        public void Update(User user)
         {
-            try
-            {
-                SetEntityState(user, EntityState.Modified);
-                UnitOfWork.SaveChanges();
-            }
-            catch
-            {
-                return false;
-            }
-
-            return true;
+            base.GetDbSet<User>().Update(user);
+            UnitOfWork.SaveChanges();
         }
 
         public void Delete(User user)
         {
-            GetDbSet<User>().Remove(user);
+            base.GetDbSet<User>().Remove(user);
             UnitOfWork.SaveChanges();
         }
 
@@ -129,9 +130,9 @@ namespace Basecode.Data.Repositories
             return user;
         }
 
-        public async Task<User> FindUserAsync(string userName, string password)
+        public async Task<IdentityUser> FindUserAsync(string userName, string password)
         {
-            var userDB = GetDbSet<User>().Where(x => x.Username.ToLower().Equals(userName.ToLower())).AsNoTracking().FirstOrDefault();
+            var userDB = GetDbSet<IdentityUser>().Where(x => x.UserName.ToLower().Equals(userName.ToLower())).AsNoTracking().FirstOrDefault();
             var user = await _userManager.FindByNameAsync(userName);
             var isPasswordOK = await _userManager.CheckPasswordAsync(user, password);
             if ((user == null) || (isPasswordOK == false))
@@ -139,6 +140,11 @@ namespace Basecode.Data.Repositories
                 userDB = null;
             }
             return userDB;
+        }
+
+        public IQueryable<User> RetrieveAll()
+        {
+            return this.GetDbSet<User>();
         }
     }
 }

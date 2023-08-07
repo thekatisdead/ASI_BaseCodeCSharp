@@ -3,20 +3,21 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Basecode</title>
+    <title>@ViewData["Title"] - HR Automated System</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Basecode.Main.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <header style="color:white;">
+    <header style="color:black;">
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light box-shadow mb-3">
             <div class="container-fluid">
                 <span style="padding-right:10px;">
-                    <img src="~/img/asi1.png" class="img-fluid rounded" style="width:157px;130px" />
+                    <img id="home-icon" src="~/img/asi.png" class="img-fluid rounded" style="width:157px;130px" />
                 </span>
-                <a style="color:white;" class="navbar-brand" asp-area="" asp-controller="ApplicantHomepage" asp-action="Index">Home</a>
-                <a style="color:white; text-align   :right;" class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Log Out</a>
+                <a style="color:black;" class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index" style="border-bottom: 1px solid transparent;"
+                   onmouseover="this.style.borderBottom = '2px solid #C53211';"
+                   onmouseout="this.style.borderBottom = '1px solid transparent';">Home</a>
             </div>
         </nav>
     </header>
@@ -32,6 +33,21 @@
             &copy; 2023 - Basecode - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>*@
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Find the home icon by its ID
+            const homeIcon = document.getElementById("home-icon");
+
+            // Add a click event listener to the home icon
+            homeIcon.addEventListener("click", function () {
+                // Use Razor syntax to generate the URL for the homepage
+                const homepageUrl = "@Url.Action("Index", "Home")";
+
+                // Navigate to the homepage
+                window.location.href = homepageUrl;
+            });
+        });
+    </script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

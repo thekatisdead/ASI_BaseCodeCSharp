@@ -3,67 +3,129 @@
 
 @{
     ViewData["Title"] = "Character Reference Report";
+    Layout = "~/Views/Shared/_LayoutHR.cshtml";
 }
 
 <!DOCTYPE html>
 <html>
 <head>
     <title>Character Reference Report</title>
-    <link rel="stylesheet" href="~/css/characterreferencereport.css" asp-append-version="true" />  
+    <link rel="stylesheet" href="~/css/characterreferencereport.css" asp-append-version="true" />
 </head>
 <body>
     <main>
         <div class="add-reference-container">
-            <a asp-controller="CharacterReference" asp-action="GenerateCharacterReferenceReport">
-            </a>
+            <a asp-controller="CharacterReference" asp-action="GenerateCharacterReferenceReport"></a>
         </div>
 
         <section class="reference-listing">
-            <h2 class="section-title">Character Reference Report</h2>
-            <div class="search-bar">
-                <label for="search-reference" class="search-label">Search:</label>
-                <input type="text" id="search-reference" placeholder="Search here.....">
+            <div class="back-link-container">
+                <a asp-controller="CharacterReference" asp-action="ManageRespondents" class="back-link">&#8592; Back</a>
             </div>
-            <table class="reference-table">
-                <thead>
-                    <tr>
-                        <th class="table-header">Respondents ID</th>
-                        <th class="table-header">Name</th>
-                        <th class="table-header">Current Job Title</th>
-                        <th class="table-header">Candidate's Name Being Evaluated</th>
-                        <th class="table-header">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
+
+            <h1 class="section-title">Character Reference Report</h1>
+            <hr>
+            @if (Model.Count > 0)
+            {
+                <div class="respondent-cards">
                     @foreach (var reference in Model)
                     {
-                        <tr>
-                            <td class="table-cell">@reference.Id</td>
-                            <td class="table-cell">@reference.FirstName @reference.LastName</td>
-                            <td class="table-cell">@reference.JobTitle</td>
-                            <td class="table-cell">@reference.CandidateFirstName @reference.CandidateLastName</td>
-                            <td class="table-cell">
-                                <button class="generate-btn">Generate Report</button>
-                            </td>
-                        </tr>
+                        <div class="card" data-respondent-id="@reference.Id">
+                            <h3><strong>@reference.CandidateFirstName @reference.CandidateLastName</strong></h3>
+                            <h4>(Candidate Being Evaluated)</h4>
+                            <h5><strong>Position Applied:</strong> @reference.Position</h5>
+
+                            <h6>Referrer's Personal Information:</h6>
+
+                            <div class="h7">
+                                <h7><strong>Name:</strong> @reference.FirstName @reference.LastName</h7>
+                                <h7><strong>Job Title:</strong> @reference.JobTitle</h7>
+                                <h7><strong>Relationship to the Candidate:</strong> @reference.Relationship</h7>
+                                <h7><strong>How long have you known this person?:</strong> @reference.RelationshipDuration</h7>
+                                <h7><strong>Have you worked with this person?:</strong> @reference.WorkedWithCandidate</h7>
+                            </div>
+
+                            <h6>Candidate Evaluation:</h6>
+                            <h8><strong>Character and Work Ethics of the Candidate:</strong></h8>
+                            <ul>
+                                <li>@reference.CharacterEthics</li>
+                            </ul>
+
+                            <h8><strong>Qualifications and Soft Skills of the Candidate:</strong></h8>
+                            <ul>
+                                <li>@reference.Qualifications</li>
+                            </ul>
+
+                            <h8><strong>Reason to Hire the Candidate:</strong> @reference.ReasonToHire</h8>
+
+                            <p>The character reference form, completed on <span id="submission-date">@reference.CreatedTime</span></p>
+                        </div>
                     }
-                </tbody>
-            </table>
+                </div>
+
+                <div class="nav-arrows">
+                    <span class="prev-arrow" id="prevArrow">&lt;</span>
+                    <span class="next-arrow" id="nextArrow">&gt;</span>
+                </div>
+            }
+            else
+            {
+                <p>No respondents found.</p>
+            }
         </section>
+        <!--
         <div class="triangle"></div>
-        <div class="triangle1"></div>
+        <div class="triangle1"></div> 
+        -->
     </main>
+
+    <script>
+        // JavaScript code for handling pagination
+        var currentCardIndex = 0;
+        var cards = document.getElementsByClassName("card");
+
+        function goToPage(pageNumber) {
+            if (pageNumber >= 0 && pageNumber < cards.length) {
+                currentCardIndex = pageNumber;
+                updateCardDisplay();
+            }
+        }
+
+        function updateCardDisplay() {
+            for (var i = 0; i < cards.length; i++) {
+                if (i >= currentCardIndex && i < currentCardIndex + 1) {
+                    cards[i].style.display = "block";
+                } else {
+                    cards[i].style.display = "none";
+                }
+            }
+        }
+
+        document.getElementById("prevArrow").addEventListener("click", function () {
+            goToPage(currentCardIndex - 1);
+        });
+
+        document.getElementById("nextArrow").addEventListener("click", function () {
+            goToPage(currentCardIndex + 1);
+        });
+
+        // Find the index of the respondent with the specified ID and set it as the default card to display
+        document.addEventListener("DOMContentLoaded", function () {
+            var defaultRespondentId = "@ViewBag.CurrentRespondentId";
+            var defaultCardIndex = -1;
+
+            for (var i = 0; i < cards.length; i++) {
+                var respondentId = cards[i].getAttribute("data-respondent-id");
+                if (parseInt(respondentId) === parseInt(defaultRespondentId)) {
+                    defaultCardIndex = i;
+                    break;
+                }
+            }
+
+            // If the default card index is found, show the card, otherwise, show the first card (index 0).
+            currentCardIndex = defaultCardIndex !== -1 ? defaultCardIndex : 0;
+            updateCardDisplay();
+        });
+    </script>
 </body>
 </html>
-
-
-<script>
-    $(document).ready(function () {
-        $("#search-reference").on("keyup", function () {
-            var value = $(this).val().toLowerCase();
-            $(".reference-table tbody tr").filter(function () {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
-        });
-    });
-</script>

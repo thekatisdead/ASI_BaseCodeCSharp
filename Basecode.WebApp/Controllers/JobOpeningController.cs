@@ -1,52 +1,57 @@
 ﻿using Basecode.Services.Interfaces;
 using Basecode.Data.Models;
 using Microsoft.AspNetCore.Mvc;
+using NLog;
+using Microsoft.AspNetCore.Authorization;
+using static Basecode.Data.Constants;
 
 namespace Basecode.WebApp.Controllers
 {
+    [Authorize(Roles = "HR, Admin")]
     public class JobOpeningController : Controller
     {
-        /// <summary>
-        /// Creates an instance of IJobOpeningService
-        /// </summary>
         private readonly IJobOpeningService _service;
+        private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
+
         public JobOpeningController(IJobOpeningService service)
         {
             _service = service;
         }
 
-        /// <summary>
-        /// View Job List page/screen
-        /// </summary>
-        /// <returns></returns>
         public IActionResult JobList()
         {
+            _logger.Trace("JobList action called");
             var data = _service.RetrieveAll();
             return View(data);
         }
-        /// <summary>
-        /// View Job Posting page/screen
-        /// </summary>
-        /// <returns></returns>
-        public IActionResult JobPosting()
+
+        public IActionResult JobPosting(string HREmail)
         {
+            ViewBag.HREmail = HREmail;
+            _logger.Trace("JobPosting action called");
             return View();
         }
 
         [HttpPost]
         public IActionResult Add(JobOpening jobOpening)
         {
-            _service.Add(jobOpening);
-            return RedirectToAction("AdminJobListing", "Admin");
+            _logger.Info("Add action called");
+            try
+            {
+                _service.Add(jobOpening);
+                _logger.Info("Job opening added successfully.");
+                return RedirectToAction("JobList", "JobOpening");
+            }
+            catch (System.Exception ex)
+            {
+                _logger.Error(ex, "Error occurred while adding job opening.");
+                return RedirectToAction("JobPosting");
+            }
         }
 
-        /// <summary>
-        /// Retrieve data from JobOpening table for updating
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
         public IActionResult UpdateJob(int id)
         {
+            _logger.Trace("UpdateJob action called");
             var data = _service.GetById(id);
             return View(data);
         }
@@ -54,19 +59,40 @@ namespace Basecode.WebApp.Controllers
         [HttpPost]
         public IActionResult Update(JobOpening jobOpening)
         {
-            _service.Update(jobOpening);
-            return RedirectToAction("AdminJobListing", "Admin");
-        }
-  
-        public IActionResult Delete(int id) 
-        { 
-            _service.Delete(id);
-            return RedirectToAction("AdminJobListing", "Admin");  
+            _logger.Info("Update action called");
+            try
+            {
+                _service.Update(jobOpening);
+                _logger.Info("Job opening updated successfully.");
+                return RedirectToAction("JobList", "JobOpening");
+            }
+            catch (System.Exception ex)
+            {
+                _logger.Error(ex, "Error occurred while updating job opening.");
+                return RedirectToAction("UpdateJob", new { id = jobOpening.Id });
+            }
         }
 
-        public IActionResult DeleteJob(int id) 
+        public IActionResult Delete(int id)
         {
-            var data= _service.GetById(id);
+            _logger.Info("Delete action called");
+            try
+            {
+                _service.Delete(id);
+                _logger.Info("Job opening deleted successfully.");
+                return RedirectToAction("JobList", "JobOpening");
+            }
+            catch (System.Exception ex)
+            {
+                _logger.Error(ex, "Error occurred while deleting job opening.");
+                return RedirectToAction("JobList", "JobOpening");
+            }
+        }
+
+        public IActionResult DeleteJob(int id)
+        {
+            _logger.Trace("DeleteJob action called");
+            var data = _service.GetById(id);
             return View(data);
         }
     }

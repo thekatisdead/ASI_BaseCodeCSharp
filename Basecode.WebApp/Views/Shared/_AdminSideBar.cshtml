@@ -1,14 +1,19 @@
-﻿<div class="col-auto col-md-2 col-xl-2 px-sm-2" style="background-color: #7E7777;">
+﻿<div class="col-auto col-md-2 col-xl-2 px-sm-2" style="background-color: #FCF5E5;">
     <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 min-vh-100">
         <a asp-action="Index" class="pt-3">
             <span class="fs-5 d-none d-sm-inline p-4">
                 <img src="~/img/asi.png" class="img-fluid rounded" style="width:157px;130px" />
             </span>
         </a>       
-        <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" style="margin-top:150px;margin-left:10px; font-size:22px;font-family:Helvetica" id="menu">
+        <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" style="margin-top:70px;margin-left:10px; font-size:22px;font-family:Helvetica" id="menu">
+            <li class="nav-item p-2">
+                <a asp-controller="Admin" asp-action="Index" class="nav-link align-middle px-0 ">
+                    <i class="fs-4 bi-house"></i> <span class="test ms-1 d-none d-sm-inline  p-4">Dashboard</span>
+                </a>
+            </li>
             <li class="nav-item p-2">
                 <a asp-controller="Admin" asp-action="AdminJobListing" class="nav-link align-middle px-0 ">
-                    <i class="fs-4 bi-house"></i> <span class="test ms-1 d-none d-sm-inline  p-4">Job oppenings</span>
+                    <i class="fs-4 bi-house"></i> <span class="test ms-1 d-none d-sm-inline  p-4">Job Openings</span>
                 </a>
             </li>
             <li class="nav-item p-2">
@@ -21,19 +26,22 @@
 </div>
 
 <style>
-    .nav-item{
-        width:340px;
-        margin-left:-35px;
+    .nav-item {
+        width: 257px;
+        margin-left: -35px;
     }
-    .nav-item:hover{
-        background-color:aliceblue;
-        color:red;
+
+    .nav-item:hover {
+        background-color: red;
     }
-    .test{
-        color:antiquewhite;      
+
+    .test {
+        color: black;
     }
-    .test:hover{
- 
-        color: red;
+
+    /* Add this style to change the text color on hover */
+    .nav-item:hover .test {
+        color: white;
+        text-decoration: none; /* Remove underline on hover */
     }
 </style>

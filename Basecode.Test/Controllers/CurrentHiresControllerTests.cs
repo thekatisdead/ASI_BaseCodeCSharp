@@ -1,25 +1,19 @@
-﻿using Basecode.Data;
-using Basecode.Data.Repositories;
+﻿using Basecode.Services.Interfaces;
 using Basecode.WebApp.Controllers;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using Moq;
 
 namespace Basecode.Test.Controllers
 {
     public class CurrentHiresControllerTests
     {
-        private BasecodeContext _context;
-        private CurrentHiresRepository _repository;
-        private CurrentHiresController _controller;
+        private readonly CurrentHiresController _controller;
+        private readonly Mock<ICurrentHiresService> _mockLoginService;
 
         public CurrentHiresControllerTests()
         {
-            var options = new DbContextOptionsBuilder<BasecodeContext>()
-                .UseInMemoryDatabase(databaseName: "HRAutomationSystem")
-                .Options;
-            _context = new BasecodeContext(options);
-            _repository = new CurrentHiresRepository(_context);
-            _controller = new CurrentHiresController(_repository);
+            _mockLoginService = new Mock<ICurrentHiresService>();
+            _controller = new CurrentHiresController(_mockLoginService.Object);
         }
 
         [Fact]
@@ -42,13 +36,14 @@ namespace Basecode.Test.Controllers
             int jobID = 1;
 
             // Act
-            _controller.CreateInfo(applicantID, jobID);
+            _mockLoginService.Setup(s => s.AddHire(applicantID, jobID));
 
             // Assert
-            var addedHire = _context.CurrentHires.SingleOrDefault(h => h.ApplicantID == applicantID && h.JobID == jobID);
+            var addedHire = _controller.CreateInfo(applicantID, jobID);
+
             Assert.NotNull(addedHire);
-            Assert.Equal(applicantID, addedHire.ApplicantID);
-            Assert.Equal(jobID, addedHire.JobID);
+            var viewResult = Assert.IsType<ViewResult>(addedHire);
+            Assert.Null(viewResult.ViewName);
         }
     }
 }

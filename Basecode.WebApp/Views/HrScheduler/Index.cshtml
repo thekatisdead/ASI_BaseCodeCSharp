@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="~/css/hrscheduler.css" asp-append-version="true" />
 </head>
 <body>
-    <form>
+    <form asp-action="Schedule">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <h2>Interviewer Schedule Input Form</h2>
         <hr>
@@ -23,20 +23,20 @@
             <hr class="divider">
             <h4 class="section-title">Interviewer's Name</h4>
             <div class="input-group">
-                <input type="text" id="first-name" class="text-input">
+                <input asp-for="FirstName" type="text" id="first-name" class="text-input">
                 <span asp-validation-for="FirstName" class-type="text-danger"></span>
                 <br>
                 <label for="first-name">First Name</label>
             </div>
             <div class="input-group">
-                <input type="text" id="last-name" class="text-input">
+                <input asp-for="LastName" type="text" id="last-name" class="text-input">
                 <span asp-validation-for="LastName" class-type="text-danger"></span>
                 <br>
                 <label for="last-name">Last Name</label>
             </div>
             <h4 class="section-title">Email Address</h4>
             <div class="input-email">
-                <input type="email" id="email" class="text-input" placeholder="email@email.com">
+                <input asp-for="EmailAddress" type="email" id="email" class="text-input" placeholder="email@email.com">
                 <span asp-validation-for="EmailAddress" class-type="text-danger"></span>
                 <br>
                 <br>
@@ -49,26 +49,26 @@
             <hr class="divider">
             <h4 class="section-title">Date</h4>
             <div class="input-group-availability">
-                <input type="date" id="date" class="date-input" placeholder="dd/mm/yyyy">
+                <input asp-for="Date" type="date" id="date" class="date-input" placeholder="dd/mm/yyyy">
                 <span asp-validation-for="Date" class-type="text-danger"></span>
                 <br>
             </div>
             <h4 class="section-title">Time</h4>
             <div class="input-group-availability">
-                <input type="time" id="start-time" class="time-input" placeholder="00:00">
+                <input asp-for="StartTime" type="time" id="start-time" class="time-input" placeholder="00:00">
                 <span asp-validation-for="StartTime" class-type="text-danger"></span>
                 <br>
                 <label for="start-time">Start Time</label>
             </div>
             <div class="input-group-availability">
-                <input type="time" id="end-time" class="time-input" placeholder="00:00">
+                <input asp-for="EndTime" type="time" id="end-time" class="time-input" placeholder="00:00">
                 <span asp-validation-for="EndTime" class-type="text-danger"></span>
                 <br>
                 <label for="end-time">End Time</label>
             </div>
             <br>
             <label for="instructions">Additional Instructions (Optional):</label>
-            <textarea id="instructions" class="instructions-textarea"></textarea>
+            <textarea asp-for="AdditionalInstruction" id="instructions" class="instructions-textarea"></textarea>
             <span asp-validation-for="AdditionalInstruction" class-type="text-danger"></span>
         </div>
 

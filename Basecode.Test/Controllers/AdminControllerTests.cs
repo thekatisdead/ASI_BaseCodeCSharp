@@ -1,8 +1,10 @@
 ﻿using Basecode.Data.ViewModels;
+using Basecode.Data.Models;
 using Basecode.Services.Interfaces;
 using Basecode.WebApp.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
+using Microsoft.AspNetCore.Identity;
 
 namespace Basecode.Test.Controllers
 {
@@ -10,13 +12,15 @@ namespace Basecode.Test.Controllers
     {
         private readonly AdminController _controller;
         private readonly Mock<IJobOpeningService> _mockJobOpeningService;
-        private readonly Mock<IUserViewService> _mockUserViewService;
-
+        private readonly Mock<IUserService> _mockUserViewService;
+        private readonly Mock<IAdminService> _mockAdminService;
+        private readonly RoleManager<IdentityRole> _mockRoleManager;
         public AdminControllerTests()
         {
             _mockJobOpeningService = new Mock<IJobOpeningService>();
-            _mockUserViewService = new Mock<IUserViewService>();
-            _controller = new AdminController(_mockJobOpeningService.Object, _mockUserViewService.Object);
+            _mockUserViewService = new Mock<IUserService>();
+            _mockAdminService= new Mock<IAdminService>();
+            _controller = new AdminController(_mockJobOpeningService.Object, _mockUserViewService.Object, _mockRoleManager, _mockAdminService.Object);
         }
 
         [Fact]
@@ -74,17 +78,20 @@ namespace Basecode.Test.Controllers
         [Fact]
         public void AdminJobListing_HasNoJobOpenings_ReturnsViewWithNullModel()
         {
+            //Act
+            var testdata = new List<JobOpeningViewModel>();
+
             // Arrange
-            _mockJobOpeningService.Setup(s => s.RetrieveAll()).Returns((List<JobOpeningViewModel>)null);
+            _mockJobOpeningService.Setup(s => s.RetrieveAll()).Returns(testdata);
 
             // Act
-            var result = _controller.AdminJobListing();
+            var result = _controller.AdminJobListing() as ViewResult;
 
             // Assert
             Assert.NotNull(result);
-            var viewResult = Assert.IsType<ViewResult>(result);
-            Assert.Null(viewResult.ViewName);
-            Assert.Null(viewResult.Model);
+            Assert.Equal(testdata, result.Model);
+            Assert.Null(result.ViewName);
+            Assert.Empty(testdata);
         }
 
         [Fact]
@@ -95,25 +102,21 @@ namespace Basecode.Test.Controllers
             {
                 new UserViewModel
                 {
-                    UserName = "johndoe",
-                    Password = "king",
-                    ConfirmPassword = "king",
+                    Username = "johndoe",
                     FirstName = "John",
                     LastName = "Doe",
-                    EmailAddress = "johndoe@example.com",
+                    Email = "johndoe@example.com",
+                    ContactNumber = "09323232323",
                     Address = "123 Street, City",
-                    RoleName = "Applicant"
                 },
                 new UserViewModel
                 {
-                    UserName = "janedoe",
-                    Password = "queen",
-                    ConfirmPassword = "queen",
+                    Username = "janedoe",
                     FirstName = "Jane",
                     LastName = "Doe",
-                    EmailAddress = "janedoe@example.com",
+                    Email = "janedoe@example.com",
+                    ContactNumber = "0912121212121",
                     Address = "456 Street, City",
-                    RoleName = "Applicant"
                 }
             };
 
@@ -132,17 +135,20 @@ namespace Basecode.Test.Controllers
         [Fact]
         public void UserManagement_HasNoUsers_ReturnsViewWithNullModel()
         {
+            // Act 
+            var testData = new List<UserViewModel>();
+
             // Arrange
-            _mockUserViewService.Setup(s => s.RetrieveAll()).Returns((List<UserViewModel>)null);
+            _mockUserViewService.Setup(s => s.RetrieveAll()).Returns(testData);
 
             // Act
-            var result = _controller.UserManagement();
+            var result = _controller.UserManagement() as ViewResult;
 
             // Assert
             Assert.NotNull(result);
-            var viewResult = Assert.IsType<ViewResult>(result);
-            Assert.Null(viewResult.ViewName);
-            Assert.Null(viewResult.Model);
+            Assert.Equal(testData, result.Model);
+            Assert.Null(result.ViewName);
+            Assert.Empty(testData);
         }
     }
 }

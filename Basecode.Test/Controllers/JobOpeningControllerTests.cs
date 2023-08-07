@@ -20,8 +20,10 @@ namespace Basecode.Test.Controllers
         [Fact]
         public void JobPosting_ReturnsView()
         {
+            //Arrange 
+            string HREmail = It.IsAny<string>();
             // Act
-            var result = _controller.JobPosting() as ViewResult;
+            var result = _controller.JobPosting(HREmail) as ViewResult;
 
             // Assert
             Assert.NotNull(result);
@@ -140,7 +142,7 @@ namespace Basecode.Test.Controllers
 
             // Assert
             var redirectToActionResult = (RedirectToActionResult)result;
-            Assert.Equal("AdminJobListing", redirectToActionResult.ActionName);
+            Assert.Equal("JobList", redirectToActionResult.ActionName);
         }
 
         [Fact]
@@ -156,7 +158,7 @@ namespace Basecode.Test.Controllers
 
             // Assert
             var redirectToActionResult = (RedirectToActionResult)result;
-            Assert.Equal("AdminJobListing", redirectToActionResult.ActionName);
+            Assert.Equal("JobList", redirectToActionResult.ActionName);
         }
 
 
@@ -221,7 +223,7 @@ namespace Basecode.Test.Controllers
             // Assert
             Assert.NotNull(result);
             var redirectToActionResult = (RedirectToActionResult)result;
-            Assert.Equal("AdminJobListing", redirectToActionResult.ActionName);
+            Assert.Equal("JobList", redirectToActionResult.ActionName);
         }
 
         [Fact]
@@ -238,7 +240,7 @@ namespace Basecode.Test.Controllers
             // Assert
             Assert.NotNull(result);
             var redirectToActionResult = (RedirectToActionResult)result;
-            Assert.Equal("AdminJobListing", redirectToActionResult.ActionName);
+            Assert.Equal("JobList", redirectToActionResult.ActionName);
         }
 
         [Fact]
@@ -265,7 +267,23 @@ namespace Basecode.Test.Controllers
 
             // Assert
             var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
-            Assert.Equal("AdminJobListing", redirectToActionResult.ActionName);
+            Assert.Equal("JobList", redirectToActionResult.ActionName);
+        }
+
+        [Fact]
+        public void Add_InvalidJobOpening_ReturnsViewResult()
+        {
+            // Arrange
+            var jobOpening = new JobOpening();
+
+            _mockJobOpeningService.Setup(s => s.Add(jobOpening));
+
+            // Act
+            var result = _controller.Add(jobOpening);
+
+            // Assert
+            var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
+            Assert.Equal("JobList", redirectToActionResult.ActionName);
         }
     }
 }

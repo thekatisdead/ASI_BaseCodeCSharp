@@ -1,0 +1,54 @@
+﻿@using Basecode.Data.ViewModels
+@model ApplicantListViewModel
+@{
+    ViewData["Title"] = "Requirements";
+    Layout = "~/Views/Shared/_LayoutHR.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Requirements</title>
+    <link rel="stylesheet" href="~/css/requirements.css" asp-append-version="true" />
+</head>
+<body>
+    <form asp-controller="Requirements"  asp-action="Index">
+        <div class="container1">
+
+            <table id="myTable" class="job-table">
+                <thead>
+                    <tr>
+                        <th class="text-center">Id: @ViewBag.Id</th>
+                        <th class="text-center">Firstname: @ViewBag.Firstname</th>
+                        <th class="text-center">Lastname: @ViewBag.Lastname</th>
+                        <th class="text-center">Job Applied: @ViewBag.JobApplied</th>
+                    </tr>
+                </thead>
+            </table>
+
+            <div class="form-group">
+                <br/>
+                <label class="label-bold">PREPARATION OF CONTRACT OF JOB ORDER</label>
+                <br/>
+                <label class="label-bold">Requirements:</label>
+
+                <br/>
+            </div>
+
+            <ol>
+                <li>Drug Test Examination</li>
+                <li>Transcript of Records (3 copies)</li>
+                <li>Personal Data Sheet ( Civil Service  Form 211) (3copies with recent ID picture 2×1/2  taken 3months before applying)</li>
+                <li>Valid ID</li>
+                <li>Birth Certificate (NSO)</li>
+                <li>Community Tax Certificate Number</li>
+            </ol>
+
+        </div>
+
+        <div class="triangle"></div>
+        <div class="triangle1"></div>
+    </form>
+</body>
+</html>

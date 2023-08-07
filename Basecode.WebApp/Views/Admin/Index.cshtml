@@ -2,26 +2,47 @@
     Layout = "~/Views/Shared/_NoLayout.cshtml";
 }
 <html>
-    <head>  
-    </head>
-    <body>
-        <div class="container-fluid" style="position:absolute;right:0px;font-family: Helvetica">
-            <div class="row flex-nowrap">
-                   @await Html.PartialAsync("./_AdminSideBar")  
-                  <div class="col-lg ">
-                     <div class="row flex-nowrap">
-                        @await Html.PartialAsync("./_UpperBarAdmin")                        
-                     </div>
-                     <div class="row flex-nowrap bg-light" style="height:87%">
-                        <div class="p-5">
-                            <h2>Dashboard</h2>
-                        </div>
+<head>
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="~/css/admindashboard.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row flex-nowrap">
+            @await Html.PartialAsync("./_AdminSideBar")
+            <div class="col-lg">
+                <div class="row flex-nowrap">
+                    @await Html.PartialAsync("./_UpperBarAdmin")
                 </div>
-                  </div>
-             </div>             
-          </div>
-       
-    </body>
+                <div class="dashboard-section bg-light">
+                    <div class="p-5">
+                        <h2>Dashboard</h2>
+
+                        <!-- HR Information -->
+                        <section id="hr-info">
+                            <h2>HR Information</h2>
+                            <div class="hr-info-list">
+                                <!-- HR information will be displayed here -->
+                                <!-- You can loop through your HR data and show it as required -->
+                                <div class="hr-entry">
+                                    <span><strong>Name:</strong> John Doe</span>
+                                    <span><strong>Email:</strong> john.doe@example.com</span>
+                                    <span><strong>Phone:</strong> 123-4567</span>
+                                </div>
+                                <!-- Add more HR entries as needed -->
+                            </div>
+                            <div class="hr-actions">
+                                <a asp-area="Identity" asp-page="/Account/Register">
+                                    <button class="add-button">Create HR Account</button>
+                                </a>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="triangle"></div>
+    <div class="triangle1"></div>
+</body>
 </html>
-
-

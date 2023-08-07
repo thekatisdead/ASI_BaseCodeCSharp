@@ -7,6 +7,7 @@ using NuGet.Protocol;
 using System;
 using Basecode.Data.Interfaces;
 using Basecode.Main.Models;
+using NLog;
 
 namespace Basecode.WebApp.Controllers
 {
@@ -14,6 +15,7 @@ namespace Basecode.WebApp.Controllers
     {
         private readonly ApplicationTrackingRepository _repository;
         private readonly JobOpeningRepository _jobRepository;
+        private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
 
         public ApplicationTrackingController(ApplicationTrackingRepository applicationRepository, JobOpeningRepository jobOpeningRepository)
         {
@@ -22,7 +24,7 @@ namespace Basecode.WebApp.Controllers
         }
         public IActionResult Index(int ApplicantId)
         {
-
+            _logger.Trace(ApplicantId);
             var applicationTracking = _repository.GetApplicationTracking(ApplicantId);
             if (applicationTracking == null)
             {
@@ -64,6 +66,7 @@ namespace Basecode.WebApp.Controllers
 
 
             ViewData["jobOpening"] = jobOpening;
+            _logger.Trace("ApplicationTracking Controller Accessed");
             return View(applicationTracking);
         }
 

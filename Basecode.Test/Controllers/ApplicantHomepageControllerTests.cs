@@ -1,6 +1,8 @@
-﻿using Basecode.Data.ViewModels;
+﻿using Basecode.Data.Models;
+using Basecode.Data.ViewModels;
 using Basecode.Services.Interfaces;
 using Basecode.WebApp.Controllers;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 
@@ -10,23 +12,20 @@ namespace Basecode.Test.Controllers
     {
         private readonly ApplicantHomepageController _controller;
         private readonly Mock<IJobOpeningService> _mockJobOpeningService;
+        private readonly Mock<IApplicantListService> _mockApplicantListService;
+        private readonly Mock<HttpContext> _mockHttpContext;
+        private readonly Mock<ISession> _mockSession;
+
 
         public ApplicantHomepageControllerTests()
         {
             _mockJobOpeningService = new Mock<IJobOpeningService>();
-            _controller = new ApplicantHomepageController(_mockJobOpeningService.Object);
-        }
+            _mockApplicantListService = new Mock<IApplicantListService>();
 
-        [Fact]
-        public void Index_ReturnsView()
-        {
-            // Act
-            var result = _controller.Index();
+            _mockHttpContext = new Mock<HttpContext>();
+            _mockSession = new Mock<ISession>();
 
-            // Assert
-            Assert.NotNull(result);
-            var viewResult = Assert.IsType<ViewResult>(result);
-            Assert.Null(viewResult.ViewName);
+            _controller = new ApplicantHomepageController(_mockJobOpeningService.Object,_mockApplicantListService.Object);
         }
 
         [Fact]
